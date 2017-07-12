@@ -16,17 +16,22 @@ class OtherCopyLocation
      * @var integer
      *
      * @ORM\Id
+     * @ORM\Column(name="other_location_id", type="integer", nullable=false)
+     * @ORM\GeneratedValue()
+     */
+    private $otherCopyLocationId;
+    
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="book_id", type="integer", nullable=false)
-     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $bookId;
 
     /**
      * @var string
      *
-     * @ORM\Id
      * @ORM\Column(name="other_copy_location", type="string", length=255, nullable=false)
-     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $otherCopyLocation;
 

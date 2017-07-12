@@ -16,17 +16,22 @@ class ReferencedPlace
      * @var integer
      *
      * @ORM\Id
+     * @ORM\Column(name="referenced_place_id", type="integer", nullable=false)
+     * @ORM\GeneratedValue()
+     */
+    private $referencedPlaceId;
+    
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="book_id", type="integer", nullable=false)
-     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $bookId;
 
     /**
      * @var integer
      *
-     * @ORM\Id
      * @ORM\Column(name="place_id", type="integer", nullable=false)
-     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $placeId;
 

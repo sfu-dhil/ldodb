@@ -12,21 +12,27 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class OtherNationalEdition
 {
+    
     /**
      * @var integer
      *
      * @ORM\Id
+     * @ORM\Column(name="national_edition_id", type="integer", nullable=false)
+     * @ORM\GeneratedValue()
+     */
+    private $nationalEditionId;
+    
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="book_id", type="integer", nullable=false)
-     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $bookId;
 
     /**
      * @var integer
      *
-     * @ORM\Id
      * @ORM\Column(name="place_id", type="integer", nullable=false)
-     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $placeId;
 
