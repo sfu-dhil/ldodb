@@ -16,9 +16,9 @@ class People
     /**
      * @var integer
      *
-     * @ORM\Column(name="people_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="people_id", type="integer", nullable=false)
+     * @ORM\GeneratedValue()
      */
     private $peopleId;
     

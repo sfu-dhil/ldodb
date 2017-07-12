@@ -15,9 +15,9 @@ class ReferencedPerson
     /**
      * @var integer
      *
-     * @ORM\Column(name="referenced_person_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="referenced_person_id", type="integer", nullable=false)
+     * @ORM\GeneratedValue()
      */
     private $referencedPersonId;
 

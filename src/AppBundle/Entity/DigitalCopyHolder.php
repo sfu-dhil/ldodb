@@ -15,9 +15,9 @@ class DigitalCopyHolder
     /**
      * @var integer
      *
-     * @ORM\Column(name="digital_copy_holder_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="digital_copy_holder_id", type="integer", nullable=false)
+     * @ORM\GeneratedValue()
      */
     private $digitalCopyHolderId;
 

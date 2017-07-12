@@ -16,9 +16,9 @@ class Book
     /**
      * @var integer
      *
-     * @ORM\Column(name="book_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="book_id", type="integer", nullable=false)
+     * @ORM\GeneratedValue()
      */
     private $bookId;
 

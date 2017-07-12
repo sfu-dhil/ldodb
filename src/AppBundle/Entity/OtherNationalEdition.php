@@ -15,8 +15,8 @@ class OtherNationalEdition
     /**
      * @var integer
      *
-     * @ORM\Column(name="book_id", type="integer", nullable=false)
      * @ORM\Id
+     * @ORM\Column(name="book_id", type="integer", nullable=false)
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private $bookId;
@@ -24,8 +24,8 @@ class OtherNationalEdition
     /**
      * @var integer
      *
-     * @ORM\Column(name="place_id", type="integer", nullable=false)
      * @ORM\Id
+     * @ORM\Column(name="place_id", type="integer", nullable=false)
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private $placeId;

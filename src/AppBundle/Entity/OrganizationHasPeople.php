@@ -15,8 +15,8 @@ class OrganizationHasPeople
     /**
      * @var integer
      *
-     * @ORM\Column(name="organization_id", type="integer", nullable=false)
      * @ORM\Id
+     * @ORM\Column(name="organization_id", type="integer", nullable=false)
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private $organizationId;
@@ -24,8 +24,8 @@ class OrganizationHasPeople
     /**
      * @var integer
      *
-     * @ORM\Column(name="people_id", type="integer", nullable=false)
      * @ORM\Id
+     * @ORM\Column(name="people_id", type="integer", nullable=false)
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private $peopleId;

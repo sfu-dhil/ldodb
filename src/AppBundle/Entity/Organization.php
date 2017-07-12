@@ -16,9 +16,9 @@ class Organization
     /**
      * @var integer
      *
-     * @ORM\Column(name="organization_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="organization_id", type="integer", nullable=false)
+     * @ORM\GeneratedValue()
      */
     private $organizationId;
     

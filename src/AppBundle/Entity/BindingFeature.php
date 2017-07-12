@@ -15,9 +15,9 @@ class BindingFeature
     /**
      * @var integer
      *
-     * @ORM\Column(name="binding_feature_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="binding_feature_id", type="integer", nullable=false)
+     * @ORM\GeneratedValue()
      */
     private $bindingFeatureId;
 

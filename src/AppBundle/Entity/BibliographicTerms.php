@@ -15,9 +15,9 @@ class BibliographicTerms
     /**
      * @var integer
      *
-     * @ORM\Column(name="bibliographic_terms_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="bibliographic_terms_id", type="integer", nullable=false)
+     * @ORM\GeneratedValue()
      */
     private $bibliographicTermsId;
 

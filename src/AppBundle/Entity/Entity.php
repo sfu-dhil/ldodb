@@ -15,9 +15,9 @@ class Entity
     /**
      * @var integer
      *
-     * @ORM\Column(name="entity_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="entity_id", type="integer", nullable=false)
+     * @ORM\GeneratedValue()
      */
     private $entityId;
 

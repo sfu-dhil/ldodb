@@ -15,8 +15,8 @@ class Contribution
     /**
      * @var integer
      *
-     * @ORM\Column(name="contribution_book_id", type="integer", nullable=false)
      * @ORM\Id
+     * @ORM\Column(name="contribution_book_id", type="integer", nullable=false)
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private $contributionBookId;
@@ -24,8 +24,8 @@ class Contribution
     /**
      * @var integer
      *
-     * @ORM\Column(name="contributor_id", type="integer", nullable=false)
      * @ORM\Id
+     * @ORM\Column(name="contributor_id", type="integer", nullable=false)
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private $contributorId;
@@ -33,8 +33,8 @@ class Contribution
     /**
      * @var integer
      *
-     * @ORM\Column(name="contribution_id", type="integer", nullable=false)
      * @ORM\Id
+     * @ORM\Column(name="contribution_id", type="integer", nullable=false)
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private $contributionId;

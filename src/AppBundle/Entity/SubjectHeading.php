@@ -15,9 +15,9 @@ class SubjectHeading
     /**
      * @var integer
      *
-     * @ORM\Column(name="subject_heading_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="subject_heading_id", type="integer", nullable=false)
+     * @ORM\GeneratedValue()
      */
     private $subjectHeadingId;
 

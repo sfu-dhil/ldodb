@@ -15,9 +15,9 @@ class MapSize
     /**
      * @var integer
      *
-     * @ORM\Column(name="map_size_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="map_size_id", type="integer", nullable=false)
+     * @ORM\GeneratedValue()
      */
     private $mapSizeId;
 

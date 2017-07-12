@@ -15,9 +15,9 @@ class Keyword
     /**
      * @var integer
      *
-     * @ORM\Column(name="keyword_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="keyword_id", type="integer", nullable=false)
+     * @ORM\GeneratedValue()
      */
     private $keywordId;
 

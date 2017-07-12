@@ -15,8 +15,8 @@ class SupplementalPlaceData
     /**
      * @var integer
      *
-     * @ORM\Column(name="geonameid", type="integer", nullable=false)
      * @ORM\Id
+     * @ORM\Column(name="geonameid", type="integer", nullable=false)
      */
     private $geonameid;
 

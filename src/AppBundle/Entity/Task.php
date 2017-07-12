@@ -15,9 +15,9 @@ class Task
     /**
      * @var integer
      *
-     * @ORM\Column(name="task_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="task_id", type="integer", nullable=false)
+     * @ORM\GeneratedValue
      */
     private $taskId;
 

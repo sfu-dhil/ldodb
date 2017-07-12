@@ -15,9 +15,9 @@ class Genre
     /**
      * @var integer
      *
-     * @ORM\Column(name="genre_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="genre_id", type="integer", nullable=false)
+     * @ORM\GeneratedValue()
      */
     private $genreId;
 
