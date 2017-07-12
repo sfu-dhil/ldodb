@@ -148,6 +148,35 @@ class People
      */
     private $travelOutsideUk = '0';
 
-
+    /**
+     * @var Collection|Place[]
+     * @ORM\ManyToMany(targetEntity="Place")
+     * @ORM\JoinTable(name="places_of_travel", 
+     *  joinColumns={@ORM\JoinColumn(name="people_id", referencedColumnName="people_id")},
+     *  inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="place_id")}
+     * )
+     */
+    private $travels;
+    
+    /**
+     * @var Collection|Place[]
+     * @ORM\ManyToMany(targetEntity="Place")
+     * @ORM\JoinTable(name="residence_place", 
+     *  joinColumns={@ORM\JoinColumn(name="people_id", referencedColumnName="people_id")},
+     *  inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="place_id")}
+     * )
+     */
+    private $residences;
+    
+    /**
+     * @var Collection|Role[]
+     * @ORM\ManyToMany(targetEntity="Role")
+     * @ORM\JoinTable(name="people_role", 
+     *  joinColumns={@ORM\JoinColumn(name="people_id", referencedColumnName="people_id")},
+     *  inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="role_id")}
+     * )
+     */
+    private $roles;
+    
 }
 

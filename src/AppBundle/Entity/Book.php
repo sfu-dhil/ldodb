@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -252,6 +253,114 @@ class Book
      */
     private $bindingColour;
 
+    /**
+     * @var Collection|Genre[]
+     * @ORM\ManyToMany(targetEntity="Genre")
+     * @ORM\JoinTable(name="book_genre", 
+     *  joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
+     *  inverseJoinColumns={@ORM\JoinColumn(name="genre_id", referencedColumnName="genre_id")}
+     * )
+     */
+    private $genres;
+    
+    /**
+     * @var Collection|ReferencedPerson[]
+     * @ORM\ManyToMany(targetEntity="ReferencedPerson")
+     * @ORM\JoinTable(name="reference", 
+     *  joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
+     *  inverseJoinColumns={@ORM\JoinColumn(name="people_id", referencedColumnName="referenced_person_id")}
+     * )
+     */
+    private $referencedPeople;
+    
+    /**
+     * @var Collection|PlateType[]
+     * @ORM\ManyToMany(targetEntity="PlateType")
+     * @ORM\JoinTable(name="book_plate_type", 
+     *  joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
+     *  inverseJoinColumns={@ORM\JoinColumn(name="plate_type_id", referencedColumnName="plate_type_id")}
+     * )
+     */
+    private $plateTypes;
+    
+    /**
+     * @var Collection|MapType[]
+     * @ORM\ManyToMany(targetEntity="MapType")
+     * @ORM\JoinTable(name="book_map_type", 
+     *  joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
+     *  inverseJoinColumns={@ORM\JoinColumn(name="map_type_id", referencedColumnName="map_type_id")}
+     * )
+     */
+    private $mapTypes;
+    
+    /**
+     * @var Collection|Subject[]
+     * @ORM\ManyToMany(targetEntity="Subject")
+     * @ORM\JoinTable(name="book_subject", 
+     *  joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
+     *  inverseJoinColumns={@ORM\JoinColumn(name="subject_id", referencedColumnName="subject_id")}
+     * )
+     */
+    private $subjects;
+    
+    /**
+     * @var Collection|MapSize[]
+     * @ORM\ManyToMany(targetEntity="MapSize")
+     * @ORM\JoinTable(name="book_map_size", 
+     *  joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
+     *  inverseJoinColumns={@ORM\JoinColumn(name="map_size_id", referencedColumnName="map_size_id")}
+     * )
+     */
+    private $mapSizes;
+    
+    /**
+     * @var Collection|SubjectHeading[]
+     * @ORM\ManyToMany(targetEntity="SubjectHeading")
+     * @ORM\JoinTable(name="subject_heading_book", 
+     *  joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
+     *  inverseJoinColumns={@ORM\JoinColumn(name="subject_heading_id", referencedColumnName="subject_heading_id")}
+     * )
+     */
+    private $subjectHeadings;
+    
+    /**
+     * @var Collection|BindingFeature[]
+     * @ORM\ManyToMany(targetEntity="BindingFeature")
+     * @ORM\JoinTable(name="book_binding_feature", 
+     *  joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
+     *  inverseJoinColumns={@ORM\JoinColumn(name="binding_feature_id", referencedColumnName="binding_feature_id")}
+     * )
+     */
+    private $bindingFeatures;
 
+    /**
+     * @var Collection|Keyword[]
+     * @ORM\ManyToMany(targetEntity="Keyword")
+     * @ORM\JoinTable(name="book_keyword", 
+     *  joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
+     *  inverseJoinColumns={@ORM\JoinColumn(name="keyword_id", referencedColumnName="keyword_id")}
+     * )
+     */
+    private $keywords;
+
+    /**
+     * @var Collection|DigitalCopyHolder[]
+     * @ORM\ManyToMany(targetEntity="DigitalCopyHolder")
+     * @ORM\JoinTable(name="digital_copies_other_institutions", 
+     *  joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
+     *  inverseJoinColumns={@ORM\JoinColumn(name="organization_id", referencedColumnName="digital_copy_holder_id")}
+     * )
+     */
+    private $digitalCopyHolders;
+    
+    /**
+     * @var Collection|Place[]
+     * @ORM\ManyToMany(targetEntity="Place")
+     * @ORM\JoinTable(name="publication_place", 
+     *  joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
+     *  inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="place_id")}
+     * )
+     */
+    private $publicationPlaces;
 }
 
