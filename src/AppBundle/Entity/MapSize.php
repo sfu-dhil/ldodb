@@ -37,7 +37,7 @@ class MapSize
 
 
     public function __toString() {
-        return $this->mapType;
+        return $this->mapSize;
     }
 
 
