@@ -54,5 +54,110 @@ class BibliographicTerms
         return $this->bibliographicTerm;
     }
 
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set bibliographicTerm
+     *
+     * @param string $bibliographicTerm
+     *
+     * @return BibliographicTerms
+     */
+    public function setBibliographicTerm($bibliographicTerm)
+    {
+        $this->bibliographicTerm = $bibliographicTerm;
+
+        return $this;
+    }
+
+    /**
+     * Get bibliographicTerm
+     *
+     * @return string
+     */
+    public function getBibliographicTerm()
+    {
+        return $this->bibliographicTerm;
+    }
+
+    /**
+     * Set useForFormat
+     *
+     * @param boolean $useForFormat
+     *
+     * @return BibliographicTerms
+     */
+    public function setUseForFormat($useForFormat)
+    {
+        $this->useForFormat = $useForFormat;
+
+        return $this;
+    }
+
+    /**
+     * Get useForFormat
+     *
+     * @return boolean
+     */
+    public function getUseForFormat()
+    {
+        return $this->useForFormat;
+    }
+
+    /**
+     * Set useForPhotographs
+     *
+     * @param boolean $useForPhotographs
+     *
+     * @return BibliographicTerms
+     */
+    public function setUseForPhotographs($useForPhotographs)
+    {
+        $this->useForPhotographs = $useForPhotographs;
+
+        return $this;
+    }
+
+    /**
+     * Get useForPhotographs
+     *
+     * @return boolean
+     */
+    public function getUseForPhotographs()
+    {
+        return $this->useForPhotographs;
+    }
+
+    /**
+     * Set useForIllustrations
+     *
+     * @param boolean $useForIllustrations
+     *
+     * @return BibliographicTerms
+     */
+    public function setUseForIllustrations($useForIllustrations)
+    {
+        $this->useForIllustrations = $useForIllustrations;
+
+        return $this;
+    }
+
+    /**
+     * Get useForIllustrations
+     *
+     * @return boolean
+     */
+    public function getUseForIllustrations()
+    {
+        return $this->useForIllustrations;
+    }
+}

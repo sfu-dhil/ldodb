@@ -38,5 +38,62 @@ class BindingFeature
     public function __toString() {
         return $this->bindingFeature;
     }
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set bindingFeature
+     *
+     * @param string $bindingFeature
+     *
+     * @return BindingFeature
+     */
+    public function setBindingFeature($bindingFeature)
+    {
+        $this->bindingFeature = $bindingFeature;
+
+        return $this;
+    }
+
+    /**
+     * Get bindingFeature
+     *
+     * @return string
+     */
+    public function getBindingFeature()
+    {
+        return $this->bindingFeature;
+    }
+
+    /**
+     * Set bindingFeatureNotes
+     *
+     * @param string $bindingFeatureNotes
+     *
+     * @return BindingFeature
+     */
+    public function setBindingFeatureNotes($bindingFeatureNotes)
+    {
+        $this->bindingFeatureNotes = $bindingFeatureNotes;
+
+        return $this;
+    }
+
+    /**
+     * Get bindingFeatureNotes
+     *
+     * @return string
+     */
+    public function getBindingFeatureNotes()
+    {
+        return $this->bindingFeatureNotes;
+    }
+}

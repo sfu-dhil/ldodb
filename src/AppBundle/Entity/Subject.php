@@ -40,5 +40,62 @@ class Subject
         return $this->subjectName;
     }
 
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set subjectName
+     *
+     * @param string $subjectName
+     *
+     * @return Subject
+     */
+    public function setSubjectName($subjectName)
+    {
+        $this->subjectName = $subjectName;
+
+        return $this;
+    }
+
+    /**
+     * Get subjectName
+     *
+     * @return string
+     */
+    public function getSubjectName()
+    {
+        return $this->subjectName;
+    }
+
+    /**
+     * Set subjectUri
+     *
+     * @param string $subjectUri
+     *
+     * @return Subject
+     */
+    public function setSubjectUri($subjectUri)
+    {
+        $this->subjectUri = $subjectUri;
+
+        return $this;
+    }
+
+    /**
+     * Get subjectUri
+     *
+     * @return string
+     */
+    public function getSubjectUri()
+    {
+        return $this->subjectUri;
+    }
+}

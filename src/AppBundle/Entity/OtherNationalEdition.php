@@ -48,5 +48,86 @@ class OtherNationalEdition
         return $this->place->__toString() . ', ' . $this->publicationDate;
     }
 
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set publicationDate
+     *
+     * @param integer $publicationDate
+     *
+     * @return OtherNationalEdition
+     */
+    public function setPublicationDate($publicationDate)
+    {
+        $this->publicationDate = $publicationDate;
+
+        return $this;
+    }
+
+    /**
+     * Get publicationDate
+     *
+     * @return integer
+     */
+    public function getPublicationDate()
+    {
+        return $this->publicationDate;
+    }
+
+    /**
+     * Set book
+     *
+     * @param Book $book
+     *
+     * @return OtherNationalEdition
+     */
+    public function setBook(Book $book)
+    {
+        $this->book = $book;
+
+        return $this;
+    }
+
+    /**
+     * Get book
+     *
+     * @return Book
+     */
+    public function getBook()
+    {
+        return $this->book;
+    }
+
+    /**
+     * Set place
+     *
+     * @param Place $place
+     *
+     * @return OtherNationalEdition
+     */
+    public function setPlace(Place $place)
+    {
+        $this->place = $place;
+
+        return $this;
+    }
+
+    /**
+     * Get place
+     *
+     * @return Place
+     */
+    public function getPlace()
+    {
+        return $this->place;
+    }
+}

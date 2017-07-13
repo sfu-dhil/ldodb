@@ -47,5 +47,86 @@ class ReferencedPlace
         return $this->place->__toString();
     }
 
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set variantSpelling
+     *
+     * @param string $variantSpelling
+     *
+     * @return ReferencedPlace
+     */
+    public function setVariantSpelling($variantSpelling)
+    {
+        $this->variantSpelling = $variantSpelling;
+
+        return $this;
+    }
+
+    /**
+     * Get variantSpelling
+     *
+     * @return string
+     */
+    public function getVariantSpelling()
+    {
+        return $this->variantSpelling;
+    }
+
+    /**
+     * Set book
+     *
+     * @param Book $book
+     *
+     * @return ReferencedPlace
+     */
+    public function setBook(Book $book)
+    {
+        $this->book = $book;
+
+        return $this;
+    }
+
+    /**
+     * Get book
+     *
+     * @return Book
+     */
+    public function getBook()
+    {
+        return $this->book;
+    }
+
+    /**
+     * Set place
+     *
+     * @param Place $place
+     *
+     * @return ReferencedPlace
+     */
+    public function setPlace(Place $place)
+    {
+        $this->place = $place;
+
+        return $this;
+    }
+
+    /**
+     * Get place
+     *
+     * @return Place
+     */
+    public function getPlace()
+    {
+        return $this->place;
+    }
+}

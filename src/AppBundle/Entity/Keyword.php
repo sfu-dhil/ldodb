@@ -40,5 +40,62 @@ class Keyword
         return $this->keyword;
     }
 
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set keyword
+     *
+     * @param string $keyword
+     *
+     * @return Keyword
+     */
+    public function setKeyword($keyword)
+    {
+        $this->keyword = $keyword;
+
+        return $this;
+    }
+
+    /**
+     * Get keyword
+     *
+     * @return string
+     */
+    public function getKeyword()
+    {
+        return $this->keyword;
+    }
+
+    /**
+     * Set preferredKeyword
+     *
+     * @param boolean $preferredKeyword
+     *
+     * @return Keyword
+     */
+    public function setPreferredKeyword($preferredKeyword)
+    {
+        $this->preferredKeyword = $preferredKeyword;
+
+        return $this;
+    }
+
+    /**
+     * Get preferredKeyword
+     *
+     * @return boolean
+     */
+    public function getPreferredKeyword()
+    {
+        return $this->preferredKeyword;
+    }
+}

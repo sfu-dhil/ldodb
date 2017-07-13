@@ -61,5 +61,134 @@ class Genre
         return $this->genreName;
     }
 
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set genreName
+     *
+     * @param string $genreName
+     *
+     * @return Genre
+     */
+    public function setGenreName($genreName)
+    {
+        $this->genreName = $genreName;
+
+        return $this;
+    }
+
+    /**
+     * Get genreName
+     *
+     * @return string
+     */
+    public function getGenreName()
+    {
+        return $this->genreName;
+    }
+
+    /**
+     * Set genreSource
+     *
+     * @param string $genreSource
+     *
+     * @return Genre
+     */
+    public function setGenreSource($genreSource)
+    {
+        $this->genreSource = $genreSource;
+
+        return $this;
+    }
+
+    /**
+     * Get genreSource
+     *
+     * @return string
+     */
+    public function getGenreSource()
+    {
+        return $this->genreSource;
+    }
+
+    /**
+     * Set genreUsageNote
+     *
+     * @param string $genreUsageNote
+     *
+     * @return Genre
+     */
+    public function setGenreUsageNote($genreUsageNote)
+    {
+        $this->genreUsageNote = $genreUsageNote;
+
+        return $this;
+    }
+
+    /**
+     * Get genreUsageNote
+     *
+     * @return string
+     */
+    public function getGenreUsageNote()
+    {
+        return $this->genreUsageNote;
+    }
+
+    /**
+     * Set genreUri
+     *
+     * @param string $genreUri
+     *
+     * @return Genre
+     */
+    public function setGenreUri($genreUri)
+    {
+        $this->genreUri = $genreUri;
+
+        return $this;
+    }
+
+    /**
+     * Get genreUri
+     *
+     * @return string
+     */
+    public function getGenreUri()
+    {
+        return $this->genreUri;
+    }
+
+    /**
+     * Set broaderTermId
+     *
+     * @param integer $broaderTermId
+     *
+     * @return Genre
+     */
+    public function setBroaderTermId($broaderTermId)
+    {
+        $this->broaderTermId = $broaderTermId;
+
+        return $this;
+    }
+
+    /**
+     * Get broaderTermId
+     *
+     * @return integer
+     */
+    public function getBroaderTermId()
+    {
+        return $this->broaderTermId;
+    }
+}

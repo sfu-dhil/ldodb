@@ -40,5 +40,62 @@ class MapType
         return $this->mapType;
     }
 
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set mapType
+     *
+     * @param string $mapType
+     *
+     * @return MapType
+     */
+    public function setMapType($mapType)
+    {
+        $this->mapType = $mapType;
+
+        return $this;
+    }
+
+    /**
+     * Get mapType
+     *
+     * @return string
+     */
+    public function getMapType()
+    {
+        return $this->mapType;
+    }
+
+    /**
+     * Set mapTypeNotes
+     *
+     * @param string $mapTypeNotes
+     *
+     * @return MapType
+     */
+    public function setMapTypeNotes($mapTypeNotes)
+    {
+        $this->mapTypeNotes = $mapTypeNotes;
+
+        return $this;
+    }
+
+    /**
+     * Get mapTypeNotes
+     *
+     * @return string
+     */
+    public function getMapTypeNotes()
+    {
+        return $this->mapTypeNotes;
+    }
+}

@@ -68,5 +68,158 @@ class ReferencedPerson
         return $this->lastName . ', ' . $this->firstName;
     }
     
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set lastName
+     *
+     * @param string $lastName
+     *
+     * @return ReferencedPerson
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * Get lastName
+     *
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * Set firstName
+     *
+     * @param string $firstName
+     *
+     * @return ReferencedPerson
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * Get firstName
+     *
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * Set birthDate
+     *
+     * @param string $birthDate
+     *
+     * @return ReferencedPerson
+     */
+    public function setBirthDate($birthDate)
+    {
+        $this->birthDate = $birthDate;
+
+        return $this;
+    }
+
+    /**
+     * Get birthDate
+     *
+     * @return string
+     */
+    public function getBirthDate()
+    {
+        return $this->birthDate;
+    }
+
+    /**
+     * Set deathDate
+     *
+     * @param string $deathDate
+     *
+     * @return ReferencedPerson
+     */
+    public function setDeathDate($deathDate)
+    {
+        $this->deathDate = $deathDate;
+
+        return $this;
+    }
+
+    /**
+     * Get deathDate
+     *
+     * @return string
+     */
+    public function getDeathDate()
+    {
+        return $this->deathDate;
+    }
+
+    /**
+     * Set sameAsPeopleEntityId
+     *
+     * @param integer $sameAsPeopleEntityId
+     *
+     * @return ReferencedPerson
+     */
+    public function setSameAsPeopleEntityId($sameAsPeopleEntityId)
+    {
+        $this->sameAsPeopleEntityId = $sameAsPeopleEntityId;
+
+        return $this;
+    }
+
+    /**
+     * Get sameAsPeopleEntityId
+     *
+     * @return integer
+     */
+    public function getSameAsPeopleEntityId()
+    {
+        return $this->sameAsPeopleEntityId;
+    }
+
+    /**
+     * Set referencedPersonUri
+     *
+     * @param string $referencedPersonUri
+     *
+     * @return ReferencedPerson
+     */
+    public function setReferencedPersonUri($referencedPersonUri)
+    {
+        $this->referencedPersonUri = $referencedPersonUri;
+
+        return $this;
+    }
+
+    /**
+     * Get referencedPersonUri
+     *
+     * @return string
+     */
+    public function getReferencedPersonUri()
+    {
+        return $this->referencedPersonUri;
+    }
+}

@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -33,4 +35,55 @@ abstract class Entity
     
     abstract public function __toString();
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->contributions = new ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Add contribution
+     *
+     * @param Contribution $contribution
+     *
+     * @return Entity
+     */
+    public function addContribution(Contribution $contribution)
+    {
+        $this->contributions[] = $contribution;
+
+        return $this;
+    }
+
+    /**
+     * Remove contribution
+     *
+     * @param Contribution $contribution
+     */
+    public function removeContribution(Contribution $contribution)
+    {
+        $this->contributions->removeElement($contribution);
+    }
+
+    /**
+     * Get contributions
+     *
+     * @return Collection
+     */
+    public function getContributions()
+    {
+        return $this->contributions;
+    }
 }

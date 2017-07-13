@@ -43,5 +43,86 @@ class Contribution
     private $task;
 
     
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set book
+     *
+     * @param Book $book
+     *
+     * @return Contribution
+     */
+    public function setBook(Book $book)
+    {
+        $this->book = $book;
+
+        return $this;
+    }
+
+    /**
+     * Get book
+     *
+     * @return Book
+     */
+    public function getBook()
+    {
+        return $this->book;
+    }
+
+    /**
+     * Set entity
+     *
+     * @param Entity $entity
+     *
+     * @return Contribution
+     */
+    public function setEntity(Entity $entity)
+    {
+        $this->entity = $entity;
+
+        return $this;
+    }
+
+    /**
+     * Get entity
+     *
+     * @return Entity
+     */
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    /**
+     * Set task
+     *
+     * @param Task $task
+     *
+     * @return Contribution
+     */
+    public function setTask(Task $task)
+    {
+        $this->task = $task;
+
+        return $this;
+    }
+
+    /**
+     * Get task
+     *
+     * @return Task
+     */
+    public function getTask()
+    {
+        return $this->task;
+    }
+}

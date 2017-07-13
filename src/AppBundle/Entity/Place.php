@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -99,5 +100,328 @@ class Place
         return $this->placeName;
     }
     
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->otherNationalEditions = new ArrayCollection();
+        $this->referencedPlaces = new ArrayCollection();
+        $this->peopleBorn = new ArrayCollection();
+        $this->peopleDied = new ArrayCollection();
+    }
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set placeName
+     *
+     * @param string $placeName
+     *
+     * @return Place
+     */
+    public function setPlaceName($placeName)
+    {
+        $this->placeName = $placeName;
+
+        return $this;
+    }
+
+    /**
+     * Get placeName
+     *
+     * @return string
+     */
+    public function getPlaceName()
+    {
+        return $this->placeName;
+    }
+
+    /**
+     * Set placeUri
+     *
+     * @param string $placeUri
+     *
+     * @return Place
+     */
+    public function setPlaceUri($placeUri)
+    {
+        $this->placeUri = $placeUri;
+
+        return $this;
+    }
+
+    /**
+     * Get placeUri
+     *
+     * @return string
+     */
+    public function getPlaceUri()
+    {
+        return $this->placeUri;
+    }
+
+    /**
+     * Set inLakeDistrict
+     *
+     * @param boolean $inLakeDistrict
+     *
+     * @return Place
+     */
+    public function setInLakeDistrict($inLakeDistrict)
+    {
+        $this->inLakeDistrict = $inLakeDistrict;
+
+        return $this;
+    }
+
+    /**
+     * Get inLakeDistrict
+     *
+     * @return boolean
+     */
+    public function getInLakeDistrict()
+    {
+        return $this->inLakeDistrict;
+    }
+
+    /**
+     * Set latitude
+     *
+     * @param float $latitude
+     *
+     * @return Place
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    /**
+     * Get latitude
+     *
+     * @return float
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set longitude
+     *
+     * @param float $longitude
+     *
+     * @return Place
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * Get longitude
+     *
+     * @return float
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * Set regionId
+     *
+     * @param integer $regionId
+     *
+     * @return Place
+     */
+    public function setRegionId($regionId)
+    {
+        $this->regionId = $regionId;
+
+        return $this;
+    }
+
+    /**
+     * Get regionId
+     *
+     * @return integer
+     */
+    public function getRegionId()
+    {
+        return $this->regionId;
+    }
+
+    /**
+     * Set countryId
+     *
+     * @param integer $countryId
+     *
+     * @return Place
+     */
+    public function setCountryId($countryId)
+    {
+        $this->countryId = $countryId;
+
+        return $this;
+    }
+
+    /**
+     * Get countryId
+     *
+     * @return integer
+     */
+    public function getCountryId()
+    {
+        return $this->countryId;
+    }
+
+    /**
+     * Add otherNationalEdition
+     *
+     * @param OtherNationalEdition $otherNationalEdition
+     *
+     * @return Place
+     */
+    public function addOtherNationalEdition(OtherNationalEdition $otherNationalEdition)
+    {
+        $this->otherNationalEditions[] = $otherNationalEdition;
+
+        return $this;
+    }
+
+    /**
+     * Remove otherNationalEdition
+     *
+     * @param OtherNationalEdition $otherNationalEdition
+     */
+    public function removeOtherNationalEdition(OtherNationalEdition $otherNationalEdition)
+    {
+        $this->otherNationalEditions->removeElement($otherNationalEdition);
+    }
+
+    /**
+     * Get otherNationalEditions
+     *
+     * @return Collection
+     */
+    public function getOtherNationalEditions()
+    {
+        return $this->otherNationalEditions;
+    }
+
+    /**
+     * Add referencedPlace
+     *
+     * @param ReferencedPlace $referencedPlace
+     *
+     * @return Place
+     */
+    public function addReferencedPlace(ReferencedPlace $referencedPlace)
+    {
+        $this->referencedPlaces[] = $referencedPlace;
+
+        return $this;
+    }
+
+    /**
+     * Remove referencedPlace
+     *
+     * @param ReferencedPlace $referencedPlace
+     */
+    public function removeReferencedPlace(ReferencedPlace $referencedPlace)
+    {
+        $this->referencedPlaces->removeElement($referencedPlace);
+    }
+
+    /**
+     * Get referencedPlaces
+     *
+     * @return Collection
+     */
+    public function getReferencedPlaces()
+    {
+        return $this->referencedPlaces;
+    }
+
+    /**
+     * Add peopleBorn
+     *
+     * @param People $peopleBorn
+     *
+     * @return Place
+     */
+    public function addPeopleBorn(People $peopleBorn)
+    {
+        $this->peopleBorn[] = $peopleBorn;
+
+        return $this;
+    }
+
+    /**
+     * Remove peopleBorn
+     *
+     * @param People $peopleBorn
+     */
+    public function removePeopleBorn(People $peopleBorn)
+    {
+        $this->peopleBorn->removeElement($peopleBorn);
+    }
+
+    /**
+     * Get peopleBorn
+     *
+     * @return Collection
+     */
+    public function getPeopleBorn()
+    {
+        return $this->peopleBorn;
+    }
+
+    /**
+     * Add peopleDied
+     *
+     * @param People $peopleDied
+     *
+     * @return Place
+     */
+    public function addPeopleDied(People $peopleDied)
+    {
+        $this->peopleDied[] = $peopleDied;
+
+        return $this;
+    }
+
+    /**
+     * Remove peopleDied
+     *
+     * @param People $peopleDied
+     */
+    public function removePeopleDied(People $peopleDied)
+    {
+        $this->peopleDied->removeElement($peopleDied);
+    }
+
+    /**
+     * Get peopleDied
+     *
+     * @return Collection
+     */
+    public function getPeopleDied()
+    {
+        return $this->peopleDied;
+    }
+}

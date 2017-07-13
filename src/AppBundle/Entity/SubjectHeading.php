@@ -40,5 +40,62 @@ class SubjectHeading
         return $this->subjectHeading;
     }
 
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set subjectHeading
+     *
+     * @param string $subjectHeading
+     *
+     * @return SubjectHeading
+     */
+    public function setSubjectHeading($subjectHeading)
+    {
+        $this->subjectHeading = $subjectHeading;
+
+        return $this;
+    }
+
+    /**
+     * Get subjectHeading
+     *
+     * @return string
+     */
+    public function getSubjectHeading()
+    {
+        return $this->subjectHeading;
+    }
+
+    /**
+     * Set subjectHeadingUri
+     *
+     * @param string $subjectHeadingUri
+     *
+     * @return SubjectHeading
+     */
+    public function setSubjectHeadingUri($subjectHeadingUri)
+    {
+        $this->subjectHeadingUri = $subjectHeadingUri;
+
+        return $this;
+    }
+
+    /**
+     * Get subjectHeadingUri
+     *
+     * @return string
+     */
+    public function getSubjectHeadingUri()
+    {
+        return $this->subjectHeadingUri;
+    }
+}

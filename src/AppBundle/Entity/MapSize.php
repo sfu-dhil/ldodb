@@ -40,5 +40,62 @@ class MapSize
         return $this->mapType;
     }
 
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set mapSize
+     *
+     * @param string $mapSize
+     *
+     * @return MapSize
+     */
+    public function setMapSize($mapSize)
+    {
+        $this->mapSize = $mapSize;
+
+        return $this;
+    }
+
+    /**
+     * Get mapSize
+     *
+     * @return string
+     */
+    public function getMapSize()
+    {
+        return $this->mapSize;
+    }
+
+    /**
+     * Set mapSizeNotes
+     *
+     * @param string $mapSizeNotes
+     *
+     * @return MapSize
+     */
+    public function setMapSizeNotes($mapSizeNotes)
+    {
+        $this->mapSizeNotes = $mapSizeNotes;
+
+        return $this;
+    }
+
+    /**
+     * Get mapSizeNotes
+     *
+     * @return string
+     */
+    public function getMapSizeNotes()
+    {
+        return $this->mapSizeNotes;
+    }
+}

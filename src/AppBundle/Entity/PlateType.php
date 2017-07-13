@@ -40,5 +40,62 @@ class PlateType
         return $this->plateType;
     }
 
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set plateType
+     *
+     * @param string $plateType
+     *
+     * @return PlateType
+     */
+    public function setPlateType($plateType)
+    {
+        $this->plateType = $plateType;
+
+        return $this;
+    }
+
+    /**
+     * Get plateType
+     *
+     * @return string
+     */
+    public function getPlateType()
+    {
+        return $this->plateType;
+    }
+
+    /**
+     * Set plateTypeNotes
+     *
+     * @param string $plateTypeNotes
+     *
+     * @return PlateType
+     */
+    public function setPlateTypeNotes($plateTypeNotes)
+    {
+        $this->plateTypeNotes = $plateTypeNotes;
+
+        return $this;
+    }
+
+    /**
+     * Get plateTypeNotes
+     *
+     * @return string
+     */
+    public function getPlateTypeNotes()
+    {
+        return $this->plateTypeNotes;
+    }
+}
