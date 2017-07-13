@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * OtherCopyLocation
  *
- * @ORM\Table(name="other_copy_location", indexes={@ORM\Index(name="fk_other_copy_location_has_book_book1_idx", columns={"book_id"})})
+ * @ORM\Table(name="other_copy_location")
  * @ORM\Entity
  */
 class OtherCopyLocation

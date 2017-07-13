@@ -7,27 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * People
  *
- * @ORM\Table(name="people", indexes={@ORM\Index(name="fk_people_place1_idx", columns={"birth_place_id"}), @ORM\Index(name="fk_people_place2_idx", columns={"death_place_id"}), @ORM\Index(name="fk_people_uri_idx", columns={"people_uri"}), @ORM\Index(name="fk_people_entity1_idx", columns={"people_entity_id"}), @ORM\Index(name="people_id_UNIQUE", columns={"people_id"})})
+ * @ORM\Table(name="people")
  * @ORM\Entity
  */
-class People
+class People extends Entity
 {
-
-    /**
-     * @var integer
-     *
-     * @ORM\Id
-     * @ORM\Column(name="people_id", type="integer", nullable=false)
-     * @ORM\GeneratedValue()
-     */
-    private $peopleId;
-    
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="people_entity_id", type="integer", nullable=false, options={"default": 0})
-     */
-    private $peopleEntityId = '0';
 
     /**
      * @var string
@@ -152,7 +136,7 @@ class People
      * @var Collection|Place[]
      * @ORM\ManyToMany(targetEntity="Place")
      * @ORM\JoinTable(name="places_of_travel", 
-     *  joinColumns={@ORM\JoinColumn(name="people_id", referencedColumnName="people_id")},
+     *  joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="entity_id")},
      *  inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="place_id")}
      * )
      */
@@ -162,7 +146,7 @@ class People
      * @var Collection|Place[]
      * @ORM\ManyToMany(targetEntity="Place")
      * @ORM\JoinTable(name="residence_place", 
-     *  joinColumns={@ORM\JoinColumn(name="people_id", referencedColumnName="people_id")},
+     *  joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="entity_id")},
      *  inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="place_id")}
      * )
      */
@@ -172,7 +156,7 @@ class People
      * @var Collection|Role[]
      * @ORM\ManyToMany(targetEntity="Role")
      * @ORM\JoinTable(name="people_role", 
-     *  joinColumns={@ORM\JoinColumn(name="people_id", referencedColumnName="people_id")},
+     *  joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="entity_id")},
      *  inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="role_id")}
      * )
      */

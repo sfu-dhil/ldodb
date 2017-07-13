@@ -7,28 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Organization
  *
- * @ORM\Table(name="organization", uniqueConstraints={@ORM\UniqueConstraint(name="organization_id_UNIQUE", columns={"organization_id"})}, indexes={@ORM\Index(name="fk_organization_uri_idx", columns={"organization_uri"}), @ORM\Index(name="fk_organization_entity1_idx", columns={"organization_entity_id"})})
+ * @ORM\Table(name="organization")
  * @ORM\Entity
  */
-class Organization
+class Organization extends Entity
 {
-
-    /**
-     * @var integer
-     *
-     * @ORM\Id
-     * @ORM\Column(name="organization_id", type="integer", nullable=false)
-     * @ORM\GeneratedValue()
-     */
-    private $organizationId;
-    
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="organization_entity_id", type="integer", nullable=false, options={"default": 0})
-     */
-    private $organizationEntityId = '0';
-
     /**
      * @var string
      *

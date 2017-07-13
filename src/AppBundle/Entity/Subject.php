@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Subject
  *
- * @ORM\Table(name="subject", indexes={@ORM\Index(name="fk_subject_uri_idx", columns={"subject_uri"})})
+ * @ORM\Table(name="subject")
  * @ORM\Entity
  */
 class Subject

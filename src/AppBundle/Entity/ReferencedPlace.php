@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ReferencedPlace
  *
- * @ORM\Table(name="referenced_place", indexes={@ORM\Index(name="fk_referenced_place_place_idx", columns={"place_id"}), @ORM\Index(name="fk_referenced_place_book_idx", columns={"book_id"})})
+ * @ORM\Table(name="referenced_place")
  * @ORM\Entity
  */
 class ReferencedPlace

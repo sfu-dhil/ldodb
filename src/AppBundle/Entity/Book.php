@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Book
  *
- * @ORM\Table(name="book", indexes={@ORM\Index(name="fk_book_uri_idx", columns={"book_uri"}), @ORM\Index(name="book_format_idx", columns={"format"})})
+ * @ORM\Table(name="book")
  * @ORM\Entity
  */
 class Book
