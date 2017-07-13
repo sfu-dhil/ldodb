@@ -93,18 +93,18 @@ class People
     private $biographicalAnnotation;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="birth_place_id", type="integer", nullable=true)
+     * @var Place
+     * @ORM\ManyToOne(targetEntity="Place", inversedBy="peopleBorn")
+     * @ORM\JoinColumn(name="birth_place_id", referencedColumnName="place_id", nullable=true)
      */
-    private $birthPlaceId;
+    private $birthPlace;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="death_place_id", type="integer", nullable=true)
+     * @var Place
+     * @ORM\ManyToOne(targetEntity="Place", inversedBy="peopleDied")
+     * @ORM\JoinColumn(name="death_place_id", referencedColumnName="place_id", nullable=true)
      */
-    private $deathPlaceId;
+    private $deathPlace;
 
     /**
      * @var string

@@ -23,18 +23,18 @@ class OtherNationalEdition
     private $nationalEditionId;
     
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="book_id", type="integer", nullable=false)
+     * @var Book
+     * @ORM\ManyToOne(targetEntity="Book", inversedBy="otherNationalEditions")
+     * @ORM\JoinColumn(name="book_id", referencedColumnName="book_id", nullable=false)
      */
-    private $bookId;
+    private $book;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="place_id", type="integer", nullable=false)
+     * @var Place
+     * @ORM\ManyToOne(targetEntity="Place", inversedBy="otherNationalEditions")
+     * @ORM\JoinColumn(name="place_id", referencedColumnName="place_id", nullable=false)
      */
-    private $placeId;
+    private $place;
 
     /**
      * @var integer

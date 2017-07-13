@@ -252,6 +252,31 @@ class Book
      * @ORM\Column(name="binding_colour", type="text", length=16777215, nullable=true)
      */
     private $bindingColour;
+    
+    /**
+     * @var Collection|OtherNationalEdition[]
+     * @ORM\OneToMany(targetEntity="OtherNationalEdition", mappedBy="book")
+     */
+    private $otherNationalEditions;
+
+    /**
+     * @var Collection|ReferencedPlace[]
+     * @ORM\OneToMany(targetEntity="ReferencedPlace", mappedBy="book")
+     */
+    private $referencedPlaces;
+    
+    /**
+     * @var Collection|OtherCopyLocation[]
+     * @ORM\OneToMany(targetEntity="OtherCopyLocation", mappedBy="book")
+     */
+    private $otherCopyLocations;
+    
+    /**
+     * @var Collection|Contribution
+     * @ORM\OneToMany(targetEntity="Contribution", mappedBy="book")
+     */
+    private $contributions;
+
 
     /**
      * @var Collection|Genre[]
@@ -361,6 +386,6 @@ class Book
      *  inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="place_id")}
      * )
      */
-    private $publicationPlaces;
+    private $publicationPlaces;    
 }
 

@@ -22,11 +22,11 @@ class OtherCopyLocation
     private $otherCopyLocationId;
     
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="book_id", type="integer", nullable=false)
+     * @var Book
+     * @ORM\ManyToOne(targetEntity="Book", inversedBy="otherCopyLocations")
+     * @ORM\JoinColumn(name="book_id", referencedColumnName="book_id", nullable=false)
      */
-    private $bookId;
+    private $book;
 
     /**
      * @var string

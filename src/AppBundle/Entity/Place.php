@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -70,6 +71,29 @@ class Place
      */
     private $countryId;
 
-
+    /**
+     * @var Collection|OtherNationalEdition[]
+     * @ORM\OneToMany(targetEntity="OtherNationalEdition", mappedBy="place")
+     */
+    private $otherNationalEditions;
+    
+    /**
+     * @var Collection|ReferencedPlace
+     * @ORM\OneToMany(targetEntity="ReferencedPlace", mappedBy="place")
+     */
+    private $referencedPlaces;
+    
+    /**
+     * @var Collection|People[]
+     * @ORM\OneToMany(targetEntity="People", mappedBy="birthPlace")
+     */
+    private $peopleBorn;
+    
+    /**
+     * @var Collection|People[]
+     * @ORM\OneToMany(targetEntity="People", mappedBy="deathPlace")
+     */
+    private $peopleDied;
+    
 }
 

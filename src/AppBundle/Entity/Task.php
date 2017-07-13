@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,6 +29,10 @@ class Task
      */
     private $taskName;
 
-
+    /**
+     * @var Collection|Contribution[]
+     * @ORM\OneToMany(targetEntity="Contribution", mappedBy="task")
+     */
+    private $contributions;
 }
 

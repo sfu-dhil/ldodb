@@ -22,11 +22,11 @@ class Contribution
     private $contributionId;
     
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="book_id", type="integer", nullable=false)
+     * @var Book
+     * @ORM\ManyToOne(targetEntity="Book", inversedBy="contributions")
+     * @ORM\JoinColumn(name="book_id", referencedColumnName="book_id", nullable=false)
      */
-    private $contributionBookId;
+    private $book;
 
     /**
      * @var integer
@@ -36,11 +36,11 @@ class Contribution
     private $contributorId;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="task_id", type="integer", nullable=false)
+     * @var Task
+     * @ORM\ManyToOne(targetEntity="Task", inversedBy="contributions")
+     * @ORM\JoinColumn(name="task_id", referencedColumnName="task_id", nullable=false)
      */
-    private $taskId;
+    private $task;
 
 
 }
