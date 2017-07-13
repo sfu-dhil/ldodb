@@ -49,7 +49,7 @@ class BibliographicTerms
      */
     private $useForIllustrations;
 
-    
+
     public function __toString() {
         return $this->bibliographicTerm;
     }
@@ -60,8 +60,7 @@ class BibliographicTerms
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -72,8 +71,7 @@ class BibliographicTerms
      *
      * @return BibliographicTerms
      */
-    public function setBibliographicTerm($bibliographicTerm)
-    {
+    public function setBibliographicTerm($bibliographicTerm) {
         $this->bibliographicTerm = $bibliographicTerm;
 
         return $this;
@@ -84,8 +82,7 @@ class BibliographicTerms
      *
      * @return string
      */
-    public function getBibliographicTerm()
-    {
+    public function getBibliographicTerm() {
         return $this->bibliographicTerm;
     }
 
@@ -96,8 +93,7 @@ class BibliographicTerms
      *
      * @return BibliographicTerms
      */
-    public function setUseForFormat($useForFormat)
-    {
+    public function setUseForFormat($useForFormat) {
         $this->useForFormat = $useForFormat;
 
         return $this;
@@ -108,8 +104,7 @@ class BibliographicTerms
      *
      * @return boolean
      */
-    public function getUseForFormat()
-    {
+    public function getUseForFormat() {
         return $this->useForFormat;
     }
 
@@ -120,8 +115,7 @@ class BibliographicTerms
      *
      * @return BibliographicTerms
      */
-    public function setUseForPhotographs($useForPhotographs)
-    {
+    public function setUseForPhotographs($useForPhotographs) {
         $this->useForPhotographs = $useForPhotographs;
 
         return $this;
@@ -132,8 +126,7 @@ class BibliographicTerms
      *
      * @return boolean
      */
-    public function getUseForPhotographs()
-    {
+    public function getUseForPhotographs() {
         return $this->useForPhotographs;
     }
 
@@ -144,8 +137,7 @@ class BibliographicTerms
      *
      * @return BibliographicTerms
      */
-    public function setUseForIllustrations($useForIllustrations)
-    {
+    public function setUseForIllustrations($useForIllustrations) {
         $this->useForIllustrations = $useForIllustrations;
 
         return $this;
@@ -156,8 +148,7 @@ class BibliographicTerms
      *
      * @return boolean
      */
-    public function getUseForIllustrations()
-    {
+    public function getUseForIllustrations() {
         return $this->useForIllustrations;
     }
 }

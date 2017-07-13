@@ -41,7 +41,7 @@ class SupplementalPlaceData
      */
     private $longitude;
 
-    
+
     public function __toString() {
         return $this->geoname . ": " . $this->latitude . ',' . $this->longitude;
     }
@@ -54,8 +54,7 @@ class SupplementalPlaceData
      *
      * @return SupplementalPlaceData
      */
-    public function setGeonameId($geonameId)
-    {
+    public function setGeonameId($geonameId) {
         $this->geonameId = $geonameId;
 
         return $this;
@@ -66,8 +65,7 @@ class SupplementalPlaceData
      *
      * @return integer
      */
-    public function getGeonameId()
-    {
+    public function getGeonameId() {
         return $this->geonameId;
     }
 
@@ -78,8 +76,7 @@ class SupplementalPlaceData
      *
      * @return SupplementalPlaceData
      */
-    public function setGeoname($geoname)
-    {
+    public function setGeoname($geoname) {
         $this->geoname = $geoname;
 
         return $this;
@@ -90,8 +87,7 @@ class SupplementalPlaceData
      *
      * @return string
      */
-    public function getGeoname()
-    {
+    public function getGeoname() {
         return $this->geoname;
     }
 
@@ -102,8 +98,7 @@ class SupplementalPlaceData
      *
      * @return SupplementalPlaceData
      */
-    public function setLatitude($latitude)
-    {
+    public function setLatitude($latitude) {
         $this->latitude = $latitude;
 
         return $this;
@@ -114,8 +109,7 @@ class SupplementalPlaceData
      *
      * @return float
      */
-    public function getLatitude()
-    {
+    public function getLatitude() {
         return $this->latitude;
     }
 
@@ -126,8 +120,7 @@ class SupplementalPlaceData
      *
      * @return SupplementalPlaceData
      */
-    public function setLongitude($longitude)
-    {
+    public function setLongitude($longitude) {
         $this->longitude = $longitude;
 
         return $this;
@@ -138,8 +131,7 @@ class SupplementalPlaceData
      *
      * @return float
      */
-    public function getLongitude()
-    {
+    public function getLongitude() {
         return $this->longitude;
     }
 }

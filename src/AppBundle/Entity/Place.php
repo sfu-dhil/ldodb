@@ -77,19 +77,19 @@ class Place
      * @ORM\OneToMany(targetEntity="OtherNationalEdition", mappedBy="place")
      */
     private $otherNationalEditions;
-    
+
     /**
      * @var Collection|ReferencedPlace
      * @ORM\OneToMany(targetEntity="ReferencedPlace", mappedBy="place")
      */
     private $referencedPlaces;
-    
+
     /**
      * @var Collection|People[]
      * @ORM\OneToMany(targetEntity="People", mappedBy="birthPlace")
      */
     private $peopleBorn;
-    
+
     /**
      * @var Collection|People[]
      * @ORM\OneToMany(targetEntity="People", mappedBy="deathPlace")
@@ -99,12 +99,11 @@ class Place
     public function __toString() {
         return $this->placeName;
     }
-    
+
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->otherNationalEditions = new ArrayCollection();
         $this->referencedPlaces = new ArrayCollection();
         $this->peopleBorn = new ArrayCollection();
@@ -116,8 +115,7 @@ class Place
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -128,8 +126,7 @@ class Place
      *
      * @return Place
      */
-    public function setPlaceName($placeName)
-    {
+    public function setPlaceName($placeName) {
         $this->placeName = $placeName;
 
         return $this;
@@ -140,8 +137,7 @@ class Place
      *
      * @return string
      */
-    public function getPlaceName()
-    {
+    public function getPlaceName() {
         return $this->placeName;
     }
 
@@ -152,8 +148,7 @@ class Place
      *
      * @return Place
      */
-    public function setPlaceUri($placeUri)
-    {
+    public function setPlaceUri($placeUri) {
         $this->placeUri = $placeUri;
 
         return $this;
@@ -164,8 +159,7 @@ class Place
      *
      * @return string
      */
-    public function getPlaceUri()
-    {
+    public function getPlaceUri() {
         return $this->placeUri;
     }
 
@@ -176,8 +170,7 @@ class Place
      *
      * @return Place
      */
-    public function setInLakeDistrict($inLakeDistrict)
-    {
+    public function setInLakeDistrict($inLakeDistrict) {
         $this->inLakeDistrict = $inLakeDistrict;
 
         return $this;
@@ -188,8 +181,7 @@ class Place
      *
      * @return boolean
      */
-    public function getInLakeDistrict()
-    {
+    public function getInLakeDistrict() {
         return $this->inLakeDistrict;
     }
 
@@ -200,8 +192,7 @@ class Place
      *
      * @return Place
      */
-    public function setLatitude($latitude)
-    {
+    public function setLatitude($latitude) {
         $this->latitude = $latitude;
 
         return $this;
@@ -212,8 +203,7 @@ class Place
      *
      * @return float
      */
-    public function getLatitude()
-    {
+    public function getLatitude() {
         return $this->latitude;
     }
 
@@ -224,8 +214,7 @@ class Place
      *
      * @return Place
      */
-    public function setLongitude($longitude)
-    {
+    public function setLongitude($longitude) {
         $this->longitude = $longitude;
 
         return $this;
@@ -236,8 +225,7 @@ class Place
      *
      * @return float
      */
-    public function getLongitude()
-    {
+    public function getLongitude() {
         return $this->longitude;
     }
 
@@ -248,8 +236,7 @@ class Place
      *
      * @return Place
      */
-    public function setRegionId($regionId)
-    {
+    public function setRegionId($regionId) {
         $this->regionId = $regionId;
 
         return $this;
@@ -260,8 +247,7 @@ class Place
      *
      * @return integer
      */
-    public function getRegionId()
-    {
+    public function getRegionId() {
         return $this->regionId;
     }
 
@@ -272,8 +258,7 @@ class Place
      *
      * @return Place
      */
-    public function setCountryId($countryId)
-    {
+    public function setCountryId($countryId) {
         $this->countryId = $countryId;
 
         return $this;
@@ -284,8 +269,7 @@ class Place
      *
      * @return integer
      */
-    public function getCountryId()
-    {
+    public function getCountryId() {
         return $this->countryId;
     }
 
@@ -296,8 +280,7 @@ class Place
      *
      * @return Place
      */
-    public function addOtherNationalEdition(OtherNationalEdition $otherNationalEdition)
-    {
+    public function addOtherNationalEdition(OtherNationalEdition $otherNationalEdition) {
         $this->otherNationalEditions[] = $otherNationalEdition;
 
         return $this;
@@ -308,8 +291,7 @@ class Place
      *
      * @param OtherNationalEdition $otherNationalEdition
      */
-    public function removeOtherNationalEdition(OtherNationalEdition $otherNationalEdition)
-    {
+    public function removeOtherNationalEdition(OtherNationalEdition $otherNationalEdition) {
         $this->otherNationalEditions->removeElement($otherNationalEdition);
     }
 
@@ -318,8 +300,7 @@ class Place
      *
      * @return Collection
      */
-    public function getOtherNationalEditions()
-    {
+    public function getOtherNationalEditions() {
         return $this->otherNationalEditions;
     }
 
@@ -330,8 +311,7 @@ class Place
      *
      * @return Place
      */
-    public function addReferencedPlace(ReferencedPlace $referencedPlace)
-    {
+    public function addReferencedPlace(ReferencedPlace $referencedPlace) {
         $this->referencedPlaces[] = $referencedPlace;
 
         return $this;
@@ -342,8 +322,7 @@ class Place
      *
      * @param ReferencedPlace $referencedPlace
      */
-    public function removeReferencedPlace(ReferencedPlace $referencedPlace)
-    {
+    public function removeReferencedPlace(ReferencedPlace $referencedPlace) {
         $this->referencedPlaces->removeElement($referencedPlace);
     }
 
@@ -352,8 +331,7 @@ class Place
      *
      * @return Collection
      */
-    public function getReferencedPlaces()
-    {
+    public function getReferencedPlaces() {
         return $this->referencedPlaces;
     }
 
@@ -364,8 +342,7 @@ class Place
      *
      * @return Place
      */
-    public function addPeopleBorn(People $peopleBorn)
-    {
+    public function addPeopleBorn(People $peopleBorn) {
         $this->peopleBorn[] = $peopleBorn;
 
         return $this;
@@ -376,8 +353,7 @@ class Place
      *
      * @param People $peopleBorn
      */
-    public function removePeopleBorn(People $peopleBorn)
-    {
+    public function removePeopleBorn(People $peopleBorn) {
         $this->peopleBorn->removeElement($peopleBorn);
     }
 
@@ -386,8 +362,7 @@ class Place
      *
      * @return Collection
      */
-    public function getPeopleBorn()
-    {
+    public function getPeopleBorn() {
         return $this->peopleBorn;
     }
 
@@ -398,8 +373,7 @@ class Place
      *
      * @return Place
      */
-    public function addPeopleDied(People $peopleDied)
-    {
+    public function addPeopleDied(People $peopleDied) {
         $this->peopleDied[] = $peopleDied;
 
         return $this;
@@ -410,8 +384,7 @@ class Place
      *
      * @param People $peopleDied
      */
-    public function removePeopleDied(People $peopleDied)
-    {
+    public function removePeopleDied(People $peopleDied) {
         $this->peopleDied->removeElement($peopleDied);
     }
 
@@ -420,8 +393,7 @@ class Place
      *
      * @return Collection
      */
-    public function getPeopleDied()
-    {
+    public function getPeopleDied() {
         return $this->peopleDied;
     }
 }

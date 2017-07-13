@@ -20,7 +20,7 @@ class ReferencedPlace
      * @ORM\GeneratedValue()
      */
     private $id;
-    
+
     /**
      * @var Book
      * @ORM\ManyToOne(targetEntity="Book", inversedBy="referencedPlaces")
@@ -42,7 +42,7 @@ class ReferencedPlace
      */
     private $variantSpelling;
 
-    
+
     public function __toString() {
         return $this->place->__toString();
     }
@@ -53,8 +53,7 @@ class ReferencedPlace
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -65,8 +64,7 @@ class ReferencedPlace
      *
      * @return ReferencedPlace
      */
-    public function setVariantSpelling($variantSpelling)
-    {
+    public function setVariantSpelling($variantSpelling) {
         $this->variantSpelling = $variantSpelling;
 
         return $this;
@@ -77,8 +75,7 @@ class ReferencedPlace
      *
      * @return string
      */
-    public function getVariantSpelling()
-    {
+    public function getVariantSpelling() {
         return $this->variantSpelling;
     }
 
@@ -89,8 +86,7 @@ class ReferencedPlace
      *
      * @return ReferencedPlace
      */
-    public function setBook(Book $book)
-    {
+    public function setBook(Book $book) {
         $this->book = $book;
 
         return $this;
@@ -101,8 +97,7 @@ class ReferencedPlace
      *
      * @return Book
      */
-    public function getBook()
-    {
+    public function getBook() {
         return $this->book;
     }
 
@@ -113,8 +108,7 @@ class ReferencedPlace
      *
      * @return ReferencedPlace
      */
-    public function setPlace(Place $place)
-    {
+    public function setPlace(Place $place) {
         $this->place = $place;
 
         return $this;
@@ -125,8 +119,7 @@ class ReferencedPlace
      *
      * @return Place
      */
-    public function getPlace()
-    {
+    public function getPlace() {
         return $this->place;
     }
 }

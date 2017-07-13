@@ -35,7 +35,7 @@ class PlateType
      */
     private $plateTypeNotes;
 
-    
+
     public function __toString() {
         return $this->plateType;
     }
@@ -46,8 +46,7 @@ class PlateType
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -58,8 +57,7 @@ class PlateType
      *
      * @return PlateType
      */
-    public function setPlateType($plateType)
-    {
+    public function setPlateType($plateType) {
         $this->plateType = $plateType;
 
         return $this;
@@ -70,8 +68,7 @@ class PlateType
      *
      * @return string
      */
-    public function getPlateType()
-    {
+    public function getPlateType() {
         return $this->plateType;
     }
 
@@ -82,8 +79,7 @@ class PlateType
      *
      * @return PlateType
      */
-    public function setPlateTypeNotes($plateTypeNotes)
-    {
+    public function setPlateTypeNotes($plateTypeNotes) {
         $this->plateTypeNotes = $plateTypeNotes;
 
         return $this;
@@ -94,8 +90,7 @@ class PlateType
      *
      * @return string
      */
-    public function getPlateTypeNotes()
-    {
+    public function getPlateTypeNotes() {
         return $this->plateTypeNotes;
     }
 }

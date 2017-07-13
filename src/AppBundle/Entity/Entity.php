@@ -26,20 +26,19 @@ abstract class Entity
      * @ORM\GeneratedValue()
      */
     protected $id;
-    
+
     /**
      * @var Collection|Contribution[]
      * @ORM\OneToMany(targetEntity="Contribution", mappedBy="entity")
      */
     protected $contributions;
-    
+
     abstract public function __toString();
 
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->contributions = new ArrayCollection();
     }
 
@@ -48,8 +47,7 @@ abstract class Entity
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -60,8 +58,7 @@ abstract class Entity
      *
      * @return Entity
      */
-    public function addContribution(Contribution $contribution)
-    {
+    public function addContribution(Contribution $contribution) {
         $this->contributions[] = $contribution;
 
         return $this;
@@ -72,8 +69,7 @@ abstract class Entity
      *
      * @param Contribution $contribution
      */
-    public function removeContribution(Contribution $contribution)
-    {
+    public function removeContribution(Contribution $contribution) {
         $this->contributions->removeElement($contribution);
     }
 
@@ -82,8 +78,7 @@ abstract class Entity
      *
      * @return Collection
      */
-    public function getContributions()
-    {
+    public function getContributions() {
         return $this->contributions;
     }
 }

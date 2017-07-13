@@ -35,7 +35,7 @@ class Subject
      */
     private $subjectUri;
 
-    
+
     public function __toString() {
         return $this->subjectName;
     }
@@ -46,8 +46,7 @@ class Subject
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -58,8 +57,7 @@ class Subject
      *
      * @return Subject
      */
-    public function setSubjectName($subjectName)
-    {
+    public function setSubjectName($subjectName) {
         $this->subjectName = $subjectName;
 
         return $this;
@@ -70,8 +68,7 @@ class Subject
      *
      * @return string
      */
-    public function getSubjectName()
-    {
+    public function getSubjectName() {
         return $this->subjectName;
     }
 
@@ -82,8 +79,7 @@ class Subject
      *
      * @return Subject
      */
-    public function setSubjectUri($subjectUri)
-    {
+    public function setSubjectUri($subjectUri) {
         $this->subjectUri = $subjectUri;
 
         return $this;
@@ -94,8 +90,7 @@ class Subject
      *
      * @return string
      */
-    public function getSubjectUri()
-    {
+    public function getSubjectUri() {
         return $this->subjectUri;
     }
 }

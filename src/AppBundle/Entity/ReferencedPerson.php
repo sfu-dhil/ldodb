@@ -63,19 +63,18 @@ class ReferencedPerson
      */
     private $referencedPersonUri;
 
-    
+
     public function __toString() {
         return $this->lastName . ', ' . $this->firstName;
     }
-    
+
 
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -86,8 +85,7 @@ class ReferencedPerson
      *
      * @return ReferencedPerson
      */
-    public function setLastName($lastName)
-    {
+    public function setLastName($lastName) {
         $this->lastName = $lastName;
 
         return $this;
@@ -98,8 +96,7 @@ class ReferencedPerson
      *
      * @return string
      */
-    public function getLastName()
-    {
+    public function getLastName() {
         return $this->lastName;
     }
 
@@ -110,8 +107,7 @@ class ReferencedPerson
      *
      * @return ReferencedPerson
      */
-    public function setFirstName($firstName)
-    {
+    public function setFirstName($firstName) {
         $this->firstName = $firstName;
 
         return $this;
@@ -122,8 +118,7 @@ class ReferencedPerson
      *
      * @return string
      */
-    public function getFirstName()
-    {
+    public function getFirstName() {
         return $this->firstName;
     }
 
@@ -134,8 +129,7 @@ class ReferencedPerson
      *
      * @return ReferencedPerson
      */
-    public function setBirthDate($birthDate)
-    {
+    public function setBirthDate($birthDate) {
         $this->birthDate = $birthDate;
 
         return $this;
@@ -146,8 +140,7 @@ class ReferencedPerson
      *
      * @return string
      */
-    public function getBirthDate()
-    {
+    public function getBirthDate() {
         return $this->birthDate;
     }
 
@@ -158,8 +151,7 @@ class ReferencedPerson
      *
      * @return ReferencedPerson
      */
-    public function setDeathDate($deathDate)
-    {
+    public function setDeathDate($deathDate) {
         $this->deathDate = $deathDate;
 
         return $this;
@@ -170,8 +162,7 @@ class ReferencedPerson
      *
      * @return string
      */
-    public function getDeathDate()
-    {
+    public function getDeathDate() {
         return $this->deathDate;
     }
 
@@ -182,8 +173,7 @@ class ReferencedPerson
      *
      * @return ReferencedPerson
      */
-    public function setSameAsPeopleEntityId($sameAsPeopleEntityId)
-    {
+    public function setSameAsPeopleEntityId($sameAsPeopleEntityId) {
         $this->sameAsPeopleEntityId = $sameAsPeopleEntityId;
 
         return $this;
@@ -194,8 +184,7 @@ class ReferencedPerson
      *
      * @return integer
      */
-    public function getSameAsPeopleEntityId()
-    {
+    public function getSameAsPeopleEntityId() {
         return $this->sameAsPeopleEntityId;
     }
 
@@ -206,8 +195,7 @@ class ReferencedPerson
      *
      * @return ReferencedPerson
      */
-    public function setReferencedPersonUri($referencedPersonUri)
-    {
+    public function setReferencedPersonUri($referencedPersonUri) {
         $this->referencedPersonUri = $referencedPersonUri;
 
         return $this;
@@ -218,8 +206,7 @@ class ReferencedPerson
      *
      * @return string
      */
-    public function getReferencedPersonUri()
-    {
+    public function getReferencedPersonUri() {
         return $this->referencedPersonUri;
     }
 }

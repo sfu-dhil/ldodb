@@ -35,7 +35,7 @@ class MapSize
      */
     private $mapSizeNotes;
 
-    
+
     public function __toString() {
         return $this->mapType;
     }
@@ -46,8 +46,7 @@ class MapSize
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -58,8 +57,7 @@ class MapSize
      *
      * @return MapSize
      */
-    public function setMapSize($mapSize)
-    {
+    public function setMapSize($mapSize) {
         $this->mapSize = $mapSize;
 
         return $this;
@@ -70,8 +68,7 @@ class MapSize
      *
      * @return string
      */
-    public function getMapSize()
-    {
+    public function getMapSize() {
         return $this->mapSize;
     }
 
@@ -82,8 +79,7 @@ class MapSize
      *
      * @return MapSize
      */
-    public function setMapSizeNotes($mapSizeNotes)
-    {
+    public function setMapSizeNotes($mapSizeNotes) {
         $this->mapSizeNotes = $mapSizeNotes;
 
         return $this;
@@ -94,8 +90,7 @@ class MapSize
      *
      * @return string
      */
-    public function getMapSizeNotes()
-    {
+    public function getMapSizeNotes() {
         return $this->mapSizeNotes;
     }
 }

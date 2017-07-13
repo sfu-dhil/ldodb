@@ -27,7 +27,7 @@ class Role
      * @ORM\Column(name="role_name", type="string", length=255, nullable=true)
      */
     private $roleName;
-    
+
     public function __toString() {
         return $this->roleName;
     }
@@ -37,8 +37,7 @@ class Role
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -49,8 +48,7 @@ class Role
      *
      * @return Role
      */
-    public function setRoleName($roleName)
-    {
+    public function setRoleName($roleName) {
         $this->roleName = $roleName;
 
         return $this;
@@ -61,8 +59,7 @@ class Role
      *
      * @return string
      */
-    public function getRoleName()
-    {
+    public function getRoleName() {
         return $this->roleName;
     }
 }

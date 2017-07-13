@@ -35,15 +35,14 @@ class Task
      * @ORM\OneToMany(targetEntity="Contribution", mappedBy="task")
      */
     private $contributions;
-    
+
     public function __toString() {
         return $this->taskName;
     }
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->contributions = new ArrayCollection();
     }
 
@@ -52,8 +51,7 @@ class Task
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -64,8 +62,7 @@ class Task
      *
      * @return Task
      */
-    public function setTaskName($taskName)
-    {
+    public function setTaskName($taskName) {
         $this->taskName = $taskName;
 
         return $this;
@@ -76,8 +73,7 @@ class Task
      *
      * @return string
      */
-    public function getTaskName()
-    {
+    public function getTaskName() {
         return $this->taskName;
     }
 
@@ -88,8 +84,7 @@ class Task
      *
      * @return Task
      */
-    public function addContribution(Contribution $contribution)
-    {
+    public function addContribution(Contribution $contribution) {
         $this->contributions[] = $contribution;
 
         return $this;
@@ -100,8 +95,7 @@ class Task
      *
      * @param Contribution $contribution
      */
-    public function removeContribution(Contribution $contribution)
-    {
+    public function removeContribution(Contribution $contribution) {
         $this->contributions->removeElement($contribution);
     }
 
@@ -110,8 +104,7 @@ class Task
      *
      * @return Collection
      */
-    public function getContributions()
-    {
+    public function getContributions() {
         return $this->contributions;
     }
 }

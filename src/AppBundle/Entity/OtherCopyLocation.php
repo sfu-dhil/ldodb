@@ -20,7 +20,7 @@ class OtherCopyLocation
      * @ORM\GeneratedValue()
      */
     private $id;
-    
+
     /**
      * @var Book
      * @ORM\ManyToOne(targetEntity="Book", inversedBy="otherCopyLocations")
@@ -52,8 +52,7 @@ class OtherCopyLocation
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -64,8 +63,7 @@ class OtherCopyLocation
      *
      * @return OtherCopyLocation
      */
-    public function setOtherCopyLocation($otherCopyLocation)
-    {
+    public function setOtherCopyLocation($otherCopyLocation) {
         $this->otherCopyLocation = $otherCopyLocation;
 
         return $this;
@@ -76,8 +74,7 @@ class OtherCopyLocation
      *
      * @return string
      */
-    public function getOtherCopyLocation()
-    {
+    public function getOtherCopyLocation() {
         return $this->otherCopyLocation;
     }
 
@@ -88,8 +85,7 @@ class OtherCopyLocation
      *
      * @return OtherCopyLocation
      */
-    public function setCopyCount($copyCount)
-    {
+    public function setCopyCount($copyCount) {
         $this->copyCount = $copyCount;
 
         return $this;
@@ -100,8 +96,7 @@ class OtherCopyLocation
      *
      * @return integer
      */
-    public function getCopyCount()
-    {
+    public function getCopyCount() {
         return $this->copyCount;
     }
 
@@ -112,8 +107,7 @@ class OtherCopyLocation
      *
      * @return OtherCopyLocation
      */
-    public function setBook(Book $book)
-    {
+    public function setBook(Book $book) {
         $this->book = $book;
 
         return $this;
@@ -124,8 +118,7 @@ class OtherCopyLocation
      *
      * @return Book
      */
-    public function getBook()
-    {
+    public function getBook() {
         return $this->book;
     }
 }

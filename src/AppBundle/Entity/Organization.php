@@ -35,7 +35,7 @@ class Organization extends Entity
      */
     private $organizationNotes;
 
-    
+
     public function __toString() {
         return $this->organizationName;
     }
@@ -43,8 +43,7 @@ class Organization extends Entity
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         $this->contributions = new ArrayCollection();
     }
@@ -56,8 +55,7 @@ class Organization extends Entity
      *
      * @return Organization
      */
-    public function setOrganizationName($organizationName)
-    {
+    public function setOrganizationName($organizationName) {
         $this->organizationName = $organizationName;
 
         return $this;
@@ -68,8 +66,7 @@ class Organization extends Entity
      *
      * @return string
      */
-    public function getOrganizationName()
-    {
+    public function getOrganizationName() {
         return $this->organizationName;
     }
 
@@ -80,8 +77,7 @@ class Organization extends Entity
      *
      * @return Organization
      */
-    public function setOrganizationUri($organizationUri)
-    {
+    public function setOrganizationUri($organizationUri) {
         $this->organizationUri = $organizationUri;
 
         return $this;
@@ -92,8 +88,7 @@ class Organization extends Entity
      *
      * @return string
      */
-    public function getOrganizationUri()
-    {
+    public function getOrganizationUri() {
         return $this->organizationUri;
     }
 
@@ -104,8 +99,7 @@ class Organization extends Entity
      *
      * @return Organization
      */
-    public function setOrganizationNotes($organizationNotes)
-    {
+    public function setOrganizationNotes($organizationNotes) {
         $this->organizationNotes = $organizationNotes;
 
         return $this;
@@ -116,8 +110,7 @@ class Organization extends Entity
      *
      * @return string
      */
-    public function getOrganizationNotes()
-    {
+    public function getOrganizationNotes() {
         return $this->organizationNotes;
     }
 
@@ -126,8 +119,7 @@ class Organization extends Entity
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -138,8 +130,7 @@ class Organization extends Entity
      *
      * @return Organization
      */
-    public function addContribution(Contribution $contribution)
-    {
+    public function addContribution(Contribution $contribution) {
         $this->contributions[] = $contribution;
 
         return $this;
@@ -150,8 +141,7 @@ class Organization extends Entity
      *
      * @param Contribution $contribution
      */
-    public function removeContribution(Contribution $contribution)
-    {
+    public function removeContribution(Contribution $contribution) {
         $this->contributions->removeElement($contribution);
     }
 
@@ -160,8 +150,7 @@ class Organization extends Entity
      *
      * @return Collection
      */
-    public function getContributions()
-    {
+    public function getContributions() {
         return $this->contributions;
     }
 }

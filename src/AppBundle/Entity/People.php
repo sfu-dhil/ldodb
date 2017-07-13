@@ -137,42 +137,41 @@ class People extends Entity
     /**
      * @var Collection|Place[]
      * @ORM\ManyToMany(targetEntity="Place")
-     * @ORM\JoinTable(name="places_of_travel", 
+     * @ORM\JoinTable(name="places_of_travel",
      *  joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id")},
      *  inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="id")}
      * )
      */
     private $travels;
-    
+
     /**
      * @var Collection|Place[]
      * @ORM\ManyToMany(targetEntity="Place")
-     * @ORM\JoinTable(name="residence_place", 
+     * @ORM\JoinTable(name="residence_place",
      *  joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id")},
      *  inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="id")}
      * )
      */
     private $residences;
-    
+
     /**
      * @var Collection|Role[]
      * @ORM\ManyToMany(targetEntity="Role")
-     * @ORM\JoinTable(name="people_role", 
+     * @ORM\JoinTable(name="people_role",
      *  joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id")},
      *  inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
      * )
      */
     private $roles;
-    
+
     public function __toString() {
         return $this->lastName . ', ' . $this->firstName;
     }
-    
+
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         $this->travels = new ArrayCollection();
         $this->residences = new ArrayCollection();
@@ -187,8 +186,7 @@ class People extends Entity
      *
      * @return People
      */
-    public function setLastName($lastName)
-    {
+    public function setLastName($lastName) {
         $this->lastName = $lastName;
 
         return $this;
@@ -199,8 +197,7 @@ class People extends Entity
      *
      * @return string
      */
-    public function getLastName()
-    {
+    public function getLastName() {
         return $this->lastName;
     }
 
@@ -211,8 +208,7 @@ class People extends Entity
      *
      * @return People
      */
-    public function setFirstName($firstName)
-    {
+    public function setFirstName($firstName) {
         $this->firstName = $firstName;
 
         return $this;
@@ -223,8 +219,7 @@ class People extends Entity
      *
      * @return string
      */
-    public function getFirstName()
-    {
+    public function getFirstName() {
         return $this->firstName;
     }
 
@@ -235,8 +230,7 @@ class People extends Entity
      *
      * @return People
      */
-    public function setOtherLastName($otherLastName)
-    {
+    public function setOtherLastName($otherLastName) {
         $this->otherLastName = $otherLastName;
 
         return $this;
@@ -247,8 +241,7 @@ class People extends Entity
      *
      * @return string
      */
-    public function getOtherLastName()
-    {
+    public function getOtherLastName() {
         return $this->otherLastName;
     }
 
@@ -259,8 +252,7 @@ class People extends Entity
      *
      * @return People
      */
-    public function setOtherFirstName($otherFirstName)
-    {
+    public function setOtherFirstName($otherFirstName) {
         $this->otherFirstName = $otherFirstName;
 
         return $this;
@@ -271,8 +263,7 @@ class People extends Entity
      *
      * @return string
      */
-    public function getOtherFirstName()
-    {
+    public function getOtherFirstName() {
         return $this->otherFirstName;
     }
 
@@ -283,8 +274,7 @@ class People extends Entity
      *
      * @return People
      */
-    public function setBirthDate($birthDate)
-    {
+    public function setBirthDate($birthDate) {
         $this->birthDate = $birthDate;
 
         return $this;
@@ -295,8 +285,7 @@ class People extends Entity
      *
      * @return string
      */
-    public function getBirthDate()
-    {
+    public function getBirthDate() {
         return $this->birthDate;
     }
 
@@ -307,8 +296,7 @@ class People extends Entity
      *
      * @return People
      */
-    public function setDeathDate($deathDate)
-    {
+    public function setDeathDate($deathDate) {
         $this->deathDate = $deathDate;
 
         return $this;
@@ -319,8 +307,7 @@ class People extends Entity
      *
      * @return string
      */
-    public function getDeathDate()
-    {
+    public function getDeathDate() {
         return $this->deathDate;
     }
 
@@ -331,8 +318,7 @@ class People extends Entity
      *
      * @return People
      */
-    public function setGender($gender)
-    {
+    public function setGender($gender) {
         $this->gender = $gender;
 
         return $this;
@@ -343,8 +329,7 @@ class People extends Entity
      *
      * @return string
      */
-    public function getGender()
-    {
+    public function getGender() {
         return $this->gender;
     }
 
@@ -355,8 +340,7 @@ class People extends Entity
      *
      * @return People
      */
-    public function setBiographicalNotes($biographicalNotes)
-    {
+    public function setBiographicalNotes($biographicalNotes) {
         $this->biographicalNotes = $biographicalNotes;
 
         return $this;
@@ -367,8 +351,7 @@ class People extends Entity
      *
      * @return string
      */
-    public function getBiographicalNotes()
-    {
+    public function getBiographicalNotes() {
         return $this->biographicalNotes;
     }
 
@@ -379,8 +362,7 @@ class People extends Entity
      *
      * @return People
      */
-    public function setBiographicalAnnotation($biographicalAnnotation)
-    {
+    public function setBiographicalAnnotation($biographicalAnnotation) {
         $this->biographicalAnnotation = $biographicalAnnotation;
 
         return $this;
@@ -391,8 +373,7 @@ class People extends Entity
      *
      * @return string
      */
-    public function getBiographicalAnnotation()
-    {
+    public function getBiographicalAnnotation() {
         return $this->biographicalAnnotation;
     }
 
@@ -403,8 +384,7 @@ class People extends Entity
      *
      * @return People
      */
-    public function setNationality($nationality)
-    {
+    public function setNationality($nationality) {
         $this->nationality = $nationality;
 
         return $this;
@@ -415,8 +395,7 @@ class People extends Entity
      *
      * @return string
      */
-    public function getNationality()
-    {
+    public function getNationality() {
         return $this->nationality;
     }
 
@@ -427,8 +406,7 @@ class People extends Entity
      *
      * @return People
      */
-    public function setPeopleUri($peopleUri)
-    {
+    public function setPeopleUri($peopleUri) {
         $this->peopleUri = $peopleUri;
 
         return $this;
@@ -439,8 +417,7 @@ class People extends Entity
      *
      * @return string
      */
-    public function getPeopleUri()
-    {
+    public function getPeopleUri() {
         return $this->peopleUri;
     }
 
@@ -451,8 +428,7 @@ class People extends Entity
      *
      * @return People
      */
-    public function setResidentInLd($residentInLd)
-    {
+    public function setResidentInLd($residentInLd) {
         $this->residentInLd = $residentInLd;
 
         return $this;
@@ -463,8 +439,7 @@ class People extends Entity
      *
      * @return boolean
      */
-    public function getResidentInLd()
-    {
+    public function getResidentInLd() {
         return $this->residentInLd;
     }
 
@@ -475,8 +450,7 @@ class People extends Entity
      *
      * @return People
      */
-    public function setResidentInLondon($residentInLondon)
-    {
+    public function setResidentInLondon($residentInLondon) {
         $this->residentInLondon = $residentInLondon;
 
         return $this;
@@ -487,8 +461,7 @@ class People extends Entity
      *
      * @return boolean
      */
-    public function getResidentInLondon()
-    {
+    public function getResidentInLondon() {
         return $this->residentInLondon;
     }
 
@@ -499,8 +472,7 @@ class People extends Entity
      *
      * @return People
      */
-    public function setResidentOutsideUk($residentOutsideUk)
-    {
+    public function setResidentOutsideUk($residentOutsideUk) {
         $this->residentOutsideUk = $residentOutsideUk;
 
         return $this;
@@ -511,8 +483,7 @@ class People extends Entity
      *
      * @return boolean
      */
-    public function getResidentOutsideUk()
-    {
+    public function getResidentOutsideUk() {
         return $this->residentOutsideUk;
     }
 
@@ -523,8 +494,7 @@ class People extends Entity
      *
      * @return People
      */
-    public function setTravelOutsideUk($travelOutsideUk)
-    {
+    public function setTravelOutsideUk($travelOutsideUk) {
         $this->travelOutsideUk = $travelOutsideUk;
 
         return $this;
@@ -535,8 +505,7 @@ class People extends Entity
      *
      * @return boolean
      */
-    public function getTravelOutsideUk()
-    {
+    public function getTravelOutsideUk() {
         return $this->travelOutsideUk;
     }
 
@@ -545,8 +514,7 @@ class People extends Entity
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -557,8 +525,7 @@ class People extends Entity
      *
      * @return People
      */
-    public function setBirthPlace(Place $birthPlace = null)
-    {
+    public function setBirthPlace(Place $birthPlace = null) {
         $this->birthPlace = $birthPlace;
 
         return $this;
@@ -569,8 +536,7 @@ class People extends Entity
      *
      * @return Place
      */
-    public function getBirthPlace()
-    {
+    public function getBirthPlace() {
         return $this->birthPlace;
     }
 
@@ -581,8 +547,7 @@ class People extends Entity
      *
      * @return People
      */
-    public function setDeathPlace(Place $deathPlace = null)
-    {
+    public function setDeathPlace(Place $deathPlace = null) {
         $this->deathPlace = $deathPlace;
 
         return $this;
@@ -593,8 +558,7 @@ class People extends Entity
      *
      * @return Place
      */
-    public function getDeathPlace()
-    {
+    public function getDeathPlace() {
         return $this->deathPlace;
     }
 
@@ -605,8 +569,7 @@ class People extends Entity
      *
      * @return People
      */
-    public function addTravel(Place $travel)
-    {
+    public function addTravel(Place $travel) {
         $this->travels[] = $travel;
 
         return $this;
@@ -617,8 +580,7 @@ class People extends Entity
      *
      * @param Place $travel
      */
-    public function removeTravel(Place $travel)
-    {
+    public function removeTravel(Place $travel) {
         $this->travels->removeElement($travel);
     }
 
@@ -627,8 +589,7 @@ class People extends Entity
      *
      * @return Collection
      */
-    public function getTravels()
-    {
+    public function getTravels() {
         return $this->travels;
     }
 
@@ -639,8 +600,7 @@ class People extends Entity
      *
      * @return People
      */
-    public function addResidence(Place $residence)
-    {
+    public function addResidence(Place $residence) {
         $this->residences[] = $residence;
 
         return $this;
@@ -651,8 +611,7 @@ class People extends Entity
      *
      * @param Place $residence
      */
-    public function removeResidence(Place $residence)
-    {
+    public function removeResidence(Place $residence) {
         $this->residences->removeElement($residence);
     }
 
@@ -661,8 +620,7 @@ class People extends Entity
      *
      * @return Collection
      */
-    public function getResidences()
-    {
+    public function getResidences() {
         return $this->residences;
     }
 
@@ -673,8 +631,7 @@ class People extends Entity
      *
      * @return People
      */
-    public function addRole(Role $role)
-    {
+    public function addRole(Role $role) {
         $this->roles[] = $role;
 
         return $this;
@@ -685,8 +642,7 @@ class People extends Entity
      *
      * @param Role $role
      */
-    public function removeRole(Role $role)
-    {
+    public function removeRole(Role $role) {
         $this->roles->removeElement($role);
     }
 
@@ -695,8 +651,7 @@ class People extends Entity
      *
      * @return Collection
      */
-    public function getRoles()
-    {
+    public function getRoles() {
         return $this->roles;
     }
 
@@ -707,8 +662,7 @@ class People extends Entity
      *
      * @return People
      */
-    public function addContribution(Contribution $contribution)
-    {
+    public function addContribution(Contribution $contribution) {
         $this->contributions[] = $contribution;
 
         return $this;
@@ -719,8 +673,7 @@ class People extends Entity
      *
      * @param Contribution $contribution
      */
-    public function removeContribution(Contribution $contribution)
-    {
+    public function removeContribution(Contribution $contribution) {
         $this->contributions->removeElement($contribution);
     }
 
@@ -729,8 +682,7 @@ class People extends Entity
      *
      * @return Collection
      */
-    public function getContributions()
-    {
+    public function getContributions() {
         return $this->contributions;
     }
 }

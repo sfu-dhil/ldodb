@@ -56,7 +56,7 @@ class Genre
      */
     private $broaderTermId;
 
-    
+
     public function __toString() {
         return $this->genreName;
     }
@@ -67,8 +67,7 @@ class Genre
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -79,8 +78,7 @@ class Genre
      *
      * @return Genre
      */
-    public function setGenreName($genreName)
-    {
+    public function setGenreName($genreName) {
         $this->genreName = $genreName;
 
         return $this;
@@ -91,8 +89,7 @@ class Genre
      *
      * @return string
      */
-    public function getGenreName()
-    {
+    public function getGenreName() {
         return $this->genreName;
     }
 
@@ -103,8 +100,7 @@ class Genre
      *
      * @return Genre
      */
-    public function setGenreSource($genreSource)
-    {
+    public function setGenreSource($genreSource) {
         $this->genreSource = $genreSource;
 
         return $this;
@@ -115,8 +111,7 @@ class Genre
      *
      * @return string
      */
-    public function getGenreSource()
-    {
+    public function getGenreSource() {
         return $this->genreSource;
     }
 
@@ -127,8 +122,7 @@ class Genre
      *
      * @return Genre
      */
-    public function setGenreUsageNote($genreUsageNote)
-    {
+    public function setGenreUsageNote($genreUsageNote) {
         $this->genreUsageNote = $genreUsageNote;
 
         return $this;
@@ -139,8 +133,7 @@ class Genre
      *
      * @return string
      */
-    public function getGenreUsageNote()
-    {
+    public function getGenreUsageNote() {
         return $this->genreUsageNote;
     }
 
@@ -151,8 +144,7 @@ class Genre
      *
      * @return Genre
      */
-    public function setGenreUri($genreUri)
-    {
+    public function setGenreUri($genreUri) {
         $this->genreUri = $genreUri;
 
         return $this;
@@ -163,8 +155,7 @@ class Genre
      *
      * @return string
      */
-    public function getGenreUri()
-    {
+    public function getGenreUri() {
         return $this->genreUri;
     }
 
@@ -175,8 +166,7 @@ class Genre
      *
      * @return Genre
      */
-    public function setBroaderTermId($broaderTermId)
-    {
+    public function setBroaderTermId($broaderTermId) {
         $this->broaderTermId = $broaderTermId;
 
         return $this;
@@ -187,8 +177,7 @@ class Genre
      *
      * @return integer
      */
-    public function getBroaderTermId()
-    {
+    public function getBroaderTermId() {
         return $this->broaderTermId;
     }
 }

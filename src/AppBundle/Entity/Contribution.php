@@ -20,7 +20,7 @@ class Contribution
      * @ORM\GeneratedValue()
      */
     private $id;
-    
+
     /**
      * @var Book
      * @ORM\ManyToOne(targetEntity="Book", inversedBy="contributions")
@@ -42,15 +42,14 @@ class Contribution
      */
     private $task;
 
-    
+
 
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -61,8 +60,7 @@ class Contribution
      *
      * @return Contribution
      */
-    public function setBook(Book $book)
-    {
+    public function setBook(Book $book) {
         $this->book = $book;
 
         return $this;
@@ -73,8 +71,7 @@ class Contribution
      *
      * @return Book
      */
-    public function getBook()
-    {
+    public function getBook() {
         return $this->book;
     }
 
@@ -85,8 +82,7 @@ class Contribution
      *
      * @return Contribution
      */
-    public function setEntity(Entity $entity)
-    {
+    public function setEntity(Entity $entity) {
         $this->entity = $entity;
 
         return $this;
@@ -97,8 +93,7 @@ class Contribution
      *
      * @return Entity
      */
-    public function getEntity()
-    {
+    public function getEntity() {
         return $this->entity;
     }
 
@@ -109,8 +104,7 @@ class Contribution
      *
      * @return Contribution
      */
-    public function setTask(Task $task)
-    {
+    public function setTask(Task $task) {
         $this->task = $task;
 
         return $this;
@@ -121,8 +115,7 @@ class Contribution
      *
      * @return Task
      */
-    public function getTask()
-    {
+    public function getTask() {
         return $this->task;
     }
 }

@@ -35,7 +35,7 @@ class Keyword
      */
     private $preferredKeyword = '0';
 
-    
+
     public function __toString() {
         return $this->keyword;
     }
@@ -46,8 +46,7 @@ class Keyword
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -58,8 +57,7 @@ class Keyword
      *
      * @return Keyword
      */
-    public function setKeyword($keyword)
-    {
+    public function setKeyword($keyword) {
         $this->keyword = $keyword;
 
         return $this;
@@ -70,8 +68,7 @@ class Keyword
      *
      * @return string
      */
-    public function getKeyword()
-    {
+    public function getKeyword() {
         return $this->keyword;
     }
 
@@ -82,8 +79,7 @@ class Keyword
      *
      * @return Keyword
      */
-    public function setPreferredKeyword($preferredKeyword)
-    {
+    public function setPreferredKeyword($preferredKeyword) {
         $this->preferredKeyword = $preferredKeyword;
 
         return $this;
@@ -94,8 +90,7 @@ class Keyword
      *
      * @return boolean
      */
-    public function getPreferredKeyword()
-    {
+    public function getPreferredKeyword() {
         return $this->preferredKeyword;
     }
 }

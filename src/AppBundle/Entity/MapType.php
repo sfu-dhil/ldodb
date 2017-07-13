@@ -35,7 +35,7 @@ class MapType
      */
     private $mapTypeNotes;
 
-    
+
     public function __toString() {
         return $this->mapType;
     }
@@ -46,8 +46,7 @@ class MapType
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -58,8 +57,7 @@ class MapType
      *
      * @return MapType
      */
-    public function setMapType($mapType)
-    {
+    public function setMapType($mapType) {
         $this->mapType = $mapType;
 
         return $this;
@@ -70,8 +68,7 @@ class MapType
      *
      * @return string
      */
-    public function getMapType()
-    {
+    public function getMapType() {
         return $this->mapType;
     }
 
@@ -82,8 +79,7 @@ class MapType
      *
      * @return MapType
      */
-    public function setMapTypeNotes($mapTypeNotes)
-    {
+    public function setMapTypeNotes($mapTypeNotes) {
         $this->mapTypeNotes = $mapTypeNotes;
 
         return $this;
@@ -94,8 +90,7 @@ class MapType
      *
      * @return string
      */
-    public function getMapTypeNotes()
-    {
+    public function getMapTypeNotes() {
         return $this->mapTypeNotes;
     }
 }

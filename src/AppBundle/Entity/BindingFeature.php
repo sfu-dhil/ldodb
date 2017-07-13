@@ -44,8 +44,7 @@ class BindingFeature
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -56,8 +55,7 @@ class BindingFeature
      *
      * @return BindingFeature
      */
-    public function setBindingFeature($bindingFeature)
-    {
+    public function setBindingFeature($bindingFeature) {
         $this->bindingFeature = $bindingFeature;
 
         return $this;
@@ -68,8 +66,7 @@ class BindingFeature
      *
      * @return string
      */
-    public function getBindingFeature()
-    {
+    public function getBindingFeature() {
         return $this->bindingFeature;
     }
 
@@ -80,8 +77,7 @@ class BindingFeature
      *
      * @return BindingFeature
      */
-    public function setBindingFeatureNotes($bindingFeatureNotes)
-    {
+    public function setBindingFeatureNotes($bindingFeatureNotes) {
         $this->bindingFeatureNotes = $bindingFeatureNotes;
 
         return $this;
@@ -92,8 +88,7 @@ class BindingFeature
      *
      * @return string
      */
-    public function getBindingFeatureNotes()
-    {
+    public function getBindingFeatureNotes() {
         return $this->bindingFeatureNotes;
     }
 }

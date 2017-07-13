@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class OtherNationalEdition
 {
-    
+
     /**
      * @var integer
      *
@@ -21,7 +21,7 @@ class OtherNationalEdition
      * @ORM\GeneratedValue()
      */
     private $id;
-    
+
     /**
      * @var Book
      * @ORM\ManyToOne(targetEntity="Book", inversedBy="otherNationalEditions")
@@ -43,7 +43,7 @@ class OtherNationalEdition
      */
     private $publicationDate;
 
-    
+
     public function __toString() {
         return $this->place->__toString() . ', ' . $this->publicationDate;
     }
@@ -54,8 +54,7 @@ class OtherNationalEdition
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -66,8 +65,7 @@ class OtherNationalEdition
      *
      * @return OtherNationalEdition
      */
-    public function setPublicationDate($publicationDate)
-    {
+    public function setPublicationDate($publicationDate) {
         $this->publicationDate = $publicationDate;
 
         return $this;
@@ -78,8 +76,7 @@ class OtherNationalEdition
      *
      * @return integer
      */
-    public function getPublicationDate()
-    {
+    public function getPublicationDate() {
         return $this->publicationDate;
     }
 
@@ -90,8 +87,7 @@ class OtherNationalEdition
      *
      * @return OtherNationalEdition
      */
-    public function setBook(Book $book)
-    {
+    public function setBook(Book $book) {
         $this->book = $book;
 
         return $this;
@@ -102,8 +98,7 @@ class OtherNationalEdition
      *
      * @return Book
      */
-    public function getBook()
-    {
+    public function getBook() {
         return $this->book;
     }
 
@@ -114,8 +109,7 @@ class OtherNationalEdition
      *
      * @return OtherNationalEdition
      */
-    public function setPlace(Place $place)
-    {
+    public function setPlace(Place $place) {
         $this->place = $place;
 
         return $this;
@@ -126,8 +120,7 @@ class OtherNationalEdition
      *
      * @return Place
      */
-    public function getPlace()
-    {
+    public function getPlace() {
         return $this->place;
     }
 }

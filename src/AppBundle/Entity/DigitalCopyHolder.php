@@ -28,7 +28,7 @@ class DigitalCopyHolder
      */
     private $organizationName;
 
-    
+
     public function __toString() {
         return $this->organizationName;
     }
@@ -39,8 +39,7 @@ class DigitalCopyHolder
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -51,8 +50,7 @@ class DigitalCopyHolder
      *
      * @return DigitalCopyHolder
      */
-    public function setOrganizationName($organizationName)
-    {
+    public function setOrganizationName($organizationName) {
         $this->organizationName = $organizationName;
 
         return $this;
@@ -63,8 +61,7 @@ class DigitalCopyHolder
      *
      * @return string
      */
-    public function getOrganizationName()
-    {
+    public function getOrganizationName() {
         return $this->organizationName;
     }
 }

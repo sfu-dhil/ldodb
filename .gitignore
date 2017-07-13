@@ -18,3 +18,4 @@
 web/bower
 data
 *.sh
+phpcs.xml

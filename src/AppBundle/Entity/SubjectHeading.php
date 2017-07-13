@@ -35,7 +35,7 @@ class SubjectHeading
      */
     private $subjectHeadingUri;
 
-    
+
     public function __toString() {
         return $this->subjectHeading;
     }
@@ -46,8 +46,7 @@ class SubjectHeading
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -58,8 +57,7 @@ class SubjectHeading
      *
      * @return SubjectHeading
      */
-    public function setSubjectHeading($subjectHeading)
-    {
+    public function setSubjectHeading($subjectHeading) {
         $this->subjectHeading = $subjectHeading;
 
         return $this;
@@ -70,8 +68,7 @@ class SubjectHeading
      *
      * @return string
      */
-    public function getSubjectHeading()
-    {
+    public function getSubjectHeading() {
         return $this->subjectHeading;
     }
 
@@ -82,8 +79,7 @@ class SubjectHeading
      *
      * @return SubjectHeading
      */
-    public function setSubjectHeadingUri($subjectHeadingUri)
-    {
+    public function setSubjectHeadingUri($subjectHeadingUri) {
         $this->subjectHeadingUri = $subjectHeadingUri;
 
         return $this;
@@ -94,8 +90,7 @@ class SubjectHeading
      *
      * @return string
      */
-    public function getSubjectHeadingUri()
-    {
+    public function getSubjectHeadingUri() {
         return $this->subjectHeadingUri;
     }
 }
