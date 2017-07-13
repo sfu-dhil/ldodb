@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+ {% block pageheader %} 
+    <h1>OtherNationalEdition List</h1>
+    <p class="count">
+        Displaying {{ otherNationalEditions|length }} otherNationalEditions of {{ otherNationalEditions.getTotalItemCount }} total.
+    </p>
+ {% endblock %} 
+
+{% block body %}
+
+        <div class='btn-toolbar pull-right'>
+        <div class='btn-group'>
+            <a href="{{ path('other_national_edition_new') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus"></span> New
+            </a>
+            <a href="{{ path('other_national_edition_search') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span> Search
+            </a>
+        </div>
+    </div>
+        
+    <table class="table table-bordered table-condensed table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Publicationdate</th>            </tr>
+        </thead>
+        <tbody>
+        {% for otherNationalEdition in otherNationalEditions %}
+            <tr>
+                <td>
+                    <a href="{{ path('other_national_edition_show', { 'id': otherNationalEdition.id }) }}">
+                        {{ otherNationalEdition.publicationDate }}
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        
+    <div class="navigation">
+        {{ knp_pagination_render(otherNationalEditions) }}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+ {% block pageheader %} 
+    <h1>People List</h1>
+    <p class="count">
+        Displaying {{ people|length }} people of {{ people.getTotalItemCount }} total.
+    </p>
+ {% endblock %} 
+
+{% block body %}
+
+        <div class='btn-toolbar pull-right'>
+        <div class='btn-group'>
+            <a href="{{ path('people_new') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus"></span> New
+            </a>
+            <a href="{{ path('people_search') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span> Search
+            </a>
+        </div>
+    </div>
+        
+    <table class="table table-bordered table-condensed table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Lastname</th>
+                <th>Firstname</th>
+                <th>Otherlastname</th>
+                <th>Otherfirstname</th>
+                <th>Birthdate</th>
+                <th>Deathdate</th>
+                <th>Gender</th>
+                <th>Biographicalnotes</th>
+                <th>Biographicalannotation</th>
+                <th>Nationality</th>
+                <th>Peopleuri</th>
+                <th>Residentinld</th>
+                <th>Residentinlondon</th>
+                <th>Residentoutsideuk</th>
+                <th>Traveloutsideuk</th>            </tr>
+        </thead>
+        <tbody>
+        {% for person in people %}
+            <tr>
+                <td>
+                    <a href="{{ path('people_show', { 'id': person.id }) }}">
+                        {{ person.lastName }}
+                    </a>
+                </td>
+                <td>{{ person.firstName }}</td>
+                <td>{{ person.otherLastName }}</td>
+                <td>{{ person.otherFirstName }}</td>
+                <td>{{ person.birthDate }}</td>
+                <td>{{ person.deathDate }}</td>
+                <td>{{ person.gender }}</td>
+                <td>{{ person.biographicalNotes }}</td>
+                <td>{{ person.biographicalAnnotation }}</td>
+                <td>{{ person.nationality }}</td>
+                <td>{{ person.peopleUri }}</td>
+                <td>{% if person.residentInLd %}Yes{% else %}No{% endif %}</td>
+                <td>{% if person.residentInLondon %}Yes{% else %}No{% endif %}</td>
+                <td>{% if person.residentOutsideUk %}Yes{% else %}No{% endif %}</td>
+                <td>{% if person.travelOutsideUk %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        
+    <div class="navigation">
+        {{ knp_pagination_render(people) }}
+    </div>
+
+{% endblock %}

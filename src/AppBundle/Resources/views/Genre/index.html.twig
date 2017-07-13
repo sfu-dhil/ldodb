@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+ {% block pageheader %} 
+    <h1>Genre List</h1>
+    <p class="count">
+        Displaying {{ genres|length }} genres of {{ genres.getTotalItemCount }} total.
+    </p>
+ {% endblock %} 
+
+{% block body %}
+
+        <div class='btn-toolbar pull-right'>
+        <div class='btn-group'>
+            <a href="{{ path('genre_new') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus"></span> New
+            </a>
+            <a href="{{ path('genre_search') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span> Search
+            </a>
+        </div>
+    </div>
+        
+    <table class="table table-bordered table-condensed table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Genrename</th>
+                <th>Genresource</th>
+                <th>Genreusagenote</th>
+                <th>Genreuri</th>
+                <th>Broadertermid</th>            </tr>
+        </thead>
+        <tbody>
+        {% for genre in genres %}
+            <tr>
+                <td>
+                    <a href="{{ path('genre_show', { 'id': genre.id }) }}">
+                        {{ genre.genreName }}
+                    </a>
+                </td>
+                <td>{{ genre.genreSource }}</td>
+                <td>{{ genre.genreUsageNote }}</td>
+                <td>{{ genre.genreUri }}</td>
+                <td>{{ genre.broaderTermId }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        
+    <div class="navigation">
+        {{ knp_pagination_render(genres) }}
+    </div>
+
+{% endblock %}

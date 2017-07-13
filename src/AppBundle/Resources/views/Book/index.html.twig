@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+ {% block pageheader %} 
+    <h1>Book List</h1>
+    <p class="count">
+        Displaying {{ books|length }} books of {{ books.getTotalItemCount }} total.
+    </p>
+ {% endblock %} 
+
+{% block body %}
+
+        <div class='btn-toolbar pull-right'>
+        <div class='btn-group'>
+            <a href="{{ path('book_new') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus"></span> New
+            </a>
+            <a href="{{ path('book_search') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span> Search
+            </a>
+        </div>
+    </div>
+        
+    <table class="table table-bordered table-condensed table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Filename</th>
+                <th>Callnumber</th>
+                <th>Title</th>
+                <th>Shorttitle</th>
+                <th>Seriestitle</th>
+                <th>Titlepagequotation</th>
+                <th>Dedication</th>
+                <th>Imprint</th>
+                <th>Edition</th>
+                <th>Publicationdate</th>
+                <th>Volumes</th>
+                <th>Pages</th>
+                <th>Copies</th>
+                <th>Sfucatorigbib</th>
+                <th>Originalbib</th>
+                <th>Bicknellnumber</th>
+                <th>Healeynumber</th>
+                <th>Reednumber</th>
+                <th>Publicdomain</th>
+                <th>Britishedition</th>
+                <th>Price</th>
+                <th>Printrun</th>
+                <th>Bookuri</th>
+                <th>Digitalobjecturl</th>
+                <th>Bibliographicnotes</th>
+                <th>Criticalannotation</th>
+                <th>Format</th>
+                <th>Platecount</th>
+                <th>Mapcount</th>
+                <th>Illustrations</th>
+                <th>Photographs</th>
+                <th>Tables</th>
+                <th>Bindingcolour</th>            </tr>
+        </thead>
+        <tbody>
+        {% for book in books %}
+            <tr>
+                <td>
+                    <a href="{{ path('book_show', { 'id': book.id }) }}">
+                        {{ book.fileName }}
+                    </a>
+                </td>
+                <td>{{ book.callNumber }}</td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.shortTitle }}</td>
+                <td>{{ book.seriesTitle }}</td>
+                <td>{{ book.titlePageQuotation }}</td>
+                <td>{{ book.dedication }}</td>
+                <td>{{ book.imprint }}</td>
+                <td>{{ book.edition }}</td>
+                <td>{{ book.publicationDate }}</td>
+                <td>{{ book.volumes }}</td>
+                <td>{{ book.pages }}</td>
+                <td>{{ book.copies }}</td>
+                <td>{{ book.sfuCatOrigBib }}</td>
+                <td>{% if book.originalBib %}Yes{% else %}No{% endif %}</td>
+                <td>{{ book.bicknellNumber }}</td>
+                <td>{{ book.healeyNumber }}</td>
+                <td>{{ book.reedNumber }}</td>
+                <td>{% if book.publicDomain %}Yes{% else %}No{% endif %}</td>
+                <td>{{ book.britishEdition }}</td>
+                <td>{{ book.price }}</td>
+                <td>{{ book.printRun }}</td>
+                <td>{{ book.bookUri }}</td>
+                <td>{{ book.digitalObjectUrl }}</td>
+                <td>{{ book.bibliographicNotes }}</td>
+                <td>{{ book.criticalAnnotation }}</td>
+                <td>{{ book.format }}</td>
+                <td>{{ book.plateCount }}</td>
+                <td>{{ book.mapCount }}</td>
+                <td>{{ book.illustrations }}</td>
+                <td>{{ book.photographs }}</td>
+                <td>{% if book.tables %}Yes{% else %}No{% endif %}</td>
+                <td>{{ book.bindingColour }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        
+    <div class="navigation">
+        {{ knp_pagination_render(books) }}
+    </div>
+
+{% endblock %}
