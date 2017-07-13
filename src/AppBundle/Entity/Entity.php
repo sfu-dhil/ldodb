@@ -30,5 +30,7 @@ abstract class Entity
      * @ORM\OneToMany(targetEntity="Contribution", mappedBy="entity")
      */
     protected $contributions;
+    
+    abstract public function __toString();
 
 }

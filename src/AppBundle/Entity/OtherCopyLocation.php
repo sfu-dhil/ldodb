@@ -42,6 +42,9 @@ class OtherCopyLocation
      */
     private $copyCount;
 
+    public function __toString() {
+        return $this->otherCopyLocation . ' (' . $this->copyCount . ')';
+    }
 
 }
 

@@ -35,6 +35,10 @@ class MapType
      */
     private $mapTypeNotes;
 
+    
+    public function __toString() {
+        return $this->mapType;
+    }
 
 }
 

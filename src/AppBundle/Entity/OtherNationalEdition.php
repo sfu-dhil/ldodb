@@ -43,6 +43,10 @@ class OtherNationalEdition
      */
     private $publicationDate;
 
+    
+    public function __toString() {
+        return $this->place->__toString() . ', ' . $this->publicationDate;
+    }
 
 }
 

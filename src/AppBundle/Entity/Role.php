@@ -27,7 +27,9 @@ class Role
      * @ORM\Column(name="role_name", type="string", length=255, nullable=true)
      */
     private $roleName;
-
-
+    
+    public function __toString() {
+        return $this->roleName;
+    }
 }
 

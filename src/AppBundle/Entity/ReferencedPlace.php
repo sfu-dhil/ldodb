@@ -42,6 +42,10 @@ class ReferencedPlace
      */
     private $variantSpelling;
 
+    
+    public function __toString() {
+        return $this->place->__toString();
+    }
 
 }
 

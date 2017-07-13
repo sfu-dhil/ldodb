@@ -35,6 +35,10 @@ class PlateType
      */
     private $plateTypeNotes;
 
+    
+    public function __toString() {
+        return $this->plateType;
+    }
 
 }
 

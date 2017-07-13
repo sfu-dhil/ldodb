@@ -387,5 +387,10 @@ class Book
      * )
      */
     private $publicationPlaces;    
+    
+    public function __toString() {
+        return $this->fileName;
+    }
+
 }
 

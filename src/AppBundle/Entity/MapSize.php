@@ -35,6 +35,10 @@ class MapSize
      */
     private $mapSizeNotes;
 
+    
+    public function __toString() {
+        return $this->mapType;
+    }
 
 }
 

@@ -63,6 +63,10 @@ class ReferencedPerson
      */
     private $referencedPersonUri;
 
-
+    
+    public function __toString() {
+        return $this->lastName . ', ' . $this->firstName;
+    }
+    
 }
 

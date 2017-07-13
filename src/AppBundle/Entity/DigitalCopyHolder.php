@@ -28,6 +28,10 @@ class DigitalCopyHolder
      */
     private $organizationName;
 
+    
+    public function __toString() {
+        return $this->organizationName;
+    }
 
 }
 

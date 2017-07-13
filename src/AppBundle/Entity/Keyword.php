@@ -35,6 +35,10 @@ class Keyword
      */
     private $preferredKeyword = '0';
 
+    
+    public function __toString() {
+        return $this->keyword;
+    }
 
 }
 

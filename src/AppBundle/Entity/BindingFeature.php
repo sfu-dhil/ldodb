@@ -35,6 +35,8 @@ class BindingFeature
      */
     private $bindingFeatureNotes;
 
-
+    public function __toString() {
+        return $this->bindingFeature;
+    }
 }
 

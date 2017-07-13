@@ -94,6 +94,10 @@ class Place
      * @ORM\OneToMany(targetEntity="People", mappedBy="deathPlace")
      */
     private $peopleDied;
+
+    public function __toString() {
+        return $this->placeName;
+    }
     
 }
 

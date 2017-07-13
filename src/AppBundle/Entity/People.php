@@ -162,5 +162,9 @@ class People extends Entity
      */
     private $roles;
     
+    public function __toString() {
+        return $this->lastName . ', ' . $this->firstName;
+    }
+    
 }
 

@@ -49,6 +49,10 @@ class BibliographicTerms
      */
     private $useForIllustrations;
 
+    
+    public function __toString() {
+        return $this->bibliographicTerm;
+    }
 
 }
 

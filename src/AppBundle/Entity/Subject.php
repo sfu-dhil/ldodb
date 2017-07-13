@@ -35,6 +35,10 @@ class Subject
      */
     private $subjectUri;
 
+    
+    public function __toString() {
+        return $this->subjectName;
+    }
 
 }
 

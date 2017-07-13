@@ -35,6 +35,10 @@ class SubjectHeading
      */
     private $subjectHeadingUri;
 
+    
+    public function __toString() {
+        return $this->subjectHeading;
+    }
 
 }
 

@@ -56,6 +56,10 @@ class Genre
      */
     private $broaderTermId;
 
+    
+    public function __toString() {
+        return $this->genreName;
+    }
 
 }
 

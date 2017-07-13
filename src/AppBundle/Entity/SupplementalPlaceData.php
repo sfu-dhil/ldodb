@@ -41,6 +41,10 @@ class SupplementalPlaceData
      */
     private $longitude;
 
+    
+    public function __toString() {
+        return $this->geoname . ": " . $this->latitude . ',' . $this->longitude;
+    }
 
 }
 
