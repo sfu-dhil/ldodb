@@ -16,10 +16,10 @@ class BindingFeature
      * @var integer
      *
      * @ORM\Id
-     * @ORM\Column(name="binding_feature_id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\GeneratedValue()
      */
-    private $bindingFeatureId;
+    private $id;
 
     /**
      * @var string

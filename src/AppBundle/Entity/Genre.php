@@ -16,10 +16,10 @@ class Genre
      * @var integer
      *
      * @ORM\Id
-     * @ORM\Column(name="genre_id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\GeneratedValue()
      */
-    private $genreId;
+    private $id;
 
     /**
      * @var string

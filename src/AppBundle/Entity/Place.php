@@ -17,10 +17,10 @@ class Place
      * @var integer
      *
      * @ORM\Id
-     * @ORM\Column(name="place_id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\GeneratedValue()
      */
-    private $placeId;
+    private $id;
 
     /**
      * @var string

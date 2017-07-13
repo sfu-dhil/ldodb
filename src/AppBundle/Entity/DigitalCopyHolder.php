@@ -16,10 +16,10 @@ class DigitalCopyHolder
      * @var integer
      *
      * @ORM\Id
-     * @ORM\Column(name="digital_copy_holder_id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\GeneratedValue()
      */
-    private $digitalCopyHolderId;
+    private $id;
 
     /**
      * @var string

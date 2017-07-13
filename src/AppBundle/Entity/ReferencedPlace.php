@@ -16,22 +16,22 @@ class ReferencedPlace
      * @var integer
      *
      * @ORM\Id
-     * @ORM\Column(name="referenced_place_id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\GeneratedValue()
      */
-    private $referencedPlaceId;
+    private $id;
     
     /**
      * @var Book
      * @ORM\ManyToOne(targetEntity="Book", inversedBy="referencedPlaces")
-     * @ORM\JoinColumn(name="book_id", referencedColumnName="book_id", nullable=false)
+     * @ORM\JoinColumn(name="book_id", referencedColumnName="id", nullable=false)
      */
     private $book;
 
     /**
      * @var Place
      * @ORM\ManyToOne(targetEntity="Place", inversedBy="referencedPlaces")
-     * @ORM\JoinColumn(name="place_id", referencedColumnName="place_id", nullable=false)
+     * @ORM\JoinColumn(name="place_id", referencedColumnName="id", nullable=false)
      */
     private $place;
 

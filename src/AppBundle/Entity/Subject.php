@@ -16,10 +16,10 @@ class Subject
      * @var integer
      *
      * @ORM\Id
-     * @ORM\Column(name="subject_id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\GeneratedValue()
      */
-    private $subjectId;
+    private $id;
 
     /**
      * @var string

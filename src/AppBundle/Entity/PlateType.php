@@ -16,10 +16,10 @@ class PlateType
      * @var integer
      *
      * @ORM\Id
-     * @ORM\Column(name="plate_type_id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\GeneratedValue()
      */
-    private $plateTypeId;
+    private $id;
 
     /**
      * @var string

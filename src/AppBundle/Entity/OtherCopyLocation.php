@@ -16,15 +16,15 @@ class OtherCopyLocation
      * @var integer
      *
      * @ORM\Id
-     * @ORM\Column(name="other_location_id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\GeneratedValue()
      */
-    private $otherCopyLocationId;
+    private $id;
     
     /**
      * @var Book
      * @ORM\ManyToOne(targetEntity="Book", inversedBy="otherCopyLocations")
-     * @ORM\JoinColumn(name="book_id", referencedColumnName="book_id", nullable=false)
+     * @ORM\JoinColumn(name="book_id", referencedColumnName="id", nullable=false)
      */
     private $book;
 

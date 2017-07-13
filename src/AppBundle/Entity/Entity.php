@@ -20,9 +20,15 @@ abstract class Entity
      * @var integer
      *
      * @ORM\Id
-     * @ORM\Column(name="entity_id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\GeneratedValue()
      */
-    protected $entityId;
+    protected $id;
+    
+    /**
+     * @var Collection|Contribution[]
+     * @ORM\OneToMany(targetEntity="Contribution", mappedBy="entity")
+     */
+    protected $contributions;
 
 }

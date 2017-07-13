@@ -16,10 +16,10 @@ class BibliographicTerms
      * @var integer
      *
      * @ORM\Id
-     * @ORM\Column(name="bibliographic_terms_id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\GeneratedValue()
      */
-    private $bibliographicTermsId;
+    private $id;
 
     /**
      * @var string

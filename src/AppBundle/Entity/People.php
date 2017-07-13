@@ -79,14 +79,14 @@ class People extends Entity
     /**
      * @var Place
      * @ORM\ManyToOne(targetEntity="Place", inversedBy="peopleBorn")
-     * @ORM\JoinColumn(name="birth_place_id", referencedColumnName="place_id", nullable=true)
+     * @ORM\JoinColumn(name="birth_place_id", referencedColumnName="id", nullable=true)
      */
     private $birthPlace;
 
     /**
      * @var Place
      * @ORM\ManyToOne(targetEntity="Place", inversedBy="peopleDied")
-     * @ORM\JoinColumn(name="death_place_id", referencedColumnName="place_id", nullable=true)
+     * @ORM\JoinColumn(name="death_place_id", referencedColumnName="id", nullable=true)
      */
     private $deathPlace;
 
@@ -136,8 +136,8 @@ class People extends Entity
      * @var Collection|Place[]
      * @ORM\ManyToMany(targetEntity="Place")
      * @ORM\JoinTable(name="places_of_travel", 
-     *  joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="entity_id")},
-     *  inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="place_id")}
+     *  joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id")},
+     *  inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="id")}
      * )
      */
     private $travels;
@@ -146,8 +146,8 @@ class People extends Entity
      * @var Collection|Place[]
      * @ORM\ManyToMany(targetEntity="Place")
      * @ORM\JoinTable(name="residence_place", 
-     *  joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="entity_id")},
-     *  inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="place_id")}
+     *  joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id")},
+     *  inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="id")}
      * )
      */
     private $residences;
@@ -156,8 +156,8 @@ class People extends Entity
      * @var Collection|Role[]
      * @ORM\ManyToMany(targetEntity="Role")
      * @ORM\JoinTable(name="people_role", 
-     *  joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="entity_id")},
-     *  inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="role_id")}
+     *  joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id")},
+     *  inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
      * )
      */
     private $roles;

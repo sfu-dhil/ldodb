@@ -16,10 +16,10 @@ class Keyword
      * @var integer
      *
      * @ORM\Id
-     * @ORM\Column(name="keyword_id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\GeneratedValue()
      */
-    private $keywordId;
+    private $id;
 
     /**
      * @var string

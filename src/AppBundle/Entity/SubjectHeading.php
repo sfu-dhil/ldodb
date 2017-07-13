@@ -16,10 +16,10 @@ class SubjectHeading
      * @var integer
      *
      * @ORM\Id
-     * @ORM\Column(name="subject_heading_id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\GeneratedValue()
      */
-    private $subjectHeadingId;
+    private $id;
 
     /**
      * @var string

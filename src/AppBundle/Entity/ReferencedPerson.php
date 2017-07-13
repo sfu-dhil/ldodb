@@ -16,10 +16,10 @@ class ReferencedPerson
      * @var integer
      *
      * @ORM\Id
-     * @ORM\Column(name="referenced_person_id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\GeneratedValue()
      */
-    private $referencedPersonId;
+    private $id;
 
     /**
      * @var string

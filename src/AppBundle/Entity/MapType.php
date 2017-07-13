@@ -16,10 +16,10 @@ class MapType
      * @var integer
      *
      * @ORM\Id
-     * @ORM\Column(name="map_type_id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\GeneratedValue()
      */
-    private $mapTypeId;
+    private $id;
 
     /**
      * @var string
