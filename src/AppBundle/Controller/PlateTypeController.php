@@ -132,6 +132,10 @@ class PlateTypeController extends Controller
      */
     public function newAction(Request $request)
     {
+        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+            $this->addFlash('danger', 'You must login to access this page.');
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $plateType = new PlateType();
         $form = $this->createForm('AppBundle\Form\PlateTypeType', $plateType);
         $form->handleRequest($request);
@@ -178,6 +182,10 @@ class PlateTypeController extends Controller
      */
     public function editAction(Request $request, PlateType $plateType)
     {
+        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+            $this->addFlash('danger', 'You must login to access this page.');
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $editForm = $this->createForm('AppBundle\Form\PlateTypeType', $plateType);
         $editForm->handleRequest($request);
 
@@ -204,6 +212,10 @@ class PlateTypeController extends Controller
      */
     public function deleteAction(Request $request, PlateType $plateType)
     {
+        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+            $this->addFlash('danger', 'You must login to access this page.');
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $em = $this->getDoctrine()->getManager();
         $em->remove($plateType);
         $em->flush();

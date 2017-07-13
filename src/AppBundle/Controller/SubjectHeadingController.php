@@ -132,6 +132,10 @@ class SubjectHeadingController extends Controller
      */
     public function newAction(Request $request)
     {
+        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+            $this->addFlash('danger', 'You must login to access this page.');
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $subjectHeading = new SubjectHeading();
         $form = $this->createForm('AppBundle\Form\SubjectHeadingType', $subjectHeading);
         $form->handleRequest($request);
@@ -178,6 +182,10 @@ class SubjectHeadingController extends Controller
      */
     public function editAction(Request $request, SubjectHeading $subjectHeading)
     {
+        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+            $this->addFlash('danger', 'You must login to access this page.');
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $editForm = $this->createForm('AppBundle\Form\SubjectHeadingType', $subjectHeading);
         $editForm->handleRequest($request);
 
@@ -204,6 +212,10 @@ class SubjectHeadingController extends Controller
      */
     public function deleteAction(Request $request, SubjectHeading $subjectHeading)
     {
+        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+            $this->addFlash('danger', 'You must login to access this page.');
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $em = $this->getDoctrine()->getManager();
         $em->remove($subjectHeading);
         $em->flush();

@@ -132,6 +132,10 @@ class BibliographicTermsController extends Controller
      */
     public function newAction(Request $request)
     {
+        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+            $this->addFlash('danger', 'You must login to access this page.');
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $bibliographicTerm = new BibliographicTerms();
         $form = $this->createForm('AppBundle\Form\BibliographicTermsType', $bibliographicTerm);
         $form->handleRequest($request);
@@ -178,6 +182,10 @@ class BibliographicTermsController extends Controller
      */
     public function editAction(Request $request, BibliographicTerms $bibliographicTerm)
     {
+        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+            $this->addFlash('danger', 'You must login to access this page.');
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $editForm = $this->createForm('AppBundle\Form\BibliographicTermsType', $bibliographicTerm);
         $editForm->handleRequest($request);
 
@@ -204,6 +212,10 @@ class BibliographicTermsController extends Controller
      */
     public function deleteAction(Request $request, BibliographicTerms $bibliographicTerm)
     {
+        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+            $this->addFlash('danger', 'You must login to access this page.');
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $em = $this->getDoctrine()->getManager();
         $em->remove($bibliographicTerm);
         $em->flush();

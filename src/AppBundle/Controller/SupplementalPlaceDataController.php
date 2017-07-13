@@ -132,6 +132,10 @@ class SupplementalPlaceDataController extends Controller
      */
     public function newAction(Request $request)
     {
+        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+            $this->addFlash('danger', 'You must login to access this page.');
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $supplementalPlaceDatum = new SupplementalPlaceData();
         $form = $this->createForm('AppBundle\Form\SupplementalPlaceDataType', $supplementalPlaceDatum);
         $form->handleRequest($request);
@@ -178,6 +182,10 @@ class SupplementalPlaceDataController extends Controller
      */
     public function editAction(Request $request, SupplementalPlaceData $supplementalPlaceDatum)
     {
+        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+            $this->addFlash('danger', 'You must login to access this page.');
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $editForm = $this->createForm('AppBundle\Form\SupplementalPlaceDataType', $supplementalPlaceDatum);
         $editForm->handleRequest($request);
 
@@ -204,6 +212,10 @@ class SupplementalPlaceDataController extends Controller
      */
     public function deleteAction(Request $request, SupplementalPlaceData $supplementalPlaceDatum)
     {
+        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+            $this->addFlash('danger', 'You must login to access this page.');
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $em = $this->getDoctrine()->getManager();
         $em->remove($supplementalPlaceDatum);
         $em->flush();

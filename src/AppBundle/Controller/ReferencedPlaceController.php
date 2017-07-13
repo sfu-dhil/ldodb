@@ -132,6 +132,10 @@ class ReferencedPlaceController extends Controller
      */
     public function newAction(Request $request)
     {
+        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+            $this->addFlash('danger', 'You must login to access this page.');
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $referencedPlace = new ReferencedPlace();
         $form = $this->createForm('AppBundle\Form\ReferencedPlaceType', $referencedPlace);
         $form->handleRequest($request);
@@ -178,6 +182,10 @@ class ReferencedPlaceController extends Controller
      */
     public function editAction(Request $request, ReferencedPlace $referencedPlace)
     {
+        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+            $this->addFlash('danger', 'You must login to access this page.');
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $editForm = $this->createForm('AppBundle\Form\ReferencedPlaceType', $referencedPlace);
         $editForm->handleRequest($request);
 
@@ -204,6 +212,10 @@ class ReferencedPlaceController extends Controller
      */
     public function deleteAction(Request $request, ReferencedPlace $referencedPlace)
     {
+        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+            $this->addFlash('danger', 'You must login to access this page.');
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $em = $this->getDoctrine()->getManager();
         $em->remove($referencedPlace);
         $em->flush();

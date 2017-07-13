@@ -132,6 +132,10 @@ class MapSizeController extends Controller
      */
     public function newAction(Request $request)
     {
+        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+            $this->addFlash('danger', 'You must login to access this page.');
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $mapSize = new MapSize();
         $form = $this->createForm('AppBundle\Form\MapSizeType', $mapSize);
         $form->handleRequest($request);
@@ -178,6 +182,10 @@ class MapSizeController extends Controller
      */
     public function editAction(Request $request, MapSize $mapSize)
     {
+        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+            $this->addFlash('danger', 'You must login to access this page.');
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $editForm = $this->createForm('AppBundle\Form\MapSizeType', $mapSize);
         $editForm->handleRequest($request);
 
@@ -204,6 +212,10 @@ class MapSizeController extends Controller
      */
     public function deleteAction(Request $request, MapSize $mapSize)
     {
+        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+            $this->addFlash('danger', 'You must login to access this page.');
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $em = $this->getDoctrine()->getManager();
         $em->remove($mapSize);
         $em->flush();

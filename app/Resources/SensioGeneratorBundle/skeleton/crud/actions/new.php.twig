@@ -18,6 +18,10 @@
 {% endblock method_definition %}
     {
 {% block method_body %}
+        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
+            $this->addFlash('danger', 'You must login to access this page.');
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         ${{ entity_singularized }} = new {{ entity_class }}();
         $form = $this->createForm('{{ namespace }}\Form\{{ entity_class }}Type', ${{ entity_singularized }});
         $form->handleRequest($request);
