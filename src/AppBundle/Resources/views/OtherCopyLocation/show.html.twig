@@ -5,7 +5,6 @@
  {% endblock %} 
 
 {% block body %}
-
     <div class="btn-toolbar">
     <div class="btn-group pull-right">
         <a href="{{ path('other_copy_location_index') }}" class="btn btn-default">
@@ -25,13 +24,20 @@
         <tbody>
             <tr>
                 <th>Othercopylocation</th>
-            <td>{{ otherCopyLocation.otherCopyLocation }}</td>
+                <td>{{ otherCopyLocation.otherCopyLocation }}</td>
             </tr>
             <tr>
                 <th>Copycount</th>
-            <td>{{ otherCopyLocation.copyCount }}</td>
-            </tr>
+                <td>{{ otherCopyLocation.copyCount }}</td>
+            </tr>        
+            <tr>
+                <th>Book</th>
+                <td>
+                    <a href="{{ path('book_show', { 'id': otherCopyLocation.book.id}) }}">
+                        {{ otherCopyLocation.book }}
+                    </a>
+                </td>
+            </tr>        
         </tbody>
     </table>
-
 {% endblock %}

@@ -5,7 +5,6 @@
  {% endblock %} 
 
 {% block body %}
-
     <div class="btn-toolbar">
     <div class="btn-group pull-right">
         <a href="{{ path('organization_index') }}" class="btn btn-default">
@@ -25,17 +24,28 @@
         <tbody>
             <tr>
                 <th>Organizationname</th>
-            <td>{{ organization.organizationName }}</td>
+                <td>{{ organization.organizationName }}</td>
             </tr>
             <tr>
                 <th>Organizationuri</th>
-            <td>{{ organization.organizationUri }}</td>
+                <td>{{ organization.organizationUri }}</td>
             </tr>
             <tr>
                 <th>Organizationnotes</th>
-            <td>{{ organization.organizationNotes }}</td>
-            </tr>
+                <td>{{ organization.organizationNotes }}</td>
+            </tr>        
         </tbody>
     </table>
-
+    {% if organization.contributions | length > 0 %}    
+    <h2>Contributions</h2>
+    <ul>
+        {% for contributions in organization.contributions %}
+        <li>
+            <a href="{{ path("contributions_show", {"id":contributions.id}) }}">
+                {{ contributions }}
+            </a>
+        </li>
+        {% endfor %} 
+    </ul>
+    {% endif %}
 {% endblock %}

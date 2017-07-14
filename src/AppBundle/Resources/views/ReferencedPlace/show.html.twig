@@ -5,7 +5,6 @@
  {% endblock %} 
 
 {% block body %}
-
     <div class="btn-toolbar">
     <div class="btn-group pull-right">
         <a href="{{ path('referenced_place_index') }}" class="btn btn-default">
@@ -25,9 +24,24 @@
         <tbody>
             <tr>
                 <th>Variantspelling</th>
-            <td>{{ referencedPlace.variantSpelling }}</td>
-            </tr>
+                <td>{{ referencedPlace.variantSpelling }}</td>
+            </tr>        
+            <tr>
+                <th>Book</th>
+                <td>
+                    <a href="{{ path('book_show', { 'id': referencedPlace.book.id}) }}">
+                        {{ referencedPlace.book }}
+                    </a>
+                </td>
+            </tr>        
+            <tr>
+                <th>Place</th>
+                <td>
+                    <a href="{{ path('place_show', { 'id': referencedPlace.place.id}) }}">
+                        {{ referencedPlace.place }}
+                    </a>
+                </td>
+            </tr>        
         </tbody>
     </table>
-
 {% endblock %}

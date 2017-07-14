@@ -5,7 +5,6 @@
  {% endblock %} 
 
 {% block body %}
-
     <div class="btn-toolbar">
     <div class="btn-group pull-right">
         <a href="{{ path('task_index') }}" class="btn btn-default">
@@ -25,9 +24,20 @@
         <tbody>
             <tr>
                 <th>Taskname</th>
-            <td>{{ task.taskName }}</td>
-            </tr>
+                <td>{{ task.taskName }}</td>
+            </tr>        
         </tbody>
     </table>
-
+    {% if task.contributions | length > 0 %}    
+    <h2>Contributions</h2>
+    <ul>
+        {% for contributions in task.contributions %}
+        <li>
+            <a href="{{ path("contributions_show", {"id":contributions.id}) }}">
+                {{ contributions }}
+            </a>
+        </li>
+        {% endfor %} 
+    </ul>
+    {% endif %}
 {% endblock %}

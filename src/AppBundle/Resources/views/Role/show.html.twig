@@ -5,7 +5,6 @@
  {% endblock %} 
 
 {% block body %}
-
     <div class="btn-toolbar">
     <div class="btn-group pull-right">
         <a href="{{ path('role_index') }}" class="btn btn-default">
@@ -25,9 +24,8 @@
         <tbody>
             <tr>
                 <th>Rolename</th>
-            <td>{{ role.roleName }}</td>
-            </tr>
+                <td>{{ role.roleName }}</td>
+            </tr>        
         </tbody>
     </table>
-
 {% endblock %}

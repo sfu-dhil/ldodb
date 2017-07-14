@@ -5,7 +5,6 @@
  {% endblock %} 
 
 {% block body %}
-
     <div class="btn-toolbar">
     <div class="btn-group pull-right">
         <a href="{{ path('people_index') }}" class="btn btn-default">
@@ -25,47 +24,47 @@
         <tbody>
             <tr>
                 <th>Lastname</th>
-            <td>{{ person.lastName }}</td>
+                <td>{{ person.lastName }}</td>
             </tr>
             <tr>
                 <th>Firstname</th>
-            <td>{{ person.firstName }}</td>
+                <td>{{ person.firstName }}</td>
             </tr>
             <tr>
                 <th>Otherlastname</th>
-            <td>{{ person.otherLastName }}</td>
+                <td>{{ person.otherLastName }}</td>
             </tr>
             <tr>
                 <th>Otherfirstname</th>
-            <td>{{ person.otherFirstName }}</td>
+                <td>{{ person.otherFirstName }}</td>
             </tr>
             <tr>
                 <th>Birthdate</th>
-            <td>{{ person.birthDate }}</td>
+                <td>{{ person.birthDate }}</td>
             </tr>
             <tr>
                 <th>Deathdate</th>
-            <td>{{ person.deathDate }}</td>
+                <td>{{ person.deathDate }}</td>
             </tr>
             <tr>
                 <th>Gender</th>
-            <td>{{ person.gender }}</td>
+                <td>{{ person.gender }}</td>
             </tr>
             <tr>
                 <th>Biographicalnotes</th>
-            <td>{{ person.biographicalNotes }}</td>
+                <td>{{ person.biographicalNotes }}</td>
             </tr>
             <tr>
                 <th>Biographicalannotation</th>
-            <td>{{ person.biographicalAnnotation }}</td>
+                <td>{{ person.biographicalAnnotation }}</td>
             </tr>
             <tr>
                 <th>Nationality</th>
-            <td>{{ person.nationality }}</td>
+                <td>{{ person.nationality }}</td>
             </tr>
             <tr>
                 <th>Peopleuri</th>
-            <td>{{ person.peopleUri }}</td>
+                <td>{{ person.peopleUri }}</td>
             </tr>
             <tr>
                 <th>Residentinld</th>
@@ -82,8 +81,83 @@
             <tr>
                 <th>Traveloutsideuk</th>
                 <td>{% if person.travelOutsideUk %}Yes{% else %}No{% endif %}</td>
-            </tr>
+            </tr>        
+            <tr>
+                <th>Birthplace</th>
+                <td>
+                    <a href="{{ path('birthPlace_show', { 'id': person.birthPlace.id}) }}">
+                        {{ person.birthPlace }}
+                    </a>
+                </td>
+            </tr>        
+            <tr>
+                <th>Deathplace</th>
+                <td>
+                    <a href="{{ path('deathPlace_show', { 'id': person.deathPlace.id}) }}">
+                        {{ person.deathPlace }}
+                    </a>
+                </td>
+            </tr>        
+            <tr>
+                <th>Travels</th>         
+                <td>
+                    {% if person.travels | length > 0 %}
+                    <ul>
+                        {% for travels in person.travels %}
+                        <li>
+                            <a href="{{ path("travels_show", {"id":travels.id}) }}">
+                                {{ travels }}
+                            </a>
+                        </li>
+                        {% endfor %} 
+                    </ul>
+                    {% endif %}
+                </td>
+            </tr>        
+            <tr>
+                <th>Residences</th>         
+                <td>
+                    {% if person.residences | length > 0 %}
+                    <ul>
+                        {% for residences in person.residences %}
+                        <li>
+                            <a href="{{ path("residences_show", {"id":residences.id}) }}">
+                                {{ residences }}
+                            </a>
+                        </li>
+                        {% endfor %} 
+                    </ul>
+                    {% endif %}
+                </td>
+            </tr>        
+            <tr>
+                <th>Roles</th>         
+                <td>
+                    {% if person.roles | length > 0 %}
+                    <ul>
+                        {% for roles in person.roles %}
+                        <li>
+                            <a href="{{ path("roles_show", {"id":roles.id}) }}">
+                                {{ roles }}
+                            </a>
+                        </li>
+                        {% endfor %} 
+                    </ul>
+                    {% endif %}
+                </td>
+            </tr>        
         </tbody>
     </table>
-
+    {% if person.contributions | length > 0 %}    
+    <h2>Contributions</h2>
+    <ul>
+        {% for contributions in person.contributions %}
+        <li>
+            <a href="{{ path("contributions_show", {"id":contributions.id}) }}">
+                {{ contributions }}
+            </a>
+        </li>
+        {% endfor %} 
+    </ul>
+    {% endif %}
 {% endblock %}

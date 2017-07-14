@@ -5,7 +5,6 @@
  {% endblock %} 
 
 {% block body %}
-
     <div class="btn-toolbar">
     <div class="btn-group pull-right">
         <a href="{{ path('subject_index') }}" class="btn btn-default">
@@ -25,13 +24,12 @@
         <tbody>
             <tr>
                 <th>Subjectname</th>
-            <td>{{ subject.subjectName }}</td>
+                <td>{{ subject.subjectName }}</td>
             </tr>
             <tr>
                 <th>Subjecturi</th>
-            <td>{{ subject.subjectUri }}</td>
-            </tr>
+                <td>{{ subject.subjectUri }}</td>
+            </tr>        
         </tbody>
     </table>
-
 {% endblock %}

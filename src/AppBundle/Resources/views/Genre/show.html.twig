@@ -5,7 +5,6 @@
  {% endblock %} 
 
 {% block body %}
-
     <div class="btn-toolbar">
     <div class="btn-group pull-right">
         <a href="{{ path('genre_index') }}" class="btn btn-default">
@@ -25,25 +24,24 @@
         <tbody>
             <tr>
                 <th>Genrename</th>
-            <td>{{ genre.genreName }}</td>
+                <td>{{ genre.genreName }}</td>
             </tr>
             <tr>
                 <th>Genresource</th>
-            <td>{{ genre.genreSource }}</td>
+                <td>{{ genre.genreSource }}</td>
             </tr>
             <tr>
                 <th>Genreusagenote</th>
-            <td>{{ genre.genreUsageNote }}</td>
+                <td>{{ genre.genreUsageNote }}</td>
             </tr>
             <tr>
                 <th>Genreuri</th>
-            <td>{{ genre.genreUri }}</td>
+                <td>{{ genre.genreUri }}</td>
             </tr>
             <tr>
                 <th>Broadertermid</th>
-            <td>{{ genre.broaderTermId }}</td>
-            </tr>
+                <td>{{ genre.broaderTermId }}</td>
+            </tr>        
         </tbody>
     </table>
-
 {% endblock %}

@@ -5,7 +5,6 @@
  {% endblock %} 
 
 {% block body %}
-
     <div class="btn-toolbar">
     <div class="btn-group pull-right">
         <a href="{{ path('book_index') }}" class="btn btn-default">
@@ -25,59 +24,59 @@
         <tbody>
             <tr>
                 <th>Filename</th>
-            <td>{{ book.fileName }}</td>
+                <td>{{ book.fileName }}</td>
             </tr>
             <tr>
                 <th>Callnumber</th>
-            <td>{{ book.callNumber }}</td>
+                <td>{{ book.callNumber }}</td>
             </tr>
             <tr>
                 <th>Title</th>
-            <td>{{ book.title }}</td>
+                <td>{{ book.title }}</td>
             </tr>
             <tr>
                 <th>Shorttitle</th>
-            <td>{{ book.shortTitle }}</td>
+                <td>{{ book.shortTitle }}</td>
             </tr>
             <tr>
                 <th>Seriestitle</th>
-            <td>{{ book.seriesTitle }}</td>
+                <td>{{ book.seriesTitle }}</td>
             </tr>
             <tr>
                 <th>Titlepagequotation</th>
-            <td>{{ book.titlePageQuotation }}</td>
+                <td>{{ book.titlePageQuotation }}</td>
             </tr>
             <tr>
                 <th>Dedication</th>
-            <td>{{ book.dedication }}</td>
+                <td>{{ book.dedication }}</td>
             </tr>
             <tr>
                 <th>Imprint</th>
-            <td>{{ book.imprint }}</td>
+                <td>{{ book.imprint }}</td>
             </tr>
             <tr>
                 <th>Edition</th>
-            <td>{{ book.edition }}</td>
+                <td>{{ book.edition }}</td>
             </tr>
             <tr>
                 <th>Publicationdate</th>
-            <td>{{ book.publicationDate }}</td>
+                <td>{{ book.publicationDate }}</td>
             </tr>
             <tr>
                 <th>Volumes</th>
-            <td>{{ book.volumes }}</td>
+                <td>{{ book.volumes }}</td>
             </tr>
             <tr>
                 <th>Pages</th>
-            <td>{{ book.pages }}</td>
+                <td>{{ book.pages }}</td>
             </tr>
             <tr>
                 <th>Copies</th>
-            <td>{{ book.copies }}</td>
+                <td>{{ book.copies }}</td>
             </tr>
             <tr>
                 <th>Sfucatorigbib</th>
-            <td>{{ book.sfuCatOrigBib }}</td>
+                <td>{{ book.sfuCatOrigBib }}</td>
             </tr>
             <tr>
                 <th>Originalbib</th>
@@ -85,15 +84,15 @@
             </tr>
             <tr>
                 <th>Bicknellnumber</th>
-            <td>{{ book.bicknellNumber }}</td>
+                <td>{{ book.bicknellNumber }}</td>
             </tr>
             <tr>
                 <th>Healeynumber</th>
-            <td>{{ book.healeyNumber }}</td>
+                <td>{{ book.healeyNumber }}</td>
             </tr>
             <tr>
                 <th>Reednumber</th>
-            <td>{{ book.reedNumber }}</td>
+                <td>{{ book.reedNumber }}</td>
             </tr>
             <tr>
                 <th>Publicdomain</th>
@@ -101,51 +100,51 @@
             </tr>
             <tr>
                 <th>Britishedition</th>
-            <td>{{ book.britishEdition }}</td>
+                <td>{{ book.britishEdition }}</td>
             </tr>
             <tr>
                 <th>Price</th>
-            <td>{{ book.price }}</td>
+                <td>{{ book.price }}</td>
             </tr>
             <tr>
                 <th>Printrun</th>
-            <td>{{ book.printRun }}</td>
+                <td>{{ book.printRun }}</td>
             </tr>
             <tr>
                 <th>Bookuri</th>
-            <td>{{ book.bookUri }}</td>
+                <td>{{ book.bookUri }}</td>
             </tr>
             <tr>
                 <th>Digitalobjecturl</th>
-            <td>{{ book.digitalObjectUrl }}</td>
+                <td>{{ book.digitalObjectUrl }}</td>
             </tr>
             <tr>
                 <th>Bibliographicnotes</th>
-            <td>{{ book.bibliographicNotes }}</td>
+                <td>{{ book.bibliographicNotes }}</td>
             </tr>
             <tr>
                 <th>Criticalannotation</th>
-            <td>{{ book.criticalAnnotation }}</td>
+                <td>{{ book.criticalAnnotation }}</td>
             </tr>
             <tr>
                 <th>Format</th>
-            <td>{{ book.format }}</td>
+                <td>{{ book.format }}</td>
             </tr>
             <tr>
                 <th>Platecount</th>
-            <td>{{ book.plateCount }}</td>
+                <td>{{ book.plateCount }}</td>
             </tr>
             <tr>
                 <th>Mapcount</th>
-            <td>{{ book.mapCount }}</td>
+                <td>{{ book.mapCount }}</td>
             </tr>
             <tr>
                 <th>Illustrations</th>
-            <td>{{ book.illustrations }}</td>
+                <td>{{ book.illustrations }}</td>
             </tr>
             <tr>
                 <th>Photographs</th>
-            <td>{{ book.photographs }}</td>
+                <td>{{ book.photographs }}</td>
             </tr>
             <tr>
                 <th>Tables</th>
@@ -153,9 +152,232 @@
             </tr>
             <tr>
                 <th>Bindingcolour</th>
-            <td>{{ book.bindingColour }}</td>
-            </tr>
+                <td>{{ book.bindingColour }}</td>
+            </tr>        
+            <tr>
+                <th>Genres</th>         
+                <td>
+                    {% if book.genres | length > 0 %}
+                    <ul>
+                        {% for genres in book.genres %}
+                        <li>
+                            <a href="{{ path("genres_show", {"id":genres.id}) }}">
+                                {{ genres }}
+                            </a>
+                        </li>
+                        {% endfor %} 
+                    </ul>
+                    {% endif %}
+                </td>
+            </tr>        
+            <tr>
+                <th>Referencedpeople</th>         
+                <td>
+                    {% if book.referencedPeople | length > 0 %}
+                    <ul>
+                        {% for referencedPeople in book.referencedPeople %}
+                        <li>
+                            <a href="{{ path("referencedPeople_show", {"id":referencedPeople.id}) }}">
+                                {{ referencedPeople }}
+                            </a>
+                        </li>
+                        {% endfor %} 
+                    </ul>
+                    {% endif %}
+                </td>
+            </tr>        
+            <tr>
+                <th>Platetypes</th>         
+                <td>
+                    {% if book.plateTypes | length > 0 %}
+                    <ul>
+                        {% for plateTypes in book.plateTypes %}
+                        <li>
+                            <a href="{{ path("plateTypes_show", {"id":plateTypes.id}) }}">
+                                {{ plateTypes }}
+                            </a>
+                        </li>
+                        {% endfor %} 
+                    </ul>
+                    {% endif %}
+                </td>
+            </tr>        
+            <tr>
+                <th>Maptypes</th>         
+                <td>
+                    {% if book.mapTypes | length > 0 %}
+                    <ul>
+                        {% for mapTypes in book.mapTypes %}
+                        <li>
+                            <a href="{{ path("mapTypes_show", {"id":mapTypes.id}) }}">
+                                {{ mapTypes }}
+                            </a>
+                        </li>
+                        {% endfor %} 
+                    </ul>
+                    {% endif %}
+                </td>
+            </tr>        
+            <tr>
+                <th>Subjects</th>         
+                <td>
+                    {% if book.subjects | length > 0 %}
+                    <ul>
+                        {% for subjects in book.subjects %}
+                        <li>
+                            <a href="{{ path("subjects_show", {"id":subjects.id}) }}">
+                                {{ subjects }}
+                            </a>
+                        </li>
+                        {% endfor %} 
+                    </ul>
+                    {% endif %}
+                </td>
+            </tr>        
+            <tr>
+                <th>Mapsizes</th>         
+                <td>
+                    {% if book.mapSizes | length > 0 %}
+                    <ul>
+                        {% for mapSizes in book.mapSizes %}
+                        <li>
+                            <a href="{{ path("mapSizes_show", {"id":mapSizes.id}) }}">
+                                {{ mapSizes }}
+                            </a>
+                        </li>
+                        {% endfor %} 
+                    </ul>
+                    {% endif %}
+                </td>
+            </tr>        
+            <tr>
+                <th>Subjectheadings</th>         
+                <td>
+                    {% if book.subjectHeadings | length > 0 %}
+                    <ul>
+                        {% for subjectHeadings in book.subjectHeadings %}
+                        <li>
+                            <a href="{{ path("subjectHeadings_show", {"id":subjectHeadings.id}) }}">
+                                {{ subjectHeadings }}
+                            </a>
+                        </li>
+                        {% endfor %} 
+                    </ul>
+                    {% endif %}
+                </td>
+            </tr>        
+            <tr>
+                <th>Bindingfeatures</th>         
+                <td>
+                    {% if book.bindingFeatures | length > 0 %}
+                    <ul>
+                        {% for bindingFeatures in book.bindingFeatures %}
+                        <li>
+                            <a href="{{ path("bindingFeatures_show", {"id":bindingFeatures.id}) }}">
+                                {{ bindingFeatures }}
+                            </a>
+                        </li>
+                        {% endfor %} 
+                    </ul>
+                    {% endif %}
+                </td>
+            </tr>        
+            <tr>
+                <th>Keywords</th>         
+                <td>
+                    {% if book.keywords | length > 0 %}
+                    <ul>
+                        {% for keywords in book.keywords %}
+                        <li>
+                            <a href="{{ path("keywords_show", {"id":keywords.id}) }}">
+                                {{ keywords }}
+                            </a>
+                        </li>
+                        {% endfor %} 
+                    </ul>
+                    {% endif %}
+                </td>
+            </tr>        
+            <tr>
+                <th>Digitalcopyholders</th>         
+                <td>
+                    {% if book.digitalCopyHolders | length > 0 %}
+                    <ul>
+                        {% for digitalCopyHolders in book.digitalCopyHolders %}
+                        <li>
+                            <a href="{{ path("digitalCopyHolders_show", {"id":digitalCopyHolders.id}) }}">
+                                {{ digitalCopyHolders }}
+                            </a>
+                        </li>
+                        {% endfor %} 
+                    </ul>
+                    {% endif %}
+                </td>
+            </tr>        
+            <tr>
+                <th>Publicationplaces</th>         
+                <td>
+                    {% if book.publicationPlaces | length > 0 %}
+                    <ul>
+                        {% for publicationPlaces in book.publicationPlaces %}
+                        <li>
+                            <a href="{{ path("publicationPlaces_show", {"id":publicationPlaces.id}) }}">
+                                {{ publicationPlaces }}
+                            </a>
+                        </li>
+                        {% endfor %} 
+                    </ul>
+                    {% endif %}
+                </td>
+            </tr>        
         </tbody>
     </table>
-
+    {% if book.otherNationalEditions | length > 0 %}    
+    <h2>Othernationaleditions</h2>
+    <ul>
+        {% for otherNationalEditions in book.otherNationalEditions %}
+        <li>
+            <a href="{{ path("otherNationalEditions_show", {"id":otherNationalEditions.id}) }}">
+                {{ otherNationalEditions }}
+            </a>
+        </li>
+        {% endfor %} 
+    </ul>
+    {% endif %}
+    {% if book.referencedPlaces | length > 0 %}    
+    <h2>Referencedplaces</h2>
+    <ul>
+        {% for referencedPlaces in book.referencedPlaces %}
+        <li>
+            <a href="{{ path("referencedPlaces_show", {"id":referencedPlaces.id}) }}">
+                {{ referencedPlaces }}
+            </a>
+        </li>
+        {% endfor %} 
+    </ul>
+    {% endif %}
+    {% if book.otherCopyLocations | length > 0 %}    
+    <h2>Othercopylocations</h2>
+    <ul>
+        {% for otherCopyLocations in book.otherCopyLocations %}
+        <li>
+            <a href="{{ path("otherCopyLocations_show", {"id":otherCopyLocations.id}) }}">
+                {{ otherCopyLocations }}
+            </a>
+        </li>
+        {% endfor %} 
+    </ul>
+    {% endif %}
+    {% if book.contributions | length > 0 %}    
+    <h2>Contributions</h2>
+    <ul>
+        {% for contributions in book.contributions %}
+        <li>
+            <a href="{{ path("contributions_show", {"id":contributions.id}) }}">
+                {{ contributions }}
+            </a>
+        </li>
+        {% endfor %} 
+    </ul>
+    {% endif %}
 {% endblock %}

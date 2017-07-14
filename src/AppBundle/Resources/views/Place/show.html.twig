@@ -5,7 +5,6 @@
  {% endblock %} 
 
 {% block body %}
-
     <div class="btn-toolbar">
     <div class="btn-group pull-right">
         <a href="{{ path('place_index') }}" class="btn btn-default">
@@ -25,11 +24,11 @@
         <tbody>
             <tr>
                 <th>Placename</th>
-            <td>{{ place.placeName }}</td>
+                <td>{{ place.placeName }}</td>
             </tr>
             <tr>
                 <th>Placeuri</th>
-            <td>{{ place.placeUri }}</td>
+                <td>{{ place.placeUri }}</td>
             </tr>
             <tr>
                 <th>Inlakedistrict</th>
@@ -37,21 +36,68 @@
             </tr>
             <tr>
                 <th>Latitude</th>
-            <td>{{ place.latitude }}</td>
+                <td>{{ place.latitude }}</td>
             </tr>
             <tr>
                 <th>Longitude</th>
-            <td>{{ place.longitude }}</td>
+                <td>{{ place.longitude }}</td>
             </tr>
             <tr>
                 <th>Regionid</th>
-            <td>{{ place.regionId }}</td>
+                <td>{{ place.regionId }}</td>
             </tr>
             <tr>
                 <th>Countryid</th>
-            <td>{{ place.countryId }}</td>
-            </tr>
+                <td>{{ place.countryId }}</td>
+            </tr>        
         </tbody>
     </table>
-
+    {% if place.otherNationalEditions | length > 0 %}    
+    <h2>Othernationaleditions</h2>
+    <ul>
+        {% for otherNationalEditions in place.otherNationalEditions %}
+        <li>
+            <a href="{{ path("otherNationalEditions_show", {"id":otherNationalEditions.id}) }}">
+                {{ otherNationalEditions }}
+            </a>
+        </li>
+        {% endfor %} 
+    </ul>
+    {% endif %}
+    {% if place.referencedPlaces | length > 0 %}    
+    <h2>Referencedplaces</h2>
+    <ul>
+        {% for referencedPlaces in place.referencedPlaces %}
+        <li>
+            <a href="{{ path("referencedPlaces_show", {"id":referencedPlaces.id}) }}">
+                {{ referencedPlaces }}
+            </a>
+        </li>
+        {% endfor %} 
+    </ul>
+    {% endif %}
+    {% if place.peopleBorn | length > 0 %}    
+    <h2>Peopleborn</h2>
+    <ul>
+        {% for peopleBorn in place.peopleBorn %}
+        <li>
+            <a href="{{ path("peopleBorn_show", {"id":peopleBorn.id}) }}">
+                {{ peopleBorn }}
+            </a>
+        </li>
+        {% endfor %} 
+    </ul>
+    {% endif %}
+    {% if place.peopleDied | length > 0 %}    
+    <h2>Peopledied</h2>
+    <ul>
+        {% for peopleDied in place.peopleDied %}
+        <li>
+            <a href="{{ path("peopleDied_show", {"id":peopleDied.id}) }}">
+                {{ peopleDied }}
+            </a>
+        </li>
+        {% endfor %} 
+    </ul>
+    {% endif %}
 {% endblock %}

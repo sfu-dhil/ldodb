@@ -5,7 +5,6 @@
  {% endblock %} 
 
 {% block body %}
-
     <div class="btn-toolbar">
     <div class="btn-group pull-right">
         <a href="{{ path('map_type_index') }}" class="btn btn-default">
@@ -25,13 +24,12 @@
         <tbody>
             <tr>
                 <th>Maptype</th>
-            <td>{{ mapType.mapType }}</td>
+                <td>{{ mapType.mapType }}</td>
             </tr>
             <tr>
                 <th>Maptypenotes</th>
-            <td>{{ mapType.mapTypeNotes }}</td>
-            </tr>
+                <td>{{ mapType.mapTypeNotes }}</td>
+            </tr>        
         </tbody>
     </table>
-
 {% endblock %}

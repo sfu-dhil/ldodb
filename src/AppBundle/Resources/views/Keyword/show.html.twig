@@ -5,7 +5,6 @@
  {% endblock %} 
 
 {% block body %}
-
     <div class="btn-toolbar">
     <div class="btn-group pull-right">
         <a href="{{ path('keyword_index') }}" class="btn btn-default">
@@ -25,13 +24,12 @@
         <tbody>
             <tr>
                 <th>Keyword</th>
-            <td>{{ keyword.keyword }}</td>
+                <td>{{ keyword.keyword }}</td>
             </tr>
             <tr>
                 <th>Preferredkeyword</th>
                 <td>{% if keyword.preferredKeyword %}Yes{% else %}No{% endif %}</td>
-            </tr>
+            </tr>        
         </tbody>
     </table>
-
 {% endblock %}

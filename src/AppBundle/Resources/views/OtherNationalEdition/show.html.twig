@@ -5,7 +5,6 @@
  {% endblock %} 
 
 {% block body %}
-
     <div class="btn-toolbar">
     <div class="btn-group pull-right">
         <a href="{{ path('other_national_edition_index') }}" class="btn btn-default">
@@ -25,9 +24,24 @@
         <tbody>
             <tr>
                 <th>Publicationdate</th>
-            <td>{{ otherNationalEdition.publicationDate }}</td>
-            </tr>
+                <td>{{ otherNationalEdition.publicationDate }}</td>
+            </tr>        
+            <tr>
+                <th>Book</th>
+                <td>
+                    <a href="{{ path('book_show', { 'id': otherNationalEdition.book.id}) }}">
+                        {{ otherNationalEdition.book }}
+                    </a>
+                </td>
+            </tr>        
+            <tr>
+                <th>Place</th>
+                <td>
+                    <a href="{{ path('place_show', { 'id': otherNationalEdition.place.id}) }}">
+                        {{ otherNationalEdition.place }}
+                    </a>
+                </td>
+            </tr>        
         </tbody>
     </table>
-
 {% endblock %}

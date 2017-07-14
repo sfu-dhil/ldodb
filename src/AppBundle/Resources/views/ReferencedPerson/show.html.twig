@@ -5,7 +5,6 @@
  {% endblock %} 
 
 {% block body %}
-
     <div class="btn-toolbar">
     <div class="btn-group pull-right">
         <a href="{{ path('referenced_person_index') }}" class="btn btn-default">
@@ -25,29 +24,28 @@
         <tbody>
             <tr>
                 <th>Lastname</th>
-            <td>{{ referencedPerson.lastName }}</td>
+                <td>{{ referencedPerson.lastName }}</td>
             </tr>
             <tr>
                 <th>Firstname</th>
-            <td>{{ referencedPerson.firstName }}</td>
+                <td>{{ referencedPerson.firstName }}</td>
             </tr>
             <tr>
                 <th>Birthdate</th>
-            <td>{{ referencedPerson.birthDate }}</td>
+                <td>{{ referencedPerson.birthDate }}</td>
             </tr>
             <tr>
                 <th>Deathdate</th>
-            <td>{{ referencedPerson.deathDate }}</td>
+                <td>{{ referencedPerson.deathDate }}</td>
             </tr>
             <tr>
                 <th>Sameaspeopleentityid</th>
-            <td>{{ referencedPerson.sameAsPeopleEntityId }}</td>
+                <td>{{ referencedPerson.sameAsPeopleEntityId }}</td>
             </tr>
             <tr>
                 <th>Referencedpersonuri</th>
-            <td>{{ referencedPerson.referencedPersonUri }}</td>
-            </tr>
+                <td>{{ referencedPerson.referencedPersonUri }}</td>
+            </tr>        
         </tbody>
     </table>
-
 {% endblock %}

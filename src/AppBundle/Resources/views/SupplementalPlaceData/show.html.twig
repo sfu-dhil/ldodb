@@ -5,7 +5,6 @@
  {% endblock %} 
 
 {% block body %}
-
     <div class="btn-toolbar">
     <div class="btn-group pull-right">
         <a href="{{ path('supplemental_place_data_index') }}" class="btn btn-default">
@@ -25,21 +24,20 @@
         <tbody>
             <tr>
                 <th>Geonameid</th>
-            <td>{{ supplementalPlaceDatum.geonameId }}</td>
+                <td>{{ supplementalPlaceDatum.geonameId }}</td>
             </tr>
             <tr>
                 <th>Geoname</th>
-            <td>{{ supplementalPlaceDatum.geoname }}</td>
+                <td>{{ supplementalPlaceDatum.geoname }}</td>
             </tr>
             <tr>
                 <th>Latitude</th>
-            <td>{{ supplementalPlaceDatum.latitude }}</td>
+                <td>{{ supplementalPlaceDatum.latitude }}</td>
             </tr>
             <tr>
                 <th>Longitude</th>
-            <td>{{ supplementalPlaceDatum.longitude }}</td>
-            </tr>
+                <td>{{ supplementalPlaceDatum.longitude }}</td>
+            </tr>        
         </tbody>
     </table>
-
 {% endblock %}
