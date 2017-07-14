@@ -739,7 +739,7 @@ class Book
      * @return Book
      */
     public function setOriginalBib($originalBib) {
-        $this->originalBib = $originalBib;
+        $this->originalBib = (bool)$originalBib;
 
         return $this;
     }
@@ -750,7 +750,7 @@ class Book
      * @return boolean
      */
     public function getOriginalBib() {
-        return $this->originalBib;
+        return (bool)$this->originalBib;
     }
 
     /**
@@ -827,7 +827,7 @@ class Book
      * @return Book
      */
     public function setPublicDomain($publicDomain) {
-        $this->publicDomain = $publicDomain;
+        $this->publicDomain = (bool)$publicDomain;
 
         return $this;
     }
@@ -838,7 +838,7 @@ class Book
      * @return boolean
      */
     public function getPublicDomain() {
-        return $this->publicDomain;
+        return (bool)$this->publicDomain;
     }
 
     /**
