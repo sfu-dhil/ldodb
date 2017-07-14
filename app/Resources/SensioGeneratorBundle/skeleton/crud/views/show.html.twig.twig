@@ -8,7 +8,6 @@
 
 {% block body %}
 {{ "{% block body %}" }}
-
     {% include 'crud/views/others/record_actions.html.twig.twig' %}
     <table class="table table-bordered table-condensed table-hover table-striped">
         <tbody>
@@ -39,16 +38,66 @@
 
             {%- else %}
 
-            <td>{{ '{{ ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' }}' }}</td>
+                <td>{{ '{{ ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' }}' }}</td>
 
             {%- endif %}
 
             </tr>
 
         {%- endfor %}
-
+        
+        {%- for field, association in associations if association['type'] == constant('Doctrine\\ORM\\Mapping\\ClassMetadataInfo::MANY_TO_ONE') %}
+        
+            <tr>
+                <th>{{ field|capitalize }}</th>
+                <td>
+                    <a href="{{ "{{ path('" ~ field ~ "_show', { 'id': " ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ '.' ~ identifier  ~ '}) }}' }}">
+                        {{ '{{ ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' }}' }}
+                    </a>
+                </td>
+            </tr>
+        
+        {%- endfor %}
+        
+        {%- for field, association in associations if association['type'] == constant('Doctrine\\ORM\\Mapping\\ClassMetadataInfo::MANY_TO_MANY') %}
+        
+            <tr>
+                <th>{{ field|capitalize }}</th>         
+                <td>
+                    {{ '{% if ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' | length > 0 %}' }}
+                    <ul>
+                        {{ '{% for ' ~ field ~ ' in ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' %}' }}
+                        <li>
+                            <a href="{{ '{{ path("' ~ field ~ '_show", {"id":' ~ field ~ '.' ~ identifier ~ '}) }}' }}">
+                                {{ '{{ ' ~ field ~ ' }}' }}
+                            </a>
+                        </li>
+                        {{ '{% endfor %} ' }}
+                    </ul>
+                    {{ '{% endif %}' }}
+                </td>
+            </tr>
+        {%- endfor %}
+        
         </tbody>
     </table>
+        
+    {%- for field, association in associations if association['type'] == constant('Doctrine\\ORM\\Mapping\\ClassMetadataInfo::ONE_TO_MANY') %}
+
+    {{ '{% if ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' | length > 0 %}' }}    
+    <h2>{{ field|capitalize }}</h2>
+    <ul>
+        {{ '{% for ' ~ field ~ ' in ' ~ entity_singularized ~ '.' ~ field|replace({'_': ''}) ~ ' %}' }}
+        <li>
+            <a href="{{ '{{ path("' ~ field ~ '_show", {"id":' ~ field ~ '.' ~ identifier ~ '}) }}' }}">
+                {{ '{{ ' ~ field ~ ' }}' }}
+            </a>
+        </li>
+        {{ '{% endfor %} ' }}
+    </ul>
+    {{ '{% endif %}' }}
+    
+    {%- endfor %}
 
 {% endblock body %}
 {{ "{% endblock %}" }}
