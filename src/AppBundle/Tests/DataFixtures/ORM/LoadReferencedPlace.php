@@ -2,23 +2,23 @@
 
 namespace AppBundle\Tests\DataFixtures\ORM;
 
-use AppBundle\Entity\BibliographicTerms;
+use AppBundle\Entity\ReferencedPlace;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class LoadBibliographicTerms extends AbstractFixture implements OrderedFixtureInterface { 
+class LoadReferencedPlace extends AbstractFixture implements OrderedFixtureInterface { 
 
     public function getOrder() {
         1;
     }
 
     public function load(ObjectManager $em) {
-        $object = new BibliographicTerms();
+        $object = new ReferencedPlace();
         // DO STUFF HERE.
         $em->persist($object);
         $em->flush();
-        $this->setReference('BibliographicTerms.1', $object);
+        $this->setReference('ReferencedPlace.1', $object);
     }
 
 }

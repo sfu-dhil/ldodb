@@ -3,7 +3,10 @@
 namespace {{ namespace }}\Tests\Controller{{ entity_namespace ? '\\' ~ entity_namespace : '' }};
 
 {% block use_statements %}
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use {{ namespace }}\Entity\{{ entity_class }};
+use {{ namespace }}\Tests\DataFixtures\ORM\Load{{ entity_class }};
+use Liip\FunctionalTestBundle\Test\WebTestCase;
+use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 {% endblock use_statements %}
 
 {% block class_definition %}
@@ -11,14 +14,20 @@ class {{ entity_class }}ControllerTest extends WebTestCase
 {% endblock class_definition %}
 {
 {% block class_body %}
-    /*
+
+    public function setUp() {
+        parent::setUp();
+        $this->loadFixtures([
+            LoadUsers::class,
+            Load{{ entity_class }}::class
+        ]);
+    }
+    
+{% include 'crud/tests/others/short_scenario.php.twig' -%}
 
 {%- if 'new' in actions %}
     {%- include 'crud/tests/others/full_scenario.php.twig' -%}
-{%- else %}
-    {%- include 'crud/tests/others/short_scenario.php.twig' -%}
 {%- endif %}
 
-    */
 {% endblock class_body %}
 }

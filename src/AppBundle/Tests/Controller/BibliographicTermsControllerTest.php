@@ -9,6 +9,7 @@ use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
 class BibliographicTermsControllerTest extends WebTestCase
 {
+
     public function setUp() {
         parent::setUp();
         $this->loadFixtures([
@@ -73,7 +74,6 @@ class BibliographicTermsControllerTest extends WebTestCase
         $this->assertEquals(1, $crawler->selectLink('Edit')->count());
         $this->assertEquals(1, $crawler->selectLink('Delete')->count());
     }
-    
     public function testAnonEdit() {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/bibliographic_term/1/edit');
@@ -98,14 +98,20 @@ class BibliographicTermsControllerTest extends WebTestCase
         ]);
         $formCrawler = $client->request('GET', '/bibliographic_term/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        
+        $this->markTestIncomplete(
+          'This test has not been implemented yet.'
+        );        
         $form = $formCrawler->selectButton('Update')->form([
-            'bibliographic_terms[bibliographicTerm]' => 'chicanery',
+            // DO STUFF HERE.
+            // 'bibliographic_terms[FIELDNAME]' => 'FIELDVALUE',
         ]);
+        
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/bibliographic_term/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertEquals(1, $responseCrawler->filter('td:contains("chicanery")')->count());
+        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
     }
     
     public function testAnonNew() {
@@ -132,14 +138,20 @@ class BibliographicTermsControllerTest extends WebTestCase
         ]);
         $formCrawler = $client->request('GET', '/bibliographic_term/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $form = $formCrawler->selectButton('Create')->form([
-            'bibliographic_terms[bibliographicTerm]' => 'chicanery',
+        
+        $this->markTestIncomplete(
+          'This test has not been implemented yet.'
+        );        
+        $form = $formCrawler->selectButton('Update')->form([
+            // DO STUFF HERE.
+            // 'bibliographic_terms[FIELDNAME]' => 'FIELDVALUE',
         ]);
+        
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertEquals(1, $responseCrawler->filter('td:contains("chicanery")')->count());
+        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
     }
     
     public function testAnonDelete() {

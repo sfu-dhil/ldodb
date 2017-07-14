@@ -2,23 +2,23 @@
 
 namespace AppBundle\Tests\DataFixtures\ORM;
 
-use AppBundle\Entity\BibliographicTerms;
+use AppBundle\Entity\OtherCopyLocation;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class LoadBibliographicTerms extends AbstractFixture implements OrderedFixtureInterface { 
+class LoadOtherCopyLocation extends AbstractFixture implements OrderedFixtureInterface { 
 
     public function getOrder() {
         1;
     }
 
     public function load(ObjectManager $em) {
-        $object = new BibliographicTerms();
+        $object = new OtherCopyLocation();
         // DO STUFF HERE.
         $em->persist($object);
         $em->flush();
-        $this->setReference('BibliographicTerms.1', $object);
+        $this->setReference('OtherCopyLocation.1', $object);
     }
 
 }
