@@ -42,6 +42,9 @@ class Contribution
      */
     private $task;
 
+    public function __toString() {
+        return $this->task . ' of ' . $this->book;
+    }
 
 
     /**
