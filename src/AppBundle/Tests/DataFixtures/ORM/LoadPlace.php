@@ -29,6 +29,7 @@ class LoadPlace extends AbstractFixture {
         $object->setLatitude(1);
         $object->setLongitude(2.3);
         $object->setInLakeDistrict(false);
+        $em->persist($object);
         $this->setReference('Place.2', $object);
         
         $object = new Place();
@@ -50,7 +51,9 @@ class LoadPlace extends AbstractFixture {
         $object->setLatitude(10);
         $object->setLongitude(20.3);
         $object->setInLakeDistrict(false);
+        $em->persist($object);
         $this->setReference('Place.4', $object);
+        
         $em->flush();
     }
 

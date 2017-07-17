@@ -153,4 +153,15 @@ class Organization extends Entity
     public function getContributions() {
         return $this->contributions;
     }
+
+    /**
+     * {@inheritdoc}
+     * 
+     * @return constant
+     */
+    public function getType() {
+        return Entity::ORG_TYPE;
+    }
+
+
 }

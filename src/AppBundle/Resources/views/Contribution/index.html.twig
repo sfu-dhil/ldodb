@@ -24,11 +24,20 @@
         
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
-            <tr>            </tr>
+            <tr>
+                <th>ID</th>
+                <th>Role</th>
+                <th>Book</th>
+                <th>Contributor</th>
+            </tr>
         </thead>
         <tbody>
         {% for contribution in contributions %}
             <tr>
+                <td><a href="{{ path('contribution_show', {'id': contribution.id }) }}">{{ contribution.id }}</a></td>
+                <td>{{ contribution.task }}</td>
+                <td>{{ contribution.book.title }}</td>
+                <td>{{ contribution.entity }}</td>
             </tr>
         {% endfor %}
         </tbody>

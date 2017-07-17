@@ -12,10 +12,19 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class SupplementalPlaceData
 {
+    
     /**
      * @var integer
      *
      * @ORM\Id
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\GeneratedValue()
+     */
+    private $id;
+    
+    /**
+     * @var integer
+     * 
      * @ORM\Column(name="geonameid", type="integer", nullable=false)
      */
     private $geonameId;
@@ -46,6 +55,14 @@ class SupplementalPlaceData
         return $this->geoname . ": " . $this->latitude . ',' . $this->longitude;
     }
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId() {
+        return $this->id;
+    }
 
     /**
      * Set geonameId

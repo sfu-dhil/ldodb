@@ -85,7 +85,7 @@
             <tr>
                 <th>Birthplace</th>
                 <td>
-                    <a href="{{ path('birthPlace_show', { 'id': person.birthPlace.id}) }}">
+                    <a href="{{ path('place_show', { 'id': person.birthPlace.id}) }}">
                         {{ person.birthPlace }}
                     </a>
                 </td>
@@ -93,7 +93,7 @@
             <tr>
                 <th>Deathplace</th>
                 <td>
-                    <a href="{{ path('deathPlace_show', { 'id': person.deathPlace.id}) }}">
+                    <a href="{{ path('place_show', { 'id': person.deathPlace.id}) }}">
                         {{ person.deathPlace }}
                     </a>
                 </td>
@@ -105,7 +105,7 @@
                     <ul>
                         {% for travels in person.travels %}
                         <li>
-                            <a href="{{ path("travels_show", {"id":travels.id}) }}">
+                            <a href="{{ path("place_show", {"id":travels.id}) }}">
                                 {{ travels }}
                             </a>
                         </li>
@@ -121,7 +121,7 @@
                     <ul>
                         {% for residences in person.residences %}
                         <li>
-                            <a href="{{ path("residences_show", {"id":residences.id}) }}">
+                            <a href="{{ path("place_show", {"id":residences.id}) }}">
                                 {{ residences }}
                             </a>
                         </li>
@@ -137,7 +137,7 @@
                     <ul>
                         {% for roles in person.roles %}
                         <li>
-                            <a href="{{ path("roles_show", {"id":roles.id}) }}">
+                            <a href="{{ path("role_show", {"id":roles.id}) }}">
                                 {{ roles }}
                             </a>
                         </li>
@@ -153,7 +153,7 @@
     <ul>
         {% for contributions in person.contributions %}
         <li>
-            <a href="{{ path("contributions_show", {"id":contributions.id}) }}">
+            <a href="{{ path("contribution_show", {"id":contributions.id}) }}">
                 {{ contributions }}
             </a>
         </li>

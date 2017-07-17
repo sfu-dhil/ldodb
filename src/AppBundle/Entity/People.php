@@ -111,28 +111,28 @@ class People extends Entity
      *
      * @ORM\Column(name="resident_in_LD", type="boolean", nullable=true, options={"default": false})
      */
-    private $residentInLd = '0';
+    private $residentInLd = false;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="resident_in_London", type="boolean", nullable=true, options={"default": false})
      */
-    private $residentInLondon = '0';
+    private $residentInLondon = false;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="resident_outside_UK", type="boolean", nullable=true, options={"default": false})
      */
-    private $residentOutsideUk = '0';
+    private $residentOutsideUk = false;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="travel_outside_UK", type="boolean", nullable=true, options={"default": false})
      */
-    private $travelOutsideUk = '0';
+    private $travelOutsideUk = false;
 
     /**
      * @var Collection|Place[]
@@ -429,7 +429,7 @@ class People extends Entity
      * @return People
      */
     public function setResidentInLd($residentInLd) {
-        $this->residentInLd = $residentInLd;
+        $this->residentInLd = (bool)$residentInLd;
 
         return $this;
     }
@@ -440,7 +440,7 @@ class People extends Entity
      * @return boolean
      */
     public function getResidentInLd() {
-        return $this->residentInLd;
+        return (bool)$this->residentInLd;
     }
 
     /**
@@ -451,7 +451,7 @@ class People extends Entity
      * @return People
      */
     public function setResidentInLondon($residentInLondon) {
-        $this->residentInLondon = $residentInLondon;
+        $this->residentInLondon = (bool)$residentInLondon;
 
         return $this;
     }
@@ -462,7 +462,7 @@ class People extends Entity
      * @return boolean
      */
     public function getResidentInLondon() {
-        return $this->residentInLondon;
+        return (bool)$this->residentInLondon;
     }
 
     /**
@@ -473,7 +473,7 @@ class People extends Entity
      * @return People
      */
     public function setResidentOutsideUk($residentOutsideUk) {
-        $this->residentOutsideUk = $residentOutsideUk;
+        $this->residentOutsideUk = (bool)$residentOutsideUk;
 
         return $this;
     }
@@ -484,7 +484,7 @@ class People extends Entity
      * @return boolean
      */
     public function getResidentOutsideUk() {
-        return $this->residentOutsideUk;
+        return (bool)$this->residentOutsideUk;
     }
 
     /**
@@ -495,7 +495,7 @@ class People extends Entity
      * @return People
      */
     public function setTravelOutsideUk($travelOutsideUk) {
-        $this->travelOutsideUk = $travelOutsideUk;
+        $this->travelOutsideUk = (bool)$travelOutsideUk;
 
         return $this;
     }
@@ -506,7 +506,7 @@ class People extends Entity
      * @return boolean
      */
     public function getTravelOutsideUk() {
-        return $this->travelOutsideUk;
+        return (bool)$this->travelOutsideUk;
     }
 
     /**
@@ -685,4 +685,14 @@ class People extends Entity
     public function getContributions() {
         return $this->contributions;
     }
+
+    /**
+     * {@inheritdoc}
+     * 
+     * @return constant
+     */
+    public function getType() {
+        return Entity::PER_TYPE;
+    }
+
 }

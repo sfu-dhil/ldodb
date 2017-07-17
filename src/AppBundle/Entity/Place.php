@@ -42,7 +42,7 @@ class Place
      *
      * @ORM\Column(name="in_lake_district", type="boolean", nullable=true, options={"default": false})
      */
-    private $inLakeDistrict = '0';
+    private $inLakeDistrict = false;
 
     /**
      * @var float
@@ -171,7 +171,7 @@ class Place
      * @return Place
      */
     public function setInLakeDistrict($inLakeDistrict) {
-        $this->inLakeDistrict = $inLakeDistrict;
+        $this->inLakeDistrict = (bool)$inLakeDistrict;
 
         return $this;
     }
@@ -182,7 +182,7 @@ class Place
      * @return boolean
      */
     public function getInLakeDistrict() {
-        return $this->inLakeDistrict;
+        return (bool)$this->inLakeDistrict;
     }
 
     /**

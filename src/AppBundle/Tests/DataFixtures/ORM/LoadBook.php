@@ -69,8 +69,9 @@ class LoadBook extends AbstractFixture implements DependentFixtureInterface {
         $object->addSubjectHeading($this->getReference('SubjectHeading.1'));
 
         $em->persist($object);
-        $em->flush();
         $this->setReference('Book.1', $object);
+        
+        $em->flush();
     }
 
 }

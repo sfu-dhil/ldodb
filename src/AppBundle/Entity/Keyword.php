@@ -33,7 +33,7 @@ class Keyword
      *
      * @ORM\Column(name="preferred_keyword", type="boolean", nullable=true, options={"default": 0})
      */
-    private $preferredKeyword = '0';
+    private $preferredKeyword = false;
 
 
     public function __toString() {
@@ -80,7 +80,7 @@ class Keyword
      * @return Keyword
      */
     public function setPreferredKeyword($preferredKeyword) {
-        $this->preferredKeyword = $preferredKeyword;
+        $this->preferredKeyword = (bool)$preferredKeyword;
 
         return $this;
     }
@@ -91,6 +91,6 @@ class Keyword
      * @return boolean
      */
     public function getPreferredKeyword() {
-        return $this->preferredKeyword;
+        return (bool)$this->preferredKeyword;
     }
 }

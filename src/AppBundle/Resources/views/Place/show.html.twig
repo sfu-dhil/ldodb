@@ -69,9 +69,10 @@
     <ul>
         {% for referencedPlaces in place.referencedPlaces %}
         <li>
-            <a href="{{ path("referencedPlaces_show", {"id":referencedPlaces.id}) }}">
-                {{ referencedPlaces }}
-            </a>
+            {% if referencedPlaces.variantSpelling %}
+                as <em>{{ referencedPlaces.variantSpelling }}</em>
+            {% endif %}
+                in {{ referencedPlaces.book }}.
         </li>
         {% endfor %} 
     </ul>
@@ -81,7 +82,7 @@
     <ul>
         {% for peopleBorn in place.peopleBorn %}
         <li>
-            <a href="{{ path("peopleBorn_show", {"id":peopleBorn.id}) }}">
+            <a href="{{ path("people_show", {"id":peopleBorn.id}) }}">
                 {{ peopleBorn }}
             </a>
         </li>
@@ -93,7 +94,7 @@
     <ul>
         {% for peopleDied in place.peopleDied %}
         <li>
-            <a href="{{ path("peopleDied_show", {"id":peopleDied.id}) }}">
+            <a href="{{ path("people_show", {"id":peopleDied.id}) }}">
                 {{ peopleDied }}
             </a>
         </li>
