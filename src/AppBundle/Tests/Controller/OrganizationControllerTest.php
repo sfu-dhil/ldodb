@@ -7,7 +7,7 @@ use AppBundle\Tests\DataFixtures\ORM\LoadOrganization;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
-class OrganizationControllerTest extends WebTestCase
+class OrganizationControllerTest extends \AppBundle\Tests\Util\BaseTestCase
 {
 
     public function setUp() {
@@ -173,8 +173,8 @@ class OrganizationControllerTest extends WebTestCase
 
     public function testAdminDelete() {
         self::bootKernel();
-        $em = static::$kernel->getContainer()->get('doctrine')->getManager();
-        $preCount = count($em->getRepository(Organization::class)->findAll());
+
+        $preCount = count($this->em->getRepository(Organization::class)->findAll());
         $client = $this->makeClient([
             'username' => 'admin@example.com',
             'password' => 'supersecret',
@@ -185,8 +185,8 @@ class OrganizationControllerTest extends WebTestCase
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $em->clear();
-        $postCount = count($em->getRepository(Organization::class)->findAll());
+        $this->em->clear();
+        $postCount = count($this->em->getRepository(Organization::class)->findAll());
         $this->assertEquals($preCount - 1, $postCount);
     }
 

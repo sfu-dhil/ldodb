@@ -7,7 +7,7 @@ use AppBundle\Tests\DataFixtures\ORM\LoadOtherNationalEdition;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
-class OtherNationalEditionControllerTest extends WebTestCase
+class OtherNationalEditionControllerTest extends \AppBundle\Tests\Util\BaseTestCase
 {
 
     public function setUp() {
@@ -173,8 +173,8 @@ class OtherNationalEditionControllerTest extends WebTestCase
 
     public function testAdminDelete() {
         self::bootKernel();
-        $em = static::$kernel->getContainer()->get('doctrine')->getManager();
-        $preCount = count($em->getRepository(OtherNationalEdition::class)->findAll());
+
+        $preCount = count($this->em->getRepository(OtherNationalEdition::class)->findAll());
         $client = $this->makeClient([
             'username' => 'admin@example.com',
             'password' => 'supersecret',
@@ -185,8 +185,8 @@ class OtherNationalEditionControllerTest extends WebTestCase
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $em->clear();
-        $postCount = count($em->getRepository(OtherNationalEdition::class)->findAll());
+        $this->em->clear();
+        $postCount = count($this->em->getRepository(OtherNationalEdition::class)->findAll());
         $this->assertEquals($preCount - 1, $postCount);
     }
 

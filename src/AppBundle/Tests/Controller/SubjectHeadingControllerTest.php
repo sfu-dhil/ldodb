@@ -7,7 +7,7 @@ use AppBundle\Tests\DataFixtures\ORM\LoadSubjectHeading;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
-class SubjectHeadingControllerTest extends WebTestCase
+class SubjectHeadingControllerTest extends \AppBundle\Tests\Util\BaseTestCase
 {
 
     public function setUp() {
@@ -99,19 +99,17 @@ class SubjectHeadingControllerTest extends WebTestCase
         $formCrawler = $client->request('GET', '/subject_heading/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
         $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'subject_headings[FIELDNAME]' => 'FIELDVALUE',
+            'subject_heading[subjectHeading]' => 'Salmon of the World',
+            'subject_heading[subjectHeadingUri]' => 'https://example.com/salmon',
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/subject_heading/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("Salmon of the World")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("https://example.com/salmon")')->count());
     }
     
     public function testAnonNew() {
@@ -139,19 +137,17 @@ class SubjectHeadingControllerTest extends WebTestCase
         $formCrawler = $client->request('GET', '/subject_heading/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
-        $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'subject_headings[FIELDNAME]' => 'FIELDVALUE',
+        $form = $formCrawler->selectButton('Create')->form([            
+            'subject_heading[subjectHeading]' => 'Salmon of the World',
+            'subject_heading[subjectHeadingUri]' => 'https://example.com/salmon',
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("Salmon of the World")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("https://example.com/salmon")')->count());
     }
     
     public function testAnonDelete() {
@@ -173,8 +169,8 @@ class SubjectHeadingControllerTest extends WebTestCase
 
     public function testAdminDelete() {
         self::bootKernel();
-        $em = static::$kernel->getContainer()->get('doctrine')->getManager();
-        $preCount = count($em->getRepository(SubjectHeading::class)->findAll());
+
+        $preCount = count($this->em->getRepository(SubjectHeading::class)->findAll());
         $client = $this->makeClient([
             'username' => 'admin@example.com',
             'password' => 'supersecret',
@@ -185,8 +181,8 @@ class SubjectHeadingControllerTest extends WebTestCase
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $em->clear();
-        $postCount = count($em->getRepository(SubjectHeading::class)->findAll());
+        $this->em->clear();
+        $postCount = count($this->em->getRepository(SubjectHeading::class)->findAll());
         $this->assertEquals($preCount - 1, $postCount);
     }
 

@@ -7,7 +7,7 @@ use AppBundle\Tests\DataFixtures\ORM\LoadBibliographicTerms;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
-class BibliographicTermsControllerTest extends WebTestCase
+class BibliographicTermsControllerTest extends \AppBundle\Tests\Util\BaseTestCase
 {
 
     public function setUp() {
@@ -173,8 +173,8 @@ class BibliographicTermsControllerTest extends WebTestCase
 
     public function testAdminDelete() {
         self::bootKernel();
-        $em = static::$kernel->getContainer()->get('doctrine')->getManager();
-        $preCount = count($em->getRepository(BibliographicTerms::class)->findAll());
+
+        $preCount = count($this->em->getRepository(BibliographicTerms::class)->findAll());
         $client = $this->makeClient([
             'username' => 'admin@example.com',
             'password' => 'supersecret',
@@ -185,8 +185,8 @@ class BibliographicTermsControllerTest extends WebTestCase
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $em->clear();
-        $postCount = count($em->getRepository(BibliographicTerms::class)->findAll());
+        $this->em->clear();
+        $postCount = count($this->em->getRepository(BibliographicTerms::class)->findAll());
         $this->assertEquals($preCount - 1, $postCount);
     }
 

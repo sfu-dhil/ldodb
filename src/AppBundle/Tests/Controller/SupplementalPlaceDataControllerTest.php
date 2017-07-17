@@ -7,7 +7,7 @@ use AppBundle\Tests\DataFixtures\ORM\LoadSupplementalPlaceData;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
-class SupplementalPlaceDataControllerTest extends WebTestCase
+class SupplementalPlaceDataControllerTest extends \AppBundle\Tests\Util\BaseTestCase
 {
 
     public function setUp() {
@@ -99,19 +99,21 @@ class SupplementalPlaceDataControllerTest extends WebTestCase
         $formCrawler = $client->request('GET', '/supplemental_place_data/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
         $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'supplemental_place_datas[FIELDNAME]' => 'FIELDVALUE',
+            'supplemental_place_data[geonameId]' => '120',
+            'supplemental_place_data[geoname]' => 'Catfish Creek',
+            'supplemental_place_data[latitude]' => 12.4,
+            'supplemental_place_data[longitude]' => 13.4,
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/supplemental_place_data/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("120")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("Catfish Creek")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("12.4")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("13.4")')->count());
     }
     
     public function testAnonNew() {
@@ -139,19 +141,21 @@ class SupplementalPlaceDataControllerTest extends WebTestCase
         $formCrawler = $client->request('GET', '/supplemental_place_data/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
-        $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'supplemental_place_datas[FIELDNAME]' => 'FIELDVALUE',
+        $form = $formCrawler->selectButton('Create')->form([
+            'supplemental_place_data[geonameId]' => '120',
+            'supplemental_place_data[geoname]' => 'Catfish Creek',
+            'supplemental_place_data[latitude]' => 12.4,
+            'supplemental_place_data[longitude]' => 13.4,
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("120")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("Catfish Creek")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("12.4")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("13.4")')->count());
     }
     
     public function testAnonDelete() {
@@ -173,8 +177,8 @@ class SupplementalPlaceDataControllerTest extends WebTestCase
 
     public function testAdminDelete() {
         self::bootKernel();
-        $em = static::$kernel->getContainer()->get('doctrine')->getManager();
-        $preCount = count($em->getRepository(SupplementalPlaceData::class)->findAll());
+
+        $preCount = count($this->em->getRepository(SupplementalPlaceData::class)->findAll());
         $client = $this->makeClient([
             'username' => 'admin@example.com',
             'password' => 'supersecret',
@@ -185,8 +189,8 @@ class SupplementalPlaceDataControllerTest extends WebTestCase
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $em->clear();
-        $postCount = count($em->getRepository(SupplementalPlaceData::class)->findAll());
+        $this->em->clear();
+        $postCount = count($this->em->getRepository(SupplementalPlaceData::class)->findAll());
         $this->assertEquals($preCount - 1, $postCount);
     }
 

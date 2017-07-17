@@ -7,7 +7,7 @@ use AppBundle\Tests\DataFixtures\ORM\LoadSubject;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
-class SubjectControllerTest extends WebTestCase
+class SubjectControllerTest extends \AppBundle\Tests\Util\BaseTestCase
 {
 
     public function setUp() {
@@ -98,20 +98,16 @@ class SubjectControllerTest extends WebTestCase
         ]);
         $formCrawler = $client->request('GET', '/subject/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
+
         $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'subjects[FIELDNAME]' => 'FIELDVALUE',
+            'subject[subjectName]' => 'corydoras',
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/subject/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("corydoras")')->count());
     }
     
     public function testAnonNew() {
@@ -139,19 +135,15 @@ class SubjectControllerTest extends WebTestCase
         $formCrawler = $client->request('GET', '/subject/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
-        $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'subjects[FIELDNAME]' => 'FIELDVALUE',
+        $form = $formCrawler->selectButton('Create')->form([
+            'subject[subjectName]' => 'corydoras',
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("corydoras")')->count());
     }
     
     public function testAnonDelete() {
@@ -173,8 +165,8 @@ class SubjectControllerTest extends WebTestCase
 
     public function testAdminDelete() {
         self::bootKernel();
-        $em = static::$kernel->getContainer()->get('doctrine')->getManager();
-        $preCount = count($em->getRepository(Subject::class)->findAll());
+
+        $preCount = count($this->em->getRepository(Subject::class)->findAll());
         $client = $this->makeClient([
             'username' => 'admin@example.com',
             'password' => 'supersecret',
@@ -185,8 +177,8 @@ class SubjectControllerTest extends WebTestCase
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $em->clear();
-        $postCount = count($em->getRepository(Subject::class)->findAll());
+        $this->em->clear();
+        $postCount = count($this->em->getRepository(Subject::class)->findAll());
         $this->assertEquals($preCount - 1, $postCount);
     }
 
