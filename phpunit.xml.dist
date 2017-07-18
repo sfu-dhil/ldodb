@@ -5,7 +5,7 @@
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.8/phpunit.xsd"
          backupGlobals="false"
          cacheTokens="false"
-         processIsolation="true"
+         processIsolation="false"
          colors="true"
          bootstrap="vendor/autoload.php">
     <php>
@@ -15,7 +15,7 @@
 
     <testsuites>
         <testsuite name="LDODB Test Suite">
-            <directory>tests</directory>
+            <directory>src/*/Tests</directory>
         </testsuite>
     </testsuites>
 

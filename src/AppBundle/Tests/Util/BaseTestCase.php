@@ -39,7 +39,7 @@ class BaseTestCase extends WebTestCase {
         
     }
 
-    public function tearDown() {
+    public function tearDown() {        
         parent::tearDown();
         $this->container = null;
         $this->em->clear();
@@ -55,6 +55,7 @@ class BaseTestCase extends WebTestCase {
         }
         static::$kernel->shutdown();
         gc_collect_cycles();
+        // fwrite(STDERR, sprintf(" %dM of %dM\n", memory_get_usage() / (1024 * 1024), ini_get('memory_limit')));
     }
 
 }
