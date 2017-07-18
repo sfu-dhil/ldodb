@@ -4,18 +4,17 @@ namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\ReferencedPlace;
 use AppBundle\Tests\DataFixtures\ORM\LoadReferencedPlace;
-use Liip\FunctionalTestBundle\Test\WebTestCase;
+use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
-class ReferencedPlaceControllerTest extends \AppBundle\Tests\Util\BaseTestCase
+class ReferencedPlaceControllerTest extends BaseTestCase
 {
 
-    public function setUp() {
-        parent::setUp();
-        $this->loadFixtures([
+    public function getFixtures() {
+        return [
             LoadUsers::class,
             LoadReferencedPlace::class
-        ]);
+        ];
     }
     
     public function testAnonIndex() {
@@ -99,19 +98,19 @@ class ReferencedPlaceControllerTest extends \AppBundle\Tests\Util\BaseTestCase
         $formCrawler = $client->request('GET', '/referenced_place/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
         $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'referenced_places[FIELDNAME]' => 'FIELDVALUE',
+            'referenced_place[variantSpelling]' => 'Icthyana',
+            'referenced_place[book]' => $this->fixtures->getReference('Book.1')->getId(),
+            'referenced_place[place]' => $this->fixtures->getReference('Place.1')->getId(),            
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/referenced_place/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("Icthyana")')->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->fixtures->getReference('Book.1')}')")->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->fixtures->getReference('Place.1')}')")->count());
     }
     
     public function testAnonNew() {
@@ -138,20 +137,20 @@ class ReferencedPlaceControllerTest extends \AppBundle\Tests\Util\BaseTestCase
         ]);
         $formCrawler = $client->request('GET', '/referenced_place/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
-        $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'referenced_places[FIELDNAME]' => 'FIELDVALUE',
+
+        $form = $formCrawler->selectButton('Create')->form([
+            'referenced_place[variantSpelling]' => 'Icthyana',
+            'referenced_place[book]' => $this->fixtures->getReference('Book.1')->getId(),
+            'referenced_place[place]' => $this->fixtures->getReference('Place.1')->getId(),            
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("Icthyana")')->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->fixtures->getReference('Book.1')}')")->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->fixtures->getReference('Place.1')}')")->count());
     }
     
     public function testAnonDelete() {

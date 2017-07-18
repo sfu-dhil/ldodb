@@ -5,6 +5,7 @@ namespace AppBundle\Tests\Util;
 use Doctrine\ORM\EntityManager;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use ReflectionObject;
+use Symfony\Component\DependencyInjection\Container;
 
 class BaseTestCase extends WebTestCase {
 
@@ -13,15 +14,29 @@ class BaseTestCase extends WebTestCase {
      */
     protected $em;
     
+    /**
+     * @var Container
+     */
     protected $container;
+    
+    /**
+     * @var ReferenceRepository 
+     */
+    protected $fixtures;
+    
+    protected function getFixtures() {
+        return array();
+    }
     
     public function setUp() {
         parent::setUp();
         self::bootKernel();
-        $this->container = static::$kernel->getContainer();
-        
+        $this->container = static::$kernel->getContainer();        
         $this->em = $this->container->get('doctrine')->getManager();
         $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
+        
+        $this->fixtures = $this->loadFixtures($this->getFixtures())->getReferenceRepository();
+        
     }
 
     public function tearDown() {

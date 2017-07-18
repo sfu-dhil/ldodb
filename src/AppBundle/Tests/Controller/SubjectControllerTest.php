@@ -10,12 +10,11 @@ use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 class SubjectControllerTest extends \AppBundle\Tests\Util\BaseTestCase
 {
 
-    public function setUp() {
-        parent::setUp();
-        $this->loadFixtures([
+    protected function getFixtures() {
+        return [
             LoadUsers::class,
             LoadSubject::class
-        ]);
+        ];
     }
     
     public function testAnonIndex() {

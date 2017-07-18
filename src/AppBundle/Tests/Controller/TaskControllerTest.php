@@ -10,12 +10,11 @@ use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 class TaskControllerTest extends BaseTestCase
 {
 
-    public function setUp() {
-        parent::setUp();
-        $this->loadFixtures([
+    protected function getFixtures() {
+        return [
             LoadUsers::class,
             LoadTask::class
-        ]);
+        ];
     }
     
     public function testAnonIndex() {

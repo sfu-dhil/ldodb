@@ -4,18 +4,17 @@ namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\BibliographicTerms;
 use AppBundle\Tests\DataFixtures\ORM\LoadBibliographicTerms;
-use Liip\FunctionalTestBundle\Test\WebTestCase;
+use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
-class BibliographicTermsControllerTest extends \AppBundle\Tests\Util\BaseTestCase
+class BibliographicTermsControllerTest extends BaseTestCase
 {
 
-    public function setUp() {
-        parent::setUp();
-        $this->loadFixtures([
+    protected function getFixtures() {
+        return [
             LoadUsers::class,
             LoadBibliographicTerms::class
-        ]);
+        ];
     }
     
     public function testAnonIndex() {

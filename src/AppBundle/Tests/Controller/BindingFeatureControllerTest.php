@@ -4,18 +4,17 @@ namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\BindingFeature;
 use AppBundle\Tests\DataFixtures\ORM\LoadBindingFeature;
-use Liip\FunctionalTestBundle\Test\WebTestCase;
+use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
-class BindingFeatureControllerTest extends \AppBundle\Tests\Util\BaseTestCase
+class BindingFeatureControllerTest extends BaseTestCase
 {
 
-    public function setUp() {
-        parent::setUp();
-        $this->loadFixtures([
+    protected function getFixtures() {
+        return [
             LoadUsers::class,
             LoadBindingFeature::class
-        ]);
+        ];
     }
     
     public function testAnonIndex() {

@@ -4,18 +4,17 @@ namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\People;
 use AppBundle\Tests\DataFixtures\ORM\LoadPeople;
-use Liip\FunctionalTestBundle\Test\WebTestCase;
+use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
-class PeopleControllerTest extends \AppBundle\Tests\Util\BaseTestCase
+class PeopleControllerTest extends BaseTestCase
 {
 
-    public function setUp() {
-        parent::setUp();
-        $this->loadFixtures([
+    protected function getFixtures() {
+        return [
             LoadUsers::class,
             LoadPeople::class
-        ]);
+        ];
     }
     
     public function testAnonIndex() {

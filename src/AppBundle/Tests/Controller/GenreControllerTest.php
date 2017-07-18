@@ -4,18 +4,17 @@ namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\Genre;
 use AppBundle\Tests\DataFixtures\ORM\LoadGenre;
-use Liip\FunctionalTestBundle\Test\WebTestCase;
+use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
-class GenreControllerTest extends \AppBundle\Tests\Util\BaseTestCase
+class GenreControllerTest extends BaseTestCase
 {
 
-    public function setUp() {
-        parent::setUp();
-        $this->loadFixtures([
+    protected function getFixtures() {
+        return [
             LoadUsers::class,
             LoadGenre::class
-        ]);
+        ];
     }
     
     public function testAnonIndex() {

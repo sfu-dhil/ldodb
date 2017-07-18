@@ -4,18 +4,17 @@ namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\Organization;
 use AppBundle\Tests\DataFixtures\ORM\LoadOrganization;
-use Liip\FunctionalTestBundle\Test\WebTestCase;
+use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
-class OrganizationControllerTest extends \AppBundle\Tests\Util\BaseTestCase
+class OrganizationControllerTest extends BaseTestCase
 {
 
-    public function setUp() {
-        parent::setUp();
-        $this->loadFixtures([
+    protected function getFixtures() {
+        return [
             LoadUsers::class,
             LoadOrganization::class
-        ]);
+        ];
     }
     
     public function testAnonIndex() {

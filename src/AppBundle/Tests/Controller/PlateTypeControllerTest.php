@@ -4,18 +4,17 @@ namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\PlateType;
 use AppBundle\Tests\DataFixtures\ORM\LoadPlateType;
-use Liip\FunctionalTestBundle\Test\WebTestCase;
+use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
-class PlateTypeControllerTest extends \AppBundle\Tests\Util\BaseTestCase
+class PlateTypeControllerTest extends BaseTestCase
 {
 
-    public function setUp() {
-        parent::setUp();
-        $this->loadFixtures([
+    protected function getFixtures() {
+        return [
             LoadUsers::class,
             LoadPlateType::class
-        ]);
+        ];
     }
     
     public function testAnonIndex() {

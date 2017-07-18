@@ -4,17 +4,16 @@ namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\Book;
 use AppBundle\Tests\DataFixtures\ORM\LoadBook;
-use Liip\FunctionalTestBundle\Test\WebTestCase;
+use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
-class BookControllerTest extends \AppBundle\Tests\Util\BaseTestCase {
+class BookControllerTest extends BaseTestCase {
 
-    public function setUp() {
-        parent::setUp();
-        $this->loadFixtures([
+    protected function getFixtures() {
+        return [
             LoadUsers::class,
             LoadBook::class,
-        ]);
+        ];
     }
 
     public function testAnonIndex() {

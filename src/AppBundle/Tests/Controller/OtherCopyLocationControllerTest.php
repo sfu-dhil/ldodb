@@ -4,18 +4,17 @@ namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\OtherCopyLocation;
 use AppBundle\Tests\DataFixtures\ORM\LoadOtherCopyLocation;
-use Liip\FunctionalTestBundle\Test\WebTestCase;
+use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
-class OtherCopyLocationControllerTest extends \AppBundle\Tests\Util\BaseTestCase
+class OtherCopyLocationControllerTest extends BaseTestCase
 {
 
-    public function setUp() {
-        parent::setUp();
-        $this->loadFixtures([
+    protected function getFixtures() {
+        return [
             LoadUsers::class,
             LoadOtherCopyLocation::class
-        ]);
+        ];
     }
     
     public function testAnonIndex() {

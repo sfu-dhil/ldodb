@@ -4,18 +4,17 @@ namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\DigitalCopyHolder;
 use AppBundle\Tests\DataFixtures\ORM\LoadDigitalCopyHolder;
-use Liip\FunctionalTestBundle\Test\WebTestCase;
+use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
-class DigitalCopyHolderControllerTest extends \AppBundle\Tests\Util\BaseTestCase
+class DigitalCopyHolderControllerTest extends BaseTestCase
 {
 
-    public function setUp() {
-        parent::setUp();
-        $this->loadFixtures([
+    protected function getFixtures() {
+        return [
             LoadUsers::class,
             LoadDigitalCopyHolder::class
-        ]);
+        ];
     }
     
     public function testAnonIndex() {

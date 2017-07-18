@@ -4,18 +4,17 @@ namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\Role;
 use AppBundle\Tests\DataFixtures\ORM\LoadRole;
-use Liip\FunctionalTestBundle\Test\WebTestCase;
+use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
-class RoleControllerTest extends \AppBundle\Tests\Util\BaseTestCase
+class RoleControllerTest extends BaseTestCase
 {
 
-    public function setUp() {
-        parent::setUp();
-        $this->loadFixtures([
+    protected function getFixtures() {
+        return [
             LoadUsers::class,
             LoadRole::class
-        ]);
+        ];
     }
     
     public function testAnonIndex() {
@@ -99,19 +98,15 @@ class RoleControllerTest extends \AppBundle\Tests\Util\BaseTestCase
         $formCrawler = $client->request('GET', '/role/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
         $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'roles[FIELDNAME]' => 'FIELDVALUE',
+            'role[roleName]' => 'Fish Fryer',
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/role/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("Fish Fryer")')->count());
     }
     
     public function testAnonNew() {
@@ -139,19 +134,15 @@ class RoleControllerTest extends \AppBundle\Tests\Util\BaseTestCase
         $formCrawler = $client->request('GET', '/role/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
-        $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'roles[FIELDNAME]' => 'FIELDVALUE',
+        $form = $formCrawler->selectButton('Create')->form([
+            'role[roleName]' => 'Fish Fryer',
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("Fish Fryer")')->count());
     }
     
     public function testAnonDelete() {

@@ -4,18 +4,17 @@ namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\ReferencedPerson;
 use AppBundle\Tests\DataFixtures\ORM\LoadReferencedPerson;
-use Liip\FunctionalTestBundle\Test\WebTestCase;
+use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
-class ReferencedPersonControllerTest extends \AppBundle\Tests\Util\BaseTestCase
+class ReferencedPersonControllerTest extends BaseTestCase
 {
 
-    public function setUp() {
-        parent::setUp();
-        $this->loadFixtures([
+    protected function getFixtures() {
+        return [
             LoadUsers::class,
             LoadReferencedPerson::class
-        ]);
+        ];
     }
     
     public function testAnonIndex() {

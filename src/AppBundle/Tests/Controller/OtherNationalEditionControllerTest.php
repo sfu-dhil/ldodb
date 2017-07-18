@@ -4,18 +4,17 @@ namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\OtherNationalEdition;
 use AppBundle\Tests\DataFixtures\ORM\LoadOtherNationalEdition;
-use Liip\FunctionalTestBundle\Test\WebTestCase;
+use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
-class OtherNationalEditionControllerTest extends \AppBundle\Tests\Util\BaseTestCase
+class OtherNationalEditionControllerTest extends BaseTestCase
 {
 
-    public function setUp() {
-        parent::setUp();
-        $this->loadFixtures([
+    protected function getFixtures() {
+        return [
             LoadUsers::class,
             LoadOtherNationalEdition::class
-        ]);
+        ];
     }
     
     public function testAnonIndex() {

@@ -4,18 +4,17 @@ namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\Keyword;
 use AppBundle\Tests\DataFixtures\ORM\LoadKeyword;
-use Liip\FunctionalTestBundle\Test\WebTestCase;
+use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
-class KeywordControllerTest extends \AppBundle\Tests\Util\BaseTestCase
+class KeywordControllerTest extends BaseTestCase
 {
 
-    public function setUp() {
-        parent::setUp();
-        $this->loadFixtures([
+    protected function getFixtures() {
+        return [
             LoadUsers::class,
             LoadKeyword::class
-        ]);
+        ];
     }
     
     public function testAnonIndex() {

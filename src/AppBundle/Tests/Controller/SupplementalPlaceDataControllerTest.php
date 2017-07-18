@@ -4,18 +4,17 @@ namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\SupplementalPlaceData;
 use AppBundle\Tests\DataFixtures\ORM\LoadSupplementalPlaceData;
-use Liip\FunctionalTestBundle\Test\WebTestCase;
+use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
-class SupplementalPlaceDataControllerTest extends \AppBundle\Tests\Util\BaseTestCase
+class SupplementalPlaceDataControllerTest extends BaseTestCase
 {
 
-    public function setUp() {
-        parent::setUp();
-        $this->loadFixtures([
+    protected function getFixtures() {
+        return [
             LoadUsers::class,
             LoadSupplementalPlaceData::class
-        ]);
+        ];
     }
     
     public function testAnonIndex() {

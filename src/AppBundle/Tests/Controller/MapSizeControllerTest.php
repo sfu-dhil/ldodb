@@ -4,18 +4,17 @@ namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\MapSize;
 use AppBundle\Tests\DataFixtures\ORM\LoadMapSize;
-use Liip\FunctionalTestBundle\Test\WebTestCase;
+use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
-class MapSizeControllerTest extends \AppBundle\Tests\Util\BaseTestCase
+class MapSizeControllerTest extends BaseTestCase
 {
 
-    public function setUp() {
-        parent::setUp();
-        $this->loadFixtures([
+    protected function getFixtures() {
+        return [
             LoadUsers::class,
             LoadMapSize::class
-        ]);
+        ];
     }
     
     public function testAnonIndex() {
