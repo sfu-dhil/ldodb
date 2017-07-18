@@ -2,6 +2,7 @@
 
 namespace AppBundle\Tests\Util;
 
+use Doctrine\Common\Cache\FilesystemCache;
 use Doctrine\ORM\EntityManager;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use ReflectionObject;
@@ -28,21 +29,25 @@ class BaseTestCase extends WebTestCase {
         return array();
     }
     
-    public function setUp() {
+    protected function setUp() {
         parent::setUp();
         self::bootKernel();
         $this->container = static::$kernel->getContainer();        
         $this->em = $this->container->get('doctrine')->getManager();
         $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
-        
         $this->fixtures = $this->loadFixtures($this->getFixtures())->getReferenceRepository();
-        
+    }
+    
+    protected function getReference($name) {
+        if($this->fixtures->hasReference($name)) {
+            return $this->fixtures->getReference($name);
+        }
+        return null;
     }
 
-    public function tearDown() {        
+    protected function tearDown() {        
         parent::tearDown();
         $this->container = null;
-        $this->em->clear();
         $this->em->close();
         $this->em = null;
         

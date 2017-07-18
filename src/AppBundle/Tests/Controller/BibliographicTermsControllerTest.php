@@ -98,19 +98,15 @@ class BibliographicTermsControllerTest extends BaseTestCase
         $formCrawler = $client->request('GET', '/bibliographic_term/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
         $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'bibliographic_terms[FIELDNAME]' => 'FIELDVALUE',
+            'bibliographic_terms[bibliographicTerm]' => 'Salmon',
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/bibliographic_term/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("Salmon")')->count());
     }
     
     public function testAnonNew() {
@@ -138,19 +134,15 @@ class BibliographicTermsControllerTest extends BaseTestCase
         $formCrawler = $client->request('GET', '/bibliographic_term/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
-        $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'bibliographic_terms[FIELDNAME]' => 'FIELDVALUE',
+        $form = $formCrawler->selectButton('Create')->form([
+            'bibliographic_terms[bibliographicTerm]' => 'Ling Code',
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("Ling Cod")')->count());
     }
     
     public function testAnonDelete() {

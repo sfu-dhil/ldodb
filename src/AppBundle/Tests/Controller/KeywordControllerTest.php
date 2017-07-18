@@ -98,19 +98,15 @@ class KeywordControllerTest extends BaseTestCase
         $formCrawler = $client->request('GET', '/keyword/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
         $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'keywords[FIELDNAME]' => 'FIELDVALUE',
+            'keyword[keyword]' => 'gills',
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/keyword/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("gills")')->count());
     }
     
     public function testAnonNew() {
@@ -138,19 +134,15 @@ class KeywordControllerTest extends BaseTestCase
         $formCrawler = $client->request('GET', '/keyword/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
-        $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'keywords[FIELDNAME]' => 'FIELDVALUE',
+        $form = $formCrawler->selectButton('Create')->form([
+            'keyword[keyword]' => 'gills',
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("gills")')->count());
     }
     
     public function testAnonDelete() {

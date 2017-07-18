@@ -62,3 +62,13 @@ div.checkbox, div.radio {
     border-bottom: none;
     padding-top: 0;
 }
+
+@media print {
+    .btn-toolbar {
+        display: none !important;
+    }
+    
+    a:after {
+        content: '' !important;
+    }
+}

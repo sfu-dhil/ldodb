@@ -98,19 +98,17 @@ class PlateTypeControllerTest extends BaseTestCase
         $formCrawler = $client->request('GET', '/plate_type/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
         $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'plate_types[FIELDNAME]' => 'FIELDVALUE',
+            'plate_type[plateType]' => 'China',
+            'plate_type[plateTypeNotes]' => 'Only for guests.',
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/plate_type/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("China")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("Only for guests.")')->count());
     }
     
     public function testAnonNew() {
@@ -138,19 +136,17 @@ class PlateTypeControllerTest extends BaseTestCase
         $formCrawler = $client->request('GET', '/plate_type/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
-        $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'plate_types[FIELDNAME]' => 'FIELDVALUE',
+        $form = $formCrawler->selectButton('Create')->form([
+            'plate_type[plateType]' => 'China',
+            'plate_type[plateTypeNotes]' => 'Only for guests.',
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("China")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("Only for guests.")')->count());
     }
     
     public function testAnonDelete() {

@@ -100,8 +100,8 @@ class ReferencedPlaceControllerTest extends BaseTestCase
         
         $form = $formCrawler->selectButton('Update')->form([
             'referenced_place[variantSpelling]' => 'Icthyana',
-            'referenced_place[book]' => $this->fixtures->getReference('Book.1')->getId(),
-            'referenced_place[place]' => $this->fixtures->getReference('Place.1')->getId(),            
+            'referenced_place[book]' => $this->getReference('Book.1')->getId(),
+            'referenced_place[place]' => $this->getReference('Place.1')->getId(),            
         ]);
         
         $client->submit($form);
@@ -109,8 +109,8 @@ class ReferencedPlaceControllerTest extends BaseTestCase
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(1, $responseCrawler->filter('td:contains("Icthyana")')->count());
-        $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->fixtures->getReference('Book.1')}')")->count());
-        $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->fixtures->getReference('Place.1')}')")->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->getReference('Book.1')}')")->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->getReference('Place.1')}')")->count());
     }
     
     public function testAnonNew() {
@@ -140,8 +140,8 @@ class ReferencedPlaceControllerTest extends BaseTestCase
 
         $form = $formCrawler->selectButton('Create')->form([
             'referenced_place[variantSpelling]' => 'Icthyana',
-            'referenced_place[book]' => $this->fixtures->getReference('Book.1')->getId(),
-            'referenced_place[place]' => $this->fixtures->getReference('Place.1')->getId(),            
+            'referenced_place[book]' => $this->getReference('Book.1')->getId(),
+            'referenced_place[place]' => $this->getReference('Place.1')->getId(),            
         ]);
         
         $client->submit($form);
@@ -149,8 +149,8 @@ class ReferencedPlaceControllerTest extends BaseTestCase
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(1, $responseCrawler->filter('td:contains("Icthyana")')->count());
-        $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->fixtures->getReference('Book.1')}')")->count());
-        $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->fixtures->getReference('Place.1')}')")->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->getReference('Book.1')}')")->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->getReference('Place.1')}')")->count());
     }
     
     public function testAnonDelete() {

@@ -98,19 +98,15 @@ class GenreControllerTest extends BaseTestCase
         $formCrawler = $client->request('GET', '/genre/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
         $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'genres[FIELDNAME]' => 'FIELDVALUE',
+            'genre[genreName]' => 'deep sea tales',
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/genre/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("deep sea tales")')->count());
     }
     
     public function testAnonNew() {
@@ -137,20 +133,16 @@ class GenreControllerTest extends BaseTestCase
         ]);
         $formCrawler = $client->request('GET', '/genre/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
-        $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'genres[FIELDNAME]' => 'FIELDVALUE',
+
+        $form = $formCrawler->selectButton('Create')->form([
+            'genre[genreName]' => 'deep sea tales',
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("deep sea tales")')->count());
     }
     
     public function testAnonDelete() {

@@ -98,19 +98,19 @@ class OtherCopyLocationControllerTest extends BaseTestCase
         $formCrawler = $client->request('GET', '/other_copy_location/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
         $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'other_copy_locations[FIELDNAME]' => 'FIELDVALUE',
+            'other_copy_location[otherCopyLocation]' => 'Chesterwick',
+            'other_copy_location[copyCount]' => 31826,
+            'other_copy_location[book]' => $this->getReference('Book.1')->getId(),
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/other_copy_location/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('Chesterwick')")->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('31826')")->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->getReference('Book.1')}')")->count());
     }
     
     public function testAnonNew() {
@@ -138,19 +138,19 @@ class OtherCopyLocationControllerTest extends BaseTestCase
         $formCrawler = $client->request('GET', '/other_copy_location/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
-        $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'other_copy_locations[FIELDNAME]' => 'FIELDVALUE',
+        $form = $formCrawler->selectButton('Create')->form([
+            'other_copy_location[otherCopyLocation]' => 'Chesterwick',
+            'other_copy_location[copyCount]' => 31826,
+            'other_copy_location[book]' => $this->getReference('Book.1')->getId(),
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('Chesterwick')")->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('31826')")->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->getReference('Book.1')}')")->count());
     }
     
     public function testAnonDelete() {

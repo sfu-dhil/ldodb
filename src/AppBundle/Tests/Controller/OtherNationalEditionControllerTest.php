@@ -98,19 +98,19 @@ class OtherNationalEditionControllerTest extends BaseTestCase
         $formCrawler = $client->request('GET', '/other_national_edition/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
         $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'other_national_editions[FIELDNAME]' => 'FIELDVALUE',
+            'other_national_edition[publicationDate]' => 1072,
+            'other_national_edition[book]' => $this->getReference('Book.1')->getId(),
+            'other_national_edition[place]' => $this->getReference('Place.3')->getId(),
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/other_national_edition/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('1072')")->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->getReference('Book.1')}')")->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->getReference('Place.3')}')")->count());
     }
     
     public function testAnonNew() {
@@ -138,19 +138,18 @@ class OtherNationalEditionControllerTest extends BaseTestCase
         $formCrawler = $client->request('GET', '/other_national_edition/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
-        $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'other_national_editions[FIELDNAME]' => 'FIELDVALUE',
+        $form = $formCrawler->selectButton('Create')->form([
+            'other_national_edition[publicationDate]' => 1072,
+            'other_national_edition[book]' => $this->getReference('Book.1')->getId(),
+            'other_national_edition[place]' => $this->getReference('Place.3')->getId(),
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('1072')")->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->getReference('Book.1')}')")->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->getReference('Place.3')}')")->count());
     }
     
     public function testAnonDelete() {

@@ -98,19 +98,15 @@ class MapTypeControllerTest extends BaseTestCase
         $formCrawler = $client->request('GET', '/map_type/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
         $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'map_types[FIELDNAME]' => 'FIELDVALUE',
+            'map_type[mapType]' => 'treasure',
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/map_type/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("treasure")')->count());
     }
     
     public function testAnonNew() {
@@ -138,19 +134,15 @@ class MapTypeControllerTest extends BaseTestCase
         $formCrawler = $client->request('GET', '/map_type/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
-        $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'map_types[FIELDNAME]' => 'FIELDVALUE',
+        $form = $formCrawler->selectButton('Create')->form([
+            'map_type[mapType]' => 'treasure',
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("treasure")')->count());
     }
     
     public function testAnonDelete() {

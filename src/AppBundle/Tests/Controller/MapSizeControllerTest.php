@@ -98,19 +98,15 @@ class MapSizeControllerTest extends BaseTestCase
         $formCrawler = $client->request('GET', '/map_size/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
         $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'map_sizes[FIELDNAME]' => 'FIELDVALUE',
+            'map_size[mapSize]' => 'teeny tiny',
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/map_size/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("teeny tiny")')->count());
     }
     
     public function testAnonNew() {
@@ -138,19 +134,15 @@ class MapSizeControllerTest extends BaseTestCase
         $formCrawler = $client->request('GET', '/map_size/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
-        $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'map_sizes[FIELDNAME]' => 'FIELDVALUE',
+        $form = $formCrawler->selectButton('Create')->form([
+            'map_size[mapSize]' => 'teeny tiny',
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("teeny tiny")')->count());
     }
     
     public function testAnonDelete() {

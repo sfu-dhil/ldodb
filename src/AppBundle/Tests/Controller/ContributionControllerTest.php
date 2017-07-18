@@ -98,19 +98,17 @@ class ContributionControllerTest extends BaseTestCase
         $formCrawler = $client->request('GET', '/contribution/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
         $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'contributions[FIELDNAME]' => 'FIELDVALUE',
+            'contribution[entity]' => $this->getReference('Organization.1')->getId(),
+            'contribution[task]' => $this->getReference('Task.1')->getId(),
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/contribution/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->getReference('Organization.1')}')")->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->getReference('Task.1')}')")->count());
     }
     
     public function testAnonNew() {
@@ -138,19 +136,19 @@ class ContributionControllerTest extends BaseTestCase
         $formCrawler = $client->request('GET', '/contribution/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
-        $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'contributions[FIELDNAME]' => 'FIELDVALUE',
+        $form = $formCrawler->selectButton('Create')->form([
+            'contribution[book]' => $this->getReference('Book.1')->getId(),
+            'contribution[entity]' => $this->getReference('Organization.1')->getId(),
+            'contribution[task]' => $this->getReference('Task.1')->getId(),
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->getReference('Book.1')}')")->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->getReference('Organization.1')}')")->count());
+        $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->getReference('Task.1')}')")->count());
     }
     
     public function testAnonDelete() {

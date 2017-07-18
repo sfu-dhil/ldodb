@@ -98,19 +98,15 @@ class BookControllerTest extends BaseTestCase {
         $formCrawler = $client->request('GET', '/book/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
         $form = $formCrawler->selectButton('Update')->form([
-                // DO STUFF HERE.
-                // 'books[FIELDNAME]' => 'FIELDVALUE',
+                'book[title]' => 'never nulls',
         ]);
 
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/book/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("never nulls")')->count());
     }
 
     public function testAnonNew() {
@@ -138,19 +134,15 @@ class BookControllerTest extends BaseTestCase {
         $formCrawler = $client->request('GET', '/book/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-        $form = $formCrawler->selectButton('Update')->form([
-                // DO STUFF HERE.
-                // 'books[FIELDNAME]' => 'FIELDVALUE',
+        $form = $formCrawler->selectButton('Create')->form([
+                'book[title]' => 'never nulls',
         ]);
 
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("never nulls")')->count());
     }
 
     public function testAnonDelete() {

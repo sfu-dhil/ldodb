@@ -98,19 +98,20 @@ class ReferencedPersonControllerTest extends BaseTestCase
         $formCrawler = $client->request('GET', '/referenced_person/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
         $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'referenced_persons[FIELDNAME]' => 'FIELDVALUE',
+            'referenced_person[lastName]' => 'Fish',
+            'referenced_person[firstName]' => 'Jim',
+            'referenced_person[birthDate]' => '1927',
+            'referenced_person[deathDate]' => '1927',
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/referenced_person/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("Fish")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("Jim")')->count());
+        $this->assertEquals(2, $responseCrawler->filter('td:contains("1927")')->count());
     }
     
     public function testAnonNew() {
@@ -138,19 +139,20 @@ class ReferencedPersonControllerTest extends BaseTestCase
         $formCrawler = $client->request('GET', '/referenced_person/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
-        $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'referenced_persons[FIELDNAME]' => 'FIELDVALUE',
+        $form = $formCrawler->selectButton('Create')->form([
+            'referenced_person[lastName]' => 'Fish',
+            'referenced_person[firstName]' => 'Jim',
+            'referenced_person[birthDate]' => '1927',
+            'referenced_person[deathDate]' => '1927',
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("Fish")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("Jim")')->count());
+        $this->assertEquals(2, $responseCrawler->filter('td:contains("1927")')->count());
     }
     
     public function testAnonDelete() {

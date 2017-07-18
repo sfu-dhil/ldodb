@@ -42,6 +42,8 @@ twig:
     form_themes:      
         - 'bootstrap_3_horizontal_layout.html.twig'
         - '@NinesUtilBundle/Form/fields.html.twig'
+    globals:
+        env: "%kernel.environment%"
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     paths:

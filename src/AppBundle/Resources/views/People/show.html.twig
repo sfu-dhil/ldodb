@@ -85,17 +85,21 @@
             <tr>
                 <th>Birthplace</th>
                 <td>
+                    {% if person.birthPlace is not null %}
                     <a href="{{ path('place_show', { 'id': person.birthPlace.id}) }}">
                         {{ person.birthPlace }}
                     </a>
+                    {% endif %}
                 </td>
             </tr>        
             <tr>
                 <th>Deathplace</th>
                 <td>
+                    {% if person.deathPlace is not null %}
                     <a href="{{ path('place_show', { 'id': person.deathPlace.id}) }}">
                         {{ person.deathPlace }}
                     </a>
+                    {% endif %}
                 </td>
             </tr>        
             <tr>

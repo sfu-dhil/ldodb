@@ -98,19 +98,15 @@ class DigitalCopyHolderControllerTest extends BaseTestCase
         $formCrawler = $client->request('GET', '/digital_copy_holder/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
         $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'digital_copy_holders[FIELDNAME]' => 'FIELDVALUE',
+            'digital_copy_holder[organizationName]' => 'Jimbos Fishing Thing',
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/digital_copy_holder/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("Jimbos Fishing Thing")')->count());
     }
     
     public function testAnonNew() {
@@ -138,19 +134,15 @@ class DigitalCopyHolderControllerTest extends BaseTestCase
         $formCrawler = $client->request('GET', '/digital_copy_holder/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );        
-        $form = $formCrawler->selectButton('Update')->form([
-            // DO STUFF HERE.
-            // 'digital_copy_holders[FIELDNAME]' => 'FIELDVALUE',
+        $form = $formCrawler->selectButton('Create')->form([
+            'digital_copy_holder[organizationName]' => 'Jimbos Fishing Thing',
         ]);
         
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        // $this->assertEquals(1, $responseCrawler->filter('td:contains("FIELDVALUE")')->count());
+        $this->assertEquals(1, $responseCrawler->filter('td:contains("Jimbos Fishing Thing")')->count());
     }
     
     public function testAnonDelete() {
