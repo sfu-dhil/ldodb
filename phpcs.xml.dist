@@ -4,6 +4,7 @@
 
     <file>src</file>
 	<exclude-pattern>src/Nines/*</exclude-pattern>
+	<exclude-pattern>src/*/Tests</exclude-pattern>
 
     <arg value="s" />
     <arg name='tab-width' value='4'/>
