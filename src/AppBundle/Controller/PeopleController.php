@@ -28,8 +28,9 @@ class PeopleController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $dql = 'SELECT e FROM AppBundle:People e ORDER BY e.id';
-        $query = $em->createQuery($dql);
+        $qb = $em->createQueryBuilder();
+        $qb->select('e')->from(People::class, 'e')->orderBy('e.id', 'ASC');
+        $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $people = $paginator->paginate($query, $request->query->getint('page', 1), 25);
 
@@ -137,7 +138,7 @@ class PeopleController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $person = new People();
-        $form = $this->createForm(AppBundle\Form\PeopleType::class, $person);
+        $form = $this->createForm(PeopleType::class, $person);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +187,7 @@ class PeopleController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm(AppBundle\Form\PeopleType::class, $person);
+        $editForm = $this->createForm(PeopleType::class, $person);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

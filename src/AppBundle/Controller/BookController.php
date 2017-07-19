@@ -28,8 +28,9 @@ class BookController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $dql = 'SELECT e FROM AppBundle:Book e ORDER BY e.id';
-        $query = $em->createQuery($dql);
+        $qb = $em->createQueryBuilder();
+        $qb->select('e')->from(Book::class, 'e')->orderBy('e.id', 'ASC');
+        $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $books = $paginator->paginate($query, $request->query->getint('page', 1), 25);
 
@@ -137,7 +138,7 @@ class BookController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $book = new Book();
-        $form = $this->createForm(AppBundle\Form\BookType::class, $book);
+        $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +187,7 @@ class BookController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm(AppBundle\Form\BookType::class, $book);
+        $editForm = $this->createForm(BookType::class, $book);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

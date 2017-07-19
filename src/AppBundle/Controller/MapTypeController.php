@@ -28,8 +28,9 @@ class MapTypeController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $dql = 'SELECT e FROM AppBundle:MapType e ORDER BY e.id';
-        $query = $em->createQuery($dql);
+        $qb = $em->createQueryBuilder();
+        $qb->select('e')->from(MapType::class, 'e')->orderBy('e.id', 'ASC');
+        $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $mapTypes = $paginator->paginate($query, $request->query->getint('page', 1), 25);
 
@@ -137,7 +138,7 @@ class MapTypeController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $mapType = new MapType();
-        $form = $this->createForm(AppBundle\Form\MapTypeType::class, $mapType);
+        $form = $this->createForm(MapTypeType::class, $mapType);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +187,7 @@ class MapTypeController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm(AppBundle\Form\MapTypeType::class, $mapType);
+        $editForm = $this->createForm(MapTypeType::class, $mapType);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

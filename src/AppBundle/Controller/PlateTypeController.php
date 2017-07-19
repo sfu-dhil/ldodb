@@ -28,8 +28,9 @@ class PlateTypeController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $dql = 'SELECT e FROM AppBundle:PlateType e ORDER BY e.id';
-        $query = $em->createQuery($dql);
+        $qb = $em->createQueryBuilder();
+        $qb->select('e')->from(PlateType::class, 'e')->orderBy('e.id', 'ASC');
+        $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $plateTypes = $paginator->paginate($query, $request->query->getint('page', 1), 25);
 
@@ -137,7 +138,7 @@ class PlateTypeController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $plateType = new PlateType();
-        $form = $this->createForm(AppBundle\Form\PlateTypeType::class, $plateType);
+        $form = $this->createForm(PlateTypeType::class, $plateType);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +187,7 @@ class PlateTypeController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm(AppBundle\Form\PlateTypeType::class, $plateType);
+        $editForm = $this->createForm(PlateTypeType::class, $plateType);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

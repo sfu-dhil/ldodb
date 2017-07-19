@@ -28,8 +28,9 @@ class SubjectHeadingController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $dql = 'SELECT e FROM AppBundle:SubjectHeading e ORDER BY e.id';
-        $query = $em->createQuery($dql);
+        $qb = $em->createQueryBuilder();
+        $qb->select('e')->from(SubjectHeading::class, 'e')->orderBy('e.id', 'ASC');
+        $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $subjectHeadings = $paginator->paginate($query, $request->query->getint('page', 1), 25);
 
@@ -137,7 +138,7 @@ class SubjectHeadingController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $subjectHeading = new SubjectHeading();
-        $form = $this->createForm(AppBundle\Form\SubjectHeadingType::class, $subjectHeading);
+        $form = $this->createForm(SubjectHeadingType::class, $subjectHeading);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +187,7 @@ class SubjectHeadingController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm(AppBundle\Form\SubjectHeadingType::class, $subjectHeading);
+        $editForm = $this->createForm(SubjectHeadingType::class, $subjectHeading);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

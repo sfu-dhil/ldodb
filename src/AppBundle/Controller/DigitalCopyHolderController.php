@@ -28,8 +28,9 @@ class DigitalCopyHolderController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $dql = 'SELECT e FROM AppBundle:DigitalCopyHolder e ORDER BY e.id';
-        $query = $em->createQuery($dql);
+        $qb = $em->createQueryBuilder();
+        $qb->select('e')->from(DigitalCopyHolder::class, 'e')->orderBy('e.id', 'ASC');
+        $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $digitalCopyHolders = $paginator->paginate($query, $request->query->getint('page', 1), 25);
 
@@ -137,7 +138,7 @@ class DigitalCopyHolderController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $digitalCopyHolder = new DigitalCopyHolder();
-        $form = $this->createForm(AppBundle\Form\DigitalCopyHolderType::class, $digitalCopyHolder);
+        $form = $this->createForm(DigitalCopyHolderType::class, $digitalCopyHolder);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +187,7 @@ class DigitalCopyHolderController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm(AppBundle\Form\DigitalCopyHolderType::class, $digitalCopyHolder);
+        $editForm = $this->createForm(DigitalCopyHolderType::class, $digitalCopyHolder);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

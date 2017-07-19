@@ -28,8 +28,9 @@ class ContributionController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $dql = 'SELECT e FROM AppBundle:Contribution e ORDER BY e.id';
-        $query = $em->createQuery($dql);
+        $qb = $em->createQueryBuilder();
+        $qb->select('e')->from(Contribution::class, 'e')->orderBy('e.id', 'ASC');
+        $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $contributions = $paginator->paginate($query, $request->query->getint('page', 1), 25);
 
@@ -137,7 +138,7 @@ class ContributionController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $contribution = new Contribution();
-        $form = $this->createForm(AppBundle\Form\ContributionType::class, $contribution);
+        $form = $this->createForm(ContributionType::class, $contribution);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +187,7 @@ class ContributionController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm(AppBundle\Form\ContributionType::class, $contribution);
+        $editForm = $this->createForm(ContributionType::class, $contribution);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

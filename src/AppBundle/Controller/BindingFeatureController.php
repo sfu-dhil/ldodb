@@ -28,8 +28,9 @@ class BindingFeatureController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $dql = 'SELECT e FROM AppBundle:BindingFeature e ORDER BY e.id';
-        $query = $em->createQuery($dql);
+        $qb = $em->createQueryBuilder();
+        $qb->select('e')->from(BindingFeature::class, 'e')->orderBy('e.id', 'ASC');
+        $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $bindingFeatures = $paginator->paginate($query, $request->query->getint('page', 1), 25);
 
@@ -137,7 +138,7 @@ class BindingFeatureController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $bindingFeature = new BindingFeature();
-        $form = $this->createForm(AppBundle\Form\BindingFeatureType::class, $bindingFeature);
+        $form = $this->createForm(BindingFeatureType::class, $bindingFeature);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +187,7 @@ class BindingFeatureController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm(AppBundle\Form\BindingFeatureType::class, $bindingFeature);
+        $editForm = $this->createForm(BindingFeatureType::class, $bindingFeature);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

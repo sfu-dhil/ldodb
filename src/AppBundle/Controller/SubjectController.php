@@ -28,8 +28,9 @@ class SubjectController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $dql = 'SELECT e FROM AppBundle:Subject e ORDER BY e.id';
-        $query = $em->createQuery($dql);
+        $qb = $em->createQueryBuilder();
+        $qb->select('e')->from(Subject::class, 'e')->orderBy('e.id', 'ASC');
+        $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $subjects = $paginator->paginate($query, $request->query->getint('page', 1), 25);
 
@@ -137,7 +138,7 @@ class SubjectController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $subject = new Subject();
-        $form = $this->createForm(AppBundle\Form\SubjectType::class, $subject);
+        $form = $this->createForm(SubjectType::class, $subject);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +187,7 @@ class SubjectController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm(AppBundle\Form\SubjectType::class, $subject);
+        $editForm = $this->createForm(SubjectType::class, $subject);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

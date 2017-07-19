@@ -23,7 +23,7 @@
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm({{ namespace }}\Form\{{ entity_class }}Type::class, ${{ entity_singularized }});
+        $editForm = $this->createForm({{ entity_class }}Type::class, ${{ entity_singularized }});
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

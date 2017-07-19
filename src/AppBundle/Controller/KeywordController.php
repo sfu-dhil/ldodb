@@ -28,8 +28,9 @@ class KeywordController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $dql = 'SELECT e FROM AppBundle:Keyword e ORDER BY e.id';
-        $query = $em->createQuery($dql);
+        $qb = $em->createQueryBuilder();
+        $qb->select('e')->from(Keyword::class, 'e')->orderBy('e.id', 'ASC');
+        $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $keywords = $paginator->paginate($query, $request->query->getint('page', 1), 25);
 
@@ -137,7 +138,7 @@ class KeywordController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $keyword = new Keyword();
-        $form = $this->createForm(AppBundle\Form\KeywordType::class, $keyword);
+        $form = $this->createForm(KeywordType::class, $keyword);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +187,7 @@ class KeywordController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm(AppBundle\Form\KeywordType::class, $keyword);
+        $editForm = $this->createForm(KeywordType::class, $keyword);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

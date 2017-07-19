@@ -28,8 +28,9 @@ class OrganizationController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $dql = 'SELECT e FROM AppBundle:Organization e ORDER BY e.id';
-        $query = $em->createQuery($dql);
+        $qb = $em->createQueryBuilder();
+        $qb->select('e')->from(Organization::class, 'e')->orderBy('e.id', 'ASC');
+        $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $organizations = $paginator->paginate($query, $request->query->getint('page', 1), 25);
 
@@ -137,7 +138,7 @@ class OrganizationController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $organization = new Organization();
-        $form = $this->createForm(AppBundle\Form\OrganizationType::class, $organization);
+        $form = $this->createForm(OrganizationType::class, $organization);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +187,7 @@ class OrganizationController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm(AppBundle\Form\OrganizationType::class, $organization);
+        $editForm = $this->createForm(OrganizationType::class, $organization);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

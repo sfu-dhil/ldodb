@@ -28,8 +28,9 @@ class OtherCopyLocationController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $dql = 'SELECT e FROM AppBundle:OtherCopyLocation e ORDER BY e.id';
-        $query = $em->createQuery($dql);
+        $qb = $em->createQueryBuilder();
+        $qb->select('e')->from(OtherCopyLocation::class, 'e')->orderBy('e.id', 'ASC');
+        $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $otherCopyLocations = $paginator->paginate($query, $request->query->getint('page', 1), 25);
 
@@ -137,7 +138,7 @@ class OtherCopyLocationController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $otherCopyLocation = new OtherCopyLocation();
-        $form = $this->createForm(AppBundle\Form\OtherCopyLocationType::class, $otherCopyLocation);
+        $form = $this->createForm(OtherCopyLocationType::class, $otherCopyLocation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +187,7 @@ class OtherCopyLocationController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm(AppBundle\Form\OtherCopyLocationType::class, $otherCopyLocation);
+        $editForm = $this->createForm(OtherCopyLocationType::class, $otherCopyLocation);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
