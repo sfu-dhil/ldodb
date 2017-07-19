@@ -5,22 +5,21 @@ namespace {{ namespace }}\Tests\Controller{{ entity_namespace ? '\\' ~ entity_na
 {% block use_statements %}
 use {{ namespace }}\Entity\{{ entity_class }};
 use {{ namespace }}\Tests\DataFixtures\ORM\Load{{ entity_class }};
-use Liip\FunctionalTestBundle\Test\WebTestCase;
+use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 {% endblock use_statements %}
 
 {% block class_definition %}
-class {{ entity_class }}ControllerTest extends WebTestCase
+class {{ entity_class }}ControllerTest extends BaseTestCase
 {% endblock class_definition %}
 {
 {% block class_body %}
 
-    public function setUp() {
-        parent::setUp();
-        $this->loadFixtures([
+    protected function getFixtures() {
+        return [
             LoadUsers::class,
             Load{{ entity_class }}::class
-        ]);
+        ];
     }
     
 {% include 'crud/tests/others/short_scenario.php.twig' -%}
