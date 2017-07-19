@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * OtherCopyLocation
  *
  * @ORM\Table(name="other_copy_location")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\OtherCopyLocationRepository")
  */
 class OtherCopyLocation
 {

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * DigitalCopyHolder
  *
  * @ORM\Table(name="digital_copy_holder")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\DigitalCopyHolderRepository")
  */
 class DigitalCopyHolder
 {

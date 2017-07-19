@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * MapSize
  *
  * @ORM\Table(name="map_size")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\MapSizeRepository")
  */
 class MapSize
 {

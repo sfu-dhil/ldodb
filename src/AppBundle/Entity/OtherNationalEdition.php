@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * OtherNationalEdition
  *
  * @ORM\Table(name="other_national_edition")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\OtherNationalEditionRepository")
  */
 class OtherNationalEdition
 {

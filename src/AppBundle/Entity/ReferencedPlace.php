@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ReferencedPlace
  *
  * @ORM\Table(name="referenced_place")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ReferencedPlaceRepository")
  */
 class ReferencedPlace
 {

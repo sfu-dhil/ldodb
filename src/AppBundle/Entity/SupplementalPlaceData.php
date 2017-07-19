@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * SupplementalPlaceData
  *
  * @ORM\Table(name="supplemental_place_data")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\SupplementalPlaceDataRepository")
  */
 class SupplementalPlaceData
 {

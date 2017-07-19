@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * BibliographicTerms
  *
  * @ORM\Table(name="bibliographic_terms")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\BibliographicTermsRepository")
  */
 class BibliographicTerms
 {

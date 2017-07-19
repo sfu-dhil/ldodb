@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * SubjectHeading
  *
  * @ORM\Table(name="subject_heading")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\SubjectHeadingRepository")
  */
 class SubjectHeading
 {

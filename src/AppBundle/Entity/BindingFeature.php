@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * BindingFeature
  *
  * @ORM\Table(name="binding_feature")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\BindingFeatureRepository")
  */
 class BindingFeature
 {

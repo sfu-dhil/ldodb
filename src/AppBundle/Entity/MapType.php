@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * MapType
  *
  * @ORM\Table(name="map_type")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\MapTypeRepository")
  */
 class MapType
 {
