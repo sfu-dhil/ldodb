@@ -16,7 +16,8 @@ class PlateTypeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {    
         $builder->add('plateType');     
-        $builder->add('plateTypeNotes');         
+        $builder->add('plateTypeNotes');     
+        $builder->add('books');         
     }
     
     /**

@@ -16,7 +16,8 @@ class SubjectType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {    
         $builder->add('subjectName');     
-        $builder->add('subjectUri');         
+        $builder->add('subjectUri');     
+        $builder->add('books');         
     }
     
     /**

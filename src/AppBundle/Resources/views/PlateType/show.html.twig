@@ -32,6 +32,22 @@
                 <th>Platetypenotes</th>
                 <td>{{ plateType.plateTypeNotes }}</td>
             </tr>        
+            <tr>
+                <th>Books</th>         
+                <td>
+                    {% if plateType.books | length > 0 %}
+                    <ul>
+                        {% for books in plateType.books %}
+                        <li>
+                            <a href="{{ path("book_show", {"id":books.id}) }}">
+                                {{ books }}
+                            </a>
+                        </li>
+                        {% endfor %} 
+                    </ul>
+                    {% endif %}
+                </td>
+            </tr>        
         </tbody>
     </table>
 {% endblock %}

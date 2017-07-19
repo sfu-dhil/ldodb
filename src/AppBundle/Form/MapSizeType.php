@@ -16,7 +16,8 @@ class MapSizeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {    
         $builder->add('mapSize');     
-        $builder->add('mapSizeNotes');         
+        $builder->add('mapSizeNotes');     
+        $builder->add('books');         
     }
     
     /**

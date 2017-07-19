@@ -28,6 +28,22 @@
                 <th>Organizationname</th>
                 <td>{{ digitalCopyHolder.organizationName }}</td>
             </tr>        
+            <tr>
+                <th>Books</th>         
+                <td>
+                    {% if digitalCopyHolder.books | length > 0 %}
+                    <ul>
+                        {% for books in digitalCopyHolder.books %}
+                        <li>
+                            <a href="{{ path("book_show", {"id":books.id}) }}">
+                                {{ books }}
+                            </a>
+                        </li>
+                        {% endfor %} 
+                    </ul>
+                    {% endif %}
+                </td>
+            </tr>        
         </tbody>
     </table>
 {% endblock %}

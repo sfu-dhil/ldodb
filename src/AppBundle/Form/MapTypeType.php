@@ -16,7 +16,8 @@ class MapTypeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {    
         $builder->add('mapType');     
-        $builder->add('mapTypeNotes');         
+        $builder->add('mapTypeNotes');     
+        $builder->add('books');         
     }
     
     /**

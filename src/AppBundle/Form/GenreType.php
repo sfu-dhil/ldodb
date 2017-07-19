@@ -19,7 +19,8 @@ class GenreType extends AbstractType
         $builder->add('genreSource');     
         $builder->add('genreUsageNote');     
         $builder->add('genreUri');     
-        $builder->add('broaderTermId');         
+        $builder->add('broaderTermId');     
+        $builder->add('books');         
     }
     
     /**

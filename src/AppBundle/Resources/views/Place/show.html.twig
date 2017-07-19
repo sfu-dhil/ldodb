@@ -52,6 +52,22 @@
                 <th>Countryid</th>
                 <td>{{ place.countryId }}</td>
             </tr>        
+            <tr>
+                <th>Books</th>         
+                <td>
+                    {% if place.books | length > 0 %}
+                    <ul>
+                        {% for books in place.books %}
+                        <li>
+                            <a href="{{ path("book_show", {"id":books.id}) }}">
+                                {{ books }}
+                            </a>
+                        </li>
+                        {% endfor %} 
+                    </ul>
+                    {% endif %}
+                </td>
+            </tr>        
         </tbody>
     </table>
     {% if place.otherNationalEditions | length > 0 %}    

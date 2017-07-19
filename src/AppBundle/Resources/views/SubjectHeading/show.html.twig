@@ -32,6 +32,22 @@
                 <th>Subjectheadinguri</th>
                 <td>{{ subjectHeading.subjectHeadingUri }}</td>
             </tr>        
+            <tr>
+                <th>Books</th>         
+                <td>
+                    {% if subjectHeading.books | length > 0 %}
+                    <ul>
+                        {% for books in subjectHeading.books %}
+                        <li>
+                            <a href="{{ path("book_show", {"id":books.id}) }}">
+                                {{ books }}
+                            </a>
+                        </li>
+                        {% endfor %} 
+                    </ul>
+                    {% endif %}
+                </td>
+            </tr>        
         </tbody>
     </table>
 {% endblock %}

@@ -21,7 +21,8 @@ class PlaceType extends AbstractType
         $builder->add('latitude');     
         $builder->add('longitude');     
         $builder->add('regionId');     
-        $builder->add('countryId');         
+        $builder->add('countryId');     
+        $builder->add('books');         
     }
     
     /**

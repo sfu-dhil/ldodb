@@ -20,7 +20,8 @@ class ReferencedPersonType extends AbstractType
         $builder->add('birthDate');     
         $builder->add('deathDate');     
         $builder->add('sameAsPeopleEntityId');     
-        $builder->add('referencedPersonUri');         
+        $builder->add('referencedPersonUri');     
+        $builder->add('books');         
     }
     
     /**

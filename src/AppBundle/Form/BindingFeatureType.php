@@ -16,7 +16,8 @@ class BindingFeatureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {    
         $builder->add('bindingFeature');     
-        $builder->add('bindingFeatureNotes');         
+        $builder->add('bindingFeatureNotes');     
+        $builder->add('books');         
     }
     
     /**

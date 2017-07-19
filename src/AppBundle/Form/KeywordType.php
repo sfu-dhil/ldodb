@@ -16,7 +16,8 @@ class KeywordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {    
         $builder->add('keyword');     
-        $builder->add('preferredKeyword');         
+        $builder->add('preferredKeyword');     
+        $builder->add('books');         
     }
     
     /**

@@ -16,7 +16,8 @@ class SubjectHeadingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {    
         $builder->add('subjectHeading');     
-        $builder->add('subjectHeadingUri');         
+        $builder->add('subjectHeadingUri');     
+        $builder->add('books');         
     }
     
     /**

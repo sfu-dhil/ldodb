@@ -32,6 +32,22 @@
                 <th>Mapsizenotes</th>
                 <td>{{ mapSize.mapSizeNotes }}</td>
             </tr>        
+            <tr>
+                <th>Books</th>         
+                <td>
+                    {% if mapSize.books | length > 0 %}
+                    <ul>
+                        {% for books in mapSize.books %}
+                        <li>
+                            <a href="{{ path("book_show", {"id":books.id}) }}">
+                                {{ books }}
+                            </a>
+                        </li>
+                        {% endfor %} 
+                    </ul>
+                    {% endif %}
+                </td>
+            </tr>        
         </tbody>
     </table>
 {% endblock %}
