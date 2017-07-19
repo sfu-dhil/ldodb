@@ -137,7 +137,7 @@ class OrganizationController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $organization = new Organization();
-        $form = $this->createForm('AppBundle\Form\OrganizationType', $organization);
+        $form = $this->createForm(AppBundle\Form\OrganizationType::class, $organization);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +186,7 @@ class OrganizationController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm('AppBundle\Form\OrganizationType', $organization);
+        $editForm = $this->createForm(AppBundle\Form\OrganizationType::class, $organization);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

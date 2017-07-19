@@ -137,7 +137,7 @@ class OtherNationalEditionController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $otherNationalEdition = new OtherNationalEdition();
-        $form = $this->createForm('AppBundle\Form\OtherNationalEditionType', $otherNationalEdition);
+        $form = $this->createForm(AppBundle\Form\OtherNationalEditionType::class, $otherNationalEdition);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +186,7 @@ class OtherNationalEditionController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm('AppBundle\Form\OtherNationalEditionType', $otherNationalEdition);
+        $editForm = $this->createForm(AppBundle\Form\OtherNationalEditionType::class, $otherNationalEdition);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

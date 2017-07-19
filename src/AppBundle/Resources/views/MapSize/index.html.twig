@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
- {% block pageheader %} 
+{% block title %}mapSizes{% endblock %}
+
+{% block pageheader %
     <h1>MapSize List</h1>
     <p class="count">
         Displaying {{ mapSizes|length }} mapSizes of {{ mapSizes.getTotalItemCount }} total.

@@ -137,7 +137,7 @@ class DigitalCopyHolderController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $digitalCopyHolder = new DigitalCopyHolder();
-        $form = $this->createForm('AppBundle\Form\DigitalCopyHolderType', $digitalCopyHolder);
+        $form = $this->createForm(AppBundle\Form\DigitalCopyHolderType::class, $digitalCopyHolder);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +186,7 @@ class DigitalCopyHolderController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm('AppBundle\Form\DigitalCopyHolderType', $digitalCopyHolder);
+        $editForm = $this->createForm(AppBundle\Form\DigitalCopyHolderType::class, $digitalCopyHolder);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

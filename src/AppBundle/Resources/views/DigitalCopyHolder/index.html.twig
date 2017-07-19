@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
- {% block pageheader %} 
+{% block title %}digitalCopyHolders{% endblock %}
+
+{% block pageheader %
     <h1>DigitalCopyHolder List</h1>
     <p class="count">
         Displaying {{ digitalCopyHolders|length }} digitalCopyHolders of {{ digitalCopyHolders.getTotalItemCount }} total.

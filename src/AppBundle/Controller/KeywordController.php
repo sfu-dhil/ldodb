@@ -137,7 +137,7 @@ class KeywordController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $keyword = new Keyword();
-        $form = $this->createForm('AppBundle\Form\KeywordType', $keyword);
+        $form = $this->createForm(AppBundle\Form\KeywordType::class, $keyword);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +186,7 @@ class KeywordController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm('AppBundle\Form\KeywordType', $keyword);
+        $editForm = $this->createForm(AppBundle\Form\KeywordType::class, $keyword);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

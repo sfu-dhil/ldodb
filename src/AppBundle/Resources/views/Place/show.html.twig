@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Place{% endblock %}
+
  {% block pageheader %} 
     <h1>Place</h1>
  {% endblock %} 
@@ -69,10 +71,9 @@
     <ul>
         {% for referencedPlaces in place.referencedPlaces %}
         <li>
-            {% if referencedPlaces.variantSpelling %}
-                as <em>{{ referencedPlaces.variantSpelling }}</em>
-            {% endif %}
-                in {{ referencedPlaces.book }}.
+            <a href="{{ path("referencedPlaces_show", {"id":referencedPlaces.id}) }}">
+                {{ referencedPlaces }}
+            </a>
         </li>
         {% endfor %} 
     </ul>
@@ -82,7 +83,7 @@
     <ul>
         {% for peopleBorn in place.peopleBorn %}
         <li>
-            <a href="{{ path("people_show", {"id":peopleBorn.id}) }}">
+            <a href="{{ path("peopleBorn_show", {"id":peopleBorn.id}) }}">
                 {{ peopleBorn }}
             </a>
         </li>
@@ -94,7 +95,7 @@
     <ul>
         {% for peopleDied in place.peopleDied %}
         <li>
-            <a href="{{ path("people_show", {"id":peopleDied.id}) }}">
+            <a href="{{ path("peopleDied_show", {"id":peopleDied.id}) }}">
                 {{ peopleDied }}
             </a>
         </li>

@@ -137,7 +137,7 @@ class MapSizeController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $mapSize = new MapSize();
-        $form = $this->createForm('AppBundle\Form\MapSizeType', $mapSize);
+        $form = $this->createForm(AppBundle\Form\MapSizeType::class, $mapSize);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +186,7 @@ class MapSizeController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm('AppBundle\Form\MapSizeType', $mapSize);
+        $editForm = $this->createForm(AppBundle\Form\MapSizeType::class, $mapSize);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

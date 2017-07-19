@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
- {% block pageheader %} 
+{% block title %}otherCopyLocations{% endblock %}
+
+{% block pageheader %
     <h1>OtherCopyLocation List</h1>
     <p class="count">
         Displaying {{ otherCopyLocations|length }} otherCopyLocations of {{ otherCopyLocations.getTotalItemCount }} total.

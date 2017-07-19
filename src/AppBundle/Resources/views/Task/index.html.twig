@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
- {% block pageheader %} 
+{% block title %}tasks{% endblock %}
+
+{% block pageheader %
     <h1>Task List</h1>
     <p class="count">
         Displaying {{ tasks|length }} tasks of {{ tasks.getTotalItemCount }} total.

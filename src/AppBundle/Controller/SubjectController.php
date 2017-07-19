@@ -137,7 +137,7 @@ class SubjectController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $subject = new Subject();
-        $form = $this->createForm('AppBundle\Form\SubjectType', $subject);
+        $form = $this->createForm(AppBundle\Form\SubjectType::class, $subject);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +186,7 @@ class SubjectController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm('AppBundle\Form\SubjectType', $subject);
+        $editForm = $this->createForm(AppBundle\Form\SubjectType::class, $subject);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

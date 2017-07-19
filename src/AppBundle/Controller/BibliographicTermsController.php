@@ -137,7 +137,7 @@ class BibliographicTermsController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $bibliographicTerm = new BibliographicTerms();
-        $form = $this->createForm('AppBundle\Form\BibliographicTermsType', $bibliographicTerm);
+        $form = $this->createForm(AppBundle\Form\BibliographicTermsType::class, $bibliographicTerm);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +186,7 @@ class BibliographicTermsController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm('AppBundle\Form\BibliographicTermsType', $bibliographicTerm);
+        $editForm = $this->createForm(AppBundle\Form\BibliographicTermsType::class, $bibliographicTerm);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

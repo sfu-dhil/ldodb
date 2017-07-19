@@ -137,7 +137,7 @@ class SubjectHeadingController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $subjectHeading = new SubjectHeading();
-        $form = $this->createForm('AppBundle\Form\SubjectHeadingType', $subjectHeading);
+        $form = $this->createForm(AppBundle\Form\SubjectHeadingType::class, $subjectHeading);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +186,7 @@ class SubjectHeadingController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm('AppBundle\Form\SubjectHeadingType', $subjectHeading);
+        $editForm = $this->createForm(AppBundle\Form\SubjectHeadingType::class, $subjectHeading);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

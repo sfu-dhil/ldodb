@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
- {% block pageheader %} 
+{% block title %}subjectHeadings{% endblock %}
+
+{% block pageheader %
     <h1>SubjectHeading List</h1>
     <p class="count">
         Displaying {{ subjectHeadings|length }} subjectHeadings of {{ subjectHeadings.getTotalItemCount }} total.

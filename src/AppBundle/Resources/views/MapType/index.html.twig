@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
- {% block pageheader %} 
+{% block title %}mapTypes{% endblock %}
+
+{% block pageheader %
     <h1>MapType List</h1>
     <p class="count">
         Displaying {{ mapTypes|length }} mapTypes of {{ mapTypes.getTotalItemCount }} total.

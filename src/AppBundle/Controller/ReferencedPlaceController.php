@@ -137,7 +137,7 @@ class ReferencedPlaceController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $referencedPlace = new ReferencedPlace();
-        $form = $this->createForm('AppBundle\Form\ReferencedPlaceType', $referencedPlace);
+        $form = $this->createForm(AppBundle\Form\ReferencedPlaceType::class, $referencedPlace);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +186,7 @@ class ReferencedPlaceController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm('AppBundle\Form\ReferencedPlaceType', $referencedPlace);
+        $editForm = $this->createForm(AppBundle\Form\ReferencedPlaceType::class, $referencedPlace);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

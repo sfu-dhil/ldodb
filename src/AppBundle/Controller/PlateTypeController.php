@@ -137,7 +137,7 @@ class PlateTypeController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $plateType = new PlateType();
-        $form = $this->createForm('AppBundle\Form\PlateTypeType', $plateType);
+        $form = $this->createForm(AppBundle\Form\PlateTypeType::class, $plateType);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +186,7 @@ class PlateTypeController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm('AppBundle\Form\PlateTypeType', $plateType);
+        $editForm = $this->createForm(AppBundle\Form\PlateTypeType::class, $plateType);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

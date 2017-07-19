@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
- {% block pageheader %} 
+{% block title %}supplementalPlaceDatas{% endblock %}
+
+{% block pageheader %
     <h1>SupplementalPlaceData List</h1>
     <p class="count">
         Displaying {{ supplementalPlaceDatas|length }} supplementalPlaceDatas of {{ supplementalPlaceDatas.getTotalItemCount }} total.
@@ -34,7 +36,7 @@
         {% for supplementalPlaceDatum in supplementalPlaceDatas %}
             <tr>
                 <td>
-                    <a href="{{ path('supplemental_place_data_show', { 'id': supplementalPlaceDatum.geonameId }) }}">
+                    <a href="{{ path('supplemental_place_data_show', { 'id': supplementalPlaceDatum.id }) }}">
                         {{ supplementalPlaceDatum.geonameId }}
                     </a>
                 </td>

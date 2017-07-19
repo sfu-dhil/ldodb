@@ -137,7 +137,7 @@ class OtherCopyLocationController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $otherCopyLocation = new OtherCopyLocation();
-        $form = $this->createForm('AppBundle\Form\OtherCopyLocationType', $otherCopyLocation);
+        $form = $this->createForm(AppBundle\Form\OtherCopyLocationType::class, $otherCopyLocation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +186,7 @@ class OtherCopyLocationController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm('AppBundle\Form\OtherCopyLocationType', $otherCopyLocation);
+        $editForm = $this->createForm(AppBundle\Form\OtherCopyLocationType::class, $otherCopyLocation);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

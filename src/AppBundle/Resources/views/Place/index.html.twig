@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
- {% block pageheader %} 
+{% block title %}places{% endblock %}
+
+{% block pageheader %
     <h1>Place List</h1>
     <p class="count">
         Displaying {{ places|length }} places of {{ places.getTotalItemCount }} total.

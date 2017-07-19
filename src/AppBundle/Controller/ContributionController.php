@@ -137,7 +137,7 @@ class ContributionController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $contribution = new Contribution();
-        $form = $this->createForm('AppBundle\Form\ContributionType', $contribution);
+        $form = $this->createForm(AppBundle\Form\ContributionType::class, $contribution);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +186,7 @@ class ContributionController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm('AppBundle\Form\ContributionType', $contribution);
+        $editForm = $this->createForm(AppBundle\Form\ContributionType::class, $contribution);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

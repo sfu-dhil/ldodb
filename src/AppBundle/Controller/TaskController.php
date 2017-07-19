@@ -137,7 +137,7 @@ class TaskController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $task = new Task();
-        $form = $this->createForm('AppBundle\Form\TaskType', $task);
+        $form = $this->createForm(AppBundle\Form\TaskType::class, $task);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +186,7 @@ class TaskController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm('AppBundle\Form\TaskType', $task);
+        $editForm = $this->createForm(AppBundle\Form\TaskType::class, $task);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

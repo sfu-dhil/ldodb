@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
- {% block pageheader %} 
+{% block title %}otherNationalEditions{% endblock %}
+
+{% block pageheader %
     <h1>OtherNationalEdition List</h1>
     <p class="count">
         Displaying {{ otherNationalEditions|length }} otherNationalEditions of {{ otherNationalEditions.getTotalItemCount }} total.

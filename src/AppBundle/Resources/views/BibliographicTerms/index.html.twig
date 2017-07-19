@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
- {% block pageheader %} 
+{% block title %}bibliographicTerms{% endblock %}
+
+{% block pageheader %
     <h1>BibliographicTerms List</h1>
     <p class="count">
         Displaying {{ bibliographicTerms|length }} bibliographicTerms of {{ bibliographicTerms.getTotalItemCount }} total.

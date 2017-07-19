@@ -137,7 +137,7 @@ class MapTypeController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $mapType = new MapType();
-        $form = $this->createForm('AppBundle\Form\MapTypeType', $mapType);
+        $form = $this->createForm(AppBundle\Form\MapTypeType::class, $mapType);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +186,7 @@ class MapTypeController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm('AppBundle\Form\MapTypeType', $mapType);
+        $editForm = $this->createForm(AppBundle\Form\MapTypeType::class, $mapType);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

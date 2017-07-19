@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
- {% block pageheader %} 
+{% block title %}plateTypes{% endblock %}
+
+{% block pageheader %
     <h1>PlateType List</h1>
     <p class="count">
         Displaying {{ plateTypes|length }} plateTypes of {{ plateTypes.getTotalItemCount }} total.

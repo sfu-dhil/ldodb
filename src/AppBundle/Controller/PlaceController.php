@@ -137,7 +137,7 @@ class PlaceController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         $place = new Place();
-        $form = $this->createForm('AppBundle\Form\PlaceType', $place);
+        $form = $this->createForm(AppBundle\Form\PlaceType::class, $place);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -186,7 +186,7 @@ class PlaceController extends Controller
             $this->addFlash('danger', 'You must login to access this page.');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $editForm = $this->createForm('AppBundle\Form\PlaceType', $place);
+        $editForm = $this->createForm(AppBundle\Form\PlaceType::class, $place);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

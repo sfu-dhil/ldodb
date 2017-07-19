@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Task{% endblock %}
+
  {% block pageheader %} 
     <h1>Task</h1>
  {% endblock %} 
@@ -33,7 +35,7 @@
     <ul>
         {% for contributions in task.contributions %}
         <li>
-            <a href="{{ path("contribution_show", {"id":contributions.id}) }}">
+            <a href="{{ path("contributions_show", {"id":contributions.id}) }}">
                 {{ contributions }}
             </a>
         </li>
