@@ -59,7 +59,7 @@
     <ul>
         {% for otherNationalEditions in place.otherNationalEditions %}
         <li>
-            <a href="{{ path("otherNationalEditions_show", {"id":otherNationalEditions.id}) }}">
+            <a href="{{ path("other_national_edition_show", {"id":otherNationalEditions.id}) }}">
                 {{ otherNationalEditions }}
             </a>
         </li>
@@ -71,7 +71,7 @@
     <ul>
         {% for referencedPlaces in place.referencedPlaces %}
         <li>
-            <a href="{{ path("referencedPlaces_show", {"id":referencedPlaces.id}) }}">
+            <a href="{{ path("place_show", {"id":referencedPlaces.id}) }}">
                 {{ referencedPlaces }}
             </a>
         </li>
@@ -83,7 +83,7 @@
     <ul>
         {% for peopleBorn in place.peopleBorn %}
         <li>
-            <a href="{{ path("peopleBorn_show", {"id":peopleBorn.id}) }}">
+            <a href="{{ path("people_show", {"id":peopleBorn.id}) }}">
                 {{ peopleBorn }}
             </a>
         </li>
@@ -95,7 +95,7 @@
     <ul>
         {% for peopleDied in place.peopleDied %}
         <li>
-            <a href="{{ path("peopleDied_show", {"id":peopleDied.id}) }}">
+            <a href="{{ path("people_show", {"id":peopleDied.id}) }}">
                 {{ peopleDied }}
             </a>
         </li>

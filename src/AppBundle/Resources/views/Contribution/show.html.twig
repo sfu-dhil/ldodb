@@ -35,10 +35,19 @@
             <tr>
                 <th>Entity</th>
                 <td>
-                    <a href="{{ path('entity_show', { 'id': contribution.entity.id}) }}">
-                        {{ contribution.entity }}
-                    </a>
-                </td>
+                    {% if contribution.entity.type == constant('AppBundle\\Entity\\Entity::PER_TYPE') %}
+                        {% set path_name = 'people_show' %}
+                    {% elseif contribution.entity.type == constant('AppBundle\\Entity\\Entity::ORG_TYPE') %}
+                        {% set path_name = 'organization_show' %}
+                    {% else %}
+                        <p>Cannot generate link for entity type {{ contribution.entity.type }}.</p>
+                    {% endif %}
+                    {% if path_name is defined %}
+                        <a href="{{ path(path_name, { 'id': contribution.entity.id}) }}">
+                            {{ contribution.entity }}
+                        </a>
+                    {% endif %}
+                 </td>
             </tr>        
             <tr>
                 <th>Task</th>
