@@ -2,9 +2,11 @@
 {{ "{% extends 'base.html.twig' %}" }}
 {% endblock extends %}
 
+{{ '{% block title %}' ~ entity ~ ' Search{% endblock %}' }}
+
 {{ " {% block pageheader %} "}}
     <h1>{{ entity }} Search</h1>
-	{{ '{% if ' ~ entity_pluralized  ~ "|length %}" }}
+    {{ '{% if ' ~ entity_pluralized  ~ "|length %}" }}
     <p class="count">
         Displaying {{ '{{ ' ~ entity_pluralized  ~ "|length }}" }} {{ entity_pluralized }} of {{ '{{ ' ~ entity_pluralized  ~ ".getTotalItemCount }}" }} total.
     </p>

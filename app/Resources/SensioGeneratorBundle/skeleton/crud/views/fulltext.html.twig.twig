@@ -2,6 +2,8 @@
 {{ "{% extends 'base.html.twig' %}" }}
 {% endblock extends %}
 
+{{ '{% block title %}' ~ entity ~ ' Search{% endblock %}' }}
+
 {{ " {% block pageheader %} "}}
     <h1>{{ entity }} Search</h1>
 	{{ '{% if ' ~ entity_pluralized  ~ "|length %}" }}

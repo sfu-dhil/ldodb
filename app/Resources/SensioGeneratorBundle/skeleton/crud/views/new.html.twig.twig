@@ -2,6 +2,9 @@
 {{ "{% extends 'base.html.twig' %}" }}
 {% endblock extends %}
 
+{{ '{% block title %}New ' ~ entity ~ '{% endblock %}' }}
+
+
 {% block body %}
 {{ "{% block body %}" }}
     <h1>{{ entity }} Creation</h1>
