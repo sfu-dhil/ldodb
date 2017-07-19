@@ -31,9 +31,19 @@ class PlateType
     /**
      * @var string
      *
-     * @ORM\Column(name="plate_type_notes", type="text", length=16777215, nullable=true)
+     * @ORM\Column(name="plate_type_notes", type="text", nullable=true)
      */
     private $plateTypeNotes;
+
+    /**
+     * @var Collection|Book[]
+     * @ORM\ManyToMany(targetEntity="Book", mappedBy="plateTypes")
+     */
+    private $books;
+    
+    public function __construct() {
+        $this->books = new ArrayCollection();
+    }
 
 
     public function __toString() {
@@ -92,5 +102,39 @@ class PlateType
      */
     public function getPlateTypeNotes() {
         return $this->plateTypeNotes;
+    }
+
+    /**
+     * Add book
+     *
+     * @param \AppBundle\Entity\Book $book
+     *
+     * @return PlateType
+     */
+    public function addBook(\AppBundle\Entity\Book $book)
+    {
+        $this->books[] = $book;
+
+        return $this;
+    }
+
+    /**
+     * Remove book
+     *
+     * @param \AppBundle\Entity\Book $book
+     */
+    public function removeBook(\AppBundle\Entity\Book $book)
+    {
+        $this->books->removeElement($book);
+    }
+
+    /**
+     * Get books
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBooks()
+    {
+        return $this->books;
     }
 }

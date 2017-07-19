@@ -28,6 +28,16 @@ class DigitalCopyHolder
      */
     private $organizationName;
 
+    /**
+     * @var Collection|Book[]
+     * @ORM\ManyToMany(targetEntity="Book", mappedBy="digitalCopyHolders")
+     */
+    private $books;
+    
+    public function __construct() {
+        $this->books = new ArrayCollection();
+    }
+
 
     public function __toString() {
         return $this->organizationName;
@@ -63,5 +73,39 @@ class DigitalCopyHolder
      */
     public function getOrganizationName() {
         return $this->organizationName;
+    }
+
+    /**
+     * Add book
+     *
+     * @param \AppBundle\Entity\Book $book
+     *
+     * @return DigitalCopyHolder
+     */
+    public function addBook(\AppBundle\Entity\Book $book)
+    {
+        $this->books[] = $book;
+
+        return $this;
+    }
+
+    /**
+     * Remove book
+     *
+     * @param \AppBundle\Entity\Book $book
+     */
+    public function removeBook(\AppBundle\Entity\Book $book)
+    {
+        $this->books->removeElement($book);
+    }
+
+    /**
+     * Get books
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBooks()
+    {
+        return $this->books;
     }
 }

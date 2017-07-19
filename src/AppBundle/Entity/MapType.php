@@ -31,9 +31,19 @@ class MapType
     /**
      * @var string
      *
-     * @ORM\Column(name="map_type_notes", type="text", length=16777215, nullable=true)
+     * @ORM\Column(name="map_type_notes", type="text", nullable=true)
      */
     private $mapTypeNotes;
+
+    /**
+     * @var Collection|Book[]
+     * @ORM\ManyToMany(targetEntity="Book", mappedBy="mapTypes")
+     */
+    private $books;
+    
+    public function __construct() {
+        $this->books = new ArrayCollection();
+    }
 
 
     public function __toString() {
@@ -92,5 +102,39 @@ class MapType
      */
     public function getMapTypeNotes() {
         return $this->mapTypeNotes;
+    }
+
+    /**
+     * Add book
+     *
+     * @param \AppBundle\Entity\Book $book
+     *
+     * @return MapType
+     */
+    public function addBook(\AppBundle\Entity\Book $book)
+    {
+        $this->books[] = $book;
+
+        return $this;
+    }
+
+    /**
+     * Remove book
+     *
+     * @param \AppBundle\Entity\Book $book
+     */
+    public function removeBook(\AppBundle\Entity\Book $book)
+    {
+        $this->books->removeElement($book);
+    }
+
+    /**
+     * Get books
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBooks()
+    {
+        return $this->books;
     }
 }

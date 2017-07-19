@@ -96,6 +96,12 @@ class Place
      */
     private $peopleDied;
 
+    /**
+     * @var Collection|Book[]
+     * @ORM\ManyToMany(targetEntity="Book", mappedBy="publicationPlaces")
+     */
+    private $books;
+        
     public function __toString() {
         return $this->placeName;
     }
@@ -108,6 +114,7 @@ class Place
         $this->referencedPlaces = new ArrayCollection();
         $this->peopleBorn = new ArrayCollection();
         $this->peopleDied = new ArrayCollection();
+        $this->books = new ArrayCollection();
     }
 
     /**
@@ -395,5 +402,39 @@ class Place
      */
     public function getPeopleDied() {
         return $this->peopleDied;
+    }
+
+    /**
+     * Add book
+     *
+     * @param \AppBundle\Entity\Book $book
+     *
+     * @return Place
+     */
+    public function addBook(\AppBundle\Entity\Book $book)
+    {
+        $this->books[] = $book;
+
+        return $this;
+    }
+
+    /**
+     * Remove book
+     *
+     * @param \AppBundle\Entity\Book $book
+     */
+    public function removeBook(\AppBundle\Entity\Book $book)
+    {
+        $this->books->removeElement($book);
+    }
+
+    /**
+     * Get books
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBooks()
+    {
+        return $this->books;
     }
 }

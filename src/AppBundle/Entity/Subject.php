@@ -35,6 +35,16 @@ class Subject
      */
     private $subjectUri;
 
+    /**
+     * @var Collection|Book[]
+     * @ORM\ManyToMany(targetEntity="Book", mappedBy="subjects")
+     */
+    private $books;
+    
+    public function __construct() {
+        $this->books = new ArrayCollection();
+    }
+
 
     public function __toString() {
         return $this->subjectName;
@@ -92,5 +102,39 @@ class Subject
      */
     public function getSubjectUri() {
         return $this->subjectUri;
+    }
+
+    /**
+     * Add book
+     *
+     * @param \AppBundle\Entity\Book $book
+     *
+     * @return Subject
+     */
+    public function addBook(\AppBundle\Entity\Book $book)
+    {
+        $this->books[] = $book;
+
+        return $this;
+    }
+
+    /**
+     * Remove book
+     *
+     * @param \AppBundle\Entity\Book $book
+     */
+    public function removeBook(\AppBundle\Entity\Book $book)
+    {
+        $this->books->removeElement($book);
+    }
+
+    /**
+     * Get books
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBooks()
+    {
+        return $this->books;
     }
 }

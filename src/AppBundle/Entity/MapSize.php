@@ -31,9 +31,20 @@ class MapSize
     /**
      * @var string
      *
-     * @ORM\Column(name="map_size_notes", type="text", length=16777215, nullable=true)
+     * @ORM\Column(name="map_size_notes", type="text", nullable=true)
      */
     private $mapSizeNotes;
+
+    /**
+     * @var Collection|Book[]
+     * @ORM\ManyToMany(targetEntity="Book", mappedBy="mapSizes")
+     */
+    private $books;
+    
+    public function __construct() {
+        $this->books = new ArrayCollection();
+    }
+
 
 
     public function __toString() {
@@ -92,5 +103,39 @@ class MapSize
      */
     public function getMapSizeNotes() {
         return $this->mapSizeNotes;
+    }
+
+    /**
+     * Add book
+     *
+     * @param \AppBundle\Entity\Book $book
+     *
+     * @return MapSize
+     */
+    public function addBook(\AppBundle\Entity\Book $book)
+    {
+        $this->books[] = $book;
+
+        return $this;
+    }
+
+    /**
+     * Remove book
+     *
+     * @param \AppBundle\Entity\Book $book
+     */
+    public function removeBook(\AppBundle\Entity\Book $book)
+    {
+        $this->books->removeElement($book);
+    }
+
+    /**
+     * Get books
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBooks()
+    {
+        return $this->books;
     }
 }

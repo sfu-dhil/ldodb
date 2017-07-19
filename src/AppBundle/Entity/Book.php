@@ -40,42 +40,42 @@ class Book
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="text", length=16777215, nullable=true)
+     * @ORM\Column(name="title", type="text", nullable=true)
      */
     private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="short_title", type="text", length=16777215, nullable=true)
+     * @ORM\Column(name="short_title", type="text", nullable=true)
      */
     private $shortTitle;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="series_title", type="text", length=16777215, nullable=true)
+     * @ORM\Column(name="series_title", type="text", nullable=true)
      */
     private $seriesTitle;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="title_page_quotation", type="text", length=16777215, nullable=true)
+     * @ORM\Column(name="title_page_quotation", type="text", nullable=true)
      */
     private $titlePageQuotation;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="dedication", type="text", length=16777215, nullable=true)
+     * @ORM\Column(name="dedication", type="text", nullable=true)
      */
     private $dedication;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="imprint", type="text", length=16777215, nullable=true)
+     * @ORM\Column(name="imprint", type="text", nullable=true)
      */
     private $imprint;
 
@@ -117,7 +117,7 @@ class Book
     /**
      * @var string
      *
-     * @ORM\Column(name="SFU_cat_orig_bib", type="text", length=16777215, nullable=true)
+     * @ORM\Column(name="SFU_cat_orig_bib", type="text", nullable=true)
      */
     private $sfuCatOrigBib;
 
@@ -187,21 +187,21 @@ class Book
     /**
      * @var string
      *
-     * @ORM\Column(name="digital_object_url", type="text", length=16777215, nullable=true)
+     * @ORM\Column(name="digital_object_url", type="text", nullable=true)
      */
     private $digitalObjectUrl;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="bibliographic_notes", type="text", length=16777215, nullable=true)
+     * @ORM\Column(name="bibliographic_notes", type="text", nullable=true)
      */
     private $bibliographicNotes;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="critical_annotation", type="text", length=16777215, nullable=true)
+     * @ORM\Column(name="critical_annotation", type="text", nullable=true)
      */
     private $criticalAnnotation;
 
@@ -250,7 +250,7 @@ class Book
     /**
      * @var string
      *
-     * @ORM\Column(name="binding_colour", type="text", length=16777215, nullable=true)
+     * @ORM\Column(name="binding_colour", type="text", nullable=true)
      */
     private $bindingColour;
 

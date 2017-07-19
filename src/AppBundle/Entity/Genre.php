@@ -38,7 +38,7 @@ class Genre
     /**
      * @var string
      *
-     * @ORM\Column(name="genre_usage_note", type="text", length=16777215, nullable=true)
+     * @ORM\Column(name="genre_usage_note", type="text", nullable=true)
      */
     private $genreUsageNote;
 
@@ -55,6 +55,16 @@ class Genre
      * @ORM\Column(name="broader_term_id", type="integer", nullable=true)
      */
     private $broaderTermId;
+
+    /**
+     * @var Collection|Book[]
+     * @ORM\ManyToMany(targetEntity="Book", mappedBy="genres")
+     */
+    private $books;
+    
+    public function __construct() {
+        $this->books = new ArrayCollection();
+    }
 
 
     public function __toString() {
@@ -179,5 +189,39 @@ class Genre
      */
     public function getBroaderTermId() {
         return $this->broaderTermId;
+    }
+
+    /**
+     * Add book
+     *
+     * @param \AppBundle\Entity\Book $book
+     *
+     * @return Genre
+     */
+    public function addBook(\AppBundle\Entity\Book $book)
+    {
+        $this->books[] = $book;
+
+        return $this;
+    }
+
+    /**
+     * Remove book
+     *
+     * @param \AppBundle\Entity\Book $book
+     */
+    public function removeBook(\AppBundle\Entity\Book $book)
+    {
+        $this->books->removeElement($book);
+    }
+
+    /**
+     * Get books
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBooks()
+    {
+        return $this->books;
     }
 }

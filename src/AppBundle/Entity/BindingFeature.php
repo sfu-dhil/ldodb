@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,12 +33,22 @@ class BindingFeature
     /**
      * @var string
      *
-     * @ORM\Column(name="binding_feature_notes", type="text", length=16777215, nullable=true)
+     * @ORM\Column(name="binding_feature_notes", type="text", nullable=true)
      */
     private $bindingFeatureNotes;
+    
+    /**
+     * @var Collection|Book[]
+     * @ORM\ManyToMany(targetEntity="Book", mappedBy="bindingFeatures")
+     */
+    private $books;
+    
+    public function __construct() {
+        $this->books = new ArrayCollection();
+    }
 
     public function __toString() {
-        return $this->bindingFeature;
+        return $this->bindingFeature;        
     }
 
     /**
