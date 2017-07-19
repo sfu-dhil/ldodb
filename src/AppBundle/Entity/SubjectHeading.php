@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -107,11 +109,11 @@ class SubjectHeading
     /**
      * Add book
      *
-     * @param \AppBundle\Entity\Book $book
+     * @param Book $book
      *
      * @return SubjectHeading
      */
-    public function addBook(\AppBundle\Entity\Book $book)
+    public function addBook(Book $book)
     {
         $this->books[] = $book;
 
@@ -121,9 +123,9 @@ class SubjectHeading
     /**
      * Remove book
      *
-     * @param \AppBundle\Entity\Book $book
+     * @param Book $book
      */
-    public function removeBook(\AppBundle\Entity\Book $book)
+    public function removeBook(Book $book)
     {
         $this->books->removeElement($book);
     }
@@ -131,7 +133,7 @@ class SubjectHeading
     /**
      * Get books
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getBooks()
     {
