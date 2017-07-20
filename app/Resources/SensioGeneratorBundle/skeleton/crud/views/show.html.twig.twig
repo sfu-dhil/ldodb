@@ -14,9 +14,10 @@
     <table class="table table-bordered table-condensed table-hover table-striped">
         <tbody>
         {%- for field, metadata in fields if field != 'id' %}
+            {%- set label = metadata['columnName'] | replace('_', ' ') | title -%}
 
             <tr>
-                <th>{{ field|capitalize }}</th>
+                <th>{{ label }}</th>
 
             {%- if metadata.type in ['datetime'] %}
 

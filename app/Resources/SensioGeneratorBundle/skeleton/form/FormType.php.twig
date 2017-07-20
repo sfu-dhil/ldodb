@@ -23,7 +23,8 @@ class {{ form_class }} extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        {%- for field in fields if field not in ['created', 'updated'] %}    
+        {%- for field in fields if field not in ['created', 'updated'] %}
+        {% if field_metadata[field] is defined -%}
         {% set metadata = field_metadata[field] -%}
         {% set label = metadata['columnName'] | replace('_', ' ') | title -%}
         {% if metadata['type'] == 'boolean' -%}            
@@ -39,12 +40,20 @@ class {{ form_class }} extends AbstractType
             ),
             'required' => {% if metadata['nullable'] == 1 %}false{% else %}true{% endif %},
             'placeholder' => false,
+            'attr' => array(
+                'help_block' => '',
+            ),
+            
         ));
         {% else -%}
         $builder->add('{{ field }}', null, array(
             'label' => '{{ label }}',
             'required' => {% if metadata['nullable'] == 1 %}false{% else %}true{% endif %},
+            'attr' => array(
+                'help_block' => '',
+            ),
         ));
+        {% endif -%}
         {% endif -%}
         {%- endfor %}
         
