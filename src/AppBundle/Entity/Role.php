@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,7 +29,17 @@ class Role
      * @ORM\Column(name="role_name", type="string", length=255, nullable=true)
      */
     private $roleName;
-
+    
+    /**
+     * @var Collection|People[]
+     * @ORM\ManyToMany(targetEntity="People", mappedBy="roles")
+     */
+    private $people;
+    
+    public function __construct() {
+        $this->people = new ArrayCollection();
+    }
+    
     public function __toString() {
         return $this->roleName;
     }
@@ -61,5 +73,39 @@ class Role
      */
     public function getRoleName() {
         return $this->roleName;
+    }
+
+    /**
+     * Add person
+     *
+     * @param People $person
+     *
+     * @return Role
+     */
+    public function addPerson(People $person)
+    {
+        $this->people[] = $person;
+
+        return $this;
+    }
+
+    /**
+     * Remove person
+     *
+     * @param People $person
+     */
+    public function removePerson(People $person)
+    {
+        $this->people->removeElement($person);
+    }
+
+    /**
+     * Get people
+     *
+     * @return Collection
+     */
+    public function getPeople()
+    {
+        return $this->people;
     }
 }

@@ -37,7 +37,7 @@
                     <ul>
                         {% for books in bindingFeature.books %}
                         <li>
-                            <a href="{{ path("books_show", {"id":books.id}) }}">
+                            <a href="{{ path("book_show", {"id":books.id}) }}">
                                 {{ books }}
                             </a>
                         </li>

@@ -40,7 +40,7 @@
     <ul>
         {% for contributions in organization.contributions %}
         <li>
-            <a href="{{ path("contributions_show", {"id":contributions.id}) }}">
+            <a href="{{ path("contribution_show", {"id":contributions.id}) }}">
                 {{ contributions }}
             </a>
         </li>
