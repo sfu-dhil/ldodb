@@ -73,7 +73,8 @@ class PlaceType extends AbstractType
                 'help_block' => '',
             ),
         ));
-                        
+                        $builder->add('books');
+                
     }
     
     /**

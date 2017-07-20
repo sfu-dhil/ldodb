@@ -29,7 +29,8 @@ class MapSizeType extends AbstractType
                 'help_block' => '',
             ),
         ));
-                        
+                        $builder->add('books');
+                
     }
     
     /**

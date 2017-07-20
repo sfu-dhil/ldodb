@@ -156,7 +156,12 @@ class PeopleType extends AbstractType
             ),
             
         ));
-                                                        
+                        $builder->add('birthPlace');
+                        $builder->add('deathPlace');
+                        $builder->add('travels');
+                        $builder->add('residences');
+                        $builder->add('roles');
+                
     }
     
     /**

@@ -54,6 +54,8 @@ class {{ form_class }} extends AbstractType
             ),
         ));
         {% endif -%}
+        {% else %}
+        $builder->add('{{ field }}');
         {% endif -%}
         {%- endfor %}
         

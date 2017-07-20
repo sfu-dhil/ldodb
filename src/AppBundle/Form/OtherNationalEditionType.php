@@ -22,7 +22,9 @@ class OtherNationalEditionType extends AbstractType
                 'help_block' => '',
             ),
         ));
-                                
+                        $builder->add('book');
+                        $builder->add('place');
+                
     }
     
     /**

@@ -50,7 +50,8 @@ class GenreType extends AbstractType
                 'help_block' => '',
             ),
         ));
-                        
+                        $builder->add('books');
+                
     }
     
     /**

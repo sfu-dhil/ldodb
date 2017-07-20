@@ -38,7 +38,8 @@ class KeywordType extends AbstractType
             ),
             
         ));
-                        
+                        $builder->add('books');
+                
     }
     
     /**

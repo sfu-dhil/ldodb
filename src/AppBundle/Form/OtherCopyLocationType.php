@@ -29,7 +29,8 @@ class OtherCopyLocationType extends AbstractType
                 'help_block' => '',
             ),
         ));
-                        
+                        $builder->add('book');
+                
     }
     
     /**

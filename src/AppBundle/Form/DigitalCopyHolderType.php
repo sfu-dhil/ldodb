@@ -22,7 +22,8 @@ class DigitalCopyHolderType extends AbstractType
                 'help_block' => '',
             ),
         ));
-                        
+                        $builder->add('books');
+                
     }
     
     /**

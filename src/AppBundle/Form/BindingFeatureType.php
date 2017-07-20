@@ -29,7 +29,8 @@ class BindingFeatureType extends AbstractType
                 'help_block' => '',
             ),
         ));
-                        
+                        $builder->add('books');
+                
     }
     
     /**

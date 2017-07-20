@@ -273,7 +273,18 @@ class BookType extends AbstractType
                 'help_block' => '',
             ),
         ));
-                                                                                                        
+                        $builder->add('genres');
+                        $builder->add('referencedPeople');
+                        $builder->add('plateTypes');
+                        $builder->add('mapTypes');
+                        $builder->add('subjects');
+                        $builder->add('mapSizes');
+                        $builder->add('subjectHeadings');
+                        $builder->add('bindingFeatures');
+                        $builder->add('keywords');
+                        $builder->add('digitalCopyHolders');
+                        $builder->add('publicationPlaces');
+                
     }
     
     /**

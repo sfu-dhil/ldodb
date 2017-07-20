@@ -15,7 +15,10 @@ class ContributionType extends AbstractType
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {                                
+    {                $builder->add('book');
+                        $builder->add('entity');
+                        $builder->add('task');
+                
     }
     
     /**
