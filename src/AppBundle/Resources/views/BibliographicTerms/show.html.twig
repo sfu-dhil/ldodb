@@ -23,21 +23,17 @@
     </div>
 </div>
     <table class="table table-bordered table-condensed table-hover table-striped">
-        <tbody>
-            <tr>
-                <th>Bibliographicterm</th>
+        <tbody><tr>
+                <th>Bibliographic Term</th>
                 <td>{{ bibliographicTerm.bibliographicTerm }}</td>
-            </tr>
-            <tr>
-                <th>Useforformat</th>
+            </tr><tr>
+                <th>Use For Format</th>
                 <td>{% if bibliographicTerm.useForFormat %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Useforphotographs</th>
+            </tr><tr>
+                <th>Use For Photographs</th>
                 <td>{% if bibliographicTerm.useForPhotographs %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Useforillustrations</th>
+            </tr><tr>
+                <th>Use For Illustrations</th>
                 <td>{% if bibliographicTerm.useForIllustrations %}Yes{% else %}No{% endif %}</td>
             </tr>        
         </tbody>

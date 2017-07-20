@@ -23,13 +23,11 @@
     </div>
 </div>
     <table class="table table-bordered table-condensed table-hover table-striped">
-        <tbody>
-            <tr>
-                <th>Bindingfeature</th>
+        <tbody><tr>
+                <th>Binding Feature</th>
                 <td>{{ bindingFeature.bindingFeature }}</td>
-            </tr>
-            <tr>
-                <th>Bindingfeaturenotes</th>
+            </tr><tr>
+                <th>Binding Feature Notes</th>
                 <td>{{ bindingFeature.bindingFeatureNotes }}</td>
             </tr>        
             <tr>
@@ -39,7 +37,7 @@
                     <ul>
                         {% for books in bindingFeature.books %}
                         <li>
-                            <a href="{{ path("book_show", {"id":books.id}) }}">
+                            <a href="{{ path("books_show", {"id":books.id}) }}">
                                 {{ books }}
                             </a>
                         </li>
