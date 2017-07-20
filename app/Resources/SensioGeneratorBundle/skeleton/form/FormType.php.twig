@@ -6,6 +6,7 @@ namespace {{ namespace }}\Form{{ entity_namespace ? '\\' ~ entity_namespace : ''
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 {% endblock use_statements %}
 
@@ -23,7 +24,28 @@ class {{ form_class }} extends AbstractType
     {
 
         {%- for field in fields if field not in ['created', 'updated'] %}    
-        $builder->add('{{ field }}'); {% if fields_mapping[field] is defined and fields_mapping[field]['type'] is defined %} // {{ fields_mapping[field]['type'] }} {% endif %}
+        {% set metadata = field_metadata[field] -%}
+        {% set label = metadata['columnName'] | replace('_', ' ') | title -%}
+        {% if metadata['type'] == 'boolean' -%}            
+        $builder->add('{{ field }}', ChoiceType::class, array(
+            'label' => '{{ label }}',
+            'expanded' => true,
+            'multiple' => false,
+            'choices' => array(
+                'Yes' => true,
+                'No' => false,
+                {% if metadata['nullable'] == 1 %}'Unknown' => null,
+                {% endif -%}
+            ),
+            'required' => {% if metadata['nullable'] == 1 %}false{% else %}true{% endif %},
+            'placeholder' => false,
+        ));
+        {% else -%}
+        $builder->add('{{ field }}', null, array(
+            'label' => '{{ label }}',
+            'required' => {% if metadata['nullable'] == 1 %}false{% else %}true{% endif %},
+        ));
+        {% endif -%}
         {%- endfor %}
         
     }
