@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SubjectType extends AbstractType
@@ -14,10 +15,21 @@ class SubjectType extends AbstractType
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {    
-        $builder->add('subjectName');     
-        $builder->add('subjectUri');     
-        $builder->add('books');         
+    {        $builder->add('subjectName', null, array(
+            'label' => 'Subject Name',
+            'required' => false,
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
+                $builder->add('subjectUri', null, array(
+            'label' => 'Subject Uri',
+            'required' => false,
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
+                        
     }
     
     /**

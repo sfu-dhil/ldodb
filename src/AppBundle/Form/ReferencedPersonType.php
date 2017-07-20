@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ReferencedPersonType extends AbstractType
@@ -14,14 +15,49 @@ class ReferencedPersonType extends AbstractType
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {    
-        $builder->add('lastName');     
-        $builder->add('firstName');     
-        $builder->add('birthDate');     
-        $builder->add('deathDate');     
-        $builder->add('sameAsPeopleEntityId');     
-        $builder->add('referencedPersonUri');     
-        $builder->add('books');         
+    {        $builder->add('lastName', null, array(
+            'label' => 'Last Name',
+            'required' => false,
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
+                $builder->add('firstName', null, array(
+            'label' => 'First Name',
+            'required' => false,
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
+                $builder->add('birthDate', null, array(
+            'label' => 'Birth Date',
+            'required' => false,
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
+                $builder->add('deathDate', null, array(
+            'label' => 'Death Date',
+            'required' => false,
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
+                $builder->add('sameAsPeopleEntityId', null, array(
+            'label' => 'Same As People Entity Id',
+            'required' => false,
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
+                $builder->add('referencedPersonUri', null, array(
+            'label' => 'Referenced Person Uri',
+            'required' => false,
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
+                        
     }
     
     /**

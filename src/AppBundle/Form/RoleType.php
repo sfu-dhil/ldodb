@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RoleType extends AbstractType
@@ -14,8 +15,14 @@ class RoleType extends AbstractType
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {    
-        $builder->add('roleName');         
+    {        $builder->add('roleName', null, array(
+            'label' => 'Role Name',
+            'required' => false,
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
+                
     }
     
     /**

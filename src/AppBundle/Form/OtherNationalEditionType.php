@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class OtherNationalEditionType extends AbstractType
@@ -14,10 +15,14 @@ class OtherNationalEditionType extends AbstractType
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {    
-        $builder->add('publicationDate');     
-        $builder->add('book');     
-        $builder->add('place');         
+    {        $builder->add('publicationDate', null, array(
+            'label' => 'Publication Date',
+            'required' => false,
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
+                                
     }
     
     /**

@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DigitalCopyHolderType extends AbstractType
@@ -14,9 +15,14 @@ class DigitalCopyHolderType extends AbstractType
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {    
-        $builder->add('organizationName');     
-        $builder->add('books');         
+    {        $builder->add('organizationName', null, array(
+            'label' => 'Organization Name',
+            'required' => false,
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
+                        
     }
     
     /**

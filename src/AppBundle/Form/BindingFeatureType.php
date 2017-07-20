@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BindingFeatureType extends AbstractType
@@ -14,10 +15,21 @@ class BindingFeatureType extends AbstractType
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {    
-        $builder->add('bindingFeature');     
-        $builder->add('bindingFeatureNotes');     
-        $builder->add('books');         
+    {        $builder->add('bindingFeature', null, array(
+            'label' => 'Binding Feature',
+            'required' => false,
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
+                $builder->add('bindingFeatureNotes', null, array(
+            'label' => 'Binding Feature Notes',
+            'required' => false,
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
+                        
     }
     
     /**
