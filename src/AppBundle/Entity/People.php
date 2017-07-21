@@ -136,7 +136,7 @@ class People extends Entity
 
     /**
      * @var Collection|Place[]
-     * @ORM\ManyToMany(targetEntity="Place")
+     * @ORM\ManyToMany(targetEntity="Place", inversedBy="travellers")
      * @ORM\JoinTable(name="places_of_travel",
      *  joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id")},
      *  inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="id")}
@@ -146,7 +146,7 @@ class People extends Entity
 
     /**
      * @var Collection|Place[]
-     * @ORM\ManyToMany(targetEntity="Place")
+     * @ORM\ManyToMany(targetEntity="Place", inversedBy="residents")
      * @ORM\JoinTable(name="residence_place",
      *  joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id")},
      *  inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="id")}
@@ -156,7 +156,7 @@ class People extends Entity
 
     /**
      * @var Collection|Role[]
-     * @ORM\ManyToMany(targetEntity="Role")
+     * @ORM\ManyToMany(targetEntity="Role", inversedBy="people")
      * @ORM\JoinTable(name="people_role",
      *  joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id")},
      *  inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}

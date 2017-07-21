@@ -101,6 +101,18 @@ class Place
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="publicationPlaces")
      */
     private $books;
+    
+    /**
+     * @var Collection|People[]
+     * @ORM\ManyToMany(targetEntity="People", mappedBy="residences")
+     */
+    private $residents;
+    
+    /**
+     * @var Collection|People[]
+     * @ORM\ManyToMany(targetEntity="People", mappedBy="travels")
+     */
+    private $travellers;
         
     public function __toString() {
         return $this->placeName;
@@ -115,6 +127,8 @@ class Place
         $this->peopleBorn = new ArrayCollection();
         $this->peopleDied = new ArrayCollection();
         $this->books = new ArrayCollection();
+        $this->residents = new ArrayCollection();
+        $this->travellers = new ArrayCollection();
     }
 
     /**
