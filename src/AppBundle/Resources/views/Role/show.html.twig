@@ -27,18 +27,22 @@
                 <th>Role Name</th>
                 <td>{{ role.roleName }}</td>
             </tr>        
+            <tr>
+                <th>People</th>         
+                <td>
+                    {% if role.people | length > 0 %}
+                    <ul>
+                        {% for people in role.people %}
+                        <li>
+                            <a href="{{ path("people_show", {"id":people.id}) }}">
+                                {{ people }}
+                            </a>
+                        </li>
+                        {% endfor %} 
+                    </ul>
+                    {% endif %}
+                </td>
+            </tr>        
         </tbody>
     </table>
-    {% if role.people | length > 0 %}    
-    <h2>People</h2>
-    <ul>
-        {% for people in role.people %}
-        <li>
-            <a href="{{ path("people_show", {"id":people.id}) }}">
-                {{ people }}
-            </a>
-        </li>
-        {% endfor %} 
-    </ul>
-    {% endif %}
 {% endblock %}
