@@ -451,4 +451,72 @@ class Place
     {
         return $this->books;
     }
+
+    /**
+     * Add resident
+     *
+     * @param \AppBundle\Entity\People $resident
+     *
+     * @return Place
+     */
+    public function addResident(\AppBundle\Entity\People $resident)
+    {
+        $this->residents[] = $resident;
+
+        return $this;
+    }
+
+    /**
+     * Remove resident
+     *
+     * @param \AppBundle\Entity\People $resident
+     */
+    public function removeResident(\AppBundle\Entity\People $resident)
+    {
+        $this->residents->removeElement($resident);
+    }
+
+    /**
+     * Get residents
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getResidents()
+    {
+        return $this->residents;
+    }
+
+    /**
+     * Add traveller
+     *
+     * @param \AppBundle\Entity\People $traveller
+     *
+     * @return Place
+     */
+    public function addTraveller(\AppBundle\Entity\People $traveller)
+    {
+        $this->travellers[] = $traveller;
+
+        return $this;
+    }
+
+    /**
+     * Remove traveller
+     *
+     * @param \AppBundle\Entity\People $traveller
+     */
+    public function removeTraveller(\AppBundle\Entity\People $traveller)
+    {
+        $this->travellers->removeElement($traveller);
+    }
+
+    /**
+     * Get travellers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTravellers()
+    {
+        return $this->travellers;
+    }
 }
