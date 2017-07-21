@@ -28,25 +28,30 @@ class Builder implements ContainerAwareInterface {
         ));
         $menu->setAttribute('dropdown', true);
 
-        $menu->addChild('bibliographic_term_index', array(
-            'label' => 'Bibliographic Terms',
-            'route' => 'bibliographic_term_index',
-        ));
-        $menu->addChild('binding_index', array(
-            'label' => 'Bindings',
-            'route' => 'binding_index',
-        ));
         $menu->addChild('book_index', array(
             'label' => 'Books',
             'route' => 'book_index',
         ));
-        $menu->addChild('contribution_index', array(
-            'label' => 'Contributions',
-            'route' => 'contribution_index',
+        $menu->addChild('people_index', array(
+            'label' => 'People',
+            'route' => 'people_index',
         ));
-        $menu->addChild('digital_copy_holder_index', array(
-            'label' => 'Digital Copy Holders',
-            'route' => 'digital_copy_holder_index',
+        $menu->addChild('place_index', array(
+            'label' => 'Places',
+            'route' => 'place_index',
+        ));
+
+        $menu->addChild('divider1', array(
+            'label' => '',
+        ));
+        $menu['divider1']->setAttributes(array(
+            'role' => 'separator',
+            'class' => 'divider',
+        ));
+
+        $menu->addChild('binding_index', array(
+            'label' => 'Bindings',
+            'route' => 'binding_index',
         ));
         $menu->addChild('genre_index', array(
             'label' => 'Genres',
@@ -67,22 +72,6 @@ class Builder implements ContainerAwareInterface {
         $menu->addChild('organization_index', array(
             'label' => 'Organizations',
             'route' => 'organization_index',
-        ));
-        $menu->addChild('other_copy_location_index', array(
-            'label' => 'Other Copy Locations',
-            'route' => 'other_copy_location_index',
-        ));
-        $menu->addChild('other_national_edition_index', array(
-            'label' => 'Other National Editions',
-            'route' => 'other_national_edition_index',
-        ));
-        $menu->addChild('people_index', array(
-            'label' => 'People',
-            'route' => 'people_index',
-        ));
-        $menu->addChild('place_index', array(
-            'label' => 'Places',
-            'route' => 'place_index',
         ));
         $menu->addChild('plate_type_index', array(
             'label' => 'Plate Types',
@@ -108,10 +97,6 @@ class Builder implements ContainerAwareInterface {
             'label' => 'Subject Headings',
             'route' => 'subject_heading_index',
         ));
-        $menu->addChild('supplemental_place_data_index', array(
-            'label' => 'Supplemental Place Data',
-            'route' => 'supplemental_place_data_index',
-        ));
         $menu->addChild('task_index', array(
             'label' => 'Tasks',
             'route' => 'task_index',
@@ -124,6 +109,30 @@ class Builder implements ContainerAwareInterface {
             $menu['divider']->setAttributes(array(
                 'role' => 'separator',
                 'class' => 'divider',
+            ));
+            $menu->addChild('bibliographic_term_index', array(
+                'label' => 'Bibliographic Terms',
+                'route' => 'bibliographic_term_index',
+            ));
+            $menu->addChild('contribution_index', array(
+                'label' => 'Contributions',
+                'route' => 'contribution_index',
+            ));
+            $menu->addChild('digital_copy_holder_index', array(
+                'label' => 'Digital Copy Holders',
+                'route' => 'digital_copy_holder_index',
+            ));
+            $menu->addChild('other_copy_location_index', array(
+                'label' => 'Other Copy Locations',
+                'route' => 'other_copy_location_index',
+            ));
+            $menu->addChild('other_national_edition_index', array(
+                'label' => 'Other National Editions',
+                'route' => 'other_national_edition_index',
+            ));
+            $menu->addChild('supplemental_place_data_index', array(
+                'label' => 'Supplemental Place Data',
+                'route' => 'supplemental_place_data_index',
             ));
         }
 
