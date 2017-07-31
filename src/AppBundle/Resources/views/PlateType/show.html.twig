@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}PlateType{% endblock %}
+{% block title %}Plate Type{% endblock %}
 
  {% block pageheader %} 
-    <h1>PlateType</h1>
+    <h1>Plate Type</h1>
  {% endblock %} 
 
 {% block body %}
@@ -16,7 +16,7 @@
         <a href="{{ path('plate_type_edit', { 'id': plateType.id }) }}" class="btn btn-default">
             <span class='glyphicon glyphicon-edit'></span> Edit
         </a>
-        <a href="{{ path('plate_type_delete', { 'id': plateType.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this PlateType?">
+        <a href="{{ path('plate_type_delete', { 'id': plateType.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this plate type?">
             <span class='glyphicon glyphicon-remove'></span> Delete
         </a>
         {% endif %}

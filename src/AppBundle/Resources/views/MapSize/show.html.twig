@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}MapSize{% endblock %}
+{% block title %}Map Size{% endblock %}
 
  {% block pageheader %} 
-    <h1>MapSize</h1>
+    <h1>Map Size</h1>
  {% endblock %} 
 
 {% block body %}
@@ -16,7 +16,7 @@
         <a href="{{ path('map_size_edit', { 'id': mapSize.id }) }}" class="btn btn-default">
             <span class='glyphicon glyphicon-edit'></span> Edit
         </a>
-        <a href="{{ path('map_size_delete', { 'id': mapSize.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this MapSize?">
+        <a href="{{ path('map_size_delete', { 'id': mapSize.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this map size?">
             <span class='glyphicon glyphicon-remove'></span> Delete
         </a>
         {% endif %}

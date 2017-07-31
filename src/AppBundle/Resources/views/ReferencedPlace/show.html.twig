@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ReferencedPlace{% endblock %}
+{% block title %}Referenced Place{% endblock %}
 
  {% block pageheader %} 
-    <h1>ReferencedPlace</h1>
+    <h1>Referenced Place</h1>
  {% endblock %} 
 
 {% block body %}
@@ -16,7 +16,7 @@
         <a href="{{ path('referenced_place_edit', { 'id': referencedPlace.id }) }}" class="btn btn-default">
             <span class='glyphicon glyphicon-edit'></span> Edit
         </a>
-        <a href="{{ path('referenced_place_delete', { 'id': referencedPlace.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this ReferencedPlace?">
+        <a href="{{ path('referenced_place_delete', { 'id': referencedPlace.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this referenced place?">
             <span class='glyphicon glyphicon-remove'></span> Delete
         </a>
         {% endif %}

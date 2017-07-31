@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}subjectHeadings{% endblock %}
+{% block title %}Subject Headings{% endblock %}
 
 {% block pageheader %}
-    <h1>SubjectHeading List</h1>
+    <h1>Subject Heading List</h1>
     <p class="count">
-        Displaying {{ subjectHeadings|length }} subjectHeadings of {{ subjectHeadings.getTotalItemCount }} total.
+        Displaying {{ subjectHeadings|length }} subject headings of {{ subjectHeadings.getTotalItemCount }} total.
     </p>
  {% endblock %} 
 
@@ -26,7 +26,7 @@
         
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
-            <tr><th>Subject Heading</th><th>Subject Heading Uri</th>            </tr>
+            <tr><th>Subject Heading</th><th>Subject Heading URI</th>            </tr>
         </thead>
         <tbody>
         {% for subjectHeading in subjectHeadings %}

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}people{% endblock %}
+{% block title %}People{% endblock %}
 
 {% block pageheader %}
     <h1>People List</h1>
@@ -26,7 +26,7 @@
         
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
-            <tr><th>Last Name</th><th>First Name</th><th>Other Last Name</th><th>Other First Name</th><th>Birth Date</th><th>Death Date</th><th>Gender</th><th>Biographical Notes</th><th>Biographical Annotation</th><th>Nationality</th><th>People Uri</th><th>Resident In Ld</th><th>Resident In London</th><th>Resident Outside Uk</th><th>Travel Outside Uk</th>            </tr>
+            <tr><th>Last Name</th><th>First Name</th><th>Other Last Name</th><th>Other First Name</th><th>Birth Date</th><th>Death Date</th><th>Gender</th><th>Biographical Notes</th><th>Biographical Annotation</th><th>Nationality</th><th>People URI</th><th>Resident In Lake District</th><th>Resident In London</th><th>Resident Outside UK</th><th>Travel Outside UK</th>            </tr>
         </thead>
         <tbody>
         {% for person in people %}

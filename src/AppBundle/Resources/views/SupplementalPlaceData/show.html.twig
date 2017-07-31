@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}SupplementalPlaceData{% endblock %}
+{% block title %}Supplemental Place Data{% endblock %}
 
  {% block pageheader %} 
-    <h1>SupplementalPlaceData</h1>
+    <h1>Supplemental Place Data</h1>
  {% endblock %} 
 
 {% block body %}
@@ -16,7 +16,7 @@
         <a href="{{ path('supplemental_place_data_edit', { 'id': supplementalPlaceDatum.id }) }}" class="btn btn-default">
             <span class='glyphicon glyphicon-edit'></span> Edit
         </a>
-        <a href="{{ path('supplemental_place_data_delete', { 'id': supplementalPlaceDatum.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this SupplementalPlaceData?">
+        <a href="{{ path('supplemental_place_data_delete', { 'id': supplementalPlaceDatum.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this supplemental place data?">
             <span class='glyphicon glyphicon-remove'></span> Delete
         </a>
         {% endif %}
@@ -24,7 +24,7 @@
 </div>
     <table class="table table-bordered table-condensed table-hover table-striped">
         <tbody><tr>
-                <th>Geonameid</th>
+                <th>Geoname ID</th>
                 <td>{{ supplementalPlaceDatum.geonameId }}</td>
             </tr><tr>
                 <th>Geoname</th>

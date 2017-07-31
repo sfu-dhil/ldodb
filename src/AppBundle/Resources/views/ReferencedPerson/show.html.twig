@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ReferencedPerson{% endblock %}
+{% block title %}Referenced Person{% endblock %}
 
  {% block pageheader %} 
-    <h1>ReferencedPerson</h1>
+    <h1>Referenced Person</h1>
  {% endblock %} 
 
 {% block body %}
@@ -16,7 +16,7 @@
         <a href="{{ path('referenced_person_edit', { 'id': referencedPerson.id }) }}" class="btn btn-default">
             <span class='glyphicon glyphicon-edit'></span> Edit
         </a>
-        <a href="{{ path('referenced_person_delete', { 'id': referencedPerson.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this ReferencedPerson?">
+        <a href="{{ path('referenced_person_delete', { 'id': referencedPerson.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this referenced person?">
             <span class='glyphicon glyphicon-remove'></span> Delete
         </a>
         {% endif %}
@@ -36,10 +36,10 @@
                 <th>Death Date</th>
                 <td>{{ referencedPerson.deathDate }}</td>
             </tr><tr>
-                <th>Same As People Entity Id</th>
+                <th>Same As People Entity ID</th>
                 <td>{{ referencedPerson.sameAsPeopleEntityId }}</td>
             </tr><tr>
-                <th>Referenced Person Uri</th>
+                <th>Referenced Person URI</th>
                 <td>{{ referencedPerson.referencedPersonUri }}</td>
             </tr>        
             <tr>

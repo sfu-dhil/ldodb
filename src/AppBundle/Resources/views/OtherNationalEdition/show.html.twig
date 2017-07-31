@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}OtherNationalEdition{% endblock %}
+ 
+{% block title %}Other National Edition{% endblock %}
 
  {% block pageheader %} 
-    <h1>OtherNationalEdition</h1>
+    <h1>Other National Edition</h1>
  {% endblock %} 
 
 {% block body %}
@@ -16,7 +16,7 @@
         <a href="{{ path('other_national_edition_edit', { 'id': otherNationalEdition.id }) }}" class="btn btn-default">
             <span class='glyphicon glyphicon-edit'></span> Edit
         </a>
-        <a href="{{ path('other_national_edition_delete', { 'id': otherNationalEdition.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this OtherNationalEdition?">
+        <a href="{{ path('other_national_edition_delete', { 'id': otherNationalEdition.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this other national edition?">
             <span class='glyphicon glyphicon-remove'></span> Delete
         </a>
         {% endif %}

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}organizations{% endblock %}
+{% block title %}Organizations{% endblock %}
 
 {% block pageheader %}
     <h1>Organization List</h1>
@@ -26,7 +26,7 @@
         
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
-            <tr><th>Organization Name</th><th>Organization Uri</th><th>Organization Notes</th>            </tr>
+            <tr><th>Organization Name</th><th>Organization URI</th><th>Organization Notes</th>            </tr>
         </thead>
         <tbody>
         {% for organization in organizations %}

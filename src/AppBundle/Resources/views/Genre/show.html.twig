@@ -16,7 +16,7 @@
         <a href="{{ path('genre_edit', { 'id': genre.id }) }}" class="btn btn-default">
             <span class='glyphicon glyphicon-edit'></span> Edit
         </a>
-        <a href="{{ path('genre_delete', { 'id': genre.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this Genre?">
+        <a href="{{ path('genre_delete', { 'id': genre.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this genre?">
             <span class='glyphicon glyphicon-remove'></span> Delete
         </a>
         {% endif %}
@@ -33,10 +33,10 @@
                 <th>Genre Usage Note</th>
                 <td>{{ genre.genreUsageNote }}</td>
             </tr><tr>
-                <th>Genre Uri</th>
+                <th>Genre URI</th>
                 <td>{{ genre.genreUri }}</td>
             </tr><tr>
-                <th>Broader Term Id</th>
+                <th>Broader Term ID</th>
                 <td>{{ genre.broaderTermId }}</td>
             </tr>        
             <tr>

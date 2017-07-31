@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}OtherCopyLocation{% endblock %}
+{% block title %}Other Copy Location{% endblock %}
 
  {% block pageheader %} 
-    <h1>OtherCopyLocation</h1>
+    <h1>Other Copy Location</h1>
  {% endblock %} 
 
 {% block body %}
@@ -16,7 +16,7 @@
         <a href="{{ path('other_copy_location_edit', { 'id': otherCopyLocation.id }) }}" class="btn btn-default">
             <span class='glyphicon glyphicon-edit'></span> Edit
         </a>
-        <a href="{{ path('other_copy_location_delete', { 'id': otherCopyLocation.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this OtherCopyLocation?">
+        <a href="{{ path('other_copy_location_delete', { 'id': otherCopyLocation.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this other copy location?">
             <span class='glyphicon glyphicon-remove'></span> Delete
         </a>
         {% endif %}

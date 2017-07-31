@@ -16,7 +16,7 @@
         <a href="{{ path('book_edit', { 'id': book.id }) }}" class="btn btn-default">
             <span class='glyphicon glyphicon-edit'></span> Edit
         </a>
-        <a href="{{ path('book_delete', { 'id': book.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this Book?">
+        <a href="{{ path('book_delete', { 'id': book.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this book?">
             <span class='glyphicon glyphicon-remove'></span> Delete
         </a>
         {% endif %}
@@ -63,10 +63,10 @@
                 <th>Copies</th>
                 <td>{{ book.copies }}</td>
             </tr><tr>
-                <th>Sfu Cat Orig Bib</th>
+                <th>SFU Catalogue Original Bibliography</th>
                 <td>{{ book.sfuCatOrigBib }}</td>
             </tr><tr>
-                <th>Original Bib</th>
+                <th>Original Bibliography</th>
                 <td>{% if book.originalBib %}Yes{% else %}No{% endif %}</td>
             </tr><tr>
                 <th>Bicknell Number</th>
@@ -90,10 +90,10 @@
                 <th>Print Run</th>
                 <td>{{ book.printRun }}</td>
             </tr><tr>
-                <th>Book Uri</th>
+                <th>Book URI</th>
                 <td>{{ book.bookUri }}</td>
             </tr><tr>
-                <th>Digital Object Url</th>
+                <th>Digital Object URL</th>
                 <td>{{ book.digitalObjectUrl }}</td>
             </tr><tr>
                 <th>Bibliographic Notes</th>
@@ -140,7 +140,7 @@
                 </td>
             </tr>        
             <tr>
-                <th>Referencedpeople</th>         
+                <th>Referenced People</th>         
                 <td>
                     {% if book.referencedPeople | length > 0 %}
                     <ul>
@@ -156,7 +156,7 @@
                 </td>
             </tr>        
             <tr>
-                <th>Platetypes</th>         
+                <th>Plate Types</th>         
                 <td>
                     {% if book.plateTypes | length > 0 %}
                     <ul>
@@ -172,7 +172,7 @@
                 </td>
             </tr>        
             <tr>
-                <th>Maptypes</th>         
+                <th>Map Types</th>         
                 <td>
                     {% if book.mapTypes | length > 0 %}
                     <ul>
@@ -204,7 +204,7 @@
                 </td>
             </tr>        
             <tr>
-                <th>Mapsizes</th>         
+                <th>Map Sizes</th>         
                 <td>
                     {% if book.mapSizes | length > 0 %}
                     <ul>
@@ -220,7 +220,7 @@
                 </td>
             </tr>        
             <tr>
-                <th>Subjectheadings</th>         
+                <th>Subject Headings</th>         
                 <td>
                     {% if book.subjectHeadings | length > 0 %}
                     <ul>
@@ -236,7 +236,7 @@
                 </td>
             </tr>        
             <tr>
-                <th>Bindingfeatures</th>         
+                <th>Binding Features</th>         
                 <td>
                     {% if book.bindingFeatures | length > 0 %}
                     <ul>
@@ -268,7 +268,7 @@
                 </td>
             </tr>        
             <tr>
-                <th>Digitalcopyholders</th>         
+                <th>Digital Copy Holders</th>         
                 <td>
                     {% if book.digitalCopyHolders | length > 0 %}
                     <ul>
@@ -284,7 +284,7 @@
                 </td>
             </tr>        
             <tr>
-                <th>Publicationplaces</th>         
+                <th>Publication Places</th>         
                 <td>
                     {% if book.publicationPlaces | length > 0 %}
                     <ul>
@@ -302,7 +302,7 @@
         </tbody>
     </table>
     {% if book.otherNationalEditions | length > 0 %}    
-    <h2>Othernationaleditions</h2>
+    <h2>Other National Editions</h2>
     <ul>
         {% for otherNationalEditions in book.otherNationalEditions %}
         <li>
@@ -314,7 +314,7 @@
     </ul>
     {% endif %}
     {% if book.referencedPlaces | length > 0 %}    
-    <h2>Referencedplaces</h2>
+    <h2>Referenced Places</h2>
     <ul>
         {% for referencedPlaces in book.referencedPlaces %}
         <li>
@@ -326,7 +326,7 @@
     </ul>
     {% endif %}
     {% if book.otherCopyLocations | length > 0 %}    
-    <h2>Othercopylocations</h2>
+    <h2>Other Copy Locations</h2>
     <ul>
         {% for otherCopyLocations in book.otherCopyLocations %}
         <li>

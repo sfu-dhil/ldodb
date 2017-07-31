@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}BindingFeature{% endblock %}
+{% block title %}Binding Features{% endblock %}
 
  {% block pageheader %} 
-    <h1>BindingFeature</h1>
+    <h1>Binding Features</h1>
  {% endblock %} 
 
 {% block body %}
@@ -16,7 +16,7 @@
         <a href="{{ path('binding_edit', { 'id': bindingFeature.id }) }}" class="btn btn-default">
             <span class='glyphicon glyphicon-edit'></span> Edit
         </a>
-        <a href="{{ path('binding_delete', { 'id': bindingFeature.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this BindingFeature?">
+        <a href="{{ path('binding_delete', { 'id': bindingFeature.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this binding feature?">
             <span class='glyphicon glyphicon-remove'></span> Delete
         </a>
         {% endif %}
@@ -24,7 +24,7 @@
 </div>
     <table class="table table-bordered table-condensed table-hover table-striped">
         <tbody><tr>
-                <th>Binding Feature</th>
+                <th>Binding Features</th>
                 <td>{{ bindingFeature.bindingFeature }}</td>
             </tr><tr>
                 <th>Binding Feature Notes</th>

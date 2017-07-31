@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}books{% endblock %}
+{% block title %}Books{% endblock %}
 
 {% block pageheader %}
     <h1>Book List</h1>
@@ -26,7 +26,7 @@
         
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
-            <tr><th>File Name</th><th>Call Number</th><th>Title</th><th>Short Title</th><th>Series Title</th><th>Title Page Quotation</th><th>Dedication</th><th>Imprint</th><th>Edition</th><th>Publication Date</th><th>Volumes</th><th>Pages</th><th>Copies</th><th>Sfu Cat Orig Bib</th><th>Original Bib</th><th>Bicknell Number</th><th>Healey Number</th><th>Reed Number</th><th>Public Domain</th><th>British Edition</th><th>Price</th><th>Print Run</th><th>Book Uri</th><th>Digital Object Url</th><th>Bibliographic Notes</th><th>Critical Annotation</th><th>Format</th><th>Plate Count</th><th>Map Count</th><th>Illustrations</th><th>Photographs</th><th>Tables</th><th>Binding Colour</th>            </tr>
+            <tr><th>File Name</th><th>Call Number</th><th>Title</th><th>Short Title</th><th>Series Title</th><th>Title Page Quotation</th><th>Dedication</th><th>Imprint</th><th>Edition</th><th>Publication Date</th><th>Volumes</th><th>Pages</th><th>Copies</th><th>SFU Catalogue Original Bibliography</th><th>Original Bibliography</th><th>Bicknell Number</th><th>Healey Number</th><th>Reed Number</th><th>Public Domain</th><th>British Edition</th><th>Price</th><th>Print Run</th><th>Book URI</th><th>Digital Object URL</th><th>Bibliographic Notes</th><th>Critical Annotation</th><th>Format</th><th>Plate Count</th><th>Map Count</th><th>Illustrations</th><th>Photographs</th><th>Tables</th><th>Binding Colour</th>            </tr>
         </thead>
         <tbody>
         {% for book in books %}

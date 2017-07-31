@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}BibliographicTerms{% endblock %}
+{% block title %}Bibliographic Terms{% endblock %}
 
  {% block pageheader %} 
-    <h1>BibliographicTerms</h1>
+    <h1>Bibliographic Terms</h1>
  {% endblock %} 
 
 {% block body %}
@@ -16,7 +16,7 @@
         <a href="{{ path('bibliographic_term_edit', { 'id': bibliographicTerm.id }) }}" class="btn btn-default">
             <span class='glyphicon glyphicon-edit'></span> Edit
         </a>
-        <a href="{{ path('bibliographic_term_delete', { 'id': bibliographicTerm.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this BibliographicTerms?">
+        <a href="{{ path('bibliographic_term_delete', { 'id': bibliographicTerm.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this bibliographic term?">
             <span class='glyphicon glyphicon-remove'></span> Delete
         </a>
         {% endif %}

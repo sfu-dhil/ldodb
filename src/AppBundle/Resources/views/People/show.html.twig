@@ -16,7 +16,7 @@
         <a href="{{ path('people_edit', { 'id': person.id }) }}" class="btn btn-default">
             <span class='glyphicon glyphicon-edit'></span> Edit
         </a>
-        <a href="{{ path('people_delete', { 'id': person.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this People?">
+        <a href="{{ path('people_delete', { 'id': person.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this person?">
             <span class='glyphicon glyphicon-remove'></span> Delete
         </a>
         {% endif %}
@@ -54,19 +54,19 @@
                 <th>Nationality</th>
                 <td>{{ person.nationality }}</td>
             </tr><tr>
-                <th>People Uri</th>
+                <th>People URI</th>
                 <td>{{ person.peopleUri }}</td>
             </tr><tr>
-                <th>Resident In Ld</th>
+                <th>Resident In the Lake District</th>
                 <td>{% if person.residentInLd %}Yes{% else %}No{% endif %}</td>
             </tr><tr>
                 <th>Resident In London</th>
                 <td>{% if person.residentInLondon %}Yes{% else %}No{% endif %}</td>
             </tr><tr>
-                <th>Resident Outside Uk</th>
+                <th>Resident Outside UK</th>
                 <td>{% if person.residentOutsideUk %}Yes{% else %}No{% endif %}</td>
             </tr><tr>
-                <th>Travel Outside Uk</th>
+                <th>Travel Outside UK</th>
                 <td>{% if person.travelOutsideUk %}Yes{% else %}No{% endif %}</td>
             </tr>        
             <tr>

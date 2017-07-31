@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}DigitalCopyHolder{% endblock %}
+{% block title %}Digital Copy Holder{% endblock %}
 
  {% block pageheader %} 
-    <h1>DigitalCopyHolder</h1>
+    <h1>Digital Copy Holder</h1>
  {% endblock %} 
 
 {% block body %}
@@ -16,7 +16,7 @@
         <a href="{{ path('digital_copy_holder_edit', { 'id': digitalCopyHolder.id }) }}" class="btn btn-default">
             <span class='glyphicon glyphicon-edit'></span> Edit
         </a>
-        <a href="{{ path('digital_copy_holder_delete', { 'id': digitalCopyHolder.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this DigitalCopyHolder?">
+        <a href="{{ path('digital_copy_holder_delete', { 'id': digitalCopyHolder.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this digital copy holder?">
             <span class='glyphicon glyphicon-remove'></span> Delete
         </a>
         {% endif %}
