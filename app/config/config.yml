@@ -43,6 +43,8 @@ twig:
         - 'bootstrap_3_horizontal_layout.html.twig'
         - '@NinesUtilBundle/Form/fields.html.twig'
     globals:
+        comment_service: "@feedback.comment"
+        text_service: "@nines.util.text"
         env: "%kernel.environment%"
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
@@ -119,3 +121,18 @@ knp_menu:
 
 nines_user:
     permission_levels: [ ROLE_ADMIN, ROLE_BLOG_ADMIN, ROLE_COMMENT_ADMIN, ROLE_CONTENT_ADMIN ]
+
+nines_feedback:
+    default_status: submitted
+    public_status: published
+    commenting:
+        person:
+            class: AppBundle\Entity\Person
+            route: person_show
+        book:
+            class: AppBundle\Entity\Book
+            route: book_show
+
+nines_blog:
+    default_status: draft
+    default_category: none

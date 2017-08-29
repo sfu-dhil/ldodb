@@ -22,6 +22,8 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(), 
             
+            new Nines\BlogBundle\NinesBlogBundle(),            
+            new Nines\FeedbackBundle\NinesFeedbackBundle(),            
             new Nines\UserBundle\NinesUserBundle(),
             new Nines\UtilBundle\NinesUtilBundle(),
         ];
