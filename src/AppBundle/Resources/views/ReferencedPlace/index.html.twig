@@ -7,40 +7,46 @@
     <p class="count">
         Displaying {{ referencedPlaces|length }} referenced places of {{ referencedPlaces.getTotalItemCount }} total.
     </p>
- {% endblock %} 
+{% endblock %} 
 
 {% block body %}
 
-        <div class='btn-toolbar pull-right'>
+    <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
             {% if is_granted('ROLE_CONTENT_ADMIN') %}
-            <a href="{{ path('referenced_place_new') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-plus"></span> New
-            </a>
+                <a href="{{ path('referenced_place_new') }}" class="btn btn-default">
+                    <span class="glyphicon glyphicon-plus"></span> New
+                </a>
             {% endif %}
             <a href="{{ path('referenced_place_search') }}" class="btn btn-default">
                 <span class="glyphicon glyphicon-search"></span> Search
             </a>
         </div>
     </div>
-        
+
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
-            <tr><th>Variant Spelling</th>            </tr>
+            <tr>
+                <th>Place name</th>            
+            </tr>
         </thead>
         <tbody>
-        {% for referencedPlace in referencedPlaces %}
-            <tr>
-                <td>
-                    <a href="{{ path('referenced_place_show', { 'id': referencedPlace.id }) }}">
-                        {{ referencedPlace.variantSpelling }}
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
+            {% for referencedPlace in referencedPlaces %}
+                <tr>
+                    <td>
+                        <a href="{{ path('referenced_place_show', { 'id': referencedPlace.id }) }}">
+                            {% if referencedPlace.variantSpelling %}
+                                {{ referencedPlace.variantSpelling }}
+                            {% else %}
+                                {{ referencedPlace.place }}
+                            {% endif %}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
-        
+
     <div class="navigation">
         {{ knp_pagination_render(referencedPlaces) }}
     </div>

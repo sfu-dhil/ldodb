@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Book
@@ -120,6 +121,14 @@ class Book
      * @ORM\Column(name="SFU_cat_orig_bib", type="text", nullable=true)
      */
     private $sfuCatOrigBib;
+    
+    /**
+     * @var string
+     * @Assert\Url()
+     * 
+     * @ORM\Column(name="sfu_digital_copy", type="string", length=255, nullable=true)
+     */
+    private $sfuDigitalCopy;
 
     /**
      * @var boolean
@@ -1612,5 +1621,29 @@ class Book
      */
     public function getPublicationPlaces() {
         return $this->publicationPlaces;
+    }
+
+    /**
+     * Set sfuDigitalCopy
+     *
+     * @param string $sfuDigitalCopy
+     *
+     * @return Book
+     */
+    public function setSfuDigitalCopy($sfuDigitalCopy)
+    {
+        $this->sfuDigitalCopy = $sfuDigitalCopy;
+
+        return $this;
+    }
+
+    /**
+     * Get sfuDigitalCopy
+     *
+     * @return string
+     */
+    public function getSfuDigitalCopy()
+    {
+        return $this->sfuDigitalCopy;
     }
 }
