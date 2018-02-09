@@ -77,7 +77,7 @@ class BibliographicTermsControllerTest extends BaseTestCase
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/bibliographic_term/1/edit');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        
     }
     
     public function testUserEdit() {
@@ -86,8 +86,8 @@ class BibliographicTermsControllerTest extends BaseTestCase
             'password' => 'secret',
         ]);
         $crawler = $client->request('GET', '/bibliographic_term/1/edit');
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $this->assertEquals(403, $client->getResponse()->getStatusCode());
+        
     }
     
     public function testAdminEdit() {
@@ -113,7 +113,7 @@ class BibliographicTermsControllerTest extends BaseTestCase
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/bibliographic_term/new');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        
     }
     
     public function testUserNew() {
@@ -122,8 +122,8 @@ class BibliographicTermsControllerTest extends BaseTestCase
             'password' => 'secret',
         ]);
         $crawler = $client->request('GET', '/bibliographic_term/new');
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $this->assertEquals(403, $client->getResponse()->getStatusCode());
+        
     }
 
     public function testAdminNew() {
@@ -149,7 +149,7 @@ class BibliographicTermsControllerTest extends BaseTestCase
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/bibliographic_term/1/delete');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        
     }
     
     public function testUserDelete() {
@@ -158,8 +158,8 @@ class BibliographicTermsControllerTest extends BaseTestCase
             'password' => 'secret',
         ]);
         $crawler = $client->request('GET', '/bibliographic_term/1/delete');
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $this->assertEquals(403, $client->getResponse()->getStatusCode());
+        
     }
 
     public function testAdminDelete() {

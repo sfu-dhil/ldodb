@@ -77,7 +77,7 @@ class ReferencedPlaceControllerTest extends BaseTestCase
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/referenced_place/1/edit');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        
     }
     
     public function testUserEdit() {
@@ -86,8 +86,8 @@ class ReferencedPlaceControllerTest extends BaseTestCase
             'password' => 'secret',
         ]);
         $crawler = $client->request('GET', '/referenced_place/1/edit');
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $this->assertEquals(403, $client->getResponse()->getStatusCode());
+        
     }
     
     public function testAdminEdit() {
@@ -117,7 +117,7 @@ class ReferencedPlaceControllerTest extends BaseTestCase
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/referenced_place/new');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        
     }
     
     public function testUserNew() {
@@ -126,8 +126,8 @@ class ReferencedPlaceControllerTest extends BaseTestCase
             'password' => 'secret',
         ]);
         $crawler = $client->request('GET', '/referenced_place/new');
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $this->assertEquals(403, $client->getResponse()->getStatusCode());
+        
     }
 
     public function testAdminNew() {
@@ -157,7 +157,7 @@ class ReferencedPlaceControllerTest extends BaseTestCase
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/referenced_place/1/delete');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        
     }
     
     public function testUserDelete() {
@@ -166,8 +166,8 @@ class ReferencedPlaceControllerTest extends BaseTestCase
             'password' => 'secret',
         ]);
         $crawler = $client->request('GET', '/referenced_place/1/delete');
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $this->assertTrue($client->getResponse()->isRedirect('/login'));
+        $this->assertEquals(403, $client->getResponse()->getStatusCode());
+        
     }
 
     public function testAdminDelete() {
