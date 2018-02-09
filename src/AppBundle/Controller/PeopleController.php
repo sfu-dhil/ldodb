@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\People;
 use AppBundle\Form\PeopleType;
@@ -15,18 +16,17 @@ use AppBundle\Form\PeopleType;
  *
  * @Route("/people")
  */
-class PeopleController extends Controller
-{
+class PeopleController extends Controller {
+
     /**
      * Lists all People entities.
      *
      * @Route("/", name="people_index")
      * @Method("GET")
      * @Template()
-	 * @param Request $request
+     * @param Request $request
      */
-    public function indexAction(Request $request)
-    {
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(People::class, 'e')->orderBy('e.id', 'ASC');
@@ -38,88 +38,88 @@ class PeopleController extends Controller
             'people' => $people,
         );
     }
+
     /**
      * Search for People entities.
-	 *
-	 * To make this work, add a method like this one to the 
-	 * AppBundle:People repository. Replace the fieldName with
-	 * something appropriate, and adjust the generated search.html.twig
-	 * template.
-	 * 
-     //    public function searchQuery($q) {
-     //        $qb = $this->createQueryBuilder('e');
-     //        $qb->where("e.fieldName like '%$q%'");
-     //        return $qb->getQuery();
-     //    }
-	 *
+     *
+     * To make this work, add a method like this one to the 
+     * AppBundle:People repository. Replace the fieldName with
+     * something appropriate, and adjust the generated search.html.twig
+     * template.
+     * 
+      //    public function searchQuery($q) {
+      //        $qb = $this->createQueryBuilder('e');
+      //        $qb->where("e.fieldName like '%$q%'");
+      //        return $qb->getQuery();
+      //    }
+     *
      *
      * @Route("/search", name="people_search")
      * @Method("GET")
      * @Template()
-	 * @param Request $request
+     * @param Request $request
      */
-    public function searchAction(Request $request)
-    {
+    public function searchAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-		$repo = $em->getRepository('AppBundle:People');
-		$q = $request->query->get('q');
-		if($q) {
-	        $query = $repo->searchQuery($q);
-			$paginator = $this->get('knp_paginator');
-			$people = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-		} else {
-			$people = array();
-		}
+        $repo = $em->getRepository('AppBundle:People');
+        $q = $request->query->get('q');
+        if ($q) {
+            $query = $repo->searchQuery($q);
+            $paginator = $this->get('knp_paginator');
+            $people = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
+        } else {
+            $people = array();
+        }
 
         return array(
             'people' => $people,
-			'q' => $q,
+            'q' => $q,
         );
     }
+
     /**
      * Full text search for People entities.
-	 *
-	 * To make this work, add a method like this one to the 
-	 * AppBundle:People repository. Replace the fieldName with
-	 * something appropriate, and adjust the generated fulltext.html.twig
-	 * template.
-	 * 
-	//    public function fulltextQuery($q) {
-	//        $qb = $this->createQueryBuilder('e');
-	//        $qb->addSelect("MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') as score");
-	//        $qb->add('where', "MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') > 0.5");
-	//        $qb->orderBy('score', 'desc');
-	//        $qb->setParameter('q', $q);
-	//        return $qb->getQuery();
-	//    }	 
-	 * 
-	 * Requires a MatchAgainst function be added to doctrine, and appropriate
-	 * fulltext indexes on your People entity.
-	 *     ORM\Index(name="alias_name_idx",columns="name", flags={"fulltext"})
-	 *
+     *
+     * To make this work, add a method like this one to the 
+     * AppBundle:People repository. Replace the fieldName with
+     * something appropriate, and adjust the generated fulltext.html.twig
+     * template.
+     * 
+      //    public function fulltextQuery($q) {
+      //        $qb = $this->createQueryBuilder('e');
+      //        $qb->addSelect("MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') as score");
+      //        $qb->add('where', "MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') > 0.5");
+      //        $qb->orderBy('score', 'desc');
+      //        $qb->setParameter('q', $q);
+      //        return $qb->getQuery();
+      //    }
+     * 
+     * Requires a MatchAgainst function be added to doctrine, and appropriate
+     * fulltext indexes on your People entity.
+     *     ORM\Index(name="alias_name_idx",columns="name", flags={"fulltext"})
+     *
      *
      * @Route("/fulltext", name="people_fulltext")
      * @Method("GET")
      * @Template()
-	 * @param Request $request
-	 * @return array
+     * @param Request $request
+     * @return array
      */
-    public function fulltextAction(Request $request)
-    {
+    public function fulltextAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-		$repo = $em->getRepository('AppBundle:People');
-		$q = $request->query->get('q');
-		if($q) {
-	        $query = $repo->fulltextQuery($q);
-			$paginator = $this->get('knp_paginator');
-			$people = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-		} else {
-			$people = array();
-		}
+        $repo = $em->getRepository('AppBundle:People');
+        $q = $request->query->get('q');
+        if ($q) {
+            $query = $repo->fulltextQuery($q);
+            $paginator = $this->get('knp_paginator');
+            $people = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
+        } else {
+            $people = array();
+        }
 
         return array(
             'people' => $people,
-			'q' => $q,
+            'q' => $q,
         );
     }
 
@@ -128,15 +128,11 @@ class PeopleController extends Controller
      *
      * @Route("/new", name="people_new")
      * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Template()
-	 * @param Request $request
+     * @param Request $request
      */
-    public function newAction(Request $request)
-    {
-        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
-            $this->addFlash('danger', 'You must login to access this page.');
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }
+    public function newAction(Request $request) {
         $person = new People();
         $form = $this->createForm(PeopleType::class, $person);
         $form->handleRequest($request);
@@ -162,10 +158,9 @@ class PeopleController extends Controller
      * @Route("/{id}", name="people_show")
      * @Method("GET")
      * @Template()
-	 * @param People $person
+     * @param People $person
      */
-    public function showAction(People $person)
-    {
+    public function showAction(People $person) {
 
         return array(
             'person' => $person,
@@ -177,16 +172,12 @@ class PeopleController extends Controller
      *
      * @Route("/{id}/edit", name="people_edit")
      * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Template()
-	 * @param Request $request
-	 * @param People $person
+     * @param Request $request
+     * @param People $person
      */
-    public function editAction(Request $request, People $person)
-    {
-        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
-            $this->addFlash('danger', 'You must login to access this page.');
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }
+    public function editAction(Request $request, People $person) {
         $editForm = $this->createForm(PeopleType::class, $person);
         $editForm->handleRequest($request);
 
@@ -208,15 +199,11 @@ class PeopleController extends Controller
      *
      * @Route("/{id}/delete", name="people_delete")
      * @Method("GET")
-	 * @param Request $request
-	 * @param People $person
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @param Request $request
+     * @param People $person
      */
-    public function deleteAction(Request $request, People $person)
-    {
-        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
-            $this->addFlash('danger', 'You must login to access this page.');
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }
+    public function deleteAction(Request $request, People $person) {
         $em = $this->getDoctrine()->getManager();
         $em->remove($person);
         $em->flush();
@@ -224,4 +211,5 @@ class PeopleController extends Controller
 
         return $this->redirectToRoute('people_index');
     }
+
 }

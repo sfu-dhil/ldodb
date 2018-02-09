@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\BibliographicTerms;
 use AppBundle\Form\BibliographicTermsType;
@@ -15,18 +16,17 @@ use AppBundle\Form\BibliographicTermsType;
  *
  * @Route("/bibliographic_term")
  */
-class BibliographicTermsController extends Controller
-{
+class BibliographicTermsController extends Controller {
+
     /**
      * Lists all BibliographicTerms entities.
      *
      * @Route("/", name="bibliographic_term_index")
      * @Method("GET")
      * @Template()
-	 * @param Request $request
+     * @param Request $request
      */
-    public function indexAction(Request $request)
-    {
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(BibliographicTerms::class, 'e')->orderBy('e.id', 'ASC');
@@ -38,88 +38,88 @@ class BibliographicTermsController extends Controller
             'bibliographicTerms' => $bibliographicTerms,
         );
     }
+
     /**
      * Search for BibliographicTerms entities.
-	 *
-	 * To make this work, add a method like this one to the 
-	 * AppBundle:BibliographicTerms repository. Replace the fieldName with
-	 * something appropriate, and adjust the generated search.html.twig
-	 * template.
-	 * 
-     //    public function searchQuery($q) {
-     //        $qb = $this->createQueryBuilder('e');
-     //        $qb->where("e.fieldName like '%$q%'");
-     //        return $qb->getQuery();
-     //    }
-	 *
+     *
+     * To make this work, add a method like this one to the 
+     * AppBundle:BibliographicTerms repository. Replace the fieldName with
+     * something appropriate, and adjust the generated search.html.twig
+     * template.
+     * 
+      //    public function searchQuery($q) {
+      //        $qb = $this->createQueryBuilder('e');
+      //        $qb->where("e.fieldName like '%$q%'");
+      //        return $qb->getQuery();
+      //    }
+     *
      *
      * @Route("/search", name="bibliographic_term_search")
      * @Method("GET")
      * @Template()
-	 * @param Request $request
+     * @param Request $request
      */
-    public function searchAction(Request $request)
-    {
+    public function searchAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-		$repo = $em->getRepository('AppBundle:BibliographicTerms');
-		$q = $request->query->get('q');
-		if($q) {
-	        $query = $repo->searchQuery($q);
-			$paginator = $this->get('knp_paginator');
-			$bibliographicTerms = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-		} else {
-			$bibliographicTerms = array();
-		}
+        $repo = $em->getRepository('AppBundle:BibliographicTerms');
+        $q = $request->query->get('q');
+        if ($q) {
+            $query = $repo->searchQuery($q);
+            $paginator = $this->get('knp_paginator');
+            $bibliographicTerms = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
+        } else {
+            $bibliographicTerms = array();
+        }
 
         return array(
             'bibliographicTerms' => $bibliographicTerms,
-			'q' => $q,
+            'q' => $q,
         );
     }
+
     /**
      * Full text search for BibliographicTerms entities.
-	 *
-	 * To make this work, add a method like this one to the 
-	 * AppBundle:BibliographicTerms repository. Replace the fieldName with
-	 * something appropriate, and adjust the generated fulltext.html.twig
-	 * template.
-	 * 
-	//    public function fulltextQuery($q) {
-	//        $qb = $this->createQueryBuilder('e');
-	//        $qb->addSelect("MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') as score");
-	//        $qb->add('where', "MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') > 0.5");
-	//        $qb->orderBy('score', 'desc');
-	//        $qb->setParameter('q', $q);
-	//        return $qb->getQuery();
-	//    }	 
-	 * 
-	 * Requires a MatchAgainst function be added to doctrine, and appropriate
-	 * fulltext indexes on your BibliographicTerms entity.
-	 *     ORM\Index(name="alias_name_idx",columns="name", flags={"fulltext"})
-	 *
+     *
+     * To make this work, add a method like this one to the 
+     * AppBundle:BibliographicTerms repository. Replace the fieldName with
+     * something appropriate, and adjust the generated fulltext.html.twig
+     * template.
+     * 
+      //    public function fulltextQuery($q) {
+      //        $qb = $this->createQueryBuilder('e');
+      //        $qb->addSelect("MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') as score");
+      //        $qb->add('where', "MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') > 0.5");
+      //        $qb->orderBy('score', 'desc');
+      //        $qb->setParameter('q', $q);
+      //        return $qb->getQuery();
+      //    }
+     * 
+     * Requires a MatchAgainst function be added to doctrine, and appropriate
+     * fulltext indexes on your BibliographicTerms entity.
+     *     ORM\Index(name="alias_name_idx",columns="name", flags={"fulltext"})
+     *
      *
      * @Route("/fulltext", name="bibliographic_term_fulltext")
      * @Method("GET")
      * @Template()
-	 * @param Request $request
-	 * @return array
+     * @param Request $request
+     * @return array
      */
-    public function fulltextAction(Request $request)
-    {
+    public function fulltextAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-		$repo = $em->getRepository('AppBundle:BibliographicTerms');
-		$q = $request->query->get('q');
-		if($q) {
-	        $query = $repo->fulltextQuery($q);
-			$paginator = $this->get('knp_paginator');
-			$bibliographicTerms = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-		} else {
-			$bibliographicTerms = array();
-		}
+        $repo = $em->getRepository('AppBundle:BibliographicTerms');
+        $q = $request->query->get('q');
+        if ($q) {
+            $query = $repo->fulltextQuery($q);
+            $paginator = $this->get('knp_paginator');
+            $bibliographicTerms = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
+        } else {
+            $bibliographicTerms = array();
+        }
 
         return array(
             'bibliographicTerms' => $bibliographicTerms,
-			'q' => $q,
+            'q' => $q,
         );
     }
 
@@ -128,15 +128,11 @@ class BibliographicTermsController extends Controller
      *
      * @Route("/new", name="bibliographic_term_new")
      * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Template()
-	 * @param Request $request
+     * @param Request $request
      */
-    public function newAction(Request $request)
-    {
-        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
-            $this->addFlash('danger', 'You must login to access this page.');
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }
+    public function newAction(Request $request) {
         $bibliographicTerm = new BibliographicTerms();
         $form = $this->createForm(BibliographicTermsType::class, $bibliographicTerm);
         $form->handleRequest($request);
@@ -162,10 +158,9 @@ class BibliographicTermsController extends Controller
      * @Route("/{id}", name="bibliographic_term_show")
      * @Method("GET")
      * @Template()
-	 * @param BibliographicTerms $bibliographicTerm
+     * @param BibliographicTerms $bibliographicTerm
      */
-    public function showAction(BibliographicTerms $bibliographicTerm)
-    {
+    public function showAction(BibliographicTerms $bibliographicTerm) {
 
         return array(
             'bibliographicTerm' => $bibliographicTerm,
@@ -177,16 +172,12 @@ class BibliographicTermsController extends Controller
      *
      * @Route("/{id}/edit", name="bibliographic_term_edit")
      * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Template()
-	 * @param Request $request
-	 * @param BibliographicTerms $bibliographicTerm
+     * @param Request $request
+     * @param BibliographicTerms $bibliographicTerm
      */
-    public function editAction(Request $request, BibliographicTerms $bibliographicTerm)
-    {
-        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
-            $this->addFlash('danger', 'You must login to access this page.');
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }
+    public function editAction(Request $request, BibliographicTerms $bibliographicTerm) {
         $editForm = $this->createForm(BibliographicTermsType::class, $bibliographicTerm);
         $editForm->handleRequest($request);
 
@@ -208,15 +199,11 @@ class BibliographicTermsController extends Controller
      *
      * @Route("/{id}/delete", name="bibliographic_term_delete")
      * @Method("GET")
-	 * @param Request $request
-	 * @param BibliographicTerms $bibliographicTerm
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @param Request $request
+     * @param BibliographicTerms $bibliographicTerm
      */
-    public function deleteAction(Request $request, BibliographicTerms $bibliographicTerm)
-    {
-        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
-            $this->addFlash('danger', 'You must login to access this page.');
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }
+    public function deleteAction(Request $request, BibliographicTerms $bibliographicTerm) {
         $em = $this->getDoctrine()->getManager();
         $em->remove($bibliographicTerm);
         $em->flush();
@@ -224,4 +211,5 @@ class BibliographicTermsController extends Controller
 
         return $this->redirectToRoute('bibliographic_term_index');
     }
+
 }

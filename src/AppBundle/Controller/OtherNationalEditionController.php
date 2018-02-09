@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\OtherNationalEdition;
 use AppBundle\Form\OtherNationalEditionType;
@@ -15,18 +16,17 @@ use AppBundle\Form\OtherNationalEditionType;
  *
  * @Route("/other_national_edition")
  */
-class OtherNationalEditionController extends Controller
-{
+class OtherNationalEditionController extends Controller {
+
     /**
      * Lists all OtherNationalEdition entities.
      *
      * @Route("/", name="other_national_edition_index")
      * @Method("GET")
      * @Template()
-	 * @param Request $request
+     * @param Request $request
      */
-    public function indexAction(Request $request)
-    {
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(OtherNationalEdition::class, 'e')->orderBy('e.id', 'ASC');
@@ -38,88 +38,88 @@ class OtherNationalEditionController extends Controller
             'otherNationalEditions' => $otherNationalEditions,
         );
     }
+
     /**
      * Search for OtherNationalEdition entities.
-	 *
-	 * To make this work, add a method like this one to the 
-	 * AppBundle:OtherNationalEdition repository. Replace the fieldName with
-	 * something appropriate, and adjust the generated search.html.twig
-	 * template.
-	 * 
-     //    public function searchQuery($q) {
-     //        $qb = $this->createQueryBuilder('e');
-     //        $qb->where("e.fieldName like '%$q%'");
-     //        return $qb->getQuery();
-     //    }
-	 *
+     *
+     * To make this work, add a method like this one to the 
+     * AppBundle:OtherNationalEdition repository. Replace the fieldName with
+     * something appropriate, and adjust the generated search.html.twig
+     * template.
+     * 
+      //    public function searchQuery($q) {
+      //        $qb = $this->createQueryBuilder('e');
+      //        $qb->where("e.fieldName like '%$q%'");
+      //        return $qb->getQuery();
+      //    }
+     *
      *
      * @Route("/search", name="other_national_edition_search")
      * @Method("GET")
      * @Template()
-	 * @param Request $request
+     * @param Request $request
      */
-    public function searchAction(Request $request)
-    {
+    public function searchAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-		$repo = $em->getRepository('AppBundle:OtherNationalEdition');
-		$q = $request->query->get('q');
-		if($q) {
-	        $query = $repo->searchQuery($q);
-			$paginator = $this->get('knp_paginator');
-			$otherNationalEditions = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-		} else {
-			$otherNationalEditions = array();
-		}
+        $repo = $em->getRepository('AppBundle:OtherNationalEdition');
+        $q = $request->query->get('q');
+        if ($q) {
+            $query = $repo->searchQuery($q);
+            $paginator = $this->get('knp_paginator');
+            $otherNationalEditions = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
+        } else {
+            $otherNationalEditions = array();
+        }
 
         return array(
             'otherNationalEditions' => $otherNationalEditions,
-			'q' => $q,
+            'q' => $q,
         );
     }
+
     /**
      * Full text search for OtherNationalEdition entities.
-	 *
-	 * To make this work, add a method like this one to the 
-	 * AppBundle:OtherNationalEdition repository. Replace the fieldName with
-	 * something appropriate, and adjust the generated fulltext.html.twig
-	 * template.
-	 * 
-	//    public function fulltextQuery($q) {
-	//        $qb = $this->createQueryBuilder('e');
-	//        $qb->addSelect("MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') as score");
-	//        $qb->add('where', "MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') > 0.5");
-	//        $qb->orderBy('score', 'desc');
-	//        $qb->setParameter('q', $q);
-	//        return $qb->getQuery();
-	//    }	 
-	 * 
-	 * Requires a MatchAgainst function be added to doctrine, and appropriate
-	 * fulltext indexes on your OtherNationalEdition entity.
-	 *     ORM\Index(name="alias_name_idx",columns="name", flags={"fulltext"})
-	 *
+     *
+     * To make this work, add a method like this one to the 
+     * AppBundle:OtherNationalEdition repository. Replace the fieldName with
+     * something appropriate, and adjust the generated fulltext.html.twig
+     * template.
+     * 
+      //    public function fulltextQuery($q) {
+      //        $qb = $this->createQueryBuilder('e');
+      //        $qb->addSelect("MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') as score");
+      //        $qb->add('where', "MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') > 0.5");
+      //        $qb->orderBy('score', 'desc');
+      //        $qb->setParameter('q', $q);
+      //        return $qb->getQuery();
+      //    }
+     * 
+     * Requires a MatchAgainst function be added to doctrine, and appropriate
+     * fulltext indexes on your OtherNationalEdition entity.
+     *     ORM\Index(name="alias_name_idx",columns="name", flags={"fulltext"})
+     *
      *
      * @Route("/fulltext", name="other_national_edition_fulltext")
      * @Method("GET")
      * @Template()
-	 * @param Request $request
-	 * @return array
+     * @param Request $request
+     * @return array
      */
-    public function fulltextAction(Request $request)
-    {
+    public function fulltextAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-		$repo = $em->getRepository('AppBundle:OtherNationalEdition');
-		$q = $request->query->get('q');
-		if($q) {
-	        $query = $repo->fulltextQuery($q);
-			$paginator = $this->get('knp_paginator');
-			$otherNationalEditions = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-		} else {
-			$otherNationalEditions = array();
-		}
+        $repo = $em->getRepository('AppBundle:OtherNationalEdition');
+        $q = $request->query->get('q');
+        if ($q) {
+            $query = $repo->fulltextQuery($q);
+            $paginator = $this->get('knp_paginator');
+            $otherNationalEditions = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
+        } else {
+            $otherNationalEditions = array();
+        }
 
         return array(
             'otherNationalEditions' => $otherNationalEditions,
-			'q' => $q,
+            'q' => $q,
         );
     }
 
@@ -128,15 +128,11 @@ class OtherNationalEditionController extends Controller
      *
      * @Route("/new", name="other_national_edition_new")
      * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Template()
-	 * @param Request $request
+     * @param Request $request
      */
-    public function newAction(Request $request)
-    {
-        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
-            $this->addFlash('danger', 'You must login to access this page.');
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }
+    public function newAction(Request $request) {
         $otherNationalEdition = new OtherNationalEdition();
         $form = $this->createForm(OtherNationalEditionType::class, $otherNationalEdition);
         $form->handleRequest($request);
@@ -162,10 +158,9 @@ class OtherNationalEditionController extends Controller
      * @Route("/{id}", name="other_national_edition_show")
      * @Method("GET")
      * @Template()
-	 * @param OtherNationalEdition $otherNationalEdition
+     * @param OtherNationalEdition $otherNationalEdition
      */
-    public function showAction(OtherNationalEdition $otherNationalEdition)
-    {
+    public function showAction(OtherNationalEdition $otherNationalEdition) {
 
         return array(
             'otherNationalEdition' => $otherNationalEdition,
@@ -177,16 +172,12 @@ class OtherNationalEditionController extends Controller
      *
      * @Route("/{id}/edit", name="other_national_edition_edit")
      * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Template()
-	 * @param Request $request
-	 * @param OtherNationalEdition $otherNationalEdition
+     * @param Request $request
+     * @param OtherNationalEdition $otherNationalEdition
      */
-    public function editAction(Request $request, OtherNationalEdition $otherNationalEdition)
-    {
-        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
-            $this->addFlash('danger', 'You must login to access this page.');
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }
+    public function editAction(Request $request, OtherNationalEdition $otherNationalEdition) {
         $editForm = $this->createForm(OtherNationalEditionType::class, $otherNationalEdition);
         $editForm->handleRequest($request);
 
@@ -208,15 +199,11 @@ class OtherNationalEditionController extends Controller
      *
      * @Route("/{id}/delete", name="other_national_edition_delete")
      * @Method("GET")
-	 * @param Request $request
-	 * @param OtherNationalEdition $otherNationalEdition
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @param Request $request
+     * @param OtherNationalEdition $otherNationalEdition
      */
-    public function deleteAction(Request $request, OtherNationalEdition $otherNationalEdition)
-    {
-        if( ! $this->isGranted('ROLE_CONTENT_ADMIN')) {
-            $this->addFlash('danger', 'You must login to access this page.');
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }
+    public function deleteAction(Request $request, OtherNationalEdition $otherNationalEdition) {
         $em = $this->getDoctrine()->getManager();
         $em->remove($otherNationalEdition);
         $em->flush();
@@ -224,4 +211,5 @@ class OtherNationalEditionController extends Controller
 
         return $this->redirectToRoute('other_national_edition_index');
     }
+
 }

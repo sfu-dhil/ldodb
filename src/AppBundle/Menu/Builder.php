@@ -6,131 +6,176 @@ use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Class to build some menus for navigation.
  */
 class Builder implements ContainerAwareInterface {
-
+    
     use ContainerAwareTrait;
+
+
+    const CARET = ' ▾'; // U+25BE, black down-pointing small triangle.
+    
+    /**
+     * @var FactoryInterface
+     */
+    private $factory;
+
+    /**
+     * @var AuthorizationCheckerInterface
+     */
+    private $authChecker;
+
+    /**
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
+
+    public function __construct(FactoryInterface $factory, AuthorizationCheckerInterface $authChecker, TokenStorageInterface $tokenStorage) {
+        $this->factory = $factory;
+        $this->authChecker = $authChecker;
+        $this->tokenStorage = $tokenStorage;
+    }
+
+    private function hasRole($role) {
+        if (!$this->tokenStorage->getToken()) {
+            return false;
+        }
+        return $this->authChecker->isGranted($role);
+    }
 
     /**
      * Build a menu for blog posts.
      * 
-     * @param FactoryInterface $factory
      * @param array $options
      * @return ItemInterface
      */
-    public function navMenu(FactoryInterface $factory, array $options) {
-        $menu = $factory->createItem('root');
+    public function mainMenu(array $options) {
+        $menu = $this->factory->createItem('root');
         $menu->setChildrenAttributes(array(
-            'class' => 'dropdown-menu',
+            'class' => 'nav navbar-nav',
         ));
-        $menu->setAttribute('dropdown', true);
+        
+        $menu->addChild('home', array(
+            'label' => 'Home',
+            'route' => 'homepage',
+        ));
+        
+        $browse = $menu->addChild('browse', array(
+            'label' => 'Browse ' . self::CARET,
+            'uri' => '#',
+        ));
+        $browse->setAttribute('dropdown', true);
+        $browse->setLinkAttribute('class', 'dropdown-toggle');
+        $browse->setLinkAttribute('data-toggle', 'dropdown');
+        $browse->setChildrenAttribute('class', 'dropdown-menu');
 
-        $menu->addChild('book_index', array(
+        $browse->addChild('book_index', array(
             'label' => 'Books',
             'route' => 'book_index',
         ));
-        $menu->addChild('people_index', array(
+        $browse->addChild('people_index', array(
             'label' => 'People',
             'route' => 'people_index',
         ));
-        $menu->addChild('place_index', array(
+        $browse->addChild('place_index', array(
             'label' => 'Places',
             'route' => 'place_index',
         ));
 
-        $menu->addChild('divider1', array(
+        $browse->addChild('divider1', array(
             'label' => '',
         ));
-        $menu['divider1']->setAttributes(array(
+        $browse['divider1']->setAttributes(array(
             'role' => 'separator',
             'class' => 'divider',
         ));
 
-        $menu->addChild('binding_index', array(
+        $browse->addChild('binding_index', array(
             'label' => 'Bindings',
             'route' => 'binding_index',
         ));
-        $menu->addChild('genre_index', array(
+        $browse->addChild('genre_index', array(
             'label' => 'Genres',
             'route' => 'genre_index',
         ));
-        $menu->addChild('keyword_index', array(
+        $browse->addChild('keyword_index', array(
             'label' => 'Keywords',
             'route' => 'keyword_index',
         ));
-        $menu->addChild('map_size_index', array(
+        $browse->addChild('map_size_index', array(
             'label' => 'Map Sizes',
             'route' => 'map_size_index',
         ));
-        $menu->addChild('map_type_index', array(
+        $browse->addChild('map_type_index', array(
             'label' => 'Map Types',
             'route' => 'map_type_index',
         ));
-        $menu->addChild('organization_index', array(
+        $browse->addChild('organization_index', array(
             'label' => 'Organizations',
             'route' => 'organization_index',
         ));
-        $menu->addChild('plate_type_index', array(
+        $browse->addChild('plate_type_index', array(
             'label' => 'Plate Types',
             'route' => 'plate_type_index',
         ));
-        $menu->addChild('referenced_person_index', array(
+        $browse->addChild('referenced_person_index', array(
             'label' => 'Referenced People',
             'route' => 'referenced_person_index',
         ));
-        $menu->addChild('referenced_place_index', array(
+        $browse->addChild('referenced_place_index', array(
             'label' => 'Referenced Places',
             'route' => 'referenced_place_index',
         ));
-        $menu->addChild('role_index', array(
+        $browse->addChild('role_index', array(
             'label' => 'Roles',
             'route' => 'role_index',
         ));
-        $menu->addChild('subject_index', array(
+        $browse->addChild('subject_index', array(
             'label' => 'Subjects',
             'route' => 'subject_index',
         ));
-        $menu->addChild('subject_heading_index', array(
+        $browse->addChild('subject_heading_index', array(
             'label' => 'Subject Headings',
             'route' => 'subject_heading_index',
         ));
-        $menu->addChild('task_index', array(
+        $browse->addChild('task_index', array(
             'label' => 'Tasks',
             'route' => 'task_index',
         ));
 
-        if ($this->container->get('security.token_storage')->getToken() && $this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            $menu->addChild('divider', array(
+        if ($this->hasRole('ROLE_ADMIN')) {
+            $browse->addChild('divider', array(
                 'label' => '',
             ));
-            $menu['divider']->setAttributes(array(
+            $browse['divider']->setAttributes(array(
                 'role' => 'separator',
                 'class' => 'divider',
             ));
-            $menu->addChild('bibliographic_term_index', array(
+            $browse->addChild('bibliographic_term_index', array(
                 'label' => 'Bibliographic Terms',
                 'route' => 'bibliographic_term_index',
             ));
-            $menu->addChild('contribution_index', array(
+            $browse->addChild('contribution_index', array(
                 'label' => 'Contributions',
                 'route' => 'contribution_index',
             ));
-            $menu->addChild('digital_copy_holder_index', array(
+            $browse->addChild('digital_copy_holder_index', array(
                 'label' => 'Digital Copy Holders',
                 'route' => 'digital_copy_holder_index',
             ));
-            $menu->addChild('other_copy_location_index', array(
+            $browse->addChild('other_copy_location_index', array(
                 'label' => 'Other Copy Locations',
                 'route' => 'other_copy_location_index',
             ));
-            $menu->addChild('other_national_edition_index', array(
+            $browse->addChild('other_national_edition_index', array(
                 'label' => 'Other National Editions',
                 'route' => 'other_national_edition_index',
             ));
-            $menu->addChild('supplemental_place_data_index', array(
+            $browse->addChild('supplemental_place_data_index', array(
                 'label' => 'Supplemental Place Data',
                 'route' => 'supplemental_place_data_index',
             ));

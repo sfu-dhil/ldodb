@@ -11,7 +11,9 @@ parameters:
 
 framework:
     #esi: ~
-    translator: ~
+    translator:
+        enabled: true
+        logging: false
     secret: '%secret%'
     router:
         resource: '%kernel.project_dir%/app/config/routing.yml'
@@ -28,6 +30,7 @@ framework:
         # https://symfony.com/doc/current/reference/configuration/framework.html#handler-id
         handler_id: session.handler.native_file
         save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
+        name: PHP_SESSION_LDODB        
         cookie_path: '%router.request_context.base_url%'
         cookie_domain: '%router.request_context.host%'
         cookie_secure: '%secure_cookies%'
@@ -49,7 +52,8 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     paths:
-        '%kernel.root_dir%/../src/Nines/UtilBundle/Resources/views': NinesUtilBundle
+        '%kernel.project_dir%/src/Nines/UtilBundle/Resources/views': NinesUtilBundle
+        '%kernel.project_dir%/src/Nines/UserBundle/Resources/views': NinesUser
     exception_controller:  NinesUtilBundle:Error:showException
     date:
         format: d.m.Y, H:i:s
@@ -58,18 +62,20 @@ twig:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver: pdo_mysql
-        host: '%database_host%'
-        port: '%database_port%'
-        dbname: '%database_name%'
-        user: '%database_user%'
-        password: '%database_password%'
+        driver:   pdo_mysql
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
         charset: utf8mb4
         default_table_options:
             charset: utf8mb4
             collate: utf8mb4_unicode_ci
         mapping_types:
             enum: string
+#        logging: false
+#        profiling: false
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
@@ -113,7 +119,10 @@ ivory_ck_editor:
     default_config: ldodb_config
     configs:
         ldodb_config:
-            toolbar: standard
+            toolbar:
+                - [ Source, -, Cut, Copy, Paste, PasteText, PasteFromWord, -, Undo, Redo ]
+                - [ Link, Unlink, Anchor, -, SpecialChar ]
+                - [ Format, Styles, -, Bold, Italic, Strike, -, RemoveFormat, -, NumberedList, BulletedList, -, Indent, Outdent, -, Blockquote, -, JustifyLeft, JustifyCenter, JustifyRight, JustifyBlock ]
 
 knp_menu:
     twig:
@@ -136,3 +145,6 @@ nines_feedback:
 nines_blog:
     default_status: draft
     default_category: none
+
+nines_user:
+    permission_levels: [ ROLE_ADMIN, ROLE_BLOG_ADMIN, ROLE_COMMENT_ADMIN, ROLE_CONTENT_ADMIN, ROLE_CONTENT_EDITOR ]
