@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Tests\DataFixtures\ORM;
+namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\BibliographicTerms;
 use Doctrine\Common\DataFixtures\AbstractFixture;

@@ -3,7 +3,7 @@
 namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\SupplementalPlaceData;
-use AppBundle\Tests\DataFixtures\ORM\LoadSupplementalPlaceData;
+use AppBundle\DataFixtures\ORM\LoadSupplementalPlaceData;
 use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 

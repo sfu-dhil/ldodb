@@ -3,7 +3,7 @@
 namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\Keyword;
-use AppBundle\Tests\DataFixtures\ORM\LoadKeyword;
+use AppBundle\DataFixtures\ORM\LoadKeyword;
 use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 

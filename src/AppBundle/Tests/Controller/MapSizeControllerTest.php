@@ -3,7 +3,7 @@
 namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\MapSize;
-use AppBundle\Tests\DataFixtures\ORM\LoadMapSize;
+use AppBundle\DataFixtures\ORM\LoadMapSize;
 use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 

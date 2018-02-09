@@ -3,7 +3,7 @@
 namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\BibliographicTerms;
-use AppBundle\Tests\DataFixtures\ORM\LoadBibliographicTerms;
+use AppBundle\DataFixtures\ORM\LoadBibliographicTerms;
 use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 

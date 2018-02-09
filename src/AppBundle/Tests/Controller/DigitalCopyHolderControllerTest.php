@@ -3,7 +3,7 @@
 namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\DigitalCopyHolder;
-use AppBundle\Tests\DataFixtures\ORM\LoadDigitalCopyHolder;
+use AppBundle\DataFixtures\ORM\LoadDigitalCopyHolder;
 use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 

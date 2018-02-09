@@ -3,7 +3,7 @@
 namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\OtherCopyLocation;
-use AppBundle\Tests\DataFixtures\ORM\LoadOtherCopyLocation;
+use AppBundle\DataFixtures\ORM\LoadOtherCopyLocation;
 use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 

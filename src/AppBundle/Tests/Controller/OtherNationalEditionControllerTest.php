@@ -3,7 +3,7 @@
 namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\OtherNationalEdition;
-use AppBundle\Tests\DataFixtures\ORM\LoadOtherNationalEdition;
+use AppBundle\DataFixtures\ORM\LoadOtherNationalEdition;
 use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 

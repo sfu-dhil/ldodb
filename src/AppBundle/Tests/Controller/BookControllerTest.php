@@ -3,7 +3,7 @@
 namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\Book;
-use AppBundle\Tests\DataFixtures\ORM\LoadBook;
+use AppBundle\DataFixtures\ORM\LoadBook;
 use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 

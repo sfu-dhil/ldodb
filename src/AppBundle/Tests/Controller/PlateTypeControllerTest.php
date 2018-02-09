@@ -3,7 +3,7 @@
 namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\PlateType;
-use AppBundle\Tests\DataFixtures\ORM\LoadPlateType;
+use AppBundle\DataFixtures\ORM\LoadPlateType;
 use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 

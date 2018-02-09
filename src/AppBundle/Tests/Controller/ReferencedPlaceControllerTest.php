@@ -3,7 +3,7 @@
 namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\ReferencedPlace;
-use AppBundle\Tests\DataFixtures\ORM\LoadReferencedPlace;
+use AppBundle\DataFixtures\ORM\LoadReferencedPlace;
 use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 

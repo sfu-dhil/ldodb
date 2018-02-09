@@ -3,7 +3,7 @@
 namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\MapType;
-use AppBundle\Tests\DataFixtures\ORM\LoadMapType;
+use AppBundle\DataFixtures\ORM\LoadMapType;
 use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 

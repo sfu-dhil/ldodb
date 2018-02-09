@@ -3,7 +3,7 @@
 namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\Subject;
-use AppBundle\Tests\DataFixtures\ORM\LoadSubject;
+use AppBundle\DataFixtures\ORM\LoadSubject;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 

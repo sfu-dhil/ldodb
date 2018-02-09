@@ -3,7 +3,7 @@
 namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\SubjectHeading;
-use AppBundle\Tests\DataFixtures\ORM\LoadSubjectHeading;
+use AppBundle\DataFixtures\ORM\LoadSubjectHeading;
 use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 

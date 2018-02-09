@@ -3,7 +3,7 @@
 namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\Task;
-use AppBundle\Tests\DataFixtures\ORM\LoadTask;
+use AppBundle\DataFixtures\ORM\LoadTask;
 use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 

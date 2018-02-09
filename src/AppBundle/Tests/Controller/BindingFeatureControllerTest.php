@@ -3,7 +3,7 @@
 namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\BindingFeature;
-use AppBundle\Tests\DataFixtures\ORM\LoadBindingFeature;
+use AppBundle\DataFixtures\ORM\LoadBindingFeature;
 use AppBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
 
