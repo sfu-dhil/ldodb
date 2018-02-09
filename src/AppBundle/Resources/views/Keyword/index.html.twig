@@ -26,7 +26,7 @@
         
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
-            <tr><th>Keyword</th><th>Preferred Keyword</th>            </tr>
+            <tr><th>Keyword</th></tr>
         </thead>
         <tbody>
         {% for keyword in keywords %}
@@ -36,7 +36,6 @@
                         {{ keyword.keyword }}
                     </a>
                 </td>
-                <td>{% if keyword.preferredKeyword %}Yes{% else %}No{% endif %}</td>
             </tr>
         {% endfor %}
         </tbody>

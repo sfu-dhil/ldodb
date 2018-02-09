@@ -26,7 +26,7 @@
         
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
-            <tr><th>Organization Name</th><th>Organization URI</th><th>Organization Notes</th>            </tr>
+            <tr><th>Organization Name</th></tr>
         </thead>
         <tbody>
         {% for organization in organizations %}
@@ -36,8 +36,6 @@
                         {{ organization.organizationName }}
                     </a>
                 </td>
-                <td>{{ organization.organizationUri }}</td>
-                <td>{{ organization.organizationNotes }}</td>
             </tr>
         {% endfor %}
         </tbody>

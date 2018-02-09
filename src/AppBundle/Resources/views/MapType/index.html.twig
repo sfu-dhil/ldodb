@@ -26,7 +26,7 @@
         
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
-            <tr><th>Map Type</th><th>Map Type Notes</th>            </tr>
+            <tr><th>Map Type</th></tr>
         </thead>
         <tbody>
         {% for mapType in mapTypes %}
@@ -36,7 +36,6 @@
                         {{ mapType.mapType }}
                     </a>
                 </td>
-                <td>{{ mapType.mapTypeNotes }}</td>
             </tr>
         {% endfor %}
         </tbody>

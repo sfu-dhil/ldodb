@@ -26,7 +26,7 @@
         
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
-            <tr><th>Binding Feature</th><th>Binding Feature Notes</th>            </tr>
+            <tr><th>Binding Feature</th></tr>
         </thead>
         <tbody>
         {% for bindingFeature in bindingFeatures %}
@@ -36,7 +36,6 @@
                         {{ bindingFeature.bindingFeature }}
                     </a>
                 </td>
-                <td>{{ bindingFeature.bindingFeatureNotes }}</td>
             </tr>
         {% endfor %}
         </tbody>
