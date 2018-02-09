@@ -4,15 +4,15 @@ namespace AppBundle\Tests\Controller;
 
 use AppBundle\Entity\OtherCopyLocation;
 use AppBundle\DataFixtures\ORM\LoadOtherCopyLocation;
-use AppBundle\Tests\Util\BaseTestCase;
-use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
+use Nines\UtilBundle\Tests\Util\BaseTestCase;
+use Nines\UserBundle\DataFixtures\ORM\LoadUser;
 
 class OtherCopyLocationControllerTest extends BaseTestCase
 {
 
     protected function getFixtures() {
         return [
-            LoadUsers::class,
+            LoadUser::class,
             LoadOtherCopyLocation::class
         ];
     }

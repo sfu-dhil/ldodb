@@ -5,14 +5,15 @@ namespace AppBundle\Tests\Controller;
 use AppBundle\Entity\Subject;
 use AppBundle\DataFixtures\ORM\LoadSubject;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
-use Nines\UserBundle\Tests\DataFixtures\ORM\LoadUsers;
+use Nines\UserBundle\DataFixtures\ORM\LoadUser;
 
-class SubjectControllerTest extends \AppBundle\Tests\Util\BaseTestCase
+class SubjectControllerTest extends \Nines\UtilBundle\Tests\Util\BaseTestCase
+
 {
 
     protected function getFixtures() {
         return [
-            LoadUsers::class,
+            LoadUser::class,
             LoadSubject::class
         ];
     }
