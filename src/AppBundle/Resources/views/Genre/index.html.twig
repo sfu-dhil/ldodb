@@ -26,7 +26,7 @@
         
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
-            <tr><th>Genre Name</th><th>Genre Source</th><th>Genre Usage Note</th><th>Genre URI</th><th>Broader Term ID</th>            </tr>
+            <tr><th>Genre Name</th><th>Genre Usage Note</th></tr>
         </thead>
         <tbody>
         {% for genre in genres %}
@@ -36,10 +36,7 @@
                         {{ genre.genreName }}
                     </a>
                 </td>
-                <td>{{ genre.genreSource }}</td>
                 <td>{{ genre.genreUsageNote }}</td>
-                <td>{{ genre.genreUri }}</td>
-                <td>{{ genre.broaderTermId }}</td>
             </tr>
         {% endfor %}
         </tbody>

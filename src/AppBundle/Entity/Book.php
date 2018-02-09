@@ -1274,12 +1274,19 @@ class Book
     }
 
     /**
-     * Get contributions
+     * Get contributions, optionally flitered by task
+     * 
+     * @param string $task
      *
      * @return Collection
      */
-    public function getContributions() {
-        return $this->contributions;
+    public function getContributions($task = null) {
+        if ($task === null) {
+            return $this->contributions;
+        }
+        return $this->contributions->filter(function(Contribution $contribution) use ($task) {
+            return $contribution->getTask()->getTaskName() === $task;
+        });
     }
 
     /**
