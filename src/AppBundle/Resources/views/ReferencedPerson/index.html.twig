@@ -26,7 +26,7 @@
         
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
-            <tr><th>Last Name</th><th>First Name</th><th>Birth Date</th><th>Death Date</th><th>Same As People Entity ID</th><th>Referenced Person URI</th>            </tr>
+            <tr><th>Last Name</th><th>First Name</th><th>Birth Date</th><th>Death Date</th></tr>
         </thead>
         <tbody>
         {% for referencedPerson in referencedPeople %}
@@ -39,8 +39,6 @@
                 <td>{{ referencedPerson.firstName }}</td>
                 <td>{{ referencedPerson.birthDate }}</td>
                 <td>{{ referencedPerson.deathDate }}</td>
-                <td>{{ referencedPerson.sameAsPeopleEntityId }}</td>
-                <td>{{ referencedPerson.referencedPersonUri }}</td>
             </tr>
         {% endfor %}
         </tbody>

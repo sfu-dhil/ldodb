@@ -26,7 +26,7 @@
         
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
-            <tr><th>Place Name</th><th>Place URI</th><th>In Lake District</th><th>Latitude</th><th>Longitude</th><th>Region ID</th><th>Country ID</th>            </tr>
+            <tr><th>Place Name</th><<th>In Lake District</th></tr>
         </thead>
         <tbody>
         {% for place in places %}
@@ -36,12 +36,7 @@
                         {{ place.placeName }}
                     </a>
                 </td>
-                <td>{{ place.placeUri }}</td>
                 <td>{% if place.inLakeDistrict %}Yes{% else %}No{% endif %}</td>
-                <td>{{ place.latitude }}</td>
-                <td>{{ place.longitude }}</td>
-                <td>{{ place.regionId }}</td>
-                <td>{{ place.countryId }}</td>
             </tr>
         {% endfor %}
         </tbody>
