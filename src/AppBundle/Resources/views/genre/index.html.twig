@@ -23,7 +23,7 @@
         
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
-            <tr><th>Genre Name</th><th>Genre Usage Note</th></tr>
+            <tr><th>Genre Name</th><th>Genre Usage Note</th><th>Entry Count</th></tr>
         </thead>
         <tbody>
         {% for genre in genres %}
@@ -34,6 +34,7 @@
                     </a>
                 </td>
                 <td>{{ genre.genreUsageNote }}</td>
+                <td>{{ genre.books.count }}</td>
             </tr>
         {% endfor %}
         </tbody>
