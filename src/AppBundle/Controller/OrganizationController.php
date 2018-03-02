@@ -29,7 +29,7 @@ class OrganizationController extends Controller {
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
-        $qb->select('e')->from(Organization::class, 'e')->orderBy('e.id', 'ASC');
+        $qb->select('e')->from(Organization::class, 'e')->orderBy('e.organizationName', 'ASC');
         $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $organizations = $paginator->paginate($query, $request->query->getint('page', 1), 25);
