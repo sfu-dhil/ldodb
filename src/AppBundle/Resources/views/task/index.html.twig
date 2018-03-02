@@ -23,7 +23,7 @@
         
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
-            <tr><th>Task Name</th>            </tr>
+            <tr><th>Task Name</th><th>Entry Count</th></tr>
         </thead>
         <tbody>
         {% for task in tasks %}
@@ -33,6 +33,7 @@
                         {{ task.taskName }}
                     </a>
                 </td>
+                <td>{{ task.contributions.count }}</td>
             </tr>
         {% endfor %}
         </tbody>

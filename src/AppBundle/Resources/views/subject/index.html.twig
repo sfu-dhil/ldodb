@@ -26,7 +26,7 @@
         
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
-            <tr><th>Subject Name</th></tr>
+            <tr><th>Subject Name</th><th>Entry Count</th></tr>
         </thead>
         <tbody>
         {% for subject in subjects %}
@@ -36,6 +36,7 @@
                         {{ subject.subjectName }}
                     </a>
                 </td>
+                <td>{{ subject.books.count }}</td>
             </tr>
         {% endfor %}
         </tbody>
