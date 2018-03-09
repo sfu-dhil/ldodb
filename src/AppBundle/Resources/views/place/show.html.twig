@@ -65,33 +65,13 @@
             <tr>
                 <th>Residents</th>         
                 <td>
-                    {% if place.residents | length > 0 %}
-                        <ul>
-                            {% for residents in place.residents %}
-                                <li>
-                                    <a href="{{ path("people_show", {"id":residents.id}) }}">
-                                        {{ residents }}
-                                    </a>
-                                </li>
-                            {% endfor %} 
-                        </ul>
-                    {% endif %}
+                    {{ include('AppBundle:people:partial/list.html.twig', { people: place.residents }) }}
                 </td>
             </tr>        
             <tr>
                 <th>Travellers</th>         
                 <td>
-                    {% if place.travellers | length > 0 %}
-                        <ul>
-                            {% for travellers in place.travellers %}
-                                <li>
-                                    <a href="{{ path("people_show", {"id":travellers.id}) }}">
-                                        {{ travellers }}
-                                    </a>
-                                </li>
-                            {% endfor %} 
-                        </ul>
-                    {% endif %}
+                    {{ include('AppBundle:people:partial/list.html.twig', { people: place.travellers }) }}
                 </td>
             </tr>        
         </tbody>
@@ -122,26 +102,14 @@
     {% endif %}
     {% if place.peopleBorn | length > 0 %}    
         <h2>Person Born</h2>
-        <ul>
-            {% for peopleBorn in place.peopleBorn %}
-                <li>
-                    <a href="{{ path("people_show", {"id":peopleBorn.id}) }}">
-                        {{ peopleBorn }}
-                    </a>
-                </li>
-            {% endfor %} 
-        </ul>
+        {% embed 'AppBundle:people:partial/list.html.twig' with { 'people': place.peopleBorn } %}
+            {% block callback %}{{ person }} b.{{ person.birthDate }}{% endblock %}
+        {% endembed %}
     {% endif %}
     {% if place.peopleDied | length > 0 %}    
         <h2>Person Died</h2>
-        <ul>
-            {% for peopleDied in place.peopleDied %}
-                <li>
-                    <a href="{{ path("people_show", {"id":peopleDied.id}) }}">
-                        {{ peopleDied }}
-                    </a>
-                </li>
-            {% endfor %} 
-        </ul>
+        {% embed 'AppBundle:people:partial/list.html.twig' with { 'people': place.peopleDied } %}
+            {% block callback %}{{ person }} d.{{ person.deathDate }}{% endblock %}
+        {% endembed %}
     {% endif %}
 {% endblock %}

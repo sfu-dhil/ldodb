@@ -35,16 +35,5 @@
             </tr>        
         </tbody>
     </table>
-    {% if organization.contributions | length > 0 %}    
-    <h2>Contributions</h2>
-    <ul>
-        {% for contributions in organization.contributions %}
-        <li>
-            <a href="{{ path("contribution_show", {"id":contributions.id}) }}">
-                {{ contributions }}
-            </a>
-        </li>
-        {% endfor %} 
-    </ul>
-    {% endif %}
+    {{ include('AppBundle:contribution:partial/list.html.twig', { contributions: organization.contributions }) }}
 {% endblock %}

@@ -30,17 +30,7 @@
             <tr>
                 <th>People</th>         
                 <td>
-                    {% if role.people | length > 0 %}
-                    <ul>
-                        {% for people in role.people %}
-                        <li>
-                            <a href="{{ path("people_show", {"id":people.id}) }}">
-                                {{ people }}
-                            </a>
-                        </li>
-                        {% endfor %} 
-                    </ul>
-                    {% endif %}
+                    {{ include('AppBundle:people:partial/list.html.twig', { people: role.people }) }}
                 </td>
             </tr>        
         </tbody>

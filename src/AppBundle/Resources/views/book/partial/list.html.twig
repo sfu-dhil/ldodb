@@ -1,0 +1,13 @@
+{% if books | length > 0 %}
+    <ul>
+        {% for book in books %}
+            <li>
+                <a href="{{ path("book_show", {"id":book.id}) }}">
+                    {% block callback %}
+                        {{ book }}
+                    {% endblock %}
+                </a>
+            </li>
+        {% endfor %} 
+    </ul>
+{% endif %}
