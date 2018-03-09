@@ -347,18 +347,11 @@
             {% endfor %} 
         </ul>
     {% endif %}
-    {% if book.contributions | length > 0 %}    
-    <h2>Contributions</h2>
-    <ul>
-        {% for contributions in book.contributions %}
-        <li>
-            <a href="{{ path("contribution_show", {"id":contributions.id}) }}">
-                {{ contributions.entity }}: {{ contributions }}
-            </a>
-        </li>
-        {% endfor %} 
-    </ul>
-    {% endif %}
+    {% embed 'AppBundle:contribution:partial/list.html.twig' with { 'contributions': person.contributions } %}
+        {% block callback %}
+            {{ contribution.entity }} ({{ contribution.task }})
+        {% endblock %}
+    {% endembed %}
 
     {% include 'NinesFeedbackBundle:Comment:comment-interface.html.twig' with { 'entity': book } %}	
 
