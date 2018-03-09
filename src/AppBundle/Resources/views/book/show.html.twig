@@ -347,7 +347,7 @@
             {% endfor %} 
         </ul>
     {% endif %}
-    {% embed 'AppBundle:contribution:partial/list.html.twig' with { 'contributions': person.contributions } %}
+    {% embed 'AppBundle:contribution:partial/list.html.twig' with { 'contributions': book.contributions } %}
         {% block callback %}
             {{ contribution.entity }} ({{ contribution.task }})
         {% endblock %}
