@@ -1,0 +1,13 @@
+{% if people | length > 0 %}
+    <ul>
+        {% for person in people %}
+            <li>
+                <a href="{{ path("people_show", {"id":person.id}) }}">
+                    {% block callback %}
+                        {{ person }}
+                    {% endblock %}
+                </a>
+            </li>
+        {% endfor %} 
+    </ul>
+{% endif %}
