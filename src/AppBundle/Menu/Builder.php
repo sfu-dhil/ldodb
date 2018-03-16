@@ -94,9 +94,9 @@ class Builder implements ContainerAwareInterface {
             'class' => 'divider',
         ));
 
-        $browse->addChild('binding_index', array(
-            'label' => 'Bindings',
-            'route' => 'binding_index',
+        $browse->addChild('features', array(
+            'label' => 'Features',
+            'route' => 'homepage_features'
         ));
         $browse->addChild('genre_index', array(
             'label' => 'Genres',
@@ -106,21 +106,9 @@ class Builder implements ContainerAwareInterface {
             'label' => 'Keywords',
             'route' => 'keyword_index',
         ));
-        $browse->addChild('map_size_index', array(
-            'label' => 'Map Sizes',
-            'route' => 'map_size_index',
-        ));
-        $browse->addChild('map_type_index', array(
-            'label' => 'Map Types',
-            'route' => 'map_type_index',
-        ));
         $browse->addChild('organization_index', array(
             'label' => 'Organizations',
             'route' => 'organization_index',
-        ));
-        $browse->addChild('plate_type_index', array(
-            'label' => 'Plate Types',
-            'route' => 'plate_type_index',
         ));
         $browse->addChild('referenced_person_index', array(
             'label' => 'Referenced People',
