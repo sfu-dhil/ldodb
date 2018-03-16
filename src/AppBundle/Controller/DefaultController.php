@@ -25,7 +25,7 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Route("/features", name="features")
+     * @Route("/features", name="homepage_features")
      * @Template()
      */
     public function featuresAction(Request $request) {
