@@ -148,23 +148,7 @@
                         </ul>
                     {% endif %}
                 </td>
-            </tr>        
-            <tr>
-                <th>Referenced People</th>         
-                <td>
-                    {% if book.referencedPeople | length > 0 %}
-                        <ul>
-                            {% for referencedPeople in book.referencedPeople %}
-                                <li>
-                                    <a href="{{ path("referenced_person_show", {"id":referencedPeople.id}) }}">
-                                        {{ referencedPeople }}
-                                    </a>
-                                </li>
-                            {% endfor %} 
-                        </ul>
-                    {% endif %}
-                </td>
-            </tr>        
+            </tr>                
             <tr>
                 <th>Plate Types</th>         
                 <td>
@@ -318,18 +302,6 @@
                 <li>
                     <a href="{{ path("other_national_edition_show", {"id":otherNationalEditions.id}) }}">
                         {{ otherNationalEditions }}
-                    </a>
-                </li>
-            {% endfor %} 
-        </ul>
-    {% endif %}
-    {% if book.referencedPlaces | length > 0 %}    
-        <h2>Referenced Places</h2>
-        <ul>
-            {% for referencedPlaces in book.referencedPlaces %}
-                <li>
-                    <a href="{{ path("place_show", {"id":referencedPlaces.id}) }}">
-                        {{ referencedPlaces }}
                     </a>
                 </li>
             {% endfor %} 

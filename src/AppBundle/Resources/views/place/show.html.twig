@@ -88,18 +88,6 @@
             {% endfor %} 
         </ul>
     {% endif %}
-    {% if place.referencedPlaces | length > 0 %}    
-        <h2>Referenced Places</h2>
-        <ul>
-            {% for referencedPlaces in place.referencedPlaces %}
-                <li>
-                    <a href="{{ path("place_show", {"id":referencedPlaces.id}) }}">
-                        {{ referencedPlaces }}
-                    </a>
-                </li>
-            {% endfor %} 
-        </ul>
-    {% endif %}
     {% if place.peopleBorn | length > 0 %}    
         <h2>Person Born</h2>
         {% embed 'AppBundle:people:partial/list.html.twig' with { 'people': place.peopleBorn } %}
