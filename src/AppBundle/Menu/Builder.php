@@ -110,14 +110,6 @@ class Builder implements ContainerAwareInterface {
             'label' => 'Organizations',
             'route' => 'organization_index',
         ));
-        $browse->addChild('referenced_person_index', array(
-            'label' => 'Referenced People',
-            'route' => 'referenced_person_index',
-        ));
-        $browse->addChild('referenced_place_index', array(
-            'label' => 'Referenced Places',
-            'route' => 'referenced_place_index',
-        ));
         $browse->addChild('role_index', array(
             'label' => 'Roles',
             'route' => 'role_index',
@@ -147,6 +139,10 @@ class Builder implements ContainerAwareInterface {
                 'label' => 'Bibliographic Terms',
                 'route' => 'bibliographic_term_index',
             ));
+            $browse->addChild('binding_index', array(
+                'label' => 'Binding Features',
+                'route' => 'binding_index'
+            ));
             $browse->addChild('contribution_index', array(
                 'label' => 'Contributions',
                 'route' => 'contribution_index',
@@ -155,6 +151,14 @@ class Builder implements ContainerAwareInterface {
                 'label' => 'Digital Copy Holders',
                 'route' => 'digital_copy_holder_index',
             ));
+            $browse->addChild('map_size_index', array(
+                'label' => 'Map Sizes',
+                'route' => 'map_size_index'
+            ));
+            $browse->addChild('map_type_index', array(
+                'label' => 'Map Types',
+                'route' => 'map_type_index'
+            ));
             $browse->addChild('other_copy_location_index', array(
                 'label' => 'Other Copy Locations',
                 'route' => 'other_copy_location_index',
@@ -162,6 +166,18 @@ class Builder implements ContainerAwareInterface {
             $browse->addChild('other_national_edition_index', array(
                 'label' => 'Other National Editions',
                 'route' => 'other_national_edition_index',
+            ));
+            $browse->addChild('plate_type_index', array(
+                'label' => 'Plate Types',
+                'route' => 'plate_type_index'
+            ));
+            $browse->addChild('referenced_person_index', array(
+                'label' => 'Referenced People',
+                'route' => 'referenced_person_index',
+            ));
+            $browse->addChild('referenced_place_index', array(
+                'label' => 'Referenced Places',
+                'route' => 'referenced_place_index',
             ));
             $browse->addChild('supplemental_place_data_index', array(
                 'label' => 'Supplemental Place Data',
