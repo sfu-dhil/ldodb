@@ -44,7 +44,11 @@ class ReferencedPlace
      */
     private $variantSpelling;
 
-
+    /**
+     * Return a string representation of the object.
+     * 
+     * @return string
+     */
     public function __toString() {
         return $this->place . ' in ' . $this->book . ($this->variantSpelling ? ' as ' . $this->variantSpelling : '');
     }
