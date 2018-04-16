@@ -36,10 +36,19 @@ class Role
      */
     private $people;
     
+    /**
+     * Construct Role object.
+     *
+     */
     public function __construct() {
         $this->people = new ArrayCollection();
     }
     
+    /**
+     * Return string representation of roleName.
+     *
+     * @return string
+     */
     public function __toString() {
         return $this->roleName;
     }

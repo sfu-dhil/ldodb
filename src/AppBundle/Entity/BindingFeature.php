@@ -43,10 +43,19 @@ class BindingFeature
      */
     private $books;
     
+    /**
+     * Construct BindingFeature object.
+     *
+     */
     public function __construct() {
         $this->books = new ArrayCollection();
     }
 
+    /**
+     * Return string representation of bindingFeature.
+     *
+     * @return string
+     */
     public function __toString() {
         return $this->bindingFeature;        
     }

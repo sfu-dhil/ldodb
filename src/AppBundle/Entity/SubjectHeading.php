@@ -43,11 +43,19 @@ class SubjectHeading
      */
     private $books;
     
+    /**
+     * Construct SubjectHeading object.
+     *
+     */
     public function __construct() {
         $this->books = new ArrayCollection();
     }
 
-
+    /**
+     * Return string representation of subjectHeading.
+     *
+     * @return string
+     */
     public function __toString() {
         return $this->subjectHeading;
     }

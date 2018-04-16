@@ -41,7 +41,12 @@ class OtherCopyLocation
      * @ORM\Column(name="copy_count", type="integer", nullable=false)
      */
     private $copyCount;
-
+    
+    /**
+     * Return string representation of object.
+     *
+     * @return string
+     */
     public function __toString() {
         return $this->otherCopyLocation . ' (' . $this->copyCount . ')';
     }

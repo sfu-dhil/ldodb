@@ -43,11 +43,19 @@ class Subject
      */
     private $books;
     
+    /**
+     * Construct Subject object.
+     *
+     */
     public function __construct() {
         $this->books = new ArrayCollection();
     }
 
-
+    /**
+     * Return string representation of subjectName.
+     *
+     * @return string
+     */
     public function __toString() {
         return $this->subjectName;
     }
