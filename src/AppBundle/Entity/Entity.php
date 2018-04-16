@@ -36,6 +36,9 @@ abstract class Entity
      */
     protected $contributions;
 
+    /**
+     * Return string representation of object.
+     */
     abstract public function __toString();
 
     /**

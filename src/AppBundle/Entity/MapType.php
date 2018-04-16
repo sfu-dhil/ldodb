@@ -43,11 +43,19 @@ class MapType
      */
     private $books;
     
+    /**
+     * Construct MapType object.
+     *
+     */
     public function __construct() {
         $this->books = new ArrayCollection();
     }
 
-
+    /**
+     * Return string representation of mapType.
+     *
+     * @return string
+     */
     public function __toString() {
         return $this->mapType;
     }

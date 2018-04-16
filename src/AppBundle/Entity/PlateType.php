@@ -43,11 +43,19 @@ class PlateType
      */
     private $books;
     
+    /**
+     * Construct PlateType object.
+     *
+     */
     public function __construct() {
         $this->books = new ArrayCollection();
     }
 
-
+    /**
+     * Return string representation of plateType.
+     *
+     * @return string
+     */
     public function __toString() {
         return $this->plateType;
     }

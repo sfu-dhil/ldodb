@@ -50,7 +50,13 @@ class SupplementalPlaceData
      */
     private $longitude;
 
-
+    /**
+     * Return string representation of place data.
+     *
+     * Formatted as geoname: latitude, longitude
+     *
+     * @return string 
+     */
     public function __toString() {
         return $this->geoname . ": " . $this->latitude . ',' . $this->longitude;
     }

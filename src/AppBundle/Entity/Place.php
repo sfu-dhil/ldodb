@@ -113,7 +113,12 @@ class Place
      * @ORM\ManyToMany(targetEntity="People", mappedBy="travels")
      */
     private $travellers;
-        
+    
+    /**
+     * Return string representation of placeName.
+     *
+     * @return string
+     */
     public function __toString() {
         return $this->placeName;
     }

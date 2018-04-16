@@ -43,7 +43,12 @@ class OtherNationalEdition
      */
     private $publicationDate;
 
-
+    
+    /**
+     * Return string representation of object.
+     *
+     * @return string
+     */
     public function __toString() {
         return $this->place->__toString() . ', ' . $this->publicationDate;
     }

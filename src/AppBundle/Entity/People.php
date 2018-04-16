@@ -163,7 +163,12 @@ class People extends Entity
      * )
      */
     private $roles;
-
+    
+    /**
+     * Return string representation of name.
+     *
+     * @return string 
+     */
     public function __toString() {
         return $this->lastName . ', ' . $this->firstName;
     }
