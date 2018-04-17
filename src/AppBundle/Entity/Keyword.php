@@ -43,10 +43,19 @@ class Keyword
      */
     private $books;
     
+    /**
+     * Construct Keyword object.
+     *
+     */
     public function __construct() {
         $this->books = new ArrayCollection();
     }
 
+    /**
+     * Return string representation of keyword.
+     *
+     * @return string
+     */
     public function __toString() {
         return $this->keyword;
     }

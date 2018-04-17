@@ -36,6 +36,11 @@ class Task
      */
     private $contributions;
 
+    /**
+     * Return string representation of taskName.
+     *
+     * @return string
+     */
     public function __toString() {
         return $this->taskName;
     }

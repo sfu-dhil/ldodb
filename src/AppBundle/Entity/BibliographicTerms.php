@@ -49,7 +49,11 @@ class BibliographicTerms
      */
     private $useForIllustrations;
 
-
+    /**
+     * Return a string representation of bibliographicTerm.
+     *
+     * @return string
+     */
     public function __toString() {
         return $this->bibliographicTerm;
     }

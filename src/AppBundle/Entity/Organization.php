@@ -35,7 +35,11 @@ class Organization extends Entity
      */
     private $organizationNotes;
 
-
+    /** 
+     * Return string representation of organizationName.
+     *
+     * @return string
+     */
     public function __toString() {
         return $this->organizationName;
     }

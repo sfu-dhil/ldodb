@@ -36,11 +36,19 @@ class DigitalCopyHolder
      */
     private $books;
     
+    /**
+     * Construct DigitalCopyHolder object.
+     *
+     */
     public function __construct() {
         $this->books = new ArrayCollection();
     }
 
-
+    /**
+     * Return string representation of organizationName.
+     *
+     * @return string
+     */
     public function __toString() {
         return $this->organizationName;
     }

@@ -398,6 +398,11 @@ class Book
      */
     private $publicationPlaces;
 
+    /**
+     * Return string representation of title.
+     *
+     * @return string
+     */
     public function __toString() {
         return $this->title;
     }

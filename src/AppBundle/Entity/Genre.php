@@ -64,11 +64,19 @@ class Genre
      */
     private $books;
     
+    /**
+     * Construct Genre object.
+     *
+     */
     public function __construct() {
         $this->books = new ArrayCollection();
     }
 
-
+    /**
+     * Return string representation of genreName.
+     *
+     * @return string
+     */
     public function __toString() {
         return $this->genreName;
     }

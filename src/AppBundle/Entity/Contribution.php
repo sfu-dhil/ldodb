@@ -42,6 +42,13 @@ class Contribution
      */
     private $task;
 
+    /**
+     * Return string representation of object.
+     *
+     * Formatted as task of book, e.g. "Author of Book Title"
+     *
+     * @return string
+     */
     public function __toString() {
         return $this->task . ' of ' . $this->book;
     }

@@ -43,12 +43,20 @@ class MapSize
      */
     private $books;
     
+    /**
+     * Construct MapSize object.
+     *
+     */
     public function __construct() {
         $this->books = new ArrayCollection();
     }
 
 
-
+    /**
+     * Return string representation of mapSize.
+     *
+     * @return string
+     */
     public function __toString() {
         return $this->mapSize;
     }

@@ -71,11 +71,21 @@ class ReferencedPerson
      */
     private $books;
     
+    /**
+     * Construct ReferencedPerson object.
+     *
+     */
     public function __construct() {
         $this->books = new ArrayCollection();
     }
 
-
+    /**
+     * Return string representation of name.
+     *
+     * Formatted as lastName, firstName
+     *
+     * @return string
+     */
     public function __toString() {
         return $this->lastName . ', ' . $this->firstName;
     }
