@@ -10,7 +10,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Book
  *
- * @ORM\Table(name="book")
+ * @ORM\Table(name="book", indexes={
+ *      @ORM\Index(columns={"title"}, flags={"fulltext"}),
+ * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\BookRepository")
  */
 class Book
@@ -121,11 +123,11 @@ class Book
      * @ORM\Column(name="SFU_cat_orig_bib", type="text", nullable=true)
      */
     private $sfuCatOrigBib;
-    
+
     /**
      * @var string
      * @Assert\Url()
-     * 
+     *
      * @ORM\Column(name="sfu_digital_copy", type="string", length=255, nullable=true)
      */
     private $sfuDigitalCopy;
@@ -1280,7 +1282,7 @@ class Book
 
     /**
      * Get contributions, optionally flitered by task
-     * 
+     *
      * @param string $task
      *
      * @return Collection
