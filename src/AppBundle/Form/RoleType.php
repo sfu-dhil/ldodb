@@ -8,9 +8,14 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * RoleType form.
+ */
 class RoleType extends AbstractType
 {
     /**
+     * Add form fields to $builder.
+     *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -22,10 +27,15 @@ class RoleType extends AbstractType
                 'help_block' => '',
             ),
         ));
-                
+
     }
-    
+
     /**
+     * Define options for the form.
+     *
+     * Set default, optional, and required options passed to the
+     * buildForm() method via the $options parameter.
+     *
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
@@ -34,4 +44,5 @@ class RoleType extends AbstractType
             'data_class' => 'AppBundle\Entity\Role'
         ));
     }
+
 }

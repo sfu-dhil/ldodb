@@ -8,9 +8,14 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * PeopleType form.
+ */
 class PeopleType extends AbstractType
 {
     /**
+     * Add form fields to $builder.
+     *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -106,7 +111,7 @@ class PeopleType extends AbstractType
             'attr' => array(
                 'help_block' => '',
             ),
-            
+
         ));
                 $builder->add('residentInLondon', ChoiceType::class, array(
             'label' => 'Resident In London',
@@ -122,7 +127,7 @@ class PeopleType extends AbstractType
             'attr' => array(
                 'help_block' => '',
             ),
-            
+
         ));
                 $builder->add('residentOutsideUk', ChoiceType::class, array(
             'label' => 'Resident Outside Uk',
@@ -138,7 +143,7 @@ class PeopleType extends AbstractType
             'attr' => array(
                 'help_block' => '',
             ),
-            
+
         ));
                 $builder->add('travelOutsideUk', ChoiceType::class, array(
             'label' => 'Travel Outside Uk',
@@ -154,17 +159,22 @@ class PeopleType extends AbstractType
             'attr' => array(
                 'help_block' => '',
             ),
-            
+
         ));
                         $builder->add('birthPlace');
                         $builder->add('deathPlace');
                         $builder->add('travels');
                         $builder->add('residences');
                         $builder->add('roles');
-                
+        
     }
     
     /**
+     * Define options for the form.
+     *
+     * Set default, optional, and required options passed to the
+     * buildForm() method via the $options parameter.
+     *
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
@@ -173,4 +183,5 @@ class PeopleType extends AbstractType
             'data_class' => 'AppBundle\Entity\People'
         ));
     }
+
 }

@@ -8,9 +8,14 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * OtherCopyLocationType form.
+ */
 class OtherCopyLocationType extends AbstractType
 {
     /**
+     * Add form fields to $builder.
+     *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -30,10 +35,15 @@ class OtherCopyLocationType extends AbstractType
             ),
         ));
                         $builder->add('book');
-                
+        
     }
     
     /**
+     * Define options for the form.
+     *
+     * Set default, optional, and required options passed to the
+     * buildForm() method via the $options parameter.
+     *
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
@@ -42,4 +52,5 @@ class OtherCopyLocationType extends AbstractType
             'data_class' => 'AppBundle\Entity\OtherCopyLocation'
         ));
     }
+
 }

@@ -8,9 +8,14 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * ContributionType form.
+ */
 class ContributionType extends AbstractType
 {
     /**
+     * Add form fields to $builder.
+     *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -18,10 +23,15 @@ class ContributionType extends AbstractType
     {                $builder->add('book');
                         $builder->add('entity');
                         $builder->add('task');
-                
+        
     }
     
     /**
+     * Define options for the form.
+     *
+     * Set default, optional, and required options passed to the
+     * buildForm() method via the $options parameter.
+     *
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
@@ -30,4 +40,5 @@ class ContributionType extends AbstractType
             'data_class' => 'AppBundle\Entity\Contribution'
         ));
     }
+
 }
