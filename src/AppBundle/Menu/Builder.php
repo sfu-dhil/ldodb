@@ -137,11 +137,11 @@ class Builder implements ContainerAwareInterface {
             ));
             $browse->addChild('bibliographic_term_index', array(
                 'label' => 'Bibliographic Terms',
-                'route' => 'bibliographic_term_index',
+                'route' => 'bibliographic_terms_index',
             ));
             $browse->addChild('binding_index', array(
                 'label' => 'Binding Features',
-                'route' => 'binding_index'
+                'route' => 'binding_feature_index'
             ));
             $browse->addChild('contribution_index', array(
                 'label' => 'Contributions',
