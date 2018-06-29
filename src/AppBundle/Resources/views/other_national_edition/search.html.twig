@@ -2,14 +2,14 @@
 
 {% block title %}OtherNationalEdition Search{% endblock %}
 
- {% block pageheader %} 
+{% block pageheader %}
     <h1>OtherNationalEdition Search</h1>
     {% if otherNationalEditions|length %}
-    <p class="count">
-        Displaying {{ otherNationalEditions|length }} otherNationalEditions of {{ otherNationalEditions.getTotalItemCount }} total.
-    </p>
-	{% endif %}
- {% endblock %} 
+        <p class="count">
+            Displaying {{ otherNationalEditions|length }} otherNationalEditions of {{ otherNationalEditions.getTotalItemCount }} total.
+        </p>
+    {% endif %}
+{% endblock %}
 
 {% block body %}
 
@@ -41,29 +41,29 @@
             </ul>
         </fieldset>
     </form>
-    
-	{% if otherNationalEditions|length %}
-    <table class="table table-bordered table-condensed table-hover table-striped">
-        <thead>
-            <tr>
-                <th>Publicationdate</th>            </tr>
-        </thead>
-        <tbody>
-        {% for otherNationalEdition in otherNationalEditions %}
-            <tr>
-                <td>
-                    <a href="{{ path('other_national_edition_show', { 'id': otherNationalEdition.id }) }}">
-                        {{ otherNationalEdition.publicationDate }}
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-        
-    <div class="navigation">
-        {{ knp_pagination_render(otherNationalEditions) }}
-    </div>
-	{% endif %}
+
+    {% if otherNationalEditions|length %}
+        <table class="table table-bordered table-condensed table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Publicationdate</th>            </tr>
+            </thead>
+            <tbody>
+                {% for otherNationalEdition in otherNationalEditions %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('other_national_edition_show', { 'id': otherNationalEdition.id }) }}">
+                                {{ otherNationalEdition.publicationDate }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation">
+            {{ knp_pagination_render(otherNationalEditions) }}
+        </div>
+    {% endif %}
 
 {% endblock %}

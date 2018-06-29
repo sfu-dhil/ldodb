@@ -12,8 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="binding_feature")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\BindingFeatureRepository")
  */
-class BindingFeature
-{
+class BindingFeature {
+
     /**
      * @var integer
      *
@@ -36,13 +36,13 @@ class BindingFeature
      * @ORM\Column(name="binding_feature_notes", type="text", nullable=true)
      */
     private $bindingFeatureNotes;
-    
+
     /**
      * @var Collection|Book[]
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="bindingFeatures")
      */
     private $books;
-    
+
     /**
      * Construct BindingFeature object.
      *
@@ -57,7 +57,7 @@ class BindingFeature
      * @return string
      */
     public function __toString() {
-        return $this->bindingFeature;        
+        return $this->bindingFeature;
     }
 
     /**
@@ -120,8 +120,7 @@ class BindingFeature
      *
      * @return BindingFeature
      */
-    public function addBook(\AppBundle\Entity\Book $book)
-    {
+    public function addBook(\AppBundle\Entity\Book $book) {
         $this->books[] = $book;
 
         return $this;
@@ -132,8 +131,7 @@ class BindingFeature
      *
      * @param \AppBundle\Entity\Book $book
      */
-    public function removeBook(\AppBundle\Entity\Book $book)
-    {
+    public function removeBook(\AppBundle\Entity\Book $book) {
         $this->books->removeElement($book);
     }
 
@@ -142,8 +140,8 @@ class BindingFeature
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getBooks()
-    {
+    public function getBooks() {
         return $this->books;
     }
+
 }

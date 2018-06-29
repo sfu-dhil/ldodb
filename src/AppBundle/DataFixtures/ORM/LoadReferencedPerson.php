@@ -16,7 +16,7 @@ class LoadReferencedPerson extends AbstractFixture {
         $object->setBirthDate('Dawn of Time');
         $object->setDeathDate('After that');
         $object->setReferencedPersonUri('http://example.com/person/123');
-        $object->setSameAsPeopleEntityId(1); 
+        $object->setSameAsPeopleEntityId(1);
         $em->persist($object);
         $em->flush();
         $this->setReference('ReferencedPerson.1', $object);

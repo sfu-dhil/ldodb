@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="contribution")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ContributionRepository")
  */
-class Contribution
-{
+class Contribution {
+
     /**
      * @var integer
      *
@@ -52,7 +52,6 @@ class Contribution
     public function __toString() {
         return $this->task . ' of ' . $this->book;
     }
-
 
     /**
      * Get id
@@ -128,4 +127,5 @@ class Contribution
     public function getTask() {
         return $this->task;
     }
+
 }

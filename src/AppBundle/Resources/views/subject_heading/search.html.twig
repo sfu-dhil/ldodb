@@ -2,14 +2,14 @@
 
 {% block title %}SubjectHeading Search{% endblock %}
 
- {% block pageheader %} 
+{% block pageheader %}
     <h1>SubjectHeading Search</h1>
     {% if subjectHeadings|length %}
-    <p class="count">
-        Displaying {{ subjectHeadings|length }} subjectHeadings of {{ subjectHeadings.getTotalItemCount }} total.
-    </p>
-	{% endif %}
- {% endblock %} 
+        <p class="count">
+            Displaying {{ subjectHeadings|length }} subjectHeadings of {{ subjectHeadings.getTotalItemCount }} total.
+        </p>
+    {% endif %}
+{% endblock %}
 
 {% block body %}
 
@@ -41,31 +41,31 @@
             </ul>
         </fieldset>
     </form>
-    
-	{% if subjectHeadings|length %}
-    <table class="table table-bordered table-condensed table-hover table-striped">
-        <thead>
-            <tr>
-                <th>Subjectheading</th>
-                <th>Subjectheadinguri</th>            </tr>
-        </thead>
-        <tbody>
-        {% for subjectHeading in subjectHeadings %}
-            <tr>
-                <td>
-                    <a href="{{ path('subject_heading_show', { 'id': subjectHeading.id }) }}">
-                        {{ subjectHeading.subjectHeading }}
-                    </a>
-                </td>
-                <td>{{ subjectHeading.subjectHeadingUri }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-        
-    <div class="navigation">
-        {{ knp_pagination_render(subjectHeadings) }}
-    </div>
-	{% endif %}
+
+    {% if subjectHeadings|length %}
+        <table class="table table-bordered table-condensed table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Subjectheading</th>
+                    <th>Subjectheadinguri</th>            </tr>
+            </thead>
+            <tbody>
+                {% for subjectHeading in subjectHeadings %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('subject_heading_show', { 'id': subjectHeading.id }) }}">
+                                {{ subjectHeading.subjectHeading }}
+                            </a>
+                        </td>
+                        <td>{{ subjectHeading.subjectHeadingUri }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation">
+            {{ knp_pagination_render(subjectHeadings) }}
+        </div>
+    {% endif %}
 
 {% endblock %}

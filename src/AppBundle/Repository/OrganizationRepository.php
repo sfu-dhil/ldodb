@@ -34,5 +34,4 @@ class OrganizationRepository extends EntityRepository {
         return $qb->getQuery();
     }
 
-
 }

@@ -11,33 +11,32 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * MapSizeType form.
  */
-class MapSizeType extends AbstractType
-{
+class MapSizeType extends AbstractType {
+
     /**
      * Add form fields to $builder.
      *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {        $builder->add('mapSize', null, array(
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder->add('mapSize', null, array(
             'label' => 'Map Size',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                $builder->add('mapSizeNotes', null, array(
+        $builder->add('mapSizeNotes', null, array(
             'label' => 'Map Size Notes',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                        $builder->add('books');
-        
+        $builder->add('books');
     }
-    
+
     /**
      * Define options for the form.
      *
@@ -46,8 +45,7 @@ class MapSizeType extends AbstractType
      *
      * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\MapSize'
         ));

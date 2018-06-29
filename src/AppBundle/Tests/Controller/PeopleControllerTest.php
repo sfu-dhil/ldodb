@@ -7,8 +7,7 @@ use AppBundle\DataFixtures\ORM\LoadPeople;
 use Nines\UtilBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\DataFixtures\ORM\LoadUser;
 
-class PeopleControllerTest extends BaseTestCase
-{
+class PeopleControllerTest extends BaseTestCase {
 
     protected function getFixtures() {
         return [
@@ -16,14 +15,14 @@ class PeopleControllerTest extends BaseTestCase
             LoadPeople::class
         ];
     }
-    
+
     public function testAnonIndex() {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/people/');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(0, $crawler->selectLink('New')->count());
     }
-    
+
     public function testUserIndex() {
         $client = $this->makeClient([
             'username' => 'user@example.com',
@@ -33,7 +32,7 @@ class PeopleControllerTest extends BaseTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(0, $crawler->selectLink('New')->count());
     }
-    
+
     public function testAdminIndex() {
         $client = $this->makeClient([
             'username' => 'admin@example.com',
@@ -43,7 +42,7 @@ class PeopleControllerTest extends BaseTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(1, $crawler->selectLink('New')->count());
     }
-    
+
     public function testAnonShow() {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/people/1');
@@ -51,7 +50,7 @@ class PeopleControllerTest extends BaseTestCase
         $this->assertEquals(0, $crawler->selectLink('Edit')->count());
         $this->assertEquals(0, $crawler->selectLink('Delete')->count());
     }
-    
+
     public function testUserShow() {
         $client = $this->makeClient([
             'username' => 'user@example.com',
@@ -62,7 +61,7 @@ class PeopleControllerTest extends BaseTestCase
         $this->assertEquals(0, $crawler->selectLink('Edit')->count());
         $this->assertEquals(0, $crawler->selectLink('Delete')->count());
     }
-    
+
     public function testAdminShow() {
         $client = $this->makeClient([
             'username' => 'admin@example.com',
@@ -73,13 +72,13 @@ class PeopleControllerTest extends BaseTestCase
         $this->assertEquals(1, $crawler->selectLink('Edit')->count());
         $this->assertEquals(1, $crawler->selectLink('Delete')->count());
     }
+
     public function testAnonEdit() {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/people/1/edit');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        
     }
-    
+
     public function testUserEdit() {
         $client = $this->makeClient([
             'username' => 'user@example.com',
@@ -87,9 +86,8 @@ class PeopleControllerTest extends BaseTestCase
         ]);
         $crawler = $client->request('GET', '/people/1/edit');
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
-        
     }
-    
+
     public function testAdminEdit() {
         $client = $this->makeClient([
             'username' => 'admin@example.com',
@@ -97,26 +95,25 @@ class PeopleControllerTest extends BaseTestCase
         ]);
         $formCrawler = $client->request('GET', '/people/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        
+
         $form = $formCrawler->selectButton('Update')->form([
             'people[lastName]' => 'Ghoti',
             'people[firstName]' => 'Jim',
         ]);
-        
+
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/people/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(1, $responseCrawler->filter('td:contains("Ghoti")')->count());
     }
-    
+
     public function testAnonNew() {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/people/new');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        
     }
-    
+
     public function testUserNew() {
         $client = $this->makeClient([
             'username' => 'user@example.com',
@@ -124,7 +121,6 @@ class PeopleControllerTest extends BaseTestCase
         ]);
         $crawler = $client->request('GET', '/people/new');
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
-        
     }
 
     public function testAdminNew() {
@@ -134,26 +130,25 @@ class PeopleControllerTest extends BaseTestCase
         ]);
         $formCrawler = $client->request('GET', '/people/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        
+
         $form = $formCrawler->selectButton('Create')->form([
             'people[lastName]' => 'Ghoti',
             'people[firstName]' => 'Jim',
         ]);
-        
+
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(1, $responseCrawler->filter('td:contains("Ghoti")')->count());
     }
-    
+
     public function testAnonDelete() {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/people/1/delete');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        
     }
-    
+
     public function testUserDelete() {
         $client = $this->makeClient([
             'username' => 'user@example.com',
@@ -161,7 +156,6 @@ class PeopleControllerTest extends BaseTestCase
         ]);
         $crawler = $client->request('GET', '/people/1/delete');
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
-        
     }
 
     public function testAdminDelete() {
@@ -177,7 +171,7 @@ class PeopleControllerTest extends BaseTestCase
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        
+
         $this->em->clear();
         $postCount = count($this->em->getRepository(People::class)->findAll());
         $this->assertEquals($preCount - 1, $postCount);

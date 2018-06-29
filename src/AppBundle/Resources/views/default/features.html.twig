@@ -8,49 +8,49 @@
         Displaying {{ bindingFeatures|length }} binding features of {{ bindingFeatures.getTotalItemCount }} total.
     </p> #}
     <p>Displaying lists for binding features, map sizes, map types, and plate types.</p>
- {% endblock %} 
+{% endblock %}
 
 {% block body %}
     <div class="row">
         <div class="col-lg-3 col-md-4">
             <h3 class="text-center">Binding Features</h3>
-                
+
             <table class="table table-bordered table-condensed table-hover table-striped">
                 <thead>
                     <tr><th>Binding Feature</th><th>Entry Count</th></tr>
                 </thead>
                 <tbody>
-                {% for bindingFeature in bindingFeatures %}
-                    <tr>
-                        <td>
-                            <a href="{{ path('binding_show', { 'id': bindingFeature.id }) }}">
-                                {{ bindingFeature.bindingFeature }}
-                            </a>
-                        </td>
-                        <td>{{ bindingFeature.books.count }}</td>
-                    </tr>
-                {% endfor %}
+                    {% for bindingFeature in bindingFeatures %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('binding_show', { 'id': bindingFeature.id }) }}">
+                                    {{ bindingFeature.bindingFeature }}
+                                </a>
+                            </td>
+                            <td>{{ bindingFeature.books.count }}</td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
         <div class="col-lg-3 col-md-4">
             <h3 class="text-center">Map Sizes</h3>
-        
+
             <table class="table table-bordered table-condensed table-hover table-striped">
                 <thead>
                     <tr><th>Map Size</th><th>Entry Count</th></tr>
                 </thead>
                 <tbody>
-                {% for mapSize in mapSizes %}
-                    <tr>
-                        <td>
-                            <a href="{{ path('map_size_show', { 'id': mapSize.id }) }}">
-                                {{ mapSize.mapSize }}
-                            </a>
-                        </td>
-                        <td>{{ mapSize.books.count }}</td>
-                    </tr>
-                {% endfor %}
+                    {% for mapSize in mapSizes %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('map_size_show', { 'id': mapSize.id }) }}">
+                                    {{ mapSize.mapSize }}
+                                </a>
+                            </td>
+                            <td>{{ mapSize.books.count }}</td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -62,16 +62,16 @@
                     <tr><th>Map Type</th><th>Entry Count</th></tr>
                 </thead>
                 <tbody>
-                {% for mapType in mapTypes %}
-                    <tr>
-                        <td>
-                            <a href="{{ path('map_type_show', { 'id': mapType.id }) }}">
-                                {{ mapType.mapType }}
-                            </a>
-                        </td>
-                        <td>{{ mapType.books.count }}</td>
-                    </tr>
-                {% endfor %}
+                    {% for mapType in mapTypes %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('map_type_show', { 'id': mapType.id }) }}">
+                                    {{ mapType.mapType }}
+                                </a>
+                            </td>
+                            <td>{{ mapType.books.count }}</td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -83,16 +83,16 @@
                     <tr><th>Plate Type</th><th>Entry Count</th></tr>
                 </thead>
                 <tbody>
-                {% for plateType in plateTypes %}
-                    <tr>
-                        <td>
-                            <a href="{{ path('plate_type_show', { 'id': plateType.id }) }}">
-                                {{ plateType.plateType }}
-                            </a>
-                        </td>
-                        <td>{{ plateType.books.count }}</td>
-                    </tr>
-                {% endfor %}
+                    {% for plateType in plateTypes %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('plate_type_show', { 'id': plateType.id }) }}">
+                                    {{ plateType.plateType }}
+                                </a>
+                            </td>
+                            <td>{{ plateType.books.count }}</td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

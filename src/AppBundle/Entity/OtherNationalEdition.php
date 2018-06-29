@@ -10,8 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="other_national_edition")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\OtherNationalEditionRepository")
  */
-class OtherNationalEdition
-{
+class OtherNationalEdition {
 
     /**
      * @var integer
@@ -43,7 +42,6 @@ class OtherNationalEdition
      */
     private $publicationDate;
 
-    
     /**
      * Return string representation of object.
      *
@@ -52,7 +50,6 @@ class OtherNationalEdition
     public function __toString() {
         return $this->place->__toString() . ', ' . $this->publicationDate;
     }
-
 
     /**
      * Get id
@@ -128,4 +125,5 @@ class OtherNationalEdition
     public function getPlace() {
         return $this->place;
     }
+
 }

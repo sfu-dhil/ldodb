@@ -11,46 +11,45 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * SupplementalPlaceDataType form.
  */
-class SupplementalPlaceDataType extends AbstractType
-{
+class SupplementalPlaceDataType extends AbstractType {
+
     /**
      * Add form fields to $builder.
      *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {        $builder->add('geonameId', null, array(
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder->add('geonameId', null, array(
             'label' => 'Geonameid',
             'required' => true,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                $builder->add('geoname', null, array(
+        $builder->add('geoname', null, array(
             'label' => 'Geoname',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                $builder->add('latitude', null, array(
+        $builder->add('latitude', null, array(
             'label' => 'Latitude',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                $builder->add('longitude', null, array(
+        $builder->add('longitude', null, array(
             'label' => 'Longitude',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-        
     }
-    
+
     /**
      * Define options for the form.
      *
@@ -59,8 +58,7 @@ class SupplementalPlaceDataType extends AbstractType
      *
      * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\SupplementalPlaceData'
         ));

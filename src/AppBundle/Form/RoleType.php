@@ -11,23 +11,22 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * RoleType form.
  */
-class RoleType extends AbstractType
-{
+class RoleType extends AbstractType {
+
     /**
      * Add form fields to $builder.
      *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {        $builder->add('roleName', null, array(
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder->add('roleName', null, array(
             'label' => 'Role Name',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-
     }
 
     /**
@@ -38,8 +37,7 @@ class RoleType extends AbstractType
      *
      * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Role'
         ));

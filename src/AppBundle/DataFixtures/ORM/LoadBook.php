@@ -70,7 +70,7 @@ class LoadBook extends AbstractFixture implements DependentFixtureInterface {
 
         $em->persist($object);
         $this->setReference('Book.1', $object);
-        
+
         $em->flush();
     }
 

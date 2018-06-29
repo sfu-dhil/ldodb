@@ -14,8 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SubjectHeadingRepository")
  */
-class SubjectHeading
-{
+class SubjectHeading {
+
     /**
      * @var integer
      *
@@ -61,7 +61,6 @@ class SubjectHeading
     public function __toString() {
         return $this->subjectHeading;
     }
-
 
     /**
      * Get id
@@ -123,8 +122,7 @@ class SubjectHeading
      *
      * @return SubjectHeading
      */
-    public function addBook(Book $book)
-    {
+    public function addBook(Book $book) {
         $this->books[] = $book;
 
         return $this;
@@ -135,8 +133,7 @@ class SubjectHeading
      *
      * @param Book $book
      */
-    public function removeBook(Book $book)
-    {
+    public function removeBook(Book $book) {
         $this->books->removeElement($book);
     }
 
@@ -145,8 +142,8 @@ class SubjectHeading
      *
      * @return Collection
      */
-    public function getBooks()
-    {
+    public function getBooks() {
         return $this->books;
     }
+
 }

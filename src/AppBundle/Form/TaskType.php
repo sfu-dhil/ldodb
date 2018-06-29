@@ -11,25 +11,24 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * TaskType form.
  */
-class TaskType extends AbstractType
-{
+class TaskType extends AbstractType {
+
     /**
      * Add form fields to $builder.
      *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {        $builder->add('taskName', null, array(
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder->add('taskName', null, array(
             'label' => 'Task Name',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-        
     }
-    
+
     /**
      * Define options for the form.
      *
@@ -38,8 +37,7 @@ class TaskType extends AbstractType
      *
      * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Task'
         ));

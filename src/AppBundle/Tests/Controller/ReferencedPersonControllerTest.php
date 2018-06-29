@@ -7,8 +7,7 @@ use AppBundle\DataFixtures\ORM\LoadReferencedPerson;
 use Nines\UtilBundle\Tests\Util\BaseTestCase;
 use Nines\UserBundle\DataFixtures\ORM\LoadUser;
 
-class ReferencedPersonControllerTest extends BaseTestCase
-{
+class ReferencedPersonControllerTest extends BaseTestCase {
 
     protected function getFixtures() {
         return [
@@ -16,14 +15,14 @@ class ReferencedPersonControllerTest extends BaseTestCase
             LoadReferencedPerson::class
         ];
     }
-    
+
     public function testAnonIndex() {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/referenced_person/');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(0, $crawler->selectLink('New')->count());
     }
-    
+
     public function testUserIndex() {
         $client = $this->makeClient([
             'username' => 'user@example.com',
@@ -33,7 +32,7 @@ class ReferencedPersonControllerTest extends BaseTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(0, $crawler->selectLink('New')->count());
     }
-    
+
     public function testAdminIndex() {
         $client = $this->makeClient([
             'username' => 'admin@example.com',
@@ -43,7 +42,7 @@ class ReferencedPersonControllerTest extends BaseTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(1, $crawler->selectLink('New')->count());
     }
-    
+
     public function testAnonShow() {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/referenced_person/1');
@@ -51,7 +50,7 @@ class ReferencedPersonControllerTest extends BaseTestCase
         $this->assertEquals(0, $crawler->selectLink('Edit')->count());
         $this->assertEquals(0, $crawler->selectLink('Delete')->count());
     }
-    
+
     public function testUserShow() {
         $client = $this->makeClient([
             'username' => 'user@example.com',
@@ -62,7 +61,7 @@ class ReferencedPersonControllerTest extends BaseTestCase
         $this->assertEquals(0, $crawler->selectLink('Edit')->count());
         $this->assertEquals(0, $crawler->selectLink('Delete')->count());
     }
-    
+
     public function testAdminShow() {
         $client = $this->makeClient([
             'username' => 'admin@example.com',
@@ -73,13 +72,13 @@ class ReferencedPersonControllerTest extends BaseTestCase
         $this->assertEquals(1, $crawler->selectLink('Edit')->count());
         $this->assertEquals(1, $crawler->selectLink('Delete')->count());
     }
+
     public function testAnonEdit() {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/referenced_person/1/edit');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        
     }
-    
+
     public function testUserEdit() {
         $client = $this->makeClient([
             'username' => 'user@example.com',
@@ -87,9 +86,8 @@ class ReferencedPersonControllerTest extends BaseTestCase
         ]);
         $crawler = $client->request('GET', '/referenced_person/1/edit');
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
-        
     }
-    
+
     public function testAdminEdit() {
         $client = $this->makeClient([
             'username' => 'admin@example.com',
@@ -97,14 +95,14 @@ class ReferencedPersonControllerTest extends BaseTestCase
         ]);
         $formCrawler = $client->request('GET', '/referenced_person/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        
+
         $form = $formCrawler->selectButton('Update')->form([
             'referenced_person[lastName]' => 'Fish',
             'referenced_person[firstName]' => 'Jim',
             'referenced_person[birthDate]' => '1927',
             'referenced_person[deathDate]' => '1927',
         ]);
-        
+
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect('/referenced_person/1'));
         $responseCrawler = $client->followRedirect();
@@ -113,14 +111,13 @@ class ReferencedPersonControllerTest extends BaseTestCase
         $this->assertEquals(1, $responseCrawler->filter('td:contains("Jim")')->count());
         $this->assertEquals(2, $responseCrawler->filter('td:contains("1927")')->count());
     }
-    
+
     public function testAnonNew() {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/referenced_person/new');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        
     }
-    
+
     public function testUserNew() {
         $client = $this->makeClient([
             'username' => 'user@example.com',
@@ -128,7 +125,6 @@ class ReferencedPersonControllerTest extends BaseTestCase
         ]);
         $crawler = $client->request('GET', '/referenced_person/new');
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
-        
     }
 
     public function testAdminNew() {
@@ -138,14 +134,14 @@ class ReferencedPersonControllerTest extends BaseTestCase
         ]);
         $formCrawler = $client->request('GET', '/referenced_person/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        
+
         $form = $formCrawler->selectButton('Create')->form([
             'referenced_person[lastName]' => 'Fish',
             'referenced_person[firstName]' => 'Jim',
             'referenced_person[birthDate]' => '1927',
             'referenced_person[deathDate]' => '1927',
         ]);
-        
+
         $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
@@ -154,14 +150,13 @@ class ReferencedPersonControllerTest extends BaseTestCase
         $this->assertEquals(1, $responseCrawler->filter('td:contains("Jim")')->count());
         $this->assertEquals(2, $responseCrawler->filter('td:contains("1927")')->count());
     }
-    
+
     public function testAnonDelete() {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/referenced_person/1/delete');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        
     }
-    
+
     public function testUserDelete() {
         $client = $this->makeClient([
             'username' => 'user@example.com',
@@ -169,7 +164,6 @@ class ReferencedPersonControllerTest extends BaseTestCase
         ]);
         $crawler = $client->request('GET', '/referenced_person/1/delete');
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
-        
     }
 
     public function testAdminDelete() {
@@ -185,7 +179,7 @@ class ReferencedPersonControllerTest extends BaseTestCase
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        
+
         $this->em->clear();
         $postCount = count($this->em->getRepository(ReferencedPerson::class)->findAll());
         $this->assertEquals($preCount - 1, $postCount);

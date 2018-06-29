@@ -14,8 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\OrganizationRepository")
  */
-class Organization extends Entity
-{
+class Organization extends Entity {
+
     /**
      * @var string
      *
@@ -168,6 +168,5 @@ class Organization extends Entity
     public function getType() {
         return Entity::ORG_TYPE;
     }
-
 
 }

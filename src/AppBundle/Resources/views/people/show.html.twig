@@ -2,26 +2,26 @@
 
 {% block title %}People{% endblock %}
 
- {% block pageheader %} 
+{% block pageheader %}
     <h1>People</h1>
- {% endblock %} 
+{% endblock %}
 
 {% block body %}
     <div class="btn-toolbar">
-    <div class="btn-group pull-right">
-        <a href="{{ path('people_index') }}" class="btn btn-default">
-            <span class="glyphicon glyphicon-arrow-left"></span> Back
-        </a>
-        {% if is_granted('ROLE_CONTENT_ADMIN') %}
-        <a href="{{ path('people_edit', { 'id': person.id }) }}" class="btn btn-default">
-            <span class='glyphicon glyphicon-edit'></span> Edit
-        </a>
-        <a href="{{ path('people_delete', { 'id': person.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this person?">
-            <span class='glyphicon glyphicon-remove'></span> Delete
-        </a>
-        {% endif %}
+        <div class="btn-group pull-right">
+            <a href="{{ path('people_index') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-arrow-left"></span> Back
+            </a>
+            {% if is_granted('ROLE_CONTENT_ADMIN') %}
+                <a href="{{ path('people_edit', { 'id': person.id }) }}" class="btn btn-default">
+                    <span class='glyphicon glyphicon-edit'></span> Edit
+                </a>
+                <a href="{{ path('people_delete', { 'id': person.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this person?">
+                    <span class='glyphicon glyphicon-remove'></span> Delete
+                </a>
+            {% endif %}
+        </div>
     </div>
-</div>
     <table class="table table-bordered table-condensed table-hover table-striped">
         <tbody><tr>
                 <th>Last Name</th>
@@ -68,75 +68,75 @@
             </tr><tr>
                 <th>Travel Outside UK</th>
                 <td>{% if person.travelOutsideUk %}Yes{% else %}No{% endif %}</td>
-            </tr>        
+            </tr>
             <tr>
                 <th>Birthplace</th>
                 <td>
                     {% if person.birthPlace is not null %}
-                    <a href="{{ path('place_show', { 'id': person.birthPlace.id}) }}">
-                        {{ person.birthPlace }}
-                    </a>
+                        <a href="{{ path('place_show', { 'id': person.birthPlace.id}) }}">
+                            {{ person.birthPlace }}
+                        </a>
                     {% endif %}
                 </td>
-            </tr>        
+            </tr>
             <tr>
                 <th>Deathplace</th>
                 <td>
                     {% if person.deathPlace is not null %}
-                    <a href="{{ path('place_show', { 'id': person.deathPlace.id}) }}">
-                        {{ person.deathPlace }}
-                    </a>
+                        <a href="{{ path('place_show', { 'id': person.deathPlace.id}) }}">
+                            {{ person.deathPlace }}
+                        </a>
                     {% endif %}
                 </td>
-            </tr>        
+            </tr>
             <tr>
-                <th>Travels</th>         
+                <th>Travels</th>
                 <td>
                     {% if person.travels | length > 0 %}
-                    <ul>
-                        {% for travels in person.travels %}
-                        <li>
-                            <a href="{{ path("place_show", {"id":travels.id}) }}">
-                                {{ travels }}
-                            </a>
-                        </li>
-                        {% endfor %} 
-                    </ul>
+                        <ul>
+                            {% for travels in person.travels %}
+                                <li>
+                                    <a href="{{ path("place_show", {"id":travels.id}) }}">
+                                        {{ travels }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
                     {% endif %}
                 </td>
-            </tr>        
+            </tr>
             <tr>
-                <th>Residences</th>         
+                <th>Residences</th>
                 <td>
                     {% if person.residences | length > 0 %}
-                    <ul>
-                        {% for residences in person.residences %}
-                        <li>
-                            <a href="{{ path("place_show", {"id":residences.id}) }}">
-                                {{ residences }}
-                            </a>
-                        </li>
-                        {% endfor %} 
-                    </ul>
+                        <ul>
+                            {% for residences in person.residences %}
+                                <li>
+                                    <a href="{{ path("place_show", {"id":residences.id}) }}">
+                                        {{ residences }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
                     {% endif %}
                 </td>
-            </tr>        
+            </tr>
             <tr>
-                <th>Roles</th>         
+                <th>Roles</th>
                 <td>
                     {% if person.roles | length > 0 %}
-                    <ul>
-                        {% for roles in person.roles %}
-                        <li>
-                            <a href="{{ path("role_show", {"id":roles.id}) }}">
-                                {{ roles }}
-                            </a>
-                        </li>
-                        {% endfor %} 
-                    </ul>
+                        <ul>
+                            {% for roles in person.roles %}
+                                <li>
+                                    <a href="{{ path("role_show", {"id":roles.id}) }}">
+                                        {{ roles }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
                     {% endif %}
                 </td>
-            </tr>        
+            </tr>
         </tbody>
     </table>
     {{ include('AppBundle:contribution:partial/list.html.twig', { contributions: person.contributions }) }}

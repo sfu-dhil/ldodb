@@ -15,8 +15,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\BookRepository")
  */
-class Book
-{
+class Book {
+
     /**
      * @var integer
      *
@@ -288,7 +288,6 @@ class Book
      * @ORM\OneToMany(targetEntity="Contribution", mappedBy="book")
      */
     private $contributions;
-
 
     /**
      * @var Collection|Genre[]
@@ -755,7 +754,7 @@ class Book
      * @return Book
      */
     public function setOriginalBib($originalBib) {
-        $this->originalBib = (bool)$originalBib;
+        $this->originalBib = (bool) $originalBib;
 
         return $this;
     }
@@ -766,7 +765,7 @@ class Book
      * @return boolean
      */
     public function getOriginalBib() {
-        return (bool)$this->originalBib;
+        return (bool) $this->originalBib;
     }
 
     /**
@@ -843,7 +842,7 @@ class Book
      * @return Book
      */
     public function setPublicDomain($publicDomain) {
-        $this->publicDomain = (bool)$publicDomain;
+        $this->publicDomain = (bool) $publicDomain;
 
         return $this;
     }
@@ -854,7 +853,7 @@ class Book
      * @return boolean
      */
     public function getPublicDomain() {
-        return (bool)$this->publicDomain;
+        return (bool) $this->publicDomain;
     }
 
     /**
@@ -1292,8 +1291,8 @@ class Book
             return $this->contributions;
         }
         return $this->contributions->filter(function(Contribution $contribution) use ($task) {
-            return $contribution->getTask()->getTaskName() === $task;
-        });
+                    return $contribution->getTask()->getTaskName() === $task;
+                });
     }
 
     /**
@@ -1644,8 +1643,7 @@ class Book
      *
      * @return Book
      */
-    public function setSfuDigitalCopy($sfuDigitalCopy)
-    {
+    public function setSfuDigitalCopy($sfuDigitalCopy) {
         $this->sfuDigitalCopy = $sfuDigitalCopy;
 
         return $this;
@@ -1656,8 +1654,8 @@ class Book
      *
      * @return string
      */
-    public function getSfuDigitalCopy()
-    {
+    public function getSfuDigitalCopy() {
         return $this->sfuDigitalCopy;
     }
+
 }

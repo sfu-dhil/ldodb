@@ -2,14 +2,14 @@
 
 {% block title %}ReferencedPlace Search{% endblock %}
 
- {% block pageheader %} 
+{% block pageheader %}
     <h1>ReferencedPlace Search</h1>
     {% if referencedPlaces|length %}
-    <p class="count">
-        Displaying {{ referencedPlaces|length }} referencedPlaces of {{ referencedPlaces.getTotalItemCount }} total.
-    </p>
-	{% endif %}
- {% endblock %} 
+        <p class="count">
+            Displaying {{ referencedPlaces|length }} referencedPlaces of {{ referencedPlaces.getTotalItemCount }} total.
+        </p>
+    {% endif %}
+{% endblock %}
 
 {% block body %}
 
@@ -41,29 +41,29 @@
             </ul>
         </fieldset>
     </form>
-    
-	{% if referencedPlaces|length %}
-    <table class="table table-bordered table-condensed table-hover table-striped">
-        <thead>
-            <tr>
-                <th>Variantspelling</th>            </tr>
-        </thead>
-        <tbody>
-        {% for referencedPlace in referencedPlaces %}
-            <tr>
-                <td>
-                    <a href="{{ path('referenced_place_show', { 'id': referencedPlace.id }) }}">
-                        {{ referencedPlace.variantSpelling }}
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-        
-    <div class="navigation">
-        {{ knp_pagination_render(referencedPlaces) }}
-    </div>
-	{% endif %}
+
+    {% if referencedPlaces|length %}
+        <table class="table table-bordered table-condensed table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Variantspelling</th>            </tr>
+            </thead>
+            <tbody>
+                {% for referencedPlace in referencedPlaces %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('referenced_place_show', { 'id': referencedPlace.id }) }}">
+                                {{ referencedPlace.variantSpelling }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation">
+            {{ knp_pagination_render(referencedPlaces) }}
+        </div>
+    {% endif %}
 
 {% endblock %}

@@ -12,8 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="digital_copy_holder")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\DigitalCopyHolderRepository")
  */
-class DigitalCopyHolder
-{
+class DigitalCopyHolder {
+
     /**
      * @var integer
      *
@@ -35,7 +35,7 @@ class DigitalCopyHolder
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="digitalCopyHolders")
      */
     private $books;
-    
+
     /**
      * Construct DigitalCopyHolder object.
      *
@@ -52,7 +52,6 @@ class DigitalCopyHolder
     public function __toString() {
         return $this->organizationName;
     }
-
 
     /**
      * Get id
@@ -92,8 +91,7 @@ class DigitalCopyHolder
      *
      * @return DigitalCopyHolder
      */
-    public function addBook(\AppBundle\Entity\Book $book)
-    {
+    public function addBook(\AppBundle\Entity\Book $book) {
         $this->books[] = $book;
 
         return $this;
@@ -104,8 +102,7 @@ class DigitalCopyHolder
      *
      * @param \AppBundle\Entity\Book $book
      */
-    public function removeBook(\AppBundle\Entity\Book $book)
-    {
+    public function removeBook(\AppBundle\Entity\Book $book) {
         $this->books->removeElement($book);
     }
 
@@ -114,8 +111,8 @@ class DigitalCopyHolder
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getBooks()
-    {
+    public function getBooks() {
         return $this->books;
     }
+
 }

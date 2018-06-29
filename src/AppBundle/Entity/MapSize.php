@@ -12,8 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="map_size")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\MapSizeRepository")
  */
-class MapSize
-{
+class MapSize {
+
     /**
      * @var integer
      *
@@ -42,7 +42,7 @@ class MapSize
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="mapSizes")
      */
     private $books;
-    
+
     /**
      * Construct MapSize object.
      *
@@ -50,7 +50,6 @@ class MapSize
     public function __construct() {
         $this->books = new ArrayCollection();
     }
-
 
     /**
      * Return string representation of mapSize.
@@ -60,7 +59,6 @@ class MapSize
     public function __toString() {
         return $this->mapSize;
     }
-
 
     /**
      * Get id
@@ -122,8 +120,7 @@ class MapSize
      *
      * @return MapSize
      */
-    public function addBook(\AppBundle\Entity\Book $book)
-    {
+    public function addBook(\AppBundle\Entity\Book $book) {
         $this->books[] = $book;
 
         return $this;
@@ -134,8 +131,7 @@ class MapSize
      *
      * @param \AppBundle\Entity\Book $book
      */
-    public function removeBook(\AppBundle\Entity\Book $book)
-    {
+    public function removeBook(\AppBundle\Entity\Book $book) {
         $this->books->removeElement($book);
     }
 
@@ -144,8 +140,8 @@ class MapSize
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getBooks()
-    {
+    public function getBooks() {
         return $this->books;
     }
+
 }

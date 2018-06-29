@@ -67,7 +67,7 @@ div.checkbox, div.radio {
     .btn-toolbar {
         display: none !important;
     }
-    
+
     a:after {
         content: '' !important;
     }

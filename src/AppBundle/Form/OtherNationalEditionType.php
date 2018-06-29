@@ -11,27 +11,26 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * OtherNationalEditionType form.
  */
-class OtherNationalEditionType extends AbstractType
-{
+class OtherNationalEditionType extends AbstractType {
+
     /**
      * Add form fields to $builder.
      *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {        $builder->add('publicationDate', null, array(
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder->add('publicationDate', null, array(
             'label' => 'Publication Date',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                        $builder->add('book');
-                        $builder->add('place');
-        
+        $builder->add('book');
+        $builder->add('place');
     }
-    
+
     /**
      * Define options for the form.
      *
@@ -40,8 +39,7 @@ class OtherNationalEditionType extends AbstractType
      *
      * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\OtherNationalEdition'
         ));

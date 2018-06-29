@@ -14,8 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ReferencedPlaceRepository")
  */
-class ReferencedPlace
-{
+class ReferencedPlace {
+
     /**
      * @var integer
      *
@@ -54,7 +54,6 @@ class ReferencedPlace
     public function __toString() {
         return $this->place . ' in ' . $this->book . ($this->variantSpelling ? ' as ' . $this->variantSpelling : '');
     }
-
 
     /**
      * Get id
@@ -130,4 +129,5 @@ class ReferencedPlace
     public function getPlace() {
         return $this->place;
     }
+
 }

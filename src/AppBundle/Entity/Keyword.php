@@ -14,8 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\KeywordRepository")
  */
-class Keyword
-{
+class Keyword {
+
     /**
      * @var integer
      *
@@ -62,7 +62,6 @@ class Keyword
         return $this->keyword;
     }
 
-
     /**
      * Get id
      *
@@ -102,7 +101,7 @@ class Keyword
      * @return Keyword
      */
     public function setPreferredKeyword($preferredKeyword) {
-        $this->preferredKeyword = (bool)$preferredKeyword;
+        $this->preferredKeyword = (bool) $preferredKeyword;
 
         return $this;
     }
@@ -113,7 +112,7 @@ class Keyword
      * @return boolean
      */
     public function getPreferredKeyword() {
-        return (bool)$this->preferredKeyword;
+        return (bool) $this->preferredKeyword;
     }
 
     /**
@@ -123,8 +122,7 @@ class Keyword
      *
      * @return Keyword
      */
-    public function addBook(\AppBundle\Entity\Book $book)
-    {
+    public function addBook(\AppBundle\Entity\Book $book) {
         $this->books[] = $book;
 
         return $this;
@@ -135,8 +133,7 @@ class Keyword
      *
      * @param \AppBundle\Entity\Book $book
      */
-    public function removeBook(\AppBundle\Entity\Book $book)
-    {
+    public function removeBook(\AppBundle\Entity\Book $book) {
         $this->books->removeElement($book);
     }
 
@@ -145,8 +142,8 @@ class Keyword
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getBooks()
-    {
+    public function getBooks() {
         return $this->books;
     }
+
 }

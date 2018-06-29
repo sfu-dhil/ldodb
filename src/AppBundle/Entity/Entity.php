@@ -16,11 +16,11 @@ use Doctrine\ORM\Mapping as ORM;
  *      "ORG" = "Organization"
  * })
  */
-abstract class Entity
-{
+abstract class Entity {
+
     const PER_TYPE = 'PER';
     const ORG_TYPE = 'ORG';
-    
+
     /**
      * @var integer
      *
@@ -45,7 +45,7 @@ abstract class Entity
      * Return one of the class constants representing the type.
      */
     abstract public function getType();
-    
+
     /**
      * Constructor
      */
@@ -92,4 +92,5 @@ abstract class Entity
     public function getContributions() {
         return $this->contributions;
     }
+
 }

@@ -2,14 +2,14 @@
 
 {% block title %}SupplementalPlaceData Search{% endblock %}
 
- {% block pageheader %} 
+{% block pageheader %}
     <h1>SupplementalPlaceData Search</h1>
     {% if supplementalPlaceDatas|length %}
-    <p class="count">
-        Displaying {{ supplementalPlaceDatas|length }} supplementalPlaceDatas of {{ supplementalPlaceDatas.getTotalItemCount }} total.
-    </p>
-	{% endif %}
- {% endblock %} 
+        <p class="count">
+            Displaying {{ supplementalPlaceDatas|length }} supplementalPlaceDatas of {{ supplementalPlaceDatas.getTotalItemCount }} total.
+        </p>
+    {% endif %}
+{% endblock %}
 
 {% block body %}
 
@@ -41,35 +41,35 @@
             </ul>
         </fieldset>
     </form>
-    
-	{% if supplementalPlaceDatas|length %}
-    <table class="table table-bordered table-condensed table-hover table-striped">
-        <thead>
-            <tr>
-                <th>Geonameid</th>
-                <th>Geoname</th>
-                <th>Latitude</th>
-                <th>Longitude</th>            </tr>
-        </thead>
-        <tbody>
-        {% for supplementalPlaceDatum in supplementalPlaceDatas %}
-            <tr>
-                <td>
-                    <a href="{{ path('supplemental_place_data_show', { 'id': supplementalPlaceDatum.id }) }}">
-                        {{ supplementalPlaceDatum.geonameId }}
-                    </a>
-                </td>
-                <td>{{ supplementalPlaceDatum.geoname }}</td>
-                <td>{{ supplementalPlaceDatum.latitude }}</td>
-                <td>{{ supplementalPlaceDatum.longitude }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-        
-    <div class="navigation">
-        {{ knp_pagination_render(supplementalPlaceDatas) }}
-    </div>
-	{% endif %}
+
+    {% if supplementalPlaceDatas|length %}
+        <table class="table table-bordered table-condensed table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Geonameid</th>
+                    <th>Geoname</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>            </tr>
+            </thead>
+            <tbody>
+                {% for supplementalPlaceDatum in supplementalPlaceDatas %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('supplemental_place_data_show', { 'id': supplementalPlaceDatum.id }) }}">
+                                {{ supplementalPlaceDatum.geonameId }}
+                            </a>
+                        </td>
+                        <td>{{ supplementalPlaceDatum.geoname }}</td>
+                        <td>{{ supplementalPlaceDatum.latitude }}</td>
+                        <td>{{ supplementalPlaceDatum.longitude }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation">
+            {{ knp_pagination_render(supplementalPlaceDatas) }}
+        </div>
+    {% endif %}
 
 {% endblock %}

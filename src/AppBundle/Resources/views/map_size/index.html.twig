@@ -7,37 +7,37 @@
     <p class="count">
         Displaying {{ mapSizes|length }} map sizes of {{ mapSizes.getTotalItemCount }} total.
     </p>
- {% endblock %} 
+{% endblock %}
 
 {% block body %}
 
     <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
             {% if is_granted('ROLE_CONTENT_ADMIN') %}
-            <a href="{{ path('map_size_new') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-plus"></span> New
-            </a>
+                <a href="{{ path('map_size_new') }}" class="btn btn-default">
+                    <span class="glyphicon glyphicon-plus"></span> New
+                </a>
             {% endif %}
         </div>
     </div>
-        
+
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
             <tr><th>Map Size</th></tr>
         </thead>
         <tbody>
-        {% for mapSize in mapSizes %}
-            <tr>
-                <td>
-                    <a href="{{ path('map_size_show', { 'id': mapSize.id }) }}">
-                        {{ mapSize.mapSize }}
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
+            {% for mapSize in mapSizes %}
+                <tr>
+                    <td>
+                        <a href="{{ path('map_size_show', { 'id': mapSize.id }) }}">
+                            {{ mapSize.mapSize }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
-        
+
     <div class="navigation">
         {{ knp_pagination_render(mapSizes) }}
     </div>

@@ -7,41 +7,41 @@
     <p class="count">
         Displaying {{ otherCopyLocations|length }} other copy locations of {{ otherCopyLocations.getTotalItemCount }} total.
     </p>
- {% endblock %} 
+{% endblock %}
 
 {% block body %}
 
-        <div class='btn-toolbar pull-right'>
+    <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
             {% if is_granted('ROLE_CONTENT_ADMIN') %}
-            <a href="{{ path('other_copy_location_new') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-plus"></span> New
-            </a>
+                <a href="{{ path('other_copy_location_new') }}" class="btn btn-default">
+                    <span class="glyphicon glyphicon-plus"></span> New
+                </a>
             {% endif %}
             <a href="{{ path('other_copy_location_search') }}" class="btn btn-default">
                 <span class="glyphicon glyphicon-search"></span> Search
             </a>
         </div>
     </div>
-        
+
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
             <tr><th>Other Copy Location</th><th>Copy Count</th>            </tr>
         </thead>
         <tbody>
-        {% for otherCopyLocation in otherCopyLocations %}
-            <tr>
-                <td>
-                    <a href="{{ path('other_copy_location_show', { 'id': otherCopyLocation.id }) }}">
-                        {{ otherCopyLocation.otherCopyLocation }}
-                    </a>
-                </td>
-                <td>{{ otherCopyLocation.copyCount }}</td>
-            </tr>
-        {% endfor %}
+            {% for otherCopyLocation in otherCopyLocations %}
+                <tr>
+                    <td>
+                        <a href="{{ path('other_copy_location_show', { 'id': otherCopyLocation.id }) }}">
+                            {{ otherCopyLocation.otherCopyLocation }}
+                        </a>
+                    </td>
+                    <td>{{ otherCopyLocation.copyCount }}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
-        
+
     <div class="navigation">
         {{ knp_pagination_render(otherCopyLocations) }}
     </div>

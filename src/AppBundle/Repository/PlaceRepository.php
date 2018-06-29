@@ -34,5 +34,4 @@ class PlaceRepository extends EntityRepository {
         return $qb->getQuery();
     }
 
-
 }

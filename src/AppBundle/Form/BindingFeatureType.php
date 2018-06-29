@@ -11,33 +11,32 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * BindingFeatureType form.
  */
-class BindingFeatureType extends AbstractType
-{
+class BindingFeatureType extends AbstractType {
+
     /**
      * Add form fields to $builder.
      *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {        $builder->add('bindingFeature', null, array(
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder->add('bindingFeature', null, array(
             'label' => 'Binding Feature',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                $builder->add('bindingFeatureNotes', null, array(
+        $builder->add('bindingFeatureNotes', null, array(
             'label' => 'Binding Feature Notes',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                        $builder->add('books');
-        
+        $builder->add('books');
     }
-    
+
     /**
      * Define options for the form.
      *
@@ -46,8 +45,7 @@ class BindingFeatureType extends AbstractType
      *
      * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\BindingFeature'
         ));

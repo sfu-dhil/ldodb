@@ -11,33 +11,32 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * SubjectHeadingType form.
  */
-class SubjectHeadingType extends AbstractType
-{
+class SubjectHeadingType extends AbstractType {
+
     /**
      * Add form fields to $builder.
      *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {        $builder->add('subjectHeading', null, array(
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder->add('subjectHeading', null, array(
             'label' => 'Subject Heading',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                $builder->add('subjectHeadingUri', null, array(
+        $builder->add('subjectHeadingUri', null, array(
             'label' => 'Subject Heading Uri',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                        $builder->add('books');
-        
+        $builder->add('books');
     }
-    
+
     /**
      * Define options for the form.
      *
@@ -46,8 +45,7 @@ class SubjectHeadingType extends AbstractType
      *
      * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\SubjectHeading'
         ));

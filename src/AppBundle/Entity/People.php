@@ -14,8 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PeopleRepository")
  */
-class People extends Entity
-{
+class People extends Entity {
 
     /**
      * @var string
@@ -436,7 +435,7 @@ class People extends Entity
      * @return People
      */
     public function setResidentInLd($residentInLd) {
-        $this->residentInLd = (bool)$residentInLd;
+        $this->residentInLd = (bool) $residentInLd;
 
         return $this;
     }
@@ -447,7 +446,7 @@ class People extends Entity
      * @return boolean
      */
     public function getResidentInLd() {
-        return (bool)$this->residentInLd;
+        return (bool) $this->residentInLd;
     }
 
     /**
@@ -458,7 +457,7 @@ class People extends Entity
      * @return People
      */
     public function setResidentInLondon($residentInLondon) {
-        $this->residentInLondon = (bool)$residentInLondon;
+        $this->residentInLondon = (bool) $residentInLondon;
 
         return $this;
     }
@@ -469,7 +468,7 @@ class People extends Entity
      * @return boolean
      */
     public function getResidentInLondon() {
-        return (bool)$this->residentInLondon;
+        return (bool) $this->residentInLondon;
     }
 
     /**
@@ -480,7 +479,7 @@ class People extends Entity
      * @return People
      */
     public function setResidentOutsideUk($residentOutsideUk) {
-        $this->residentOutsideUk = (bool)$residentOutsideUk;
+        $this->residentOutsideUk = (bool) $residentOutsideUk;
 
         return $this;
     }
@@ -491,7 +490,7 @@ class People extends Entity
      * @return boolean
      */
     public function getResidentOutsideUk() {
-        return (bool)$this->residentOutsideUk;
+        return (bool) $this->residentOutsideUk;
     }
 
     /**
@@ -502,7 +501,7 @@ class People extends Entity
      * @return People
      */
     public function setTravelOutsideUk($travelOutsideUk) {
-        $this->travelOutsideUk = (bool)$travelOutsideUk;
+        $this->travelOutsideUk = (bool) $travelOutsideUk;
 
         return $this;
     }
@@ -513,7 +512,7 @@ class People extends Entity
      * @return boolean
      */
     public function getTravelOutsideUk() {
-        return (bool)$this->travelOutsideUk;
+        return (bool) $this->travelOutsideUk;
     }
 
     /**

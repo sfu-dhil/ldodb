@@ -34,5 +34,4 @@ class SubjectHeadingRepository extends EntityRepository {
         return $qb->getQuery();
     }
 
-
 }

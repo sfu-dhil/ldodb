@@ -10,9 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="supplemental_place_data")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SupplementalPlaceDataRepository")
  */
-class SupplementalPlaceData
-{
-    
+class SupplementalPlaceData {
+
     /**
      * @var integer
      *
@@ -21,10 +20,10 @@ class SupplementalPlaceData
      * @ORM\GeneratedValue()
      */
     private $id;
-    
+
     /**
      * @var integer
-     * 
+     *
      * @ORM\Column(name="geonameid", type="integer", nullable=false)
      */
     private $geonameId;
@@ -55,7 +54,7 @@ class SupplementalPlaceData
      *
      * Formatted as geoname: latitude, longitude
      *
-     * @return string 
+     * @return string
      */
     public function __toString() {
         return $this->geoname . ": " . $this->latitude . ',' . $this->longitude;
@@ -157,4 +156,5 @@ class SupplementalPlaceData
     public function getLongitude() {
         return $this->longitude;
     }
+
 }

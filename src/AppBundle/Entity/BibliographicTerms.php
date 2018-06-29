@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="bibliographic_terms")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\BibliographicTermsRepository")
  */
-class BibliographicTerms
-{
+class BibliographicTerms {
+
     /**
      * @var integer
      *
@@ -57,7 +57,6 @@ class BibliographicTerms
     public function __toString() {
         return $this->bibliographicTerm;
     }
-
 
     /**
      * Get id
@@ -155,4 +154,5 @@ class BibliographicTerms
     public function getUseForIllustrations() {
         return $this->useForIllustrations;
     }
+
 }

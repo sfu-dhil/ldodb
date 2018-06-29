@@ -7,41 +7,41 @@
     <p class="count">
         Displaying {{ keywords|length }} keywords of {{ keywords.getTotalItemCount }} total.
     </p>
- {% endblock %} 
+{% endblock %}
 
 {% block body %}
 
-        <div class='btn-toolbar pull-right'>
+    <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
             {% if is_granted('ROLE_CONTENT_ADMIN') %}
-            <a href="{{ path('keyword_new') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-plus"></span> New
-            </a>
+                <a href="{{ path('keyword_new') }}" class="btn btn-default">
+                    <span class="glyphicon glyphicon-plus"></span> New
+                </a>
             {% endif %}
             <a href="{{ path('keyword_search') }}" class="btn btn-default">
                 <span class="glyphicon glyphicon-search"></span> Search
             </a>
         </div>
     </div>
-        
+
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
             <tr><th>Keyword</th><th>Entry Count</th></tr>
         </thead>
         <tbody>
-        {% for keyword in keywords %}
-            <tr>
-                <td>
-                    <a href="{{ path('keyword_show', { 'id': keyword.id }) }}">
-                        {{ keyword.keyword }}
-                    </a>
-                </td>
-                <td>{{ keyword.books.count }}</td>
-            </tr>
-        {% endfor %}
+            {% for keyword in keywords %}
+                <tr>
+                    <td>
+                        <a href="{{ path('keyword_show', { 'id': keyword.id }) }}">
+                            {{ keyword.keyword }}
+                        </a>
+                    </td>
+                    <td>{{ keyword.books.count }}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
-        
+
     <div class="navigation">
         {{ knp_pagination_render(keywords) }}
     </div>

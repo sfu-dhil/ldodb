@@ -11,23 +11,23 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * BibliographicTermsType form.
  */
-class BibliographicTermsType extends AbstractType
-{
+class BibliographicTermsType extends AbstractType {
+
     /**
      * Add form fields to $builder.
      *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {        $builder->add('bibliographicTerm', null, array(
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder->add('bibliographicTerm', null, array(
             'label' => 'Bibliographic Term',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                $builder->add('useForFormat', ChoiceType::class, array(
+        $builder->add('useForFormat', ChoiceType::class, array(
             'label' => 'Use For Format',
             'expanded' => true,
             'multiple' => false,
@@ -35,15 +35,14 @@ class BibliographicTermsType extends AbstractType
                 'Yes' => true,
                 'No' => false,
                 'Unknown' => null,
-                ),
+            ),
             'required' => false,
             'placeholder' => false,
             'attr' => array(
                 'help_block' => '',
             ),
-
         ));
-                $builder->add('useForPhotographs', ChoiceType::class, array(
+        $builder->add('useForPhotographs', ChoiceType::class, array(
             'label' => 'Use For Photographs',
             'expanded' => true,
             'multiple' => false,
@@ -51,15 +50,14 @@ class BibliographicTermsType extends AbstractType
                 'Yes' => true,
                 'No' => false,
                 'Unknown' => null,
-                ),
+            ),
             'required' => false,
             'placeholder' => false,
             'attr' => array(
                 'help_block' => '',
             ),
-
         ));
-                $builder->add('useForIllustrations', ChoiceType::class, array(
+        $builder->add('useForIllustrations', ChoiceType::class, array(
             'label' => 'Use For Illustrations',
             'expanded' => true,
             'multiple' => false,
@@ -67,17 +65,15 @@ class BibliographicTermsType extends AbstractType
                 'Yes' => true,
                 'No' => false,
                 'Unknown' => null,
-                ),
+            ),
             'required' => false,
             'placeholder' => false,
             'attr' => array(
                 'help_block' => '',
             ),
-
         ));
-        
     }
-    
+
     /**
      * Define options for the form.
      *
@@ -86,8 +82,7 @@ class BibliographicTermsType extends AbstractType
      *
      * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\BibliographicTerms'
         ));

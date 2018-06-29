@@ -7,7 +7,7 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class LoadOtherNationalEdition extends AbstractFixture implements DependentFixtureInterface { 
+class LoadOtherNationalEdition extends AbstractFixture implements DependentFixtureInterface {
 
     public function getDependencies() {
         return [

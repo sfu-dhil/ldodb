@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="other_copy_location")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\OtherCopyLocationRepository")
  */
-class OtherCopyLocation
-{
+class OtherCopyLocation {
+
     /**
      * @var integer
      *
@@ -41,7 +41,7 @@ class OtherCopyLocation
      * @ORM\Column(name="copy_count", type="integer", nullable=false)
      */
     private $copyCount;
-    
+
     /**
      * Return string representation of object.
      *
@@ -50,7 +50,6 @@ class OtherCopyLocation
     public function __toString() {
         return $this->otherCopyLocation . ' (' . $this->copyCount . ')';
     }
-
 
     /**
      * Get id
@@ -126,4 +125,5 @@ class OtherCopyLocation
     public function getBook() {
         return $this->book;
     }
+
 }

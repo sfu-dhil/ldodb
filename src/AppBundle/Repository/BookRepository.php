@@ -34,5 +34,4 @@ class BookRepository extends EntityRepository {
         return $qb->getQuery();
     }
 
-
 }

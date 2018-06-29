@@ -11,61 +11,60 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * ReferencedPersonType form.
  */
-class ReferencedPersonType extends AbstractType
-{
+class ReferencedPersonType extends AbstractType {
+
     /**
      * Add form fields to $builder.
      *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {        $builder->add('lastName', null, array(
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder->add('lastName', null, array(
             'label' => 'Last Name',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                $builder->add('firstName', null, array(
+        $builder->add('firstName', null, array(
             'label' => 'First Name',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                $builder->add('birthDate', null, array(
+        $builder->add('birthDate', null, array(
             'label' => 'Birth Date',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                $builder->add('deathDate', null, array(
+        $builder->add('deathDate', null, array(
             'label' => 'Death Date',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                $builder->add('sameAsPeopleEntityId', null, array(
+        $builder->add('sameAsPeopleEntityId', null, array(
             'label' => 'Same As People Entity Id',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                $builder->add('referencedPersonUri', null, array(
+        $builder->add('referencedPersonUri', null, array(
             'label' => 'Referenced Person Uri',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                        $builder->add('books');
-        
+        $builder->add('books');
     }
-    
+
     /**
      * Define options for the form.
      *
@@ -74,8 +73,7 @@ class ReferencedPersonType extends AbstractType
      *
      * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\ReferencedPerson'
         ));

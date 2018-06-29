@@ -11,30 +11,30 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * PlaceType form.
  */
-class PlaceType extends AbstractType
-{
+class PlaceType extends AbstractType {
+
     /**
      * Add form fields to $builder.
      *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {        $builder->add('placeName', null, array(
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder->add('placeName', null, array(
             'label' => 'Place Name',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                $builder->add('placeUri', null, array(
+        $builder->add('placeUri', null, array(
             'label' => 'Place Uri',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                $builder->add('inLakeDistrict', ChoiceType::class, array(
+        $builder->add('inLakeDistrict', ChoiceType::class, array(
             'label' => 'In Lake District',
             'expanded' => true,
             'multiple' => false,
@@ -42,44 +42,42 @@ class PlaceType extends AbstractType
                 'Yes' => true,
                 'No' => false,
                 'Unknown' => null,
-                ),
+            ),
             'required' => false,
             'placeholder' => false,
             'attr' => array(
                 'help_block' => '',
             ),
-
         ));
-                $builder->add('latitude', null, array(
+        $builder->add('latitude', null, array(
             'label' => 'Latitude',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                $builder->add('longitude', null, array(
+        $builder->add('longitude', null, array(
             'label' => 'Longitude',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                $builder->add('regionId', null, array(
+        $builder->add('regionId', null, array(
             'label' => 'Region Id',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                $builder->add('countryId', null, array(
+        $builder->add('countryId', null, array(
             'label' => 'Country Id',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                        $builder->add('books');
-
+        $builder->add('books');
     }
 
     /**
@@ -90,8 +88,7 @@ class PlaceType extends AbstractType
      *
      * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Place'
         ));

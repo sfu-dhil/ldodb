@@ -11,27 +11,26 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * ReferencedPlaceType form.
  */
-class ReferencedPlaceType extends AbstractType
-{
+class ReferencedPlaceType extends AbstractType {
+
     /**
      * Add form fields to $builder.
      *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {        $builder->add('variantSpelling', null, array(
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder->add('variantSpelling', null, array(
             'label' => 'Variant Spelling',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                        $builder->add('book');
-                        $builder->add('place');
-        
+        $builder->add('book');
+        $builder->add('place');
     }
-    
+
     /**
      * Define options for the form.
      *
@@ -40,8 +39,7 @@ class ReferencedPlaceType extends AbstractType
      *
      * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\ReferencedPlace'
         ));

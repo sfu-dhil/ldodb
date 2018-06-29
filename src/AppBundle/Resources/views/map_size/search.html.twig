@@ -2,14 +2,14 @@
 
 {% block title %}MapSize Search{% endblock %}
 
- {% block pageheader %} 
+{% block pageheader %}
     <h1>MapSize Search</h1>
     {% if mapSizes|length %}
-    <p class="count">
-        Displaying {{ mapSizes|length }} mapSizes of {{ mapSizes.getTotalItemCount }} total.
-    </p>
-	{% endif %}
- {% endblock %} 
+        <p class="count">
+            Displaying {{ mapSizes|length }} mapSizes of {{ mapSizes.getTotalItemCount }} total.
+        </p>
+    {% endif %}
+{% endblock %}
 
 {% block body %}
 
@@ -41,31 +41,31 @@
             </ul>
         </fieldset>
     </form>
-    
-	{% if mapSizes|length %}
-    <table class="table table-bordered table-condensed table-hover table-striped">
-        <thead>
-            <tr>
-                <th>Mapsize</th>
-                <th>Mapsizenotes</th>            </tr>
-        </thead>
-        <tbody>
-        {% for mapSize in mapSizes %}
-            <tr>
-                <td>
-                    <a href="{{ path('map_size_show', { 'id': mapSize.id }) }}">
-                        {{ mapSize.mapSize }}
-                    </a>
-                </td>
-                <td>{{ mapSize.mapSizeNotes }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-        
-    <div class="navigation">
-        {{ knp_pagination_render(mapSizes) }}
-    </div>
-	{% endif %}
+
+    {% if mapSizes|length %}
+        <table class="table table-bordered table-condensed table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Mapsize</th>
+                    <th>Mapsizenotes</th>            </tr>
+            </thead>
+            <tbody>
+                {% for mapSize in mapSizes %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('map_size_show', { 'id': mapSize.id }) }}">
+                                {{ mapSize.mapSize }}
+                            </a>
+                        </td>
+                        <td>{{ mapSize.mapSizeNotes }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation">
+            {{ knp_pagination_render(mapSizes) }}
+        </div>
+    {% endif %}
 
 {% endblock %}

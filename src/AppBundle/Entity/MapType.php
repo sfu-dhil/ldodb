@@ -12,8 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="map_type")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\MapTypeRepository")
  */
-class MapType
-{
+class MapType {
+
     /**
      * @var integer
      *
@@ -42,7 +42,7 @@ class MapType
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="mapTypes")
      */
     private $books;
-    
+
     /**
      * Construct MapType object.
      *
@@ -59,7 +59,6 @@ class MapType
     public function __toString() {
         return $this->mapType;
     }
-
 
     /**
      * Get id
@@ -121,8 +120,7 @@ class MapType
      *
      * @return MapType
      */
-    public function addBook(\AppBundle\Entity\Book $book)
-    {
+    public function addBook(\AppBundle\Entity\Book $book) {
         $this->books[] = $book;
 
         return $this;
@@ -133,8 +131,7 @@ class MapType
      *
      * @param \AppBundle\Entity\Book $book
      */
-    public function removeBook(\AppBundle\Entity\Book $book)
-    {
+    public function removeBook(\AppBundle\Entity\Book $book) {
         $this->books->removeElement($book);
     }
 
@@ -143,8 +140,8 @@ class MapType
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getBooks()
-    {
+    public function getBooks() {
         return $this->books;
     }
+
 }

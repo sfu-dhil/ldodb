@@ -21,4 +21,5 @@ class BibliographicTermsRepository extends EntityRepository {
         $qb->setParameter('q', "{$q}%");
         return $qb->getQuery()->execute();
     }
+
 }

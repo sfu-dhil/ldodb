@@ -34,5 +34,4 @@ class KeywordRepository extends EntityRepository {
         return $qb->getQuery();
     }
 
-
 }

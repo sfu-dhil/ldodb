@@ -7,43 +7,43 @@
     <p class="count">
         Displaying {{ referencedPeople|length }} referenced people of {{ referencedPeople.getTotalItemCount }} total.
     </p>
- {% endblock %} 
+{% endblock %}
 
 {% block body %}
 
-        <div class='btn-toolbar pull-right'>
+    <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
             {% if is_granted('ROLE_CONTENT_ADMIN') %}
-            <a href="{{ path('referenced_person_new') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-plus"></span> New
-            </a>
+                <a href="{{ path('referenced_person_new') }}" class="btn btn-default">
+                    <span class="glyphicon glyphicon-plus"></span> New
+                </a>
             {% endif %}
             <a href="{{ path('referenced_person_search') }}" class="btn btn-default">
                 <span class="glyphicon glyphicon-search"></span> Search
             </a>
         </div>
     </div>
-        
+
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
             <tr><th>Last Name</th><th>First Name</th><th>Birth Date</th><th>Death Date</th></tr>
         </thead>
         <tbody>
-        {% for referencedPerson in referencedPeople %}
-            <tr>
-                <td>
-                    <a href="{{ path('referenced_person_show', { 'id': referencedPerson.id }) }}">
-                        {{ referencedPerson.lastName }}
-                    </a>
-                </td>
-                <td>{{ referencedPerson.firstName }}</td>
-                <td>{{ referencedPerson.birthDate }}</td>
-                <td>{{ referencedPerson.deathDate }}</td>
-            </tr>
-        {% endfor %}
+            {% for referencedPerson in referencedPeople %}
+                <tr>
+                    <td>
+                        <a href="{{ path('referenced_person_show', { 'id': referencedPerson.id }) }}">
+                            {{ referencedPerson.lastName }}
+                        </a>
+                    </td>
+                    <td>{{ referencedPerson.firstName }}</td>
+                    <td>{{ referencedPerson.birthDate }}</td>
+                    <td>{{ referencedPerson.deathDate }}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
-        
+
     <div class="navigation">
         {{ knp_pagination_render(referencedPeople) }}
     </div>

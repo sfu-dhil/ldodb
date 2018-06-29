@@ -11,33 +11,32 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * SubjectType form.
  */
-class SubjectType extends AbstractType
-{
+class SubjectType extends AbstractType {
+
     /**
      * Add form fields to $builder.
      *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {        $builder->add('subjectName', null, array(
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder->add('subjectName', null, array(
             'label' => 'Subject Name',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                $builder->add('subjectUri', null, array(
+        $builder->add('subjectUri', null, array(
             'label' => 'Subject Uri',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-                        $builder->add('books');
-        
+        $builder->add('books');
     }
-    
+
     /**
      * Define options for the form.
      *
@@ -46,8 +45,7 @@ class SubjectType extends AbstractType
      *
      * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Subject'
         ));

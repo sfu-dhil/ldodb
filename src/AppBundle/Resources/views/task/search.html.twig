@@ -2,14 +2,14 @@
 
 {% block title %}Task Search{% endblock %}
 
- {% block pageheader %} 
+{% block pageheader %}
     <h1>Task Search</h1>
     {% if tasks|length %}
-    <p class="count">
-        Displaying {{ tasks|length }} tasks of {{ tasks.getTotalItemCount }} total.
-    </p>
-	{% endif %}
- {% endblock %} 
+        <p class="count">
+            Displaying {{ tasks|length }} tasks of {{ tasks.getTotalItemCount }} total.
+        </p>
+    {% endif %}
+{% endblock %}
 
 {% block body %}
 
@@ -41,29 +41,29 @@
             </ul>
         </fieldset>
     </form>
-    
-	{% if tasks|length %}
-    <table class="table table-bordered table-condensed table-hover table-striped">
-        <thead>
-            <tr>
-                <th>Taskname</th>            </tr>
-        </thead>
-        <tbody>
-        {% for task in tasks %}
-            <tr>
-                <td>
-                    <a href="{{ path('task_show', { 'id': task.id }) }}">
-                        {{ task.taskName }}
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-        
-    <div class="navigation">
-        {{ knp_pagination_render(tasks) }}
-    </div>
-	{% endif %}
+
+    {% if tasks|length %}
+        <table class="table table-bordered table-condensed table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Taskname</th>            </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('task_show', { 'id': task.id }) }}">
+                                {{ task.taskName }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation">
+            {{ knp_pagination_render(tasks) }}
+        </div>
+    {% endif %}
 
 {% endblock %}

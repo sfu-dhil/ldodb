@@ -14,7 +14,7 @@ class LoadOtherCopyLocation extends AbstractFixture implements DependentFixtureI
             LoadBook::class,
         ];
     }
-    
+
     public function load(ObjectManager $em) {
         $object = new OtherCopyLocation();
         $object->setBook($this->getReference('Book.1'));

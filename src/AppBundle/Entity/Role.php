@@ -14,8 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\RoleRepository")
  */
-class Role
-{
+class Role {
+
     /**
      * @var integer
      *
@@ -93,8 +93,7 @@ class Role
      *
      * @return Role
      */
-    public function addPerson(People $person)
-    {
+    public function addPerson(People $person) {
         $this->people[] = $person;
 
         return $this;
@@ -105,8 +104,7 @@ class Role
      *
      * @param People $person
      */
-    public function removePerson(People $person)
-    {
+    public function removePerson(People $person) {
         $this->people->removeElement($person);
     }
 
@@ -115,8 +113,8 @@ class Role
      *
      * @return Collection
      */
-    public function getPeople()
-    {
+    public function getPeople() {
         return $this->people;
     }
+
 }

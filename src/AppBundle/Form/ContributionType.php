@@ -11,21 +11,20 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * ContributionType form.
  */
-class ContributionType extends AbstractType
-{
+class ContributionType extends AbstractType {
+
     /**
      * Add form fields to $builder.
      *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {                $builder->add('book');
-                        $builder->add('entity');
-                        $builder->add('task');
-        
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder->add('book');
+        $builder->add('entity');
+        $builder->add('task');
     }
-    
+
     /**
      * Define options for the form.
      *
@@ -34,8 +33,7 @@ class ContributionType extends AbstractType
      *
      * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Contribution'
         ));

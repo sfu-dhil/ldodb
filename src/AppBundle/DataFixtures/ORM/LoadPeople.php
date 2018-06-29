@@ -7,7 +7,7 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class LoadPeople extends AbstractFixture implements DependentFixtureInterface { 
+class LoadPeople extends AbstractFixture implements DependentFixtureInterface {
 
     public function getDependencies() {
         return [
@@ -35,7 +35,7 @@ class LoadPeople extends AbstractFixture implements DependentFixtureInterface {
         $object->addResidence($this->getReference('Place.1'));
         $object->addResidence($this->getReference('Place.2'));
         $object->addTravel($this->getReference('Place.2'));
-        $object->addTravel($this->getReference('Place.3'));        
+        $object->addTravel($this->getReference('Place.3'));
         $object->addRole($this->getReference('Role.1'));
         $em->persist($object);
         $em->flush();

@@ -2,14 +2,14 @@
 
 {% block title %}ReferencedPerson Search{% endblock %}
 
- {% block pageheader %} 
+{% block pageheader %}
     <h1>ReferencedPerson Search</h1>
     {% if referencedPeople|length %}
-    <p class="count">
-        Displaying {{ referencedPeople|length }} referencedPeople of {{ referencedPeople.getTotalItemCount }} total.
-    </p>
-	{% endif %}
- {% endblock %} 
+        <p class="count">
+            Displaying {{ referencedPeople|length }} referencedPeople of {{ referencedPeople.getTotalItemCount }} total.
+        </p>
+    {% endif %}
+{% endblock %}
 
 {% block body %}
 
@@ -41,39 +41,39 @@
             </ul>
         </fieldset>
     </form>
-    
-	{% if referencedPeople|length %}
-    <table class="table table-bordered table-condensed table-hover table-striped">
-        <thead>
-            <tr>
-                <th>Lastname</th>
-                <th>Firstname</th>
-                <th>Birthdate</th>
-                <th>Deathdate</th>
-                <th>Sameaspeopleentityid</th>
-                <th>Referencedpersonuri</th>            </tr>
-        </thead>
-        <tbody>
-        {% for referencedPerson in referencedPeople %}
-            <tr>
-                <td>
-                    <a href="{{ path('referenced_person_show', { 'id': referencedPerson.id }) }}">
-                        {{ referencedPerson.lastName }}
-                    </a>
-                </td>
-                <td>{{ referencedPerson.firstName }}</td>
-                <td>{{ referencedPerson.birthDate }}</td>
-                <td>{{ referencedPerson.deathDate }}</td>
-                <td>{{ referencedPerson.sameAsPeopleEntityId }}</td>
-                <td>{{ referencedPerson.referencedPersonUri }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-        
-    <div class="navigation">
-        {{ knp_pagination_render(referencedPeople) }}
-    </div>
-	{% endif %}
+
+    {% if referencedPeople|length %}
+        <table class="table table-bordered table-condensed table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Lastname</th>
+                    <th>Firstname</th>
+                    <th>Birthdate</th>
+                    <th>Deathdate</th>
+                    <th>Sameaspeopleentityid</th>
+                    <th>Referencedpersonuri</th>            </tr>
+            </thead>
+            <tbody>
+                {% for referencedPerson in referencedPeople %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('referenced_person_show', { 'id': referencedPerson.id }) }}">
+                                {{ referencedPerson.lastName }}
+                            </a>
+                        </td>
+                        <td>{{ referencedPerson.firstName }}</td>
+                        <td>{{ referencedPerson.birthDate }}</td>
+                        <td>{{ referencedPerson.deathDate }}</td>
+                        <td>{{ referencedPerson.sameAsPeopleEntityId }}</td>
+                        <td>{{ referencedPerson.referencedPersonUri }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation">
+            {{ knp_pagination_render(referencedPeople) }}
+        </div>
+    {% endif %}
 
 {% endblock %}

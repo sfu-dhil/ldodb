@@ -14,8 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ReferencedPersonRepository")
  */
-class ReferencedPerson
-{
+class ReferencedPerson {
+
     /**
      * @var integer
      *
@@ -91,7 +91,6 @@ class ReferencedPerson
     public function __toString() {
         return $this->lastName . ', ' . $this->firstName;
     }
-
 
     /**
      * Get id
@@ -241,8 +240,7 @@ class ReferencedPerson
      *
      * @return ReferencedPerson
      */
-    public function addBook(\AppBundle\Entity\Book $book)
-    {
+    public function addBook(\AppBundle\Entity\Book $book) {
         $this->books[] = $book;
 
         return $this;
@@ -253,8 +251,7 @@ class ReferencedPerson
      *
      * @param \AppBundle\Entity\Book $book
      */
-    public function removeBook(\AppBundle\Entity\Book $book)
-    {
+    public function removeBook(\AppBundle\Entity\Book $book) {
         $this->books->removeElement($book);
     }
 
@@ -263,8 +260,8 @@ class ReferencedPerson
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getBooks()
-    {
+    public function getBooks() {
         return $this->books;
     }
+
 }

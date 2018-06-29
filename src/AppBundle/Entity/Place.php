@@ -14,8 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PlaceRepository")
  */
-class Place
-{
+class Place {
+
     /**
      * @var integer
      *
@@ -199,7 +199,7 @@ class Place
      * @return Place
      */
     public function setInLakeDistrict($inLakeDistrict) {
-        $this->inLakeDistrict = (bool)$inLakeDistrict;
+        $this->inLakeDistrict = (bool) $inLakeDistrict;
 
         return $this;
     }
@@ -210,7 +210,7 @@ class Place
      * @return boolean
      */
     public function getInLakeDistrict() {
-        return (bool)$this->inLakeDistrict;
+        return (bool) $this->inLakeDistrict;
     }
 
     /**
@@ -432,8 +432,7 @@ class Place
      *
      * @return Place
      */
-    public function addBook(\AppBundle\Entity\Book $book)
-    {
+    public function addBook(\AppBundle\Entity\Book $book) {
         $this->books[] = $book;
 
         return $this;
@@ -444,8 +443,7 @@ class Place
      *
      * @param \AppBundle\Entity\Book $book
      */
-    public function removeBook(\AppBundle\Entity\Book $book)
-    {
+    public function removeBook(\AppBundle\Entity\Book $book) {
         $this->books->removeElement($book);
     }
 
@@ -454,8 +452,7 @@ class Place
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getBooks()
-    {
+    public function getBooks() {
         return $this->books;
     }
 
@@ -466,8 +463,7 @@ class Place
      *
      * @return Place
      */
-    public function addResident(\AppBundle\Entity\People $resident)
-    {
+    public function addResident(\AppBundle\Entity\People $resident) {
         $this->residents[] = $resident;
 
         return $this;
@@ -478,8 +474,7 @@ class Place
      *
      * @param \AppBundle\Entity\People $resident
      */
-    public function removeResident(\AppBundle\Entity\People $resident)
-    {
+    public function removeResident(\AppBundle\Entity\People $resident) {
         $this->residents->removeElement($resident);
     }
 
@@ -488,8 +483,7 @@ class Place
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getResidents()
-    {
+    public function getResidents() {
         return $this->residents;
     }
 
@@ -500,8 +494,7 @@ class Place
      *
      * @return Place
      */
-    public function addTraveller(\AppBundle\Entity\People $traveller)
-    {
+    public function addTraveller(\AppBundle\Entity\People $traveller) {
         $this->travellers[] = $traveller;
 
         return $this;
@@ -512,8 +505,7 @@ class Place
      *
      * @param \AppBundle\Entity\People $traveller
      */
-    public function removeTraveller(\AppBundle\Entity\People $traveller)
-    {
+    public function removeTraveller(\AppBundle\Entity\People $traveller) {
         $this->travellers->removeElement($traveller);
     }
 
@@ -522,8 +514,8 @@ class Place
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getTravellers()
-    {
+    public function getTravellers() {
         return $this->travellers;
     }
+
 }

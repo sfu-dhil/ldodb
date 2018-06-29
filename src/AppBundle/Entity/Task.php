@@ -12,8 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="task")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TaskRepository")
  */
-class Task
-{
+class Task {
+
     /**
      * @var integer
      *
@@ -44,6 +44,7 @@ class Task
     public function __toString() {
         return $this->taskName;
     }
+
     /**
      * Constructor
      */
@@ -112,4 +113,5 @@ class Task
     public function getContributions() {
         return $this->contributions;
     }
+
 }

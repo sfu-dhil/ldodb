@@ -19,4 +19,5 @@ class TaskRepository extends EntityRepository {
         $qb->setParameter('q', "{$q}%");
         return $qb->getQuery()->execute();
     }
+
 }

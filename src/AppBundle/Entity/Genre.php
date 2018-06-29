@@ -12,8 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="genre")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\GenreRepository")
  */
-class Genre
-{
+class Genre {
+
     /**
      * @var integer
      *
@@ -63,7 +63,7 @@ class Genre
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="genres")
      */
     private $books;
-    
+
     /**
      * Construct Genre object.
      *
@@ -80,7 +80,6 @@ class Genre
     public function __toString() {
         return $this->genreName;
     }
-
 
     /**
      * Get id
@@ -208,8 +207,7 @@ class Genre
      *
      * @return Genre
      */
-    public function addBook(\AppBundle\Entity\Book $book)
-    {
+    public function addBook(\AppBundle\Entity\Book $book) {
         $this->books[] = $book;
 
         return $this;
@@ -220,8 +218,7 @@ class Genre
      *
      * @param \AppBundle\Entity\Book $book
      */
-    public function removeBook(\AppBundle\Entity\Book $book)
-    {
+    public function removeBook(\AppBundle\Entity\Book $book) {
         $this->books->removeElement($book);
     }
 
@@ -230,8 +227,8 @@ class Genre
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getBooks()
-    {
+    public function getBooks() {
         return $this->books;
     }
+
 }

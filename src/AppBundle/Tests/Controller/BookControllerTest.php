@@ -77,7 +77,6 @@ class BookControllerTest extends BaseTestCase {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/book/1/edit');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        
     }
 
     public function testUserEdit() {
@@ -87,7 +86,6 @@ class BookControllerTest extends BaseTestCase {
         ]);
         $crawler = $client->request('GET', '/book/1/edit');
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
-        
     }
 
     public function testAdminEdit() {
@@ -99,7 +97,7 @@ class BookControllerTest extends BaseTestCase {
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         $form = $formCrawler->selectButton('Update')->form([
-                'book[title]' => 'never nulls',
+            'book[title]' => 'never nulls',
         ]);
 
         $client->submit($form);
@@ -113,7 +111,6 @@ class BookControllerTest extends BaseTestCase {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/book/new');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        
     }
 
     public function testUserNew() {
@@ -123,7 +120,6 @@ class BookControllerTest extends BaseTestCase {
         ]);
         $crawler = $client->request('GET', '/book/new');
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
-        
     }
 
     public function testAdminNew() {
@@ -135,7 +131,7 @@ class BookControllerTest extends BaseTestCase {
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         $form = $formCrawler->selectButton('Create')->form([
-                'book[title]' => 'never nulls',
+            'book[title]' => 'never nulls',
         ]);
 
         $client->submit($form);
@@ -149,7 +145,6 @@ class BookControllerTest extends BaseTestCase {
         $client = $this->makeClient();
         $crawler = $client->request('GET', '/book/1/delete');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        
     }
 
     public function testUserDelete() {
@@ -159,7 +154,6 @@ class BookControllerTest extends BaseTestCase {
         ]);
         $crawler = $client->request('GET', '/book/1/delete');
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
-        
     }
 
     public function testAdminDelete() {

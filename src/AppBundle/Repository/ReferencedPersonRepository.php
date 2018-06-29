@@ -35,5 +35,4 @@ class ReferencedPersonRepository extends EntityRepository {
         return $qb->getQuery();
     }
 
-
 }

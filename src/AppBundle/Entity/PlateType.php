@@ -12,8 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="plate_type")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PlateTypeRepository")
  */
-class PlateType
-{
+class PlateType {
+
     /**
      * @var integer
      *
@@ -42,7 +42,7 @@ class PlateType
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="plateTypes")
      */
     private $books;
-    
+
     /**
      * Construct PlateType object.
      *
@@ -59,7 +59,6 @@ class PlateType
     public function __toString() {
         return $this->plateType;
     }
-
 
     /**
      * Get id
@@ -121,8 +120,7 @@ class PlateType
      *
      * @return PlateType
      */
-    public function addBook(\AppBundle\Entity\Book $book)
-    {
+    public function addBook(\AppBundle\Entity\Book $book) {
         $this->books[] = $book;
 
         return $this;
@@ -133,8 +131,7 @@ class PlateType
      *
      * @param \AppBundle\Entity\Book $book
      */
-    public function removeBook(\AppBundle\Entity\Book $book)
-    {
+    public function removeBook(\AppBundle\Entity\Book $book) {
         $this->books->removeElement($book);
     }
 
@@ -143,8 +140,8 @@ class PlateType
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getBooks()
-    {
+    public function getBooks() {
         return $this->books;
     }
+
 }

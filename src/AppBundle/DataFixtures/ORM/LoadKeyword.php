@@ -8,7 +8,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class LoadKeyword extends AbstractFixture {
-    
+
     public function load(ObjectManager $em) {
         $object = new Keyword();
         $object->setKeyword('placodermi');

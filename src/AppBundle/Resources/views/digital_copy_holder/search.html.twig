@@ -2,14 +2,14 @@
 
 {% block title %}DigitalCopyHolder Search{% endblock %}
 
- {% block pageheader %} 
+{% block pageheader %}
     <h1>DigitalCopyHolder Search</h1>
     {% if digitalCopyHolders|length %}
-    <p class="count">
-        Displaying {{ digitalCopyHolders|length }} digitalCopyHolders of {{ digitalCopyHolders.getTotalItemCount }} total.
-    </p>
-	{% endif %}
- {% endblock %} 
+        <p class="count">
+            Displaying {{ digitalCopyHolders|length }} digitalCopyHolders of {{ digitalCopyHolders.getTotalItemCount }} total.
+        </p>
+    {% endif %}
+{% endblock %}
 
 {% block body %}
 
@@ -41,29 +41,29 @@
             </ul>
         </fieldset>
     </form>
-    
-	{% if digitalCopyHolders|length %}
-    <table class="table table-bordered table-condensed table-hover table-striped">
-        <thead>
-            <tr>
-                <th>Organizationname</th>            </tr>
-        </thead>
-        <tbody>
-        {% for digitalCopyHolder in digitalCopyHolders %}
-            <tr>
-                <td>
-                    <a href="{{ path('digital_copy_holder_show', { 'id': digitalCopyHolder.id }) }}">
-                        {{ digitalCopyHolder.organizationName }}
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-        
-    <div class="navigation">
-        {{ knp_pagination_render(digitalCopyHolders) }}
-    </div>
-	{% endif %}
+
+    {% if digitalCopyHolders|length %}
+        <table class="table table-bordered table-condensed table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Organizationname</th>            </tr>
+            </thead>
+            <tbody>
+                {% for digitalCopyHolder in digitalCopyHolders %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('digital_copy_holder_show', { 'id': digitalCopyHolder.id }) }}">
+                                {{ digitalCopyHolder.organizationName }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation">
+            {{ knp_pagination_render(digitalCopyHolders) }}
+        </div>
+    {% endif %}
 
 {% endblock %}
