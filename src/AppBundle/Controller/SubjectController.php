@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,6 +16,7 @@ use AppBundle\Form\SubjectType;
 /**
  * Subject controller.
  *
+ * @Security("has_role('ROLE_USER')")
  * @Route("/subject")
  */
 class SubjectController extends Controller {
@@ -21,15 +24,18 @@ class SubjectController extends Controller {
     /**
      * Lists all Subject entities.
      *
+     * @param Request $request
+     *
+     * @return array
+     *
      * @Route("/", name="subject_index")
      * @Method("GET")
      * @Template()
-     * @param Request $request
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
-        $qb->select('e')->from(Subject::class, 'e')->orderBy('e.subjectName', 'ASC');
+        $qb->select('e')->from(Subject::class, 'e')->orderBy('e.id', 'ASC');
         $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $subjects = $paginator->paginate($query, $request->query->getint('page', 1), 25);
@@ -40,24 +46,39 @@ class SubjectController extends Controller {
     }
 
     /**
+     * Typeahead API endpoint for Subject entities.
+     *
+     * @param Request $request
+     *
+     * @Route("/typeahead", name="subject_typeahead")
+     * @Method("GET")
+     * @return JsonResponse
+     */
+    public function typeahead(Request $request) {
+        $q = $request->query->get('q');
+        if (!$q) {
+            return new JsonResponse([]);
+        }
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository(Subject::class);
+        $data = [];
+        foreach ($repo->typeaheadQuery($q) as $result) {
+            $data[] = [
+                'id' => $result->getId(),
+                'text' => (string) $result,
+            ];
+        }
+        return new JsonResponse($data);
+    }
+
+    /**
      * Search for Subject entities.
      *
-     * To make this work, add a method like this one to the 
-     * AppBundle:Subject repository. Replace the fieldName with
-     * something appropriate, and adjust the generated search.html.twig
-     * template.
-     * 
-      //    public function searchQuery($q) {
-      //        $qb = $this->createQueryBuilder('e');
-      //        $qb->where("e.fieldName like '%$q%'");
-      //        return $qb->getQuery();
-      //    }
-     *
+     * @param Request $request
      *
      * @Route("/search", name="subject_search")
      * @Method("GET")
      * @Template()
-     * @param Request $request
      */
     public function searchAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -78,59 +99,16 @@ class SubjectController extends Controller {
     }
 
     /**
-     * Full text search for Subject entities.
-     *
-     * To make this work, add a method like this one to the 
-     * AppBundle:Subject repository. Replace the fieldName with
-     * something appropriate, and adjust the generated fulltext.html.twig
-     * template.
-     * 
-      //    public function fulltextQuery($q) {
-      //        $qb = $this->createQueryBuilder('e');
-      //        $qb->addSelect("MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') as score");
-      //        $qb->add('where', "MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') > 0.5");
-      //        $qb->orderBy('score', 'desc');
-      //        $qb->setParameter('q', $q);
-      //        return $qb->getQuery();
-      //    }
-     * 
-     * Requires a MatchAgainst function be added to doctrine, and appropriate
-     * fulltext indexes on your Subject entity.
-     *     ORM\Index(name="alias_name_idx",columns="name", flags={"fulltext"})
-     *
-     *
-     * @Route("/fulltext", name="subject_fulltext")
-     * @Method("GET")
-     * @Template()
-     * @param Request $request
-     * @return array
-     */
-    public function fulltextAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('AppBundle:Subject');
-        $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->fulltextQuery($q);
-            $paginator = $this->get('knp_paginator');
-            $subjects = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        } else {
-            $subjects = array();
-        }
-
-        return array(
-            'subjects' => $subjects,
-            'q' => $q,
-        );
-    }
-
-    /**
      * Creates a new Subject entity.
      *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Route("/new", name="subject_new")
      * @Method({"GET", "POST"})
      * @Template()
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @param Request $request
      */
     public function newAction(Request $request) {
         $subject = new Subject();
@@ -153,12 +131,31 @@ class SubjectController extends Controller {
     }
 
     /**
+     * Creates a new Subject entity in a popup.
+     *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/new_popup", name="subject_new_popup")
+     * @Method({"GET", "POST"})
+     * @Template()
+     */
+    public function newPopupAction(Request $request) {
+        return $this->newAction($request);
+    }
+
+    /**
      * Finds and displays a Subject entity.
+     *
+     * @param Subject $subject
+     *
+     * @return array
      *
      * @Route("/{id}", name="subject_show")
      * @Method("GET")
      * @Template()
-     * @param Subject $subject
      */
     public function showAction(Subject $subject) {
 
@@ -170,12 +167,16 @@ class SubjectController extends Controller {
     /**
      * Displays a form to edit an existing Subject entity.
      *
+     *
+     * @param Request $request
+     * @param Subject $subject
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Route("/{id}/edit", name="subject_edit")
      * @Method({"GET", "POST"})
      * @Template()
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @param Request $request
-     * @param Subject $subject
      */
     public function editAction(Request $request, Subject $subject) {
         $editForm = $this->createForm(SubjectType::class, $subject);
@@ -197,11 +198,15 @@ class SubjectController extends Controller {
     /**
      * Deletes a Subject entity.
      *
-     * @Route("/{id}/delete", name="subject_delete")
-     * @Method("GET")
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     *
      * @param Request $request
      * @param Subject $subject
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/delete", name="subject_delete")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, Subject $subject) {
         $em = $this->getDoctrine()->getManager();

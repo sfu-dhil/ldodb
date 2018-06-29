@@ -9,7 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Place
  *
- * @ORM\Table(name="place")
+ * @ORM\Table(name="place", indexes={
+ *      @ORM\Index(columns={"place_name"}, flags={"fulltext"}),
+ * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PlaceRepository")
  */
 class Place
@@ -101,19 +103,19 @@ class Place
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="publicationPlaces")
      */
     private $books;
-    
+
     /**
      * @var Collection|People[]
      * @ORM\ManyToMany(targetEntity="People", mappedBy="residences")
      */
     private $residents;
-    
+
     /**
      * @var Collection|People[]
      * @ORM\ManyToMany(targetEntity="People", mappedBy="travels")
      */
     private $travellers;
-    
+
     /**
      * Return string representation of placeName.
      *

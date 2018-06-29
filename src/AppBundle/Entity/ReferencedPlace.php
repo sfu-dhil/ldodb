@@ -9,7 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ReferencedPlace
  *
- * @ORM\Table(name="referenced_place")
+ * @ORM\Table(name="referenced_place", indexes={
+ *      @ORM\Index(columns={"variant_spelling"}, flags={"fulltext"}),
+ * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ReferencedPlaceRepository")
  */
 class ReferencedPlace
@@ -46,7 +48,7 @@ class ReferencedPlace
 
     /**
      * Return a string representation of the object.
-     * 
+     *
      * @return string
      */
     public function __toString() {

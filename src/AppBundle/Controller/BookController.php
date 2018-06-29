@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,6 +16,7 @@ use AppBundle\Form\BookType;
 /**
  * Book controller.
  *
+ * @Security("has_role('ROLE_USER')")
  * @Route("/book")
  */
 class BookController extends Controller {
@@ -21,10 +24,13 @@ class BookController extends Controller {
     /**
      * Lists all Book entities.
      *
+     * @param Request $request
+     *
+     * @return array
+     *
      * @Route("/", name="book_index")
      * @Method("GET")
      * @Template()
-     * @param Request $request
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -40,24 +46,39 @@ class BookController extends Controller {
     }
 
     /**
+     * Typeahead API endpoint for Book entities.
+     *
+     * @param Request $request
+     *
+     * @Route("/typeahead", name="book_typeahead")
+     * @Method("GET")
+     * @return JsonResponse
+     */
+    public function typeahead(Request $request) {
+        $q = $request->query->get('q');
+        if (!$q) {
+            return new JsonResponse([]);
+        }
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository(Book::class);
+        $data = [];
+        foreach ($repo->typeaheadQuery($q) as $result) {
+            $data[] = [
+                'id' => $result->getId(),
+                'text' => (string) $result,
+            ];
+        }
+        return new JsonResponse($data);
+    }
+
+    /**
      * Search for Book entities.
      *
-     * To make this work, add a method like this one to the 
-     * AppBundle:Book repository. Replace the fieldName with
-     * something appropriate, and adjust the generated search.html.twig
-     * template.
-     * 
-      //    public function searchQuery($q) {
-      //        $qb = $this->createQueryBuilder('e');
-      //        $qb->where("e.fieldName like '%$q%'");
-      //        return $qb->getQuery();
-      //    }
-     *
+     * @param Request $request
      *
      * @Route("/search", name="book_search")
      * @Method("GET")
      * @Template()
-     * @param Request $request
      */
     public function searchAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -78,59 +99,16 @@ class BookController extends Controller {
     }
 
     /**
-     * Full text search for Book entities.
-     *
-     * To make this work, add a method like this one to the 
-     * AppBundle:Book repository. Replace the fieldName with
-     * something appropriate, and adjust the generated fulltext.html.twig
-     * template.
-     * 
-      //    public function fulltextQuery($q) {
-      //        $qb = $this->createQueryBuilder('e');
-      //        $qb->addSelect("MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') as score");
-      //        $qb->add('where', "MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') > 0.5");
-      //        $qb->orderBy('score', 'desc');
-      //        $qb->setParameter('q', $q);
-      //        return $qb->getQuery();
-      //    }
-     * 
-     * Requires a MatchAgainst function be added to doctrine, and appropriate
-     * fulltext indexes on your Book entity.
-     *     ORM\Index(name="alias_name_idx",columns="name", flags={"fulltext"})
-     *
-     *
-     * @Route("/fulltext", name="book_fulltext")
-     * @Method("GET")
-     * @Template()
-     * @param Request $request
-     * @return array
-     */
-    public function fulltextAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('AppBundle:Book');
-        $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->fulltextQuery($q);
-            $paginator = $this->get('knp_paginator');
-            $books = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        } else {
-            $books = array();
-        }
-
-        return array(
-            'books' => $books,
-            'q' => $q,
-        );
-    }
-
-    /**
      * Creates a new Book entity.
      *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Route("/new", name="book_new")
      * @Method({"GET", "POST"})
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Template()
-     * @param Request $request
      */
     public function newAction(Request $request) {
         $book = new Book();
@@ -153,12 +131,31 @@ class BookController extends Controller {
     }
 
     /**
+     * Creates a new Book entity in a popup.
+     *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/new_popup", name="book_new_popup")
+     * @Method({"GET", "POST"})
+     * @Template()
+     */
+    public function newPopupAction(Request $request) {
+        return $this->newAction($request);
+    }
+
+    /**
      * Finds and displays a Book entity.
+     *
+     * @param Book $book
+     *
+     * @return array
      *
      * @Route("/{id}", name="book_show")
      * @Method("GET")
      * @Template()
-     * @param Book $book
      */
     public function showAction(Book $book) {
 
@@ -170,12 +167,16 @@ class BookController extends Controller {
     /**
      * Displays a form to edit an existing Book entity.
      *
-     * @Route("/{id}/edit", name="book_edit")
-     * @Method({"GET", "POST"})
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Template()
+     *
      * @param Request $request
      * @param Book $book
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/edit", name="book_edit")
+     * @Method({"GET", "POST"})
+     * @Template()
      */
     public function editAction(Request $request, Book $book) {
         $editForm = $this->createForm(BookType::class, $book);
@@ -197,11 +198,15 @@ class BookController extends Controller {
     /**
      * Deletes a Book entity.
      *
-     * @Route("/{id}/delete", name="book_delete")
-     * @Method("GET")
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     *
      * @param Request $request
      * @param Book $book
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/delete", name="book_delete")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, Book $book) {
         $em = $this->getDoctrine()->getManager();

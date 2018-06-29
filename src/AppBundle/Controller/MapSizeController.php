@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,6 +16,7 @@ use AppBundle\Form\MapSizeType;
 /**
  * MapSize controller.
  *
+ * @Security("has_role('ROLE_USER')")
  * @Route("/map_size")
  */
 class MapSizeController extends Controller {
@@ -21,10 +24,13 @@ class MapSizeController extends Controller {
     /**
      * Lists all MapSize entities.
      *
+     * @param Request $request
+     *
+     * @return array
+     *
      * @Route("/", name="map_size_index")
      * @Method("GET")
      * @Template()
-     * @param Request $request
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -40,13 +46,42 @@ class MapSizeController extends Controller {
     }
 
     /**
+     * Typeahead API endpoint for MapSize entities.
+     *
+     * @param Request $request
+     *
+     * @Route("/typeahead", name="map_size_typeahead")
+     * @Method("GET")
+     * @return JsonResponse
+     */
+    public function typeahead(Request $request) {
+        $q = $request->query->get('q');
+        if (!$q) {
+            return new JsonResponse([]);
+        }
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository(MapSize::class);
+        $data = [];
+        foreach ($repo->typeaheadQuery($q) as $result) {
+            $data[] = [
+                'id' => $result->getId(),
+                'text' => (string) $result,
+            ];
+        }
+        return new JsonResponse($data);
+    }
+
+    /**
      * Creates a new MapSize entity.
      *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Route("/new", name="map_size_new")
      * @Method({"GET", "POST"})
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Template()
-     * @param Request $request
      */
     public function newAction(Request $request) {
         $mapSize = new MapSize();
@@ -69,12 +104,31 @@ class MapSizeController extends Controller {
     }
 
     /**
+     * Creates a new MapSize entity in a popup.
+     *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/new_popup", name="map_size_new_popup")
+     * @Method({"GET", "POST"})
+     * @Template()
+     */
+    public function newPopupAction(Request $request) {
+        return $this->newAction($request);
+    }
+
+    /**
      * Finds and displays a MapSize entity.
+     *
+     * @param MapSize $mapSize
+     *
+     * @return array
      *
      * @Route("/{id}", name="map_size_show")
      * @Method("GET")
      * @Template()
-     * @param MapSize $mapSize
      */
     public function showAction(MapSize $mapSize) {
 
@@ -86,12 +140,16 @@ class MapSizeController extends Controller {
     /**
      * Displays a form to edit an existing MapSize entity.
      *
+     *
+     * @param Request $request
+     * @param MapSize $mapSize
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Route("/{id}/edit", name="map_size_edit")
      * @Method({"GET", "POST"})
      * @Template()
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @param Request $request
-     * @param MapSize $mapSize
      */
     public function editAction(Request $request, MapSize $mapSize) {
         $editForm = $this->createForm(MapSizeType::class, $mapSize);
@@ -113,11 +171,15 @@ class MapSizeController extends Controller {
     /**
      * Deletes a MapSize entity.
      *
-     * @Route("/{id}/delete", name="map_size_delete")
-     * @Method("GET")
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     *
      * @param Request $request
      * @param MapSize $mapSize
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/delete", name="map_size_delete")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, MapSize $mapSize) {
         $em = $this->getDoctrine()->getManager();

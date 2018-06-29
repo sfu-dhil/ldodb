@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,6 +16,7 @@ use AppBundle\Form\KeywordType;
 /**
  * Keyword controller.
  *
+ * @Security("has_role('ROLE_USER')")
  * @Route("/keyword")
  */
 class KeywordController extends Controller {
@@ -21,15 +24,18 @@ class KeywordController extends Controller {
     /**
      * Lists all Keyword entities.
      *
+     * @param Request $request
+     *
+     * @return array
+     *
      * @Route("/", name="keyword_index")
      * @Method("GET")
      * @Template()
-     * @param Request $request
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
-        $qb->select('e')->from(Keyword::class, 'e')->orderBy('e.keyword', 'ASC');
+        $qb->select('e')->from(Keyword::class, 'e')->orderBy('e.id', 'ASC');
         $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $keywords = $paginator->paginate($query, $request->query->getint('page', 1), 25);
@@ -40,24 +46,39 @@ class KeywordController extends Controller {
     }
 
     /**
+     * Typeahead API endpoint for Keyword entities.
+     *
+     * @param Request $request
+     *
+     * @Route("/typeahead", name="keyword_typeahead")
+     * @Method("GET")
+     * @return JsonResponse
+     */
+    public function typeahead(Request $request) {
+        $q = $request->query->get('q');
+        if (!$q) {
+            return new JsonResponse([]);
+        }
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository(Keyword::class);
+        $data = [];
+        foreach ($repo->typeaheadQuery($q) as $result) {
+            $data[] = [
+                'id' => $result->getId(),
+                'text' => (string) $result,
+            ];
+        }
+        return new JsonResponse($data);
+    }
+
+    /**
      * Search for Keyword entities.
      *
-     * To make this work, add a method like this one to the 
-     * AppBundle:Keyword repository. Replace the fieldName with
-     * something appropriate, and adjust the generated search.html.twig
-     * template.
-     * 
-      //    public function searchQuery($q) {
-      //        $qb = $this->createQueryBuilder('e');
-      //        $qb->where("e.fieldName like '%$q%'");
-      //        return $qb->getQuery();
-      //    }
-     *
+     * @param Request $request
      *
      * @Route("/search", name="keyword_search")
      * @Method("GET")
      * @Template()
-     * @param Request $request
      */
     public function searchAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -78,59 +99,16 @@ class KeywordController extends Controller {
     }
 
     /**
-     * Full text search for Keyword entities.
-     *
-     * To make this work, add a method like this one to the 
-     * AppBundle:Keyword repository. Replace the fieldName with
-     * something appropriate, and adjust the generated fulltext.html.twig
-     * template.
-     * 
-      //    public function fulltextQuery($q) {
-      //        $qb = $this->createQueryBuilder('e');
-      //        $qb->addSelect("MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') as score");
-      //        $qb->add('where', "MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') > 0.5");
-      //        $qb->orderBy('score', 'desc');
-      //        $qb->setParameter('q', $q);
-      //        return $qb->getQuery();
-      //    }
-     * 
-     * Requires a MatchAgainst function be added to doctrine, and appropriate
-     * fulltext indexes on your Keyword entity.
-     *     ORM\Index(name="alias_name_idx",columns="name", flags={"fulltext"})
-     *
-     *
-     * @Route("/fulltext", name="keyword_fulltext")
-     * @Method("GET")
-     * @Template()
-     * @param Request $request
-     * @return array
-     */
-    public function fulltextAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('AppBundle:Keyword');
-        $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->fulltextQuery($q);
-            $paginator = $this->get('knp_paginator');
-            $keywords = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        } else {
-            $keywords = array();
-        }
-
-        return array(
-            'keywords' => $keywords,
-            'q' => $q,
-        );
-    }
-
-    /**
      * Creates a new Keyword entity.
      *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Route("/new", name="keyword_new")
      * @Method({"GET", "POST"})
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Template()
-     * @param Request $request
      */
     public function newAction(Request $request) {
         $keyword = new Keyword();
@@ -153,12 +131,31 @@ class KeywordController extends Controller {
     }
 
     /**
+     * Creates a new Keyword entity in a popup.
+     *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/new_popup", name="keyword_new_popup")
+     * @Method({"GET", "POST"})
+     * @Template()
+     */
+    public function newPopupAction(Request $request) {
+        return $this->newAction($request);
+    }
+
+    /**
      * Finds and displays a Keyword entity.
+     *
+     * @param Keyword $keyword
+     *
+     * @return array
      *
      * @Route("/{id}", name="keyword_show")
      * @Method("GET")
      * @Template()
-     * @param Keyword $keyword
      */
     public function showAction(Keyword $keyword) {
 
@@ -170,12 +167,16 @@ class KeywordController extends Controller {
     /**
      * Displays a form to edit an existing Keyword entity.
      *
-     * @Route("/{id}/edit", name="keyword_edit")
-     * @Method({"GET", "POST"})
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Template()
+     *
      * @param Request $request
      * @param Keyword $keyword
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/edit", name="keyword_edit")
+     * @Method({"GET", "POST"})
+     * @Template()
      */
     public function editAction(Request $request, Keyword $keyword) {
         $editForm = $this->createForm(KeywordType::class, $keyword);
@@ -197,11 +198,15 @@ class KeywordController extends Controller {
     /**
      * Deletes a Keyword entity.
      *
-     * @Route("/{id}/delete", name="keyword_delete")
-     * @Method("GET")
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     *
      * @param Request $request
      * @param Keyword $keyword
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/delete", name="keyword_delete")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, Keyword $keyword) {
         $em = $this->getDoctrine()->getManager();

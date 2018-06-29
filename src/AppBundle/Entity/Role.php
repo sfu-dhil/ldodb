@@ -9,7 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Role
  *
- * @ORM\Table(name="role")
+ * @ORM\Table(name="role", indexes={
+ *      @ORM\Index(columns={"role_name"}, flags={"fulltext"}),
+ * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\RoleRepository")
  */
 class Role
@@ -29,13 +31,13 @@ class Role
      * @ORM\Column(name="role_name", type="string", length=255, nullable=true)
      */
     private $roleName;
-    
+
     /**
      * @var Collection|People[]
      * @ORM\ManyToMany(targetEntity="People", mappedBy="roles")
      */
     private $people;
-    
+
     /**
      * Construct Role object.
      *
@@ -43,7 +45,7 @@ class Role
     public function __construct() {
         $this->people = new ArrayCollection();
     }
-    
+
     /**
      * Return string representation of roleName.
      *

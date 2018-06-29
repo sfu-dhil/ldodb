@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,17 +16,21 @@ use AppBundle\Form\BibliographicTermsType;
 /**
  * BibliographicTerms controller.
  *
- * @Route("/bibliographic_term")
+ * @Security("has_role('ROLE_USER')")
+ * @Route("/bibliographic_terms")
  */
 class BibliographicTermsController extends Controller {
 
     /**
      * Lists all BibliographicTerms entities.
      *
-     * @Route("/", name="bibliographic_term_index")
+     * @param Request $request
+     *
+     * @return array
+     *
+     * @Route("/", name="bibliographic_terms_index")
      * @Method("GET")
      * @Template()
-     * @param Request $request
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -40,97 +46,42 @@ class BibliographicTermsController extends Controller {
     }
 
     /**
-     * Search for BibliographicTerms entities.
+     * Typeahead API endpoint for BibliographicTerms entities.
      *
-     * To make this work, add a method like this one to the 
-     * AppBundle:BibliographicTerms repository. Replace the fieldName with
-     * something appropriate, and adjust the generated search.html.twig
-     * template.
-     * 
-      //    public function searchQuery($q) {
-      //        $qb = $this->createQueryBuilder('e');
-      //        $qb->where("e.fieldName like '%$q%'");
-      //        return $qb->getQuery();
-      //    }
-     *
-     *
-     * @Route("/search", name="bibliographic_term_search")
-     * @Method("GET")
-     * @Template()
      * @param Request $request
-     */
-    public function searchAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('AppBundle:BibliographicTerms');
-        $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->searchQuery($q);
-            $paginator = $this->get('knp_paginator');
-            $bibliographicTerms = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        } else {
-            $bibliographicTerms = array();
-        }
-
-        return array(
-            'bibliographicTerms' => $bibliographicTerms,
-            'q' => $q,
-        );
-    }
-
-    /**
-     * Full text search for BibliographicTerms entities.
      *
-     * To make this work, add a method like this one to the 
-     * AppBundle:BibliographicTerms repository. Replace the fieldName with
-     * something appropriate, and adjust the generated fulltext.html.twig
-     * template.
-     * 
-      //    public function fulltextQuery($q) {
-      //        $qb = $this->createQueryBuilder('e');
-      //        $qb->addSelect("MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') as score");
-      //        $qb->add('where', "MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') > 0.5");
-      //        $qb->orderBy('score', 'desc');
-      //        $qb->setParameter('q', $q);
-      //        return $qb->getQuery();
-      //    }
-     * 
-     * Requires a MatchAgainst function be added to doctrine, and appropriate
-     * fulltext indexes on your BibliographicTerms entity.
-     *     ORM\Index(name="alias_name_idx",columns="name", flags={"fulltext"})
-     *
-     *
-     * @Route("/fulltext", name="bibliographic_term_fulltext")
+     * @Route("/typeahead", name="bibliographic_terms_typeahead")
      * @Method("GET")
-     * @Template()
-     * @param Request $request
-     * @return array
+     * @return JsonResponse
      */
-    public function fulltextAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('AppBundle:BibliographicTerms');
+    public function typeahead(Request $request) {
         $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->fulltextQuery($q);
-            $paginator = $this->get('knp_paginator');
-            $bibliographicTerms = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        } else {
-            $bibliographicTerms = array();
+        if (!$q) {
+            return new JsonResponse([]);
         }
-
-        return array(
-            'bibliographicTerms' => $bibliographicTerms,
-            'q' => $q,
-        );
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository(BibliographicTerms::class);
+        $data = [];
+        foreach ($repo->typeaheadQuery($q) as $result) {
+            $data[] = [
+                'id' => $result->getId(),
+                'text' => (string) $result,
+            ];
+        }
+        return new JsonResponse($data);
     }
 
     /**
      * Creates a new BibliographicTerms entity.
      *
-     * @Route("/new", name="bibliographic_term_new")
-     * @Method({"GET", "POST"})
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Template()
      * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/new", name="bibliographic_terms_new")
+     * @Method({"GET", "POST"})
+     * @Template()
      */
     public function newAction(Request $request) {
         $bibliographicTerm = new BibliographicTerms();
@@ -143,7 +94,7 @@ class BibliographicTermsController extends Controller {
             $em->flush();
 
             $this->addFlash('success', 'The new bibliographicTerm was created.');
-            return $this->redirectToRoute('bibliographic_term_show', array('id' => $bibliographicTerm->getId()));
+            return $this->redirectToRoute('bibliographic_terms_show', array('id' => $bibliographicTerm->getId()));
         }
 
         return array(
@@ -153,12 +104,31 @@ class BibliographicTermsController extends Controller {
     }
 
     /**
+     * Creates a new BibliographicTerms entity in a popup.
+     *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/new_popup", name="bibliographic_terms_new_popup")
+     * @Method({"GET", "POST"})
+     * @Template()
+     */
+    public function newPopupAction(Request $request) {
+        return $this->newAction($request);
+    }
+
+    /**
      * Finds and displays a BibliographicTerms entity.
      *
-     * @Route("/{id}", name="bibliographic_term_show")
+     * @param BibliographicTerms $bibliographicTerm
+     *
+     * @return array
+     *
+     * @Route("/{id}", name="bibliographic_terms_show")
      * @Method("GET")
      * @Template()
-     * @param BibliographicTerms $bibliographicTerm
      */
     public function showAction(BibliographicTerms $bibliographicTerm) {
 
@@ -170,12 +140,16 @@ class BibliographicTermsController extends Controller {
     /**
      * Displays a form to edit an existing BibliographicTerms entity.
      *
-     * @Route("/{id}/edit", name="bibliographic_term_edit")
-     * @Method({"GET", "POST"})
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Template()
+     *
      * @param Request $request
      * @param BibliographicTerms $bibliographicTerm
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/edit", name="bibliographic_terms_edit")
+     * @Method({"GET", "POST"})
+     * @Template()
      */
     public function editAction(Request $request, BibliographicTerms $bibliographicTerm) {
         $editForm = $this->createForm(BibliographicTermsType::class, $bibliographicTerm);
@@ -185,7 +159,7 @@ class BibliographicTermsController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The bibliographicTerm has been updated.');
-            return $this->redirectToRoute('bibliographic_term_show', array('id' => $bibliographicTerm->getId()));
+            return $this->redirectToRoute('bibliographic_terms_show', array('id' => $bibliographicTerm->getId()));
         }
 
         return array(
@@ -197,11 +171,15 @@ class BibliographicTermsController extends Controller {
     /**
      * Deletes a BibliographicTerms entity.
      *
-     * @Route("/{id}/delete", name="bibliographic_term_delete")
-     * @Method("GET")
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     *
      * @param Request $request
      * @param BibliographicTerms $bibliographicTerm
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/delete", name="bibliographic_terms_delete")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, BibliographicTerms $bibliographicTerm) {
         $em = $this->getDoctrine()->getManager();
@@ -209,7 +187,7 @@ class BibliographicTermsController extends Controller {
         $em->flush();
         $this->addFlash('success', 'The bibliographicTerm was deleted.');
 
-        return $this->redirectToRoute('bibliographic_term_index');
+        return $this->redirectToRoute('bibliographic_terms_index');
     }
 
 }

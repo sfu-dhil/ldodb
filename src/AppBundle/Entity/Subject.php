@@ -9,7 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Subject
  *
- * @ORM\Table(name="subject")
+ * @ORM\Table(name="subject", indexes={
+ *      @ORM\Index(columns={"subject_name"}, flags={"fulltext"}),
+ * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SubjectRepository")
  */
 class Subject
@@ -42,7 +44,7 @@ class Subject
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="subjects")
      */
     private $books;
-    
+
     /**
      * Construct Subject object.
      *

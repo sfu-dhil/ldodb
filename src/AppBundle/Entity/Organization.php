@@ -9,7 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Organization
  *
- * @ORM\Table(name="organization")
+ * @ORM\Table(name="organization", indexes={
+ *      @ORM\Index(columns={"organization_name"}, flags={"fulltext"}),
+ * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\OrganizationRepository")
  */
 class Organization extends Entity
@@ -35,7 +37,7 @@ class Organization extends Entity
      */
     private $organizationNotes;
 
-    /** 
+    /**
      * Return string representation of organizationName.
      *
      * @return string
@@ -160,7 +162,7 @@ class Organization extends Entity
 
     /**
      * {@inheritdoc}
-     * 
+     *
      * @return constant
      */
     public function getType() {

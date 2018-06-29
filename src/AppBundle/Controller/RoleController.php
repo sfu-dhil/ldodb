@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,6 +16,7 @@ use AppBundle\Form\RoleType;
 /**
  * Role controller.
  *
+ * @Security("has_role('ROLE_USER')")
  * @Route("/role")
  */
 class RoleController extends Controller {
@@ -21,15 +24,18 @@ class RoleController extends Controller {
     /**
      * Lists all Role entities.
      *
+     * @param Request $request
+     *
+     * @return array
+     *
      * @Route("/", name="role_index")
      * @Method("GET")
      * @Template()
-     * @param Request $request
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
-        $qb->select('e')->from(Role::class, 'e')->orderBy('e.roleName', 'ASC');
+        $qb->select('e')->from(Role::class, 'e')->orderBy('e.id', 'ASC');
         $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $roles = $paginator->paginate($query, $request->query->getint('page', 1), 25);
@@ -40,24 +46,39 @@ class RoleController extends Controller {
     }
 
     /**
+     * Typeahead API endpoint for Role entities.
+     *
+     * @param Request $request
+     *
+     * @Route("/typeahead", name="role_typeahead")
+     * @Method("GET")
+     * @return JsonResponse
+     */
+    public function typeahead(Request $request) {
+        $q = $request->query->get('q');
+        if (!$q) {
+            return new JsonResponse([]);
+        }
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository(Role::class);
+        $data = [];
+        foreach ($repo->typeaheadQuery($q) as $result) {
+            $data[] = [
+                'id' => $result->getId(),
+                'text' => (string) $result,
+            ];
+        }
+        return new JsonResponse($data);
+    }
+
+    /**
      * Search for Role entities.
      *
-     * To make this work, add a method like this one to the 
-     * AppBundle:Role repository. Replace the fieldName with
-     * something appropriate, and adjust the generated search.html.twig
-     * template.
-     * 
-      //    public function searchQuery($q) {
-      //        $qb = $this->createQueryBuilder('e');
-      //        $qb->where("e.fieldName like '%$q%'");
-      //        return $qb->getQuery();
-      //    }
-     *
+     * @param Request $request
      *
      * @Route("/search", name="role_search")
      * @Method("GET")
      * @Template()
-     * @param Request $request
      */
     public function searchAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -78,59 +99,16 @@ class RoleController extends Controller {
     }
 
     /**
-     * Full text search for Role entities.
-     *
-     * To make this work, add a method like this one to the 
-     * AppBundle:Role repository. Replace the fieldName with
-     * something appropriate, and adjust the generated fulltext.html.twig
-     * template.
-     * 
-      //    public function fulltextQuery($q) {
-      //        $qb = $this->createQueryBuilder('e');
-      //        $qb->addSelect("MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') as score");
-      //        $qb->add('where', "MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') > 0.5");
-      //        $qb->orderBy('score', 'desc');
-      //        $qb->setParameter('q', $q);
-      //        return $qb->getQuery();
-      //    }
-     * 
-     * Requires a MatchAgainst function be added to doctrine, and appropriate
-     * fulltext indexes on your Role entity.
-     *     ORM\Index(name="alias_name_idx",columns="name", flags={"fulltext"})
-     *
-     *
-     * @Route("/fulltext", name="role_fulltext")
-     * @Method("GET")
-     * @Template()
-     * @param Request $request
-     * @return array
-     */
-    public function fulltextAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('AppBundle:Role');
-        $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->fulltextQuery($q);
-            $paginator = $this->get('knp_paginator');
-            $roles = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        } else {
-            $roles = array();
-        }
-
-        return array(
-            'roles' => $roles,
-            'q' => $q,
-        );
-    }
-
-    /**
      * Creates a new Role entity.
      *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Route("/new", name="role_new")
      * @Method({"GET", "POST"})
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Template()
-     * @param Request $request
      */
     public function newAction(Request $request) {
         $role = new Role();
@@ -153,12 +131,31 @@ class RoleController extends Controller {
     }
 
     /**
+     * Creates a new Role entity in a popup.
+     *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/new_popup", name="role_new_popup")
+     * @Method({"GET", "POST"})
+     * @Template()
+     */
+    public function newPopupAction(Request $request) {
+        return $this->newAction($request);
+    }
+
+    /**
      * Finds and displays a Role entity.
+     *
+     * @param Role $role
+     *
+     * @return array
      *
      * @Route("/{id}", name="role_show")
      * @Method("GET")
      * @Template()
-     * @param Role $role
      */
     public function showAction(Role $role) {
 
@@ -170,12 +167,16 @@ class RoleController extends Controller {
     /**
      * Displays a form to edit an existing Role entity.
      *
-     * @Route("/{id}/edit", name="role_edit")
-     * @Method({"GET", "POST"})
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Template()
+     *
      * @param Request $request
      * @param Role $role
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/edit", name="role_edit")
+     * @Method({"GET", "POST"})
+     * @Template()
      */
     public function editAction(Request $request, Role $role) {
         $editForm = $this->createForm(RoleType::class, $role);
@@ -197,11 +198,15 @@ class RoleController extends Controller {
     /**
      * Deletes a Role entity.
      *
-     * @Route("/{id}/delete", name="role_delete")
-     * @Method("GET")
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     *
      * @param Request $request
      * @param Role $role
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/delete", name="role_delete")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, Role $role) {
         $em = $this->getDoctrine()->getManager();

@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,6 +16,7 @@ use AppBundle\Form\PlaceType;
 /**
  * Place controller.
  *
+ * @Security("has_role('ROLE_USER')")
  * @Route("/place")
  */
 class PlaceController extends Controller {
@@ -21,10 +24,13 @@ class PlaceController extends Controller {
     /**
      * Lists all Place entities.
      *
+     * @param Request $request
+     *
+     * @return array
+     *
      * @Route("/", name="place_index")
      * @Method("GET")
      * @Template()
-     * @param Request $request
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -40,24 +46,39 @@ class PlaceController extends Controller {
     }
 
     /**
+     * Typeahead API endpoint for Place entities.
+     *
+     * @param Request $request
+     *
+     * @Route("/typeahead", name="place_typeahead")
+     * @Method("GET")
+     * @return JsonResponse
+     */
+    public function typeahead(Request $request) {
+        $q = $request->query->get('q');
+        if (!$q) {
+            return new JsonResponse([]);
+        }
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository(Place::class);
+        $data = [];
+        foreach ($repo->typeaheadQuery($q) as $result) {
+            $data[] = [
+                'id' => $result->getId(),
+                'text' => (string) $result,
+            ];
+        }
+        return new JsonResponse($data);
+    }
+
+    /**
      * Search for Place entities.
      *
-     * To make this work, add a method like this one to the 
-     * AppBundle:Place repository. Replace the fieldName with
-     * something appropriate, and adjust the generated search.html.twig
-     * template.
-     * 
-      //    public function searchQuery($q) {
-      //        $qb = $this->createQueryBuilder('e');
-      //        $qb->where("e.fieldName like '%$q%'");
-      //        return $qb->getQuery();
-      //    }
-     *
+     * @param Request $request
      *
      * @Route("/search", name="place_search")
      * @Method("GET")
      * @Template()
-     * @param Request $request
      */
     public function searchAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -78,59 +99,16 @@ class PlaceController extends Controller {
     }
 
     /**
-     * Full text search for Place entities.
-     *
-     * To make this work, add a method like this one to the 
-     * AppBundle:Place repository. Replace the fieldName with
-     * something appropriate, and adjust the generated fulltext.html.twig
-     * template.
-     * 
-      //    public function fulltextQuery($q) {
-      //        $qb = $this->createQueryBuilder('e');
-      //        $qb->addSelect("MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') as score");
-      //        $qb->add('where', "MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') > 0.5");
-      //        $qb->orderBy('score', 'desc');
-      //        $qb->setParameter('q', $q);
-      //        return $qb->getQuery();
-      //    }
-     * 
-     * Requires a MatchAgainst function be added to doctrine, and appropriate
-     * fulltext indexes on your Place entity.
-     *     ORM\Index(name="alias_name_idx",columns="name", flags={"fulltext"})
-     *
-     *
-     * @Route("/fulltext", name="place_fulltext")
-     * @Method("GET")
-     * @Template()
-     * @param Request $request
-     * @return array
-     */
-    public function fulltextAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('AppBundle:Place');
-        $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->fulltextQuery($q);
-            $paginator = $this->get('knp_paginator');
-            $places = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        } else {
-            $places = array();
-        }
-
-        return array(
-            'places' => $places,
-            'q' => $q,
-        );
-    }
-
-    /**
      * Creates a new Place entity.
      *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Route("/new", name="place_new")
      * @Method({"GET", "POST"})
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Template()
-     * @param Request $request
      */
     public function newAction(Request $request) {
         $place = new Place();
@@ -153,12 +131,31 @@ class PlaceController extends Controller {
     }
 
     /**
+     * Creates a new Place entity in a popup.
+     *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/new_popup", name="place_new_popup")
+     * @Method({"GET", "POST"})
+     * @Template()
+     */
+    public function newPopupAction(Request $request) {
+        return $this->newAction($request);
+    }
+
+    /**
      * Finds and displays a Place entity.
+     *
+     * @param Place $place
+     *
+     * @return array
      *
      * @Route("/{id}", name="place_show")
      * @Method("GET")
      * @Template()
-     * @param Place $place
      */
     public function showAction(Place $place) {
 
@@ -170,12 +167,16 @@ class PlaceController extends Controller {
     /**
      * Displays a form to edit an existing Place entity.
      *
+     *
+     * @param Request $request
+     * @param Place $place
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Route("/{id}/edit", name="place_edit")
      * @Method({"GET", "POST"})
      * @Template()
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @param Request $request
-     * @param Place $place
      */
     public function editAction(Request $request, Place $place) {
         $editForm = $this->createForm(PlaceType::class, $place);
@@ -197,11 +198,15 @@ class PlaceController extends Controller {
     /**
      * Deletes a Place entity.
      *
-     * @Route("/{id}/delete", name="place_delete")
-     * @Method("GET")
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     *
      * @param Request $request
      * @param Place $place
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/delete", name="place_delete")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, Place $place) {
         $em = $this->getDoctrine()->getManager();

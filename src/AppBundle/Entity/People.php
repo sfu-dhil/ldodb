@@ -9,7 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * People
  *
- * @ORM\Table(name="people")
+ * @ORM\Table(name="people", indexes={
+ *      @ORM\Index(columns={"first_name", "last_name"}, flags={"fulltext"}),
+ * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PeopleRepository")
  */
 class People extends Entity
@@ -163,11 +165,11 @@ class People extends Entity
      * )
      */
     private $roles;
-    
+
     /**
      * Return string representation of name.
      *
-     * @return string 
+     * @return string
      */
     public function __toString() {
         return $this->lastName . ', ' . $this->firstName;
@@ -693,7 +695,7 @@ class People extends Entity
 
     /**
      * {@inheritdoc}
-     * 
+     *
      * @return constant
      */
     public function getType() {

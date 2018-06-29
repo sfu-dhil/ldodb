@@ -9,7 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Keyword
  *
- * @ORM\Table(name="keyword")
+ * @ORM\Table(name="keyword", indexes={
+ *      @ORM\Index(columns={"keyword"}, flags={"fulltext"}),
+ * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\KeywordRepository")
  */
 class Keyword
@@ -42,7 +44,7 @@ class Keyword
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="keywords")
      */
     private $books;
-    
+
     /**
      * Construct Keyword object.
      *

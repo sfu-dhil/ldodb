@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,17 +16,21 @@ use AppBundle\Form\BindingFeatureType;
 /**
  * BindingFeature controller.
  *
- * @Route("/binding")
+ * @Security("has_role('ROLE_USER')")
+ * @Route("/binding_feature")
  */
 class BindingFeatureController extends Controller {
 
     /**
      * Lists all BindingFeature entities.
      *
-     * @Route("/", name="binding_index")
+     * @param Request $request
+     *
+     * @return array
+     *
+     * @Route("/", name="binding_feature_index")
      * @Method("GET")
      * @Template()
-     * @param Request $request
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -40,13 +46,42 @@ class BindingFeatureController extends Controller {
     }
 
     /**
+     * Typeahead API endpoint for BindingFeature entities.
+     *
+     * @param Request $request
+     *
+     * @Route("/typeahead", name="binding_feature_typeahead")
+     * @Method("GET")
+     * @return JsonResponse
+     */
+    public function typeahead(Request $request) {
+        $q = $request->query->get('q');
+        if (!$q) {
+            return new JsonResponse([]);
+        }
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository(BindingFeature::class);
+        $data = [];
+        foreach ($repo->typeaheadQuery($q) as $result) {
+            $data[] = [
+                'id' => $result->getId(),
+                'text' => (string) $result,
+            ];
+        }
+        return new JsonResponse($data);
+    }
+
+    /**
      * Creates a new BindingFeature entity.
      *
-     * @Route("/new", name="binding_new")
-     * @Method({"GET", "POST"})
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Template()
      * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/new", name="binding_feature_new")
+     * @Method({"GET", "POST"})
+     * @Template()
      */
     public function newAction(Request $request) {
         $bindingFeature = new BindingFeature();
@@ -59,7 +94,7 @@ class BindingFeatureController extends Controller {
             $em->flush();
 
             $this->addFlash('success', 'The new bindingFeature was created.');
-            return $this->redirectToRoute('binding_show', array('id' => $bindingFeature->getId()));
+            return $this->redirectToRoute('binding_feature_show', array('id' => $bindingFeature->getId()));
         }
 
         return array(
@@ -69,12 +104,31 @@ class BindingFeatureController extends Controller {
     }
 
     /**
+     * Creates a new BindingFeature entity in a popup.
+     *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/new_popup", name="binding_feature_new_popup")
+     * @Method({"GET", "POST"})
+     * @Template()
+     */
+    public function newPopupAction(Request $request) {
+        return $this->newAction($request);
+    }
+
+    /**
      * Finds and displays a BindingFeature entity.
      *
-     * @Route("/{id}", name="binding_show")
+     * @param BindingFeature $bindingFeature
+     *
+     * @return array
+     *
+     * @Route("/{id}", name="binding_feature_show")
      * @Method("GET")
      * @Template()
-     * @param BindingFeature $bindingFeature
      */
     public function showAction(BindingFeature $bindingFeature) {
 
@@ -86,12 +140,16 @@ class BindingFeatureController extends Controller {
     /**
      * Displays a form to edit an existing BindingFeature entity.
      *
-     * @Route("/{id}/edit", name="binding_edit")
-     * @Method({"GET", "POST"})
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Template()
+     *
      * @param Request $request
      * @param BindingFeature $bindingFeature
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/edit", name="binding_feature_edit")
+     * @Method({"GET", "POST"})
+     * @Template()
      */
     public function editAction(Request $request, BindingFeature $bindingFeature) {
         $editForm = $this->createForm(BindingFeatureType::class, $bindingFeature);
@@ -101,7 +159,7 @@ class BindingFeatureController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The bindingFeature has been updated.');
-            return $this->redirectToRoute('binding_show', array('id' => $bindingFeature->getId()));
+            return $this->redirectToRoute('binding_feature_show', array('id' => $bindingFeature->getId()));
         }
 
         return array(
@@ -113,11 +171,15 @@ class BindingFeatureController extends Controller {
     /**
      * Deletes a BindingFeature entity.
      *
-     * @Route("/{id}/delete", name="binding_delete")
-     * @Method("GET")
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     *
      * @param Request $request
      * @param BindingFeature $bindingFeature
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/delete", name="binding_feature_delete")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, BindingFeature $bindingFeature) {
         $em = $this->getDoctrine()->getManager();
@@ -125,7 +187,7 @@ class BindingFeatureController extends Controller {
         $em->flush();
         $this->addFlash('success', 'The bindingFeature was deleted.');
 
-        return $this->redirectToRoute('binding_index');
+        return $this->redirectToRoute('binding_feature_index');
     }
 
 }

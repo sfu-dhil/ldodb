@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,6 +16,7 @@ use AppBundle\Form\ReferencedPlaceType;
 /**
  * ReferencedPlace controller.
  *
+ * @Security("has_role('ROLE_USER')")
  * @Route("/referenced_place")
  */
 class ReferencedPlaceController extends Controller {
@@ -21,15 +24,18 @@ class ReferencedPlaceController extends Controller {
     /**
      * Lists all ReferencedPlace entities.
      *
+     * @param Request $request
+     *
+     * @return array
+     *
      * @Route("/", name="referenced_place_index")
      * @Method("GET")
      * @Template()
-     * @param Request $request
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
-        $qb->select('e')->from(ReferencedPlace::class, 'e')->orderBy('e.place', 'ASC');
+        $qb->select('e')->from(ReferencedPlace::class, 'e')->orderBy('e.id', 'ASC');
         $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $referencedPlaces = $paginator->paginate($query, $request->query->getint('page', 1), 25);
@@ -40,97 +46,42 @@ class ReferencedPlaceController extends Controller {
     }
 
     /**
-     * Search for ReferencedPlace entities.
+     * Typeahead API endpoint for ReferencedPlace entities.
      *
-     * To make this work, add a method like this one to the 
-     * AppBundle:ReferencedPlace repository. Replace the fieldName with
-     * something appropriate, and adjust the generated search.html.twig
-     * template.
-     * 
-      //    public function searchQuery($q) {
-      //        $qb = $this->createQueryBuilder('e');
-      //        $qb->where("e.fieldName like '%$q%'");
-      //        return $qb->getQuery();
-      //    }
-     *
-     *
-     * @Route("/search", name="referenced_place_search")
-     * @Method("GET")
-     * @Template()
      * @param Request $request
-     */
-    public function searchAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('AppBundle:ReferencedPlace');
-        $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->searchQuery($q);
-            $paginator = $this->get('knp_paginator');
-            $referencedPlaces = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        } else {
-            $referencedPlaces = array();
-        }
-
-        return array(
-            'referencedPlaces' => $referencedPlaces,
-            'q' => $q,
-        );
-    }
-
-    /**
-     * Full text search for ReferencedPlace entities.
      *
-     * To make this work, add a method like this one to the 
-     * AppBundle:ReferencedPlace repository. Replace the fieldName with
-     * something appropriate, and adjust the generated fulltext.html.twig
-     * template.
-     * 
-      //    public function fulltextQuery($q) {
-      //        $qb = $this->createQueryBuilder('e');
-      //        $qb->addSelect("MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') as score");
-      //        $qb->add('where', "MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') > 0.5");
-      //        $qb->orderBy('score', 'desc');
-      //        $qb->setParameter('q', $q);
-      //        return $qb->getQuery();
-      //    }
-     * 
-     * Requires a MatchAgainst function be added to doctrine, and appropriate
-     * fulltext indexes on your ReferencedPlace entity.
-     *     ORM\Index(name="alias_name_idx",columns="name", flags={"fulltext"})
-     *
-     *
-     * @Route("/fulltext", name="referenced_place_fulltext")
+     * @Route("/typeahead", name="referenced_place_typeahead")
      * @Method("GET")
-     * @Template()
-     * @param Request $request
-     * @return array
+     * @return JsonResponse
      */
-    public function fulltextAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('AppBundle:ReferencedPlace');
+    public function typeahead(Request $request) {
         $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->fulltextQuery($q);
-            $paginator = $this->get('knp_paginator');
-            $referencedPlaces = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        } else {
-            $referencedPlaces = array();
+        if (!$q) {
+            return new JsonResponse([]);
         }
-
-        return array(
-            'referencedPlaces' => $referencedPlaces,
-            'q' => $q,
-        );
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository(ReferencedPlace::class);
+        $data = [];
+        foreach ($repo->typeaheadQuery($q) as $result) {
+            $data[] = [
+                'id' => $result->getId(),
+                'text' => (string) $result,
+            ];
+        }
+        return new JsonResponse($data);
     }
 
     /**
      * Creates a new ReferencedPlace entity.
      *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Route("/new", name="referenced_place_new")
      * @Method({"GET", "POST"})
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Template()
-     * @param Request $request
      */
     public function newAction(Request $request) {
         $referencedPlace = new ReferencedPlace();
@@ -153,12 +104,31 @@ class ReferencedPlaceController extends Controller {
     }
 
     /**
+     * Creates a new ReferencedPlace entity in a popup.
+     *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/new_popup", name="referenced_place_new_popup")
+     * @Method({"GET", "POST"})
+     * @Template()
+     */
+    public function newPopupAction(Request $request) {
+        return $this->newAction($request);
+    }
+
+    /**
      * Finds and displays a ReferencedPlace entity.
+     *
+     * @param ReferencedPlace $referencedPlace
+     *
+     * @return array
      *
      * @Route("/{id}", name="referenced_place_show")
      * @Method("GET")
      * @Template()
-     * @param ReferencedPlace $referencedPlace
      */
     public function showAction(ReferencedPlace $referencedPlace) {
 
@@ -170,12 +140,16 @@ class ReferencedPlaceController extends Controller {
     /**
      * Displays a form to edit an existing ReferencedPlace entity.
      *
+     *
+     * @param Request $request
+     * @param ReferencedPlace $referencedPlace
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Route("/{id}/edit", name="referenced_place_edit")
      * @Method({"GET", "POST"})
      * @Template()
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @param Request $request
-     * @param ReferencedPlace $referencedPlace
      */
     public function editAction(Request $request, ReferencedPlace $referencedPlace) {
         $editForm = $this->createForm(ReferencedPlaceType::class, $referencedPlace);
@@ -197,11 +171,15 @@ class ReferencedPlaceController extends Controller {
     /**
      * Deletes a ReferencedPlace entity.
      *
-     * @Route("/{id}/delete", name="referenced_place_delete")
-     * @Method("GET")
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     *
      * @param Request $request
      * @param ReferencedPlace $referencedPlace
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/delete", name="referenced_place_delete")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, ReferencedPlace $referencedPlace) {
         $em = $this->getDoctrine()->getManager();

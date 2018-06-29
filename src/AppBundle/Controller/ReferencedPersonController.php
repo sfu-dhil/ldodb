@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,6 +16,7 @@ use AppBundle\Form\ReferencedPersonType;
 /**
  * ReferencedPerson controller.
  *
+ * @Security("has_role('ROLE_USER')")
  * @Route("/referenced_person")
  */
 class ReferencedPersonController extends Controller {
@@ -21,15 +24,18 @@ class ReferencedPersonController extends Controller {
     /**
      * Lists all ReferencedPerson entities.
      *
+     * @param Request $request
+     *
+     * @return array
+     *
      * @Route("/", name="referenced_person_index")
      * @Method("GET")
      * @Template()
-     * @param Request $request
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
-        $qb->select('e')->from(ReferencedPerson::class, 'e')->orderBy('e.lastName', 'ASC');
+        $qb->select('e')->from(ReferencedPerson::class, 'e')->orderBy('e.id', 'ASC');
         $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $referencedPeople = $paginator->paginate($query, $request->query->getint('page', 1), 25);
@@ -40,24 +46,39 @@ class ReferencedPersonController extends Controller {
     }
 
     /**
+     * Typeahead API endpoint for ReferencedPerson entities.
+     *
+     * @param Request $request
+     *
+     * @Route("/typeahead", name="referenced_person_typeahead")
+     * @Method("GET")
+     * @return JsonResponse
+     */
+    public function typeahead(Request $request) {
+        $q = $request->query->get('q');
+        if (!$q) {
+            return new JsonResponse([]);
+        }
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository(ReferencedPerson::class);
+        $data = [];
+        foreach ($repo->typeaheadQuery($q) as $result) {
+            $data[] = [
+                'id' => $result->getId(),
+                'text' => (string) $result,
+            ];
+        }
+        return new JsonResponse($data);
+    }
+
+    /**
      * Search for ReferencedPerson entities.
      *
-     * To make this work, add a method like this one to the 
-     * AppBundle:ReferencedPerson repository. Replace the fieldName with
-     * something appropriate, and adjust the generated search.html.twig
-     * template.
-     * 
-      //    public function searchQuery($q) {
-      //        $qb = $this->createQueryBuilder('e');
-      //        $qb->where("e.fieldName like '%$q%'");
-      //        return $qb->getQuery();
-      //    }
-     *
+     * @param Request $request
      *
      * @Route("/search", name="referenced_person_search")
      * @Method("GET")
      * @Template()
-     * @param Request $request
      */
     public function searchAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -78,59 +99,16 @@ class ReferencedPersonController extends Controller {
     }
 
     /**
-     * Full text search for ReferencedPerson entities.
-     *
-     * To make this work, add a method like this one to the 
-     * AppBundle:ReferencedPerson repository. Replace the fieldName with
-     * something appropriate, and adjust the generated fulltext.html.twig
-     * template.
-     * 
-      //    public function fulltextQuery($q) {
-      //        $qb = $this->createQueryBuilder('e');
-      //        $qb->addSelect("MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') as score");
-      //        $qb->add('where', "MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') > 0.5");
-      //        $qb->orderBy('score', 'desc');
-      //        $qb->setParameter('q', $q);
-      //        return $qb->getQuery();
-      //    }
-     * 
-     * Requires a MatchAgainst function be added to doctrine, and appropriate
-     * fulltext indexes on your ReferencedPerson entity.
-     *     ORM\Index(name="alias_name_idx",columns="name", flags={"fulltext"})
-     *
-     *
-     * @Route("/fulltext", name="referenced_person_fulltext")
-     * @Method("GET")
-     * @Template()
-     * @param Request $request
-     * @return array
-     */
-    public function fulltextAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('AppBundle:ReferencedPerson');
-        $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->fulltextQuery($q);
-            $paginator = $this->get('knp_paginator');
-            $referencedPeople = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        } else {
-            $referencedPeople = array();
-        }
-
-        return array(
-            'referencedPeople' => $referencedPeople,
-            'q' => $q,
-        );
-    }
-
-    /**
      * Creates a new ReferencedPerson entity.
      *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Route("/new", name="referenced_person_new")
      * @Method({"GET", "POST"})
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Template()
-     * @param Request $request
      */
     public function newAction(Request $request) {
         $referencedPerson = new ReferencedPerson();
@@ -153,12 +131,31 @@ class ReferencedPersonController extends Controller {
     }
 
     /**
+     * Creates a new ReferencedPerson entity in a popup.
+     *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/new_popup", name="referenced_person_new_popup")
+     * @Method({"GET", "POST"})
+     * @Template()
+     */
+    public function newPopupAction(Request $request) {
+        return $this->newAction($request);
+    }
+
+    /**
      * Finds and displays a ReferencedPerson entity.
+     *
+     * @param ReferencedPerson $referencedPerson
+     *
+     * @return array
      *
      * @Route("/{id}", name="referenced_person_show")
      * @Method("GET")
      * @Template()
-     * @param ReferencedPerson $referencedPerson
      */
     public function showAction(ReferencedPerson $referencedPerson) {
 
@@ -170,12 +167,16 @@ class ReferencedPersonController extends Controller {
     /**
      * Displays a form to edit an existing ReferencedPerson entity.
      *
-     * @Route("/{id}/edit", name="referenced_person_edit")
-     * @Method({"GET", "POST"})
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Template()
+     *
      * @param Request $request
      * @param ReferencedPerson $referencedPerson
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/edit", name="referenced_person_edit")
+     * @Method({"GET", "POST"})
+     * @Template()
      */
     public function editAction(Request $request, ReferencedPerson $referencedPerson) {
         $editForm = $this->createForm(ReferencedPersonType::class, $referencedPerson);
@@ -197,11 +198,15 @@ class ReferencedPersonController extends Controller {
     /**
      * Deletes a ReferencedPerson entity.
      *
-     * @Route("/{id}/delete", name="referenced_person_delete")
-     * @Method("GET")
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     *
      * @param Request $request
      * @param ReferencedPerson $referencedPerson
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/delete", name="referenced_person_delete")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, ReferencedPerson $referencedPerson) {
         $em = $this->getDoctrine()->getManager();

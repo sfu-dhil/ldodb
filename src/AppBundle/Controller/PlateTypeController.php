@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,6 +16,7 @@ use AppBundle\Form\PlateTypeType;
 /**
  * PlateType controller.
  *
+ * @Security("has_role('ROLE_USER')")
  * @Route("/plate_type")
  */
 class PlateTypeController extends Controller {
@@ -21,10 +24,13 @@ class PlateTypeController extends Controller {
     /**
      * Lists all PlateType entities.
      *
+     * @param Request $request
+     *
+     * @return array
+     *
      * @Route("/", name="plate_type_index")
      * @Method("GET")
      * @Template()
-     * @param Request $request
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -40,13 +46,42 @@ class PlateTypeController extends Controller {
     }
 
     /**
+     * Typeahead API endpoint for PlateType entities.
+     *
+     * @param Request $request
+     *
+     * @Route("/typeahead", name="plate_type_typeahead")
+     * @Method("GET")
+     * @return JsonResponse
+     */
+    public function typeahead(Request $request) {
+        $q = $request->query->get('q');
+        if (!$q) {
+            return new JsonResponse([]);
+        }
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository(PlateType::class);
+        $data = [];
+        foreach ($repo->typeaheadQuery($q) as $result) {
+            $data[] = [
+                'id' => $result->getId(),
+                'text' => (string) $result,
+            ];
+        }
+        return new JsonResponse($data);
+    }
+
+    /**
      * Creates a new PlateType entity.
      *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Route("/new", name="plate_type_new")
      * @Method({"GET", "POST"})
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Template()
-     * @param Request $request
      */
     public function newAction(Request $request) {
         $plateType = new PlateType();
@@ -69,12 +104,31 @@ class PlateTypeController extends Controller {
     }
 
     /**
+     * Creates a new PlateType entity in a popup.
+     *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/new_popup", name="plate_type_new_popup")
+     * @Method({"GET", "POST"})
+     * @Template()
+     */
+    public function newPopupAction(Request $request) {
+        return $this->newAction($request);
+    }
+
+    /**
      * Finds and displays a PlateType entity.
+     *
+     * @param PlateType $plateType
+     *
+     * @return array
      *
      * @Route("/{id}", name="plate_type_show")
      * @Method("GET")
      * @Template()
-     * @param PlateType $plateType
      */
     public function showAction(PlateType $plateType) {
 
@@ -86,12 +140,16 @@ class PlateTypeController extends Controller {
     /**
      * Displays a form to edit an existing PlateType entity.
      *
-     * @Route("/{id}/edit", name="plate_type_edit")
-     * @Method({"GET", "POST"})
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Template()
+     *
      * @param Request $request
      * @param PlateType $plateType
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/edit", name="plate_type_edit")
+     * @Method({"GET", "POST"})
+     * @Template()
      */
     public function editAction(Request $request, PlateType $plateType) {
         $editForm = $this->createForm(PlateTypeType::class, $plateType);
@@ -113,11 +171,15 @@ class PlateTypeController extends Controller {
     /**
      * Deletes a PlateType entity.
      *
-     * @Route("/{id}/delete", name="plate_type_delete")
-     * @Method("GET")
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     *
      * @param Request $request
      * @param PlateType $plateType
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/delete", name="plate_type_delete")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, PlateType $plateType) {
         $em = $this->getDoctrine()->getManager();

@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,6 +16,7 @@ use AppBundle\Form\OtherCopyLocationType;
 /**
  * OtherCopyLocation controller.
  *
+ * @Security("has_role('ROLE_USER')")
  * @Route("/other_copy_location")
  */
 class OtherCopyLocationController extends Controller {
@@ -21,10 +24,13 @@ class OtherCopyLocationController extends Controller {
     /**
      * Lists all OtherCopyLocation entities.
      *
+     * @param Request $request
+     *
+     * @return array
+     *
      * @Route("/", name="other_copy_location_index")
      * @Method("GET")
      * @Template()
-     * @param Request $request
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -42,22 +48,11 @@ class OtherCopyLocationController extends Controller {
     /**
      * Search for OtherCopyLocation entities.
      *
-     * To make this work, add a method like this one to the 
-     * AppBundle:OtherCopyLocation repository. Replace the fieldName with
-     * something appropriate, and adjust the generated search.html.twig
-     * template.
-     * 
-      //    public function searchQuery($q) {
-      //        $qb = $this->createQueryBuilder('e');
-      //        $qb->where("e.fieldName like '%$q%'");
-      //        return $qb->getQuery();
-      //    }
-     *
+     * @param Request $request
      *
      * @Route("/search", name="other_copy_location_search")
      * @Method("GET")
      * @Template()
-     * @param Request $request
      */
     public function searchAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -78,59 +73,16 @@ class OtherCopyLocationController extends Controller {
     }
 
     /**
-     * Full text search for OtherCopyLocation entities.
-     *
-     * To make this work, add a method like this one to the 
-     * AppBundle:OtherCopyLocation repository. Replace the fieldName with
-     * something appropriate, and adjust the generated fulltext.html.twig
-     * template.
-     * 
-      //    public function fulltextQuery($q) {
-      //        $qb = $this->createQueryBuilder('e');
-      //        $qb->addSelect("MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') as score");
-      //        $qb->add('where', "MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') > 0.5");
-      //        $qb->orderBy('score', 'desc');
-      //        $qb->setParameter('q', $q);
-      //        return $qb->getQuery();
-      //    }
-     * 
-     * Requires a MatchAgainst function be added to doctrine, and appropriate
-     * fulltext indexes on your OtherCopyLocation entity.
-     *     ORM\Index(name="alias_name_idx",columns="name", flags={"fulltext"})
-     *
-     *
-     * @Route("/fulltext", name="other_copy_location_fulltext")
-     * @Method("GET")
-     * @Template()
-     * @param Request $request
-     * @return array
-     */
-    public function fulltextAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('AppBundle:OtherCopyLocation');
-        $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->fulltextQuery($q);
-            $paginator = $this->get('knp_paginator');
-            $otherCopyLocations = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        } else {
-            $otherCopyLocations = array();
-        }
-
-        return array(
-            'otherCopyLocations' => $otherCopyLocations,
-            'q' => $q,
-        );
-    }
-
-    /**
      * Creates a new OtherCopyLocation entity.
      *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Route("/new", name="other_copy_location_new")
      * @Method({"GET", "POST"})
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Template()
-     * @param Request $request
      */
     public function newAction(Request $request) {
         $otherCopyLocation = new OtherCopyLocation();
@@ -153,12 +105,31 @@ class OtherCopyLocationController extends Controller {
     }
 
     /**
+     * Creates a new OtherCopyLocation entity in a popup.
+     *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/new_popup", name="other_copy_location_new_popup")
+     * @Method({"GET", "POST"})
+     * @Template()
+     */
+    public function newPopupAction(Request $request) {
+        return $this->newAction($request);
+    }
+
+    /**
      * Finds and displays a OtherCopyLocation entity.
+     *
+     * @param OtherCopyLocation $otherCopyLocation
+     *
+     * @return array
      *
      * @Route("/{id}", name="other_copy_location_show")
      * @Method("GET")
      * @Template()
-     * @param OtherCopyLocation $otherCopyLocation
      */
     public function showAction(OtherCopyLocation $otherCopyLocation) {
 
@@ -170,12 +141,16 @@ class OtherCopyLocationController extends Controller {
     /**
      * Displays a form to edit an existing OtherCopyLocation entity.
      *
-     * @Route("/{id}/edit", name="other_copy_location_edit")
-     * @Method({"GET", "POST"})
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Template()
+     *
      * @param Request $request
      * @param OtherCopyLocation $otherCopyLocation
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/edit", name="other_copy_location_edit")
+     * @Method({"GET", "POST"})
+     * @Template()
      */
     public function editAction(Request $request, OtherCopyLocation $otherCopyLocation) {
         $editForm = $this->createForm(OtherCopyLocationType::class, $otherCopyLocation);
@@ -197,11 +172,15 @@ class OtherCopyLocationController extends Controller {
     /**
      * Deletes a OtherCopyLocation entity.
      *
-     * @Route("/{id}/delete", name="other_copy_location_delete")
-     * @Method("GET")
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     *
      * @param Request $request
      * @param OtherCopyLocation $otherCopyLocation
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/delete", name="other_copy_location_delete")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, OtherCopyLocation $otherCopyLocation) {
         $em = $this->getDoctrine()->getManager();

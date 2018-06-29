@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,6 +16,7 @@ use AppBundle\Form\ContributionType;
 /**
  * Contribution controller.
  *
+ * @Security("has_role('ROLE_USER')")
  * @Route("/contribution")
  */
 class ContributionController extends Controller {
@@ -21,10 +24,13 @@ class ContributionController extends Controller {
     /**
      * Lists all Contribution entities.
      *
+     * @param Request $request
+     *
+     * @return array
+     *
      * @Route("/", name="contribution_index")
      * @Method("GET")
      * @Template()
-     * @param Request $request
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -40,97 +46,16 @@ class ContributionController extends Controller {
     }
 
     /**
-     * Search for Contribution entities.
-     *
-     * To make this work, add a method like this one to the 
-     * AppBundle:Contribution repository. Replace the fieldName with
-     * something appropriate, and adjust the generated search.html.twig
-     * template.
-     * 
-      //    public function searchQuery($q) {
-      //        $qb = $this->createQueryBuilder('e');
-      //        $qb->where("e.fieldName like '%$q%'");
-      //        return $qb->getQuery();
-      //    }
-     *
-     *
-     * @Route("/search", name="contribution_search")
-     * @Method("GET")
-     * @Template()
-     * @param Request $request
-     */
-    public function searchAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('AppBundle:Contribution');
-        $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->searchQuery($q);
-            $paginator = $this->get('knp_paginator');
-            $contributions = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        } else {
-            $contributions = array();
-        }
-
-        return array(
-            'contributions' => $contributions,
-            'q' => $q,
-        );
-    }
-
-    /**
-     * Full text search for Contribution entities.
-     *
-     * To make this work, add a method like this one to the 
-     * AppBundle:Contribution repository. Replace the fieldName with
-     * something appropriate, and adjust the generated fulltext.html.twig
-     * template.
-     * 
-      //    public function fulltextQuery($q) {
-      //        $qb = $this->createQueryBuilder('e');
-      //        $qb->addSelect("MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') as score");
-      //        $qb->add('where', "MATCH_AGAINST (e.name, :q 'IN BOOLEAN MODE') > 0.5");
-      //        $qb->orderBy('score', 'desc');
-      //        $qb->setParameter('q', $q);
-      //        return $qb->getQuery();
-      //    }
-     * 
-     * Requires a MatchAgainst function be added to doctrine, and appropriate
-     * fulltext indexes on your Contribution entity.
-     *     ORM\Index(name="alias_name_idx",columns="name", flags={"fulltext"})
-     *
-     *
-     * @Route("/fulltext", name="contribution_fulltext")
-     * @Method("GET")
-     * @Template()
-     * @param Request $request
-     * @return array
-     */
-    public function fulltextAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('AppBundle:Contribution');
-        $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->fulltextQuery($q);
-            $paginator = $this->get('knp_paginator');
-            $contributions = $paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        } else {
-            $contributions = array();
-        }
-
-        return array(
-            'contributions' => $contributions,
-            'q' => $q,
-        );
-    }
-
-    /**
      * Creates a new Contribution entity.
      *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Route("/new", name="contribution_new")
      * @Method({"GET", "POST"})
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Template()
-     * @param Request $request
      */
     public function newAction(Request $request) {
         $contribution = new Contribution();
@@ -153,12 +78,31 @@ class ContributionController extends Controller {
     }
 
     /**
+     * Creates a new Contribution entity in a popup.
+     *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/new_popup", name="contribution_new_popup")
+     * @Method({"GET", "POST"})
+     * @Template()
+     */
+    public function newPopupAction(Request $request) {
+        return $this->newAction($request);
+    }
+
+    /**
      * Finds and displays a Contribution entity.
+     *
+     * @param Contribution $contribution
+     *
+     * @return array
      *
      * @Route("/{id}", name="contribution_show")
      * @Method("GET")
      * @Template()
-     * @param Contribution $contribution
      */
     public function showAction(Contribution $contribution) {
 
@@ -170,12 +114,16 @@ class ContributionController extends Controller {
     /**
      * Displays a form to edit an existing Contribution entity.
      *
-     * @Route("/{id}/edit", name="contribution_edit")
-     * @Method({"GET", "POST"})
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Template()
+     *
      * @param Request $request
      * @param Contribution $contribution
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/edit", name="contribution_edit")
+     * @Method({"GET", "POST"})
+     * @Template()
      */
     public function editAction(Request $request, Contribution $contribution) {
         $editForm = $this->createForm(ContributionType::class, $contribution);
@@ -197,11 +145,15 @@ class ContributionController extends Controller {
     /**
      * Deletes a Contribution entity.
      *
-     * @Route("/{id}/delete", name="contribution_delete")
-     * @Method("GET")
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     *
      * @param Request $request
      * @param Contribution $contribution
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/delete", name="contribution_delete")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, Contribution $contribution) {
         $em = $this->getDoctrine()->getManager();

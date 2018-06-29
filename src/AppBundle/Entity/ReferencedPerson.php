@@ -9,7 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ReferencedPerson
  *
- * @ORM\Table(name="referenced_person")
+ * @ORM\Table(name="referenced_person", indexes={
+ *      @ORM\Index(columns={"first_name", "last_name"}, flags={"fulltext"}),
+ * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ReferencedPersonRepository")
  */
 class ReferencedPerson
@@ -70,7 +72,7 @@ class ReferencedPerson
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="referencedPeople")
      */
     private $books;
-    
+
     /**
      * Construct ReferencedPerson object.
      *

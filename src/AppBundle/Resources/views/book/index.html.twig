@@ -7,49 +7,25 @@
     <p class="count">
         Displaying {{ books|length }} books of {{ books.getTotalItemCount }} total.
     </p>
- {% endblock %} 
+{% endblock %}
 
 {% block body %}
 
-        <div class='btn-toolbar pull-right'>
+    <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
             {% if is_granted('ROLE_CONTENT_ADMIN') %}
-            <a href="{{ path('book_new') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-plus"></span> New
-            </a>
+                <a href="{{ path('book_new') }}" class="btn btn-default">
+                    <span class="glyphicon glyphicon-plus"></span> New
+                </a>
             {% endif %}
             <a href="{{ path('book_search') }}" class="btn btn-default">
                 <span class="glyphicon glyphicon-search"></span> Search
             </a>
         </div>
     </div>
-        
-    <table class="table table-bordered table-condensed table-hover table-striped">
-        <thead>
-            <tr><th>Title</th><th>Author</th><th>Imprint</th><th>Edition</th><th>Publication Date</th></tr>
-        </thead>
-        <tbody>
-        {% for book in books %}
-            <tr>
-                <td>
-                    <a href="{{ path('book_show', { 'id': book.id }) }}">
-                        {{ book.title }}
-                    </a>
-                </td>
-                <td>
-                    {% for contributions in book.contributions if contributions.task.taskName == 'Author' %}
-                        {% set person = contributions.entity %}
-                        <a href="{{ path('people_show', {'id': person.id}) }}">{{ person }}</a>
-                    {% endfor %}
-                </td>
-                <td>{{ book.imprint }}</td>
-                <td>{{ book.edition }}</td>
-                <td>{{ book.publicationDate }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-        
+
+    {% include('AppBundle:book:partial/table.html.twig') %}
+
     <div class="navigation">
         {{ knp_pagination_render(books) }}
     </div>

@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,6 +16,7 @@ use AppBundle\Form\GenreType;
 /**
  * Genre controller.
  *
+ * @Security("has_role('ROLE_USER')")
  * @Route("/genre")
  */
 class GenreController extends Controller {
@@ -21,10 +24,13 @@ class GenreController extends Controller {
     /**
      * Lists all Genre entities.
      *
+     * @param Request $request
+     *
+     * @return array
+     *
      * @Route("/", name="genre_index")
      * @Method("GET")
      * @Template()
-     * @param Request $request
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -40,13 +46,42 @@ class GenreController extends Controller {
     }
 
     /**
+     * Typeahead API endpoint for Genre entities.
+     *
+     * @param Request $request
+     *
+     * @Route("/typeahead", name="genre_typeahead")
+     * @Method("GET")
+     * @return JsonResponse
+     */
+    public function typeahead(Request $request) {
+        $q = $request->query->get('q');
+        if (!$q) {
+            return new JsonResponse([]);
+        }
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository(Genre::class);
+        $data = [];
+        foreach ($repo->typeaheadQuery($q) as $result) {
+            $data[] = [
+                'id' => $result->getId(),
+                'text' => (string) $result,
+            ];
+        }
+        return new JsonResponse($data);
+    }
+
+    /**
      * Creates a new Genre entity.
      *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Route("/new", name="genre_new")
      * @Method({"GET", "POST"})
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
      * @Template()
-     * @param Request $request
      */
     public function newAction(Request $request) {
         $genre = new Genre();
@@ -69,12 +104,31 @@ class GenreController extends Controller {
     }
 
     /**
+     * Creates a new Genre entity in a popup.
+     *
+     * @param Request $request
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/new_popup", name="genre_new_popup")
+     * @Method({"GET", "POST"})
+     * @Template()
+     */
+    public function newPopupAction(Request $request) {
+        return $this->newAction($request);
+    }
+
+    /**
      * Finds and displays a Genre entity.
+     *
+     * @param Genre $genre
+     *
+     * @return array
      *
      * @Route("/{id}", name="genre_show")
      * @Method("GET")
      * @Template()
-     * @param Genre $genre
      */
     public function showAction(Genre $genre) {
 
@@ -86,12 +140,16 @@ class GenreController extends Controller {
     /**
      * Displays a form to edit an existing Genre entity.
      *
-     * @Route("/{id}/edit", name="genre_edit")
-     * @Method({"GET", "POST"})
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Template()
+     *
      * @param Request $request
      * @param Genre $genre
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/edit", name="genre_edit")
+     * @Method({"GET", "POST"})
+     * @Template()
      */
     public function editAction(Request $request, Genre $genre) {
         $editForm = $this->createForm(GenreType::class, $genre);
@@ -113,11 +171,15 @@ class GenreController extends Controller {
     /**
      * Deletes a Genre entity.
      *
-     * @Route("/{id}/delete", name="genre_delete")
-     * @Method("GET")
-     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     *
      * @param Request $request
      * @param Genre $genre
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("has_role('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/delete", name="genre_delete")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, Genre $genre) {
         $em = $this->getDoctrine()->getManager();
