@@ -118,7 +118,7 @@ class BookType extends AbstractType {
                 'help_block' => '',
             ),
         ));
-        $builder->add('sfuDigitalCopy', UrlType::class, array(
+        $builder->add('sfuDigitalCopy', null, array(
             'label' => 'SFU Digital Copy',
             'required' => false,
             'attr' => array(
