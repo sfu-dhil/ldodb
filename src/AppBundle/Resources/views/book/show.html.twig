@@ -2,9 +2,9 @@
 
 {% block title %}Book{% endblock %}
 
-{% block pageheader %} 
+{% block pageheader %}
     <h1>Book</h1>
-{% endblock %} 
+{% endblock %}
 
 {% block body %}
     <div class="btn-toolbar">
@@ -132,9 +132,9 @@
             </tr><tr>
                 <th>Binding Colour</th>
                 <td>{{ book.bindingColour }}</td>
-            </tr>        
+            </tr>
             <tr>
-                <th>Genres</th>         
+                <th>Genres</th>
                 <td>
                     {% if book.genres | length > 0 %}
                         <ul>
@@ -144,13 +144,13 @@
                                         {{ genres }}
                                     </a>
                                 </li>
-                            {% endfor %} 
+                            {% endfor %}
                         </ul>
                     {% endif %}
                 </td>
-            </tr>                
+            </tr>
             <tr>
-                <th>Plate Types</th>         
+                <th>Plate Types</th>
                 <td>
                     {% if book.plateTypes | length > 0 %}
                         <ul>
@@ -160,13 +160,13 @@
                                         {{ plateTypes }}
                                     </a>
                                 </li>
-                            {% endfor %} 
+                            {% endfor %}
                         </ul>
                     {% endif %}
                 </td>
-            </tr>        
+            </tr>
             <tr>
-                <th>Map Types</th>         
+                <th>Map Types</th>
                 <td>
                     {% if book.mapTypes | length > 0 %}
                         <ul>
@@ -176,13 +176,13 @@
                                         {{ mapTypes }}
                                     </a>
                                 </li>
-                            {% endfor %} 
+                            {% endfor %}
                         </ul>
                     {% endif %}
                 </td>
-            </tr>        
+            </tr>
             <tr>
-                <th>Subjects</th>         
+                <th>Subjects</th>
                 <td>
                     {% if book.subjects | length > 0 %}
                         <ul>
@@ -192,13 +192,13 @@
                                         {{ subjects }}
                                     </a>
                                 </li>
-                            {% endfor %} 
+                            {% endfor %}
                         </ul>
                     {% endif %}
                 </td>
-            </tr>        
+            </tr>
             <tr>
-                <th>Map Sizes</th>         
+                <th>Map Sizes</th>
                 <td>
                     {% if book.mapSizes | length > 0 %}
                         <ul>
@@ -208,13 +208,13 @@
                                         {{ mapSizes }}
                                     </a>
                                 </li>
-                            {% endfor %} 
+                            {% endfor %}
                         </ul>
                     {% endif %}
                 </td>
-            </tr>        
+            </tr>
             <tr>
-                <th>Subject Headings</th>         
+                <th>Subject Headings</th>
                 <td>
                     {% if book.subjectHeadings | length > 0 %}
                         <ul>
@@ -224,29 +224,29 @@
                                         {{ subjectHeadings }}
                                     </a>
                                 </li>
-                            {% endfor %} 
+                            {% endfor %}
                         </ul>
                     {% endif %}
                 </td>
-            </tr>        
+            </tr>
             <tr>
-                <th>Binding Features</th>         
+                <th>Binding Features</th>
                 <td>
                     {% if book.bindingFeatures | length > 0 %}
                         <ul>
                             {% for bindingFeatures in book.bindingFeatures %}
                                 <li>
-                                    <a href="{{ path("binding_show", {"id":bindingFeatures.id}) }}">
+                                    <a href="{{ path("binding_feature_show", {"id":bindingFeatures.id}) }}">
                                         {{ bindingFeatures }}
                                     </a>
                                 </li>
-                            {% endfor %} 
+                            {% endfor %}
                         </ul>
                     {% endif %}
                 </td>
-            </tr>        
+            </tr>
             <tr>
-                <th>Keywords</th>         
+                <th>Keywords</th>
                 <td>
                     {% if book.keywords | length > 0 %}
                         <ul>
@@ -256,13 +256,13 @@
                                         {{ keywords }}
                                     </a>
                                 </li>
-                            {% endfor %} 
+                            {% endfor %}
                         </ul>
                     {% endif %}
                 </td>
-            </tr>        
+            </tr>
             <tr>
-                <th>Digital Copy Holders</th>         
+                <th>Digital Copy Holders</th>
                 <td>
                     {% if book.digitalCopyHolders | length > 0 %}
                         <ul>
@@ -272,13 +272,13 @@
                                         {{ digitalCopyHolders }}
                                     </a>
                                 </li>
-                            {% endfor %} 
+                            {% endfor %}
                         </ul>
                     {% endif %}
                 </td>
-            </tr>        
+            </tr>
             <tr>
-                <th>Publication Places</th>         
+                <th>Publication Places</th>
                 <td>
                     {% if book.publicationPlaces | length > 0 %}
                         <ul>
@@ -288,14 +288,14 @@
                                         {{ publicationPlaces }}
                                     </a>
                                 </li>
-                            {% endfor %} 
+                            {% endfor %}
                         </ul>
                     {% endif %}
                 </td>
-            </tr>        
+            </tr>
         </tbody>
     </table>
-    {% if book.otherNationalEditions | length > 0 %}    
+    {% if book.otherNationalEditions | length > 0 %}
         <h2>Other National Editions</h2>
         <ul>
             {% for otherNationalEditions in book.otherNationalEditions %}
@@ -304,10 +304,10 @@
                         {{ otherNationalEditions }}
                     </a>
                 </li>
-            {% endfor %} 
+            {% endfor %}
         </ul>
     {% endif %}
-    {% if book.otherCopyLocations | length > 0 %}    
+    {% if book.otherCopyLocations | length > 0 %}
         <h2>Other Copy Locations</h2>
         <ul>
             {% for otherCopyLocations in book.otherCopyLocations %}
@@ -316,7 +316,7 @@
                         {{ otherCopyLocations }}
                     </a>
                 </li>
-            {% endfor %} 
+            {% endfor %}
         </ul>
     {% endif %}
     {% embed 'AppBundle:contribution:partial/list.html.twig' with { 'contributions': book.contributions } %}
@@ -325,6 +325,6 @@
         {% endblock %}
     {% endembed %}
 
-    {% include 'NinesFeedbackBundle:comment:comment-interface.html.twig' with { 'entity': book } %}	
+    {% include 'NinesFeedbackBundle:comment:comment-interface.html.twig' with { 'entity': book } %}
 
 {% endblock %}

@@ -18,9 +18,6 @@
                     <span class="glyphicon glyphicon-plus"></span> New
                 </a>
             {% endif %}
-            <a href="{{ path('other_national_edition_search') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-search"></span> Search
-            </a>
         </div>
     </div>
 
@@ -35,6 +32,12 @@
                         <a href="{{ path('other_national_edition_show', { 'id': otherNationalEdition.id }) }}">
                             {{ otherNationalEdition.publicationDate }}
                         </a>
+                    </td>
+                    <td>
+                        {{ otherNationalEdition.book }}
+                    </td>
+                    <td>
+                        {{ otherNationalEdition.place }}
                     </td>
                 </tr>
             {% endfor %}

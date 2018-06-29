@@ -26,7 +26,11 @@
 
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
-            <tr><th>Other Copy Location</th><th>Copy Count</th>            </tr>
+            <tr>
+                <th>Other Copy Location</th>
+                <th>Book</th>
+                <th>Copy Count</th>
+            </tr>
         </thead>
         <tbody>
             {% for otherCopyLocation in otherCopyLocations %}
@@ -36,6 +40,7 @@
                             {{ otherCopyLocation.otherCopyLocation }}
                         </a>
                     </td>
+                    <td>{{ otherCopyLocation.book }}</td>
                     <td>{{ otherCopyLocation.copyCount }}</td>
                 </tr>
             {% endfor %}

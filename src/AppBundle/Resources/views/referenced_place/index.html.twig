@@ -7,7 +7,7 @@
     <p class="count">
         Displaying {{ referencedPlaces|length }} referenced places of {{ referencedPlaces.getTotalItemCount }} total.
     </p>
-{% endblock %} 
+{% endblock %}
 
 {% block body %}
 
@@ -18,16 +18,13 @@
                     <span class="glyphicon glyphicon-plus"></span> New
                 </a>
             {% endif %}
-            <a href="{{ path('referenced_place_search') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-search"></span> Search
-            </a>
         </div>
     </div>
 
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
             <tr>
-                <th>Place name</th>            
+                <th>Place name</th>
             </tr>
         </thead>
         <tbody>
