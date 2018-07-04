@@ -29,6 +29,7 @@ class OrganizationRepository extends EntityRepository {
     public function searchQuery($q) {
         $qb = $this->createQueryBuilder('e');
         $qb->addSelect("MATCH (e.organizationName) AGAINST(:q BOOLEAN) as HIDDEN score");
+        $qb->addSelect("MATCH (e.organizationName) AGAINST(:q BOOLEAN) > 0.5");
         $qb->orderBy('score', 'DESC');
         $qb->setParameter('q', $q);
         return $qb->getQuery();
