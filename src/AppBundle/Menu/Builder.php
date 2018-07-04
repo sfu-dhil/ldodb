@@ -143,10 +143,6 @@ class Builder implements ContainerAwareInterface {
                 'label' => 'Binding Features',
                 'route' => 'binding_feature_index'
             ));
-            $browse->addChild('contribution_index', array(
-                'label' => 'Contributions',
-                'route' => 'contribution_index',
-            ));
             $browse->addChild('digital_copy_holder_index', array(
                 'label' => 'Digital Copy Holders',
                 'route' => 'digital_copy_holder_index',

@@ -19,7 +19,7 @@
                     </td>
                     <td>
                         {% for contributions in book.contributions if contributions.task.taskName == 'Author' %}
-                            {% include 'AppBundle:contribution:partial/link.html.twig' with {'contribution': contributions} %}
+                            {% include 'AppBundle:contribution:partial/contributor-link.html.twig' with {'contribution': contributions} %}
                         {% endfor %}
                     </td>
                     <td>{{ book.imprint }}</td>
