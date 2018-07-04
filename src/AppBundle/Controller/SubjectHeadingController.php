@@ -16,7 +16,6 @@ use AppBundle\Form\SubjectHeadingType;
 /**
  * SubjectHeading controller.
  *
- * @Security("has_role('ROLE_USER')")
  * @Route("/subject_heading")
  */
 class SubjectHeadingController extends Controller {

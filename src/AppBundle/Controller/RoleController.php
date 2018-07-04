@@ -16,7 +16,6 @@ use AppBundle\Form\RoleType;
 /**
  * Role controller.
  *
- * @Security("has_role('ROLE_USER')")
  * @Route("/role")
  */
 class RoleController extends Controller {

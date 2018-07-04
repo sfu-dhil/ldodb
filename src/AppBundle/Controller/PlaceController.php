@@ -16,7 +16,6 @@ use AppBundle\Form\PlaceType;
 /**
  * Place controller.
  *
- * @Security("has_role('ROLE_USER')")
  * @Route("/place")
  */
 class PlaceController extends Controller {

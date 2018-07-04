@@ -16,7 +16,6 @@ use AppBundle\Form\PeopleType;
 /**
  * People controller.
  *
- * @Security("has_role('ROLE_USER')")
  * @Route("/people")
  */
 class PeopleController extends Controller {

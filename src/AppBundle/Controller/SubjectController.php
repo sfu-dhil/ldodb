@@ -16,7 +16,6 @@ use AppBundle\Form\SubjectType;
 /**
  * Subject controller.
  *
- * @Security("has_role('ROLE_USER')")
  * @Route("/subject")
  */
 class SubjectController extends Controller {

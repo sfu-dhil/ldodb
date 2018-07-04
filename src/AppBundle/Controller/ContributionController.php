@@ -16,7 +16,6 @@ use AppBundle\Form\ContributionType;
 /**
  * Contribution controller.
  *
- * @Security("has_role('ROLE_USER')")
  * @Route("/contribution")
  */
 class ContributionController extends Controller {

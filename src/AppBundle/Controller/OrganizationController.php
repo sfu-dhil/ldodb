@@ -16,7 +16,6 @@ use AppBundle\Form\OrganizationType;
 /**
  * Organization controller.
  *
- * @Security("has_role('ROLE_USER')")
  * @Route("/organization")
  */
 class OrganizationController extends Controller {

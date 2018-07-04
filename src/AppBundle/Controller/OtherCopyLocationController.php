@@ -16,7 +16,6 @@ use AppBundle\Form\OtherCopyLocationType;
 /**
  * OtherCopyLocation controller.
  *
- * @Security("has_role('ROLE_USER')")
  * @Route("/other_copy_location")
  */
 class OtherCopyLocationController extends Controller {

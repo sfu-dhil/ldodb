@@ -16,7 +16,6 @@ use AppBundle\Form\SupplementalPlaceDataType;
 /**
  * SupplementalPlaceData controller.
  *
- * @Security("has_role('ROLE_USER')")
  * @Route("/supplemental_place_data")
  */
 class SupplementalPlaceDataController extends Controller {

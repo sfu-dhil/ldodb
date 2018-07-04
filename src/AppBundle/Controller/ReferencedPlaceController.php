@@ -16,7 +16,6 @@ use AppBundle\Form\ReferencedPlaceType;
 /**
  * ReferencedPlace controller.
  *
- * @Security("has_role('ROLE_USER')")
  * @Route("/referenced_place")
  */
 class ReferencedPlaceController extends Controller {

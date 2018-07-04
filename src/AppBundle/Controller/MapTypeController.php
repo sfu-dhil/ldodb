@@ -16,7 +16,6 @@ use AppBundle\Form\MapTypeType;
 /**
  * MapType controller.
  *
- * @Security("has_role('ROLE_USER')")
  * @Route("/map_type")
  */
 class MapTypeController extends Controller {

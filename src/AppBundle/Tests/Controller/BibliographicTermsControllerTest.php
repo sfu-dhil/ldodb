@@ -18,7 +18,7 @@ class BibliographicTermsControllerTest extends BaseTestCase {
 
     public function testAnonIndex() {
         $client = $this->makeClient();
-        $crawler = $client->request('GET', '/bibliographic_term/');
+        $crawler = $client->request('GET', '/bibliographic_terms/');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(0, $crawler->selectLink('New')->count());
     }
@@ -28,7 +28,7 @@ class BibliographicTermsControllerTest extends BaseTestCase {
             'username' => 'user@example.com',
             'password' => 'secret',
         ]);
-        $crawler = $client->request('GET', '/bibliographic_term/');
+        $crawler = $client->request('GET', '/bibliographic_terms/');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(0, $crawler->selectLink('New')->count());
     }
@@ -38,14 +38,14 @@ class BibliographicTermsControllerTest extends BaseTestCase {
             'username' => 'admin@example.com',
             'password' => 'supersecret',
         ]);
-        $crawler = $client->request('GET', '/bibliographic_term/');
+        $crawler = $client->request('GET', '/bibliographic_terms/');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(1, $crawler->selectLink('New')->count());
     }
 
     public function testAnonShow() {
         $client = $this->makeClient();
-        $crawler = $client->request('GET', '/bibliographic_term/1');
+        $crawler = $client->request('GET', '/bibliographic_terms/1');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(0, $crawler->selectLink('Edit')->count());
         $this->assertEquals(0, $crawler->selectLink('Delete')->count());
@@ -56,7 +56,7 @@ class BibliographicTermsControllerTest extends BaseTestCase {
             'username' => 'user@example.com',
             'password' => 'secret',
         ]);
-        $crawler = $client->request('GET', '/bibliographic_term/1');
+        $crawler = $client->request('GET', '/bibliographic_terms/1');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(0, $crawler->selectLink('Edit')->count());
         $this->assertEquals(0, $crawler->selectLink('Delete')->count());
@@ -67,7 +67,7 @@ class BibliographicTermsControllerTest extends BaseTestCase {
             'username' => 'admin@example.com',
             'password' => 'supersecret',
         ]);
-        $crawler = $client->request('GET', '/bibliographic_term/1');
+        $crawler = $client->request('GET', '/bibliographic_terms/1');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(1, $crawler->selectLink('Edit')->count());
         $this->assertEquals(1, $crawler->selectLink('Delete')->count());
@@ -75,7 +75,7 @@ class BibliographicTermsControllerTest extends BaseTestCase {
 
     public function testAnonEdit() {
         $client = $this->makeClient();
-        $crawler = $client->request('GET', '/bibliographic_term/1/edit');
+        $crawler = $client->request('GET', '/bibliographic_terms/1/edit');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
     }
 
@@ -84,7 +84,7 @@ class BibliographicTermsControllerTest extends BaseTestCase {
             'username' => 'user@example.com',
             'password' => 'secret',
         ]);
-        $crawler = $client->request('GET', '/bibliographic_term/1/edit');
+        $crawler = $client->request('GET', '/bibliographic_terms/1/edit');
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
     }
 
@@ -93,7 +93,7 @@ class BibliographicTermsControllerTest extends BaseTestCase {
             'username' => 'admin@example.com',
             'password' => 'supersecret',
         ]);
-        $formCrawler = $client->request('GET', '/bibliographic_term/1/edit');
+        $formCrawler = $client->request('GET', '/bibliographic_terms/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         $form = $formCrawler->selectButton('Update')->form([
@@ -101,7 +101,7 @@ class BibliographicTermsControllerTest extends BaseTestCase {
         ]);
 
         $client->submit($form);
-        $this->assertTrue($client->getResponse()->isRedirect('/bibliographic_term/1'));
+        $this->assertTrue($client->getResponse()->isRedirect('/bibliographic_terms/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(1, $responseCrawler->filter('td:contains("Salmon")')->count());
@@ -109,7 +109,7 @@ class BibliographicTermsControllerTest extends BaseTestCase {
 
     public function testAnonNew() {
         $client = $this->makeClient();
-        $crawler = $client->request('GET', '/bibliographic_term/new');
+        $crawler = $client->request('GET', '/bibliographic_terms/new');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
     }
 
@@ -118,7 +118,7 @@ class BibliographicTermsControllerTest extends BaseTestCase {
             'username' => 'user@example.com',
             'password' => 'secret',
         ]);
-        $crawler = $client->request('GET', '/bibliographic_term/new');
+        $crawler = $client->request('GET', '/bibliographic_terms/new');
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
     }
 
@@ -127,7 +127,7 @@ class BibliographicTermsControllerTest extends BaseTestCase {
             'username' => 'admin@example.com',
             'password' => 'supersecret',
         ]);
-        $formCrawler = $client->request('GET', '/bibliographic_term/new');
+        $formCrawler = $client->request('GET', '/bibliographic_terms/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         $form = $formCrawler->selectButton('Create')->form([
@@ -143,7 +143,7 @@ class BibliographicTermsControllerTest extends BaseTestCase {
 
     public function testAnonDelete() {
         $client = $this->makeClient();
-        $crawler = $client->request('GET', '/bibliographic_term/1/delete');
+        $crawler = $client->request('GET', '/bibliographic_terms/1/delete');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
     }
 
@@ -152,7 +152,7 @@ class BibliographicTermsControllerTest extends BaseTestCase {
             'username' => 'user@example.com',
             'password' => 'secret',
         ]);
-        $crawler = $client->request('GET', '/bibliographic_term/1/delete');
+        $crawler = $client->request('GET', '/bibliographic_terms/1/delete');
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
     }
 
@@ -164,7 +164,7 @@ class BibliographicTermsControllerTest extends BaseTestCase {
             'username' => 'admin@example.com',
             'password' => 'supersecret',
         ]);
-        $crawler = $client->request('GET', '/bibliographic_term/1/delete');
+        $crawler = $client->request('GET', '/bibliographic_terms/1/delete');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();

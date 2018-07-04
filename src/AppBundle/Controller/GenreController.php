@@ -16,7 +16,6 @@ use AppBundle\Form\GenreType;
 /**
  * Genre controller.
  *
- * @Security("has_role('ROLE_USER')")
  * @Route("/genre")
  */
 class GenreController extends Controller {

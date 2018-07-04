@@ -16,7 +16,6 @@ use AppBundle\Form\BindingFeatureType;
 /**
  * BindingFeature controller.
  *
- * @Security("has_role('ROLE_USER')")
  * @Route("/binding_feature")
  */
 class BindingFeatureController extends Controller {

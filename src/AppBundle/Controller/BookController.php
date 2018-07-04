@@ -16,7 +16,6 @@ use AppBundle\Form\BookType;
 /**
  * Book controller.
  *
- * @Security("has_role('ROLE_USER')")
  * @Route("/book")
  */
 class BookController extends Controller {

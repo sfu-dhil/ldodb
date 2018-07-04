@@ -16,7 +16,6 @@ use AppBundle\Form\MapSizeType;
 /**
  * MapSize controller.
  *
- * @Security("has_role('ROLE_USER')")
  * @Route("/map_size")
  */
 class MapSizeController extends Controller {

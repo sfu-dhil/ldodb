@@ -16,7 +16,6 @@ use AppBundle\Form\PlateTypeType;
 /**
  * PlateType controller.
  *
- * @Security("has_role('ROLE_USER')")
  * @Route("/plate_type")
  */
 class PlateTypeController extends Controller {

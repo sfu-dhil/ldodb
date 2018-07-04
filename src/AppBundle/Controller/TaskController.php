@@ -16,7 +16,6 @@ use AppBundle\Form\TaskType;
 /**
  * Task controller.
  *
- * @Security("has_role('ROLE_USER')")
  * @Route("/task")
  */
 class TaskController extends Controller {

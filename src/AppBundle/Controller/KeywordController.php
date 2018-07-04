@@ -16,7 +16,6 @@ use AppBundle\Form\KeywordType;
 /**
  * Keyword controller.
  *
- * @Security("has_role('ROLE_USER')")
  * @Route("/keyword")
  */
 class KeywordController extends Controller {

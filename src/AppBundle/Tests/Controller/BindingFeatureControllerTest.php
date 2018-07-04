@@ -18,7 +18,7 @@ class BindingFeatureControllerTest extends BaseTestCase {
 
     public function testAnonIndex() {
         $client = $this->makeClient();
-        $crawler = $client->request('GET', '/binding/');
+        $crawler = $client->request('GET', '/binding_feature/');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(0, $crawler->selectLink('New')->count());
     }
@@ -28,7 +28,7 @@ class BindingFeatureControllerTest extends BaseTestCase {
             'username' => 'user@example.com',
             'password' => 'secret',
         ]);
-        $crawler = $client->request('GET', '/binding/');
+        $crawler = $client->request('GET', '/binding_feature/');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(0, $crawler->selectLink('New')->count());
     }
@@ -38,14 +38,14 @@ class BindingFeatureControllerTest extends BaseTestCase {
             'username' => 'admin@example.com',
             'password' => 'supersecret',
         ]);
-        $crawler = $client->request('GET', '/binding/');
+        $crawler = $client->request('GET', '/binding_feature/');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(1, $crawler->selectLink('New')->count());
     }
 
     public function testAnonShow() {
         $client = $this->makeClient();
-        $crawler = $client->request('GET', '/binding/1');
+        $crawler = $client->request('GET', '/binding_feature/1');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(0, $crawler->selectLink('Edit')->count());
         $this->assertEquals(0, $crawler->selectLink('Delete')->count());
@@ -56,7 +56,7 @@ class BindingFeatureControllerTest extends BaseTestCase {
             'username' => 'user@example.com',
             'password' => 'secret',
         ]);
-        $crawler = $client->request('GET', '/binding/1');
+        $crawler = $client->request('GET', '/binding_feature/1');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(0, $crawler->selectLink('Edit')->count());
         $this->assertEquals(0, $crawler->selectLink('Delete')->count());
@@ -67,7 +67,7 @@ class BindingFeatureControllerTest extends BaseTestCase {
             'username' => 'admin@example.com',
             'password' => 'supersecret',
         ]);
-        $crawler = $client->request('GET', '/binding/1');
+        $crawler = $client->request('GET', '/binding_feature/1');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(1, $crawler->selectLink('Edit')->count());
         $this->assertEquals(1, $crawler->selectLink('Delete')->count());
@@ -75,7 +75,7 @@ class BindingFeatureControllerTest extends BaseTestCase {
 
     public function testAnonEdit() {
         $client = $this->makeClient();
-        $crawler = $client->request('GET', '/binding/1/edit');
+        $crawler = $client->request('GET', '/binding_feature/1/edit');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
     }
 
@@ -84,7 +84,7 @@ class BindingFeatureControllerTest extends BaseTestCase {
             'username' => 'user@example.com',
             'password' => 'secret',
         ]);
-        $crawler = $client->request('GET', '/binding/1/edit');
+        $crawler = $client->request('GET', '/binding_feature/1/edit');
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
     }
 
@@ -93,7 +93,7 @@ class BindingFeatureControllerTest extends BaseTestCase {
             'username' => 'admin@example.com',
             'password' => 'supersecret',
         ]);
-        $formCrawler = $client->request('GET', '/binding/1/edit');
+        $formCrawler = $client->request('GET', '/binding_feature/1/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         $form = $formCrawler->selectButton('Update')->form([
@@ -102,7 +102,7 @@ class BindingFeatureControllerTest extends BaseTestCase {
         ]);
 
         $client->submit($form);
-        $this->assertTrue($client->getResponse()->isRedirect('/binding/1'));
+        $this->assertTrue($client->getResponse()->isRedirect('/binding_feature/1'));
         $responseCrawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(1, $responseCrawler->filter('td:contains("cheese.")')->count());
@@ -110,7 +110,7 @@ class BindingFeatureControllerTest extends BaseTestCase {
 
     public function testAnonNew() {
         $client = $this->makeClient();
-        $crawler = $client->request('GET', '/binding/new');
+        $crawler = $client->request('GET', '/binding_feature/new');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
     }
 
@@ -119,7 +119,7 @@ class BindingFeatureControllerTest extends BaseTestCase {
             'username' => 'user@example.com',
             'password' => 'secret',
         ]);
-        $crawler = $client->request('GET', '/binding/new');
+        $crawler = $client->request('GET', '/binding_feature/new');
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
     }
 
@@ -128,7 +128,7 @@ class BindingFeatureControllerTest extends BaseTestCase {
             'username' => 'admin@example.com',
             'password' => 'supersecret',
         ]);
-        $formCrawler = $client->request('GET', '/binding/new');
+        $formCrawler = $client->request('GET', '/binding_feature/new');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         $form = $formCrawler->selectButton('Create')->form([
@@ -144,7 +144,7 @@ class BindingFeatureControllerTest extends BaseTestCase {
 
     public function testAnonDelete() {
         $client = $this->makeClient();
-        $crawler = $client->request('GET', '/binding/1/delete');
+        $crawler = $client->request('GET', '/binding_feature/1/delete');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
     }
 
@@ -153,7 +153,7 @@ class BindingFeatureControllerTest extends BaseTestCase {
             'username' => 'user@example.com',
             'password' => 'secret',
         ]);
-        $crawler = $client->request('GET', '/binding/1/delete');
+        $crawler = $client->request('GET', '/binding_feature/1/delete');
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
     }
 
@@ -165,7 +165,7 @@ class BindingFeatureControllerTest extends BaseTestCase {
             'username' => 'admin@example.com',
             'password' => 'supersecret',
         ]);
-        $crawler = $client->request('GET', '/binding/1/delete');
+        $crawler = $client->request('GET', '/binding_feature/1/delete');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
         $this->assertTrue($client->getResponse()->isRedirect());
         $responseCrawler = $client->followRedirect();

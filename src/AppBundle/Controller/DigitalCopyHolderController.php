@@ -16,7 +16,6 @@ use AppBundle\Form\DigitalCopyHolderType;
 /**
  * DigitalCopyHolder controller.
  *
- * @Security("has_role('ROLE_USER')")
  * @Route("/digital_copy_holder")
  */
 class DigitalCopyHolderController extends Controller {

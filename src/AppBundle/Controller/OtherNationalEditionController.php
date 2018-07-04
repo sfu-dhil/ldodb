@@ -16,7 +16,6 @@ use AppBundle\Form\OtherNationalEditionType;
 /**
  * OtherNationalEdition controller.
  *
- * @Security("has_role('ROLE_USER')")
  * @Route("/other_national_edition")
  */
 class OtherNationalEditionController extends Controller {

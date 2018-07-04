@@ -16,7 +16,6 @@ use AppBundle\Form\ReferencedPersonType;
 /**
  * ReferencedPerson controller.
  *
- * @Security("has_role('ROLE_USER')")
  * @Route("/referenced_person")
  */
 class ReferencedPersonController extends Controller {

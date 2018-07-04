@@ -16,7 +16,6 @@ use AppBundle\Form\BibliographicTermsType;
 /**
  * BibliographicTerms controller.
  *
- * @Security("has_role('ROLE_USER')")
  * @Route("/bibliographic_terms")
  */
 class BibliographicTermsController extends Controller {
