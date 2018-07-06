@@ -319,7 +319,11 @@
             {% endfor %}
         </ul>
     {% endif %}
-    {% embed 'AppBundle:contribution:partial/list.html.twig' with { 'contributions': book.contributions } %}
+
+    {% embed 'AppBundle:contribution:partial/list.html.twig' with {
+        'contributions': book.contributions,
+        'partial': 'AppBundle:contribution:partial/contributor-link.html.twig'
+    } %}
         {% block callback %}
             {{ contribution.entity }} ({{ contribution.task }})
         {% endblock %}
