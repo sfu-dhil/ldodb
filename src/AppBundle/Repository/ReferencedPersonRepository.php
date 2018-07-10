@@ -30,7 +30,7 @@ class ReferencedPersonRepository extends EntityRepository {
     public function searchQuery($q) {
         $qb = $this->createQueryBuilder('e');
         $qb->addSelect("MATCH (e.firstName, e.lastName) AGAINST(:q BOOLEAN) as HIDDEN score");
-        $qb->addSelect("MATCH (e.firstName, e.lastName) AGAINST(:q BOOLEAN) > 0.5");
+        $qb->addSelect("MATCH (e.firstName, e.lastName) AGAINST(:q BOOLEAN) > 0.0");
         $qb->orderBy('score', 'DESC');
         $qb->setParameter('q', $q);
         return $qb->getQuery();

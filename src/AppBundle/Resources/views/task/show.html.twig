@@ -29,5 +29,35 @@
             </tr>
         </tbody>
     </table>
-    {{ include('AppBundle:contribution:partial/list.html.twig', { contributions: task.contributions }) }}
+
+    <h2>People</h2>
+    <ul>
+        {% for contribution in task.contributions if contribution.entity.type == constant('AppBundle\\Entity\\Entity::PER_TYPE') %}
+            <li>
+                {% include 'AppBundle:contribution:partial/contributor-link.html.twig' with {
+                    'contribution': contribution,
+                } -%}:
+                {% include 'AppBundle:contribution:partial/book-link.html.twig' with {
+                    'contribution': contribution,
+                } %}
+
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Organizations</h2>
+    <ul>
+        {% for contribution in task.contributions if contribution.entity.type == constant('AppBundle\\Entity\\Entity::ORG_TYPE') %}
+            <li>
+                {% include 'AppBundle:contribution:partial/contributor-link.html.twig' with {
+                    'contribution': contribution,
+                } -%}:
+                {% include 'AppBundle:contribution:partial/book-link.html.twig' with {
+                    'contribution': contribution,
+                } %}
+
+            </li>
+        {% endfor %}
+    </ul>
+
 {% endblock %}

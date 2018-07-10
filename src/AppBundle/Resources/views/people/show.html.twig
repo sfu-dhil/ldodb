@@ -46,10 +46,10 @@
                 <td>{{ person.gender }}</td>
             </tr><tr>
                 <th>Biographical Notes</th>
-                <td>{{ person.biographicalNotes }}</td>
+                <td>{{ person.biographicalNotes|nl2br }}</td>
             </tr><tr>
                 <th>Biographical Annotation</th>
-                <td>{{ person.biographicalAnnotation }}</td>
+                <td>{{ person.biographicalAnnotation|nl2br }}</td>
             </tr><tr>
                 <th>Nationality</th>
                 <td>{{ person.nationality }}</td>
@@ -139,5 +139,11 @@
             </tr>
         </tbody>
     </table>
-    {{ include('AppBundle:contribution:partial/list.html.twig', { contributions: person.contributions }) }}
+
+    <h2>Contributions</h2>
+    {{ include('AppBundle:contribution:partial/list.html.twig', {
+        'contributions': person.contributions,
+        'partial': 'book-link.html.twig',
+    }) }}
+
 {% endblock %}
