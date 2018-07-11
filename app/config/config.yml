@@ -44,7 +44,7 @@ framework:
 twig:
     form_themes:
         - 'bootstrap_3_horizontal_layout.html.twig'
-        - '@NinesUtilBundle/Form/fields.html.twig'
+        - 'NinesUtilBundle:form:fields.html.twig'
     globals:
         comment_service: "@feedback.comment"
         text_service: "@nines.util.text"
