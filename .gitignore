@@ -1,8 +1,8 @@
-/app/config/parameters.yml
 /build/
 /phpunit.xml
 /var/*
 !/var/cache
+/app/config/parameters.yml
 /var/cache/*
 !var/cache/.gitkeep
 !/var/logs
@@ -15,6 +15,7 @@
 /vendor/
 /web/bundles/
 /web/bower
+/web/docs
 data
 *.sh
 /phpcs.xml

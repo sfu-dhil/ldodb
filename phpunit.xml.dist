@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- https://phpunit.de/manual/4.8/en/appendixes.configuration.html -->
-<phpunit         
+<phpunit
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/5.7/phpunit.xsd"
-    backupGlobals="true"
-    backupStaticAttributes="true"
+    backupGlobals="false"
+    backupStaticAttributes="false"
     bootstrap="vendor/autoload.php"
-    cacheTokens="true"
+    cacheTokens="false"
     colors="false"
     processIsolation="true"
     stopOnError="true"
     stopOnFailure="true"
     verbose="false">
-    
+
     <php>
         <ini name="error_reporting" value="-1" />
         <server name="KERNEL_CLASS" value="AppKernel" />
         <server name="KERNEL_DIR" value="app/" />
-        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />        
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />
     </php>
 
     <testsuites>
@@ -43,9 +43,9 @@
             <directory>web</directory>
         </blacklist>
     </filter>
-    
+
     <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
     </listeners>
-    
+
 </phpunit>
