@@ -16,14 +16,14 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
-            
+
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new Ivory\CKEditorBundle\IvoryCKEditorBundle(), 
-            
-            new Nines\BlogBundle\NinesBlogBundle(),            
-            new Nines\FeedbackBundle\NinesFeedbackBundle(),            
+            new FOS\CKEditorBundle\FOSCKEditorBundle(),
+
+            new Nines\BlogBundle\NinesBlogBundle(),
+            new Nines\FeedbackBundle\NinesFeedbackBundle(),
             new Nines\UserBundle\NinesUserBundle(),
             new Nines\UtilBundle\NinesUtilBundle(),
         ];

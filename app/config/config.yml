@@ -30,7 +30,7 @@ framework:
         # https://symfony.com/doc/current/reference/configuration/framework.html#handler-id
         handler_id: session.handler.native_file
         save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
-        name: PHP_SESSION_LDODB        
+        name: PHP_SESSION_LDODB
         cookie_path: '%router.request_context.base_url%'
         cookie_domain: '%router.request_context.host%'
         cookie_secure: '%secure_cookies%'
@@ -42,7 +42,7 @@ framework:
 
 # Twig Configuration
 twig:
-    form_themes:      
+    form_themes:
         - 'bootstrap_3_horizontal_layout.html.twig'
         - '@NinesUtilBundle/Form/fields.html.twig'
     globals:
@@ -57,7 +57,7 @@ twig:
     exception_controller:  NinesUtilBundle:Error:showException
     date:
         format: d.m.Y, H:i:s
-        interval_format: '%%d days'        
+        interval_format: '%%d days'
 
 # Doctrine Configuration
 doctrine:
@@ -80,7 +80,7 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
-        
+
 # Swiftmailer Configuration
 swiftmailer:
     transport: '%mailer_transport%'
@@ -104,7 +104,7 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Nines\UserBundle\Entity\User
-    from_email: 
+    from_email:
         address: ldodb@example.com
         sender_name: Unconfigured Sender
     profile:
@@ -113,8 +113,8 @@ fos_user:
     change_password:
         form:
             type: Nines\UserBundle\Form\PasswordType
-            
-ivory_ck_editor:
+
+fos_ck_editor:
     input_sync: true
     default_config: ldodb_config
     configs:
