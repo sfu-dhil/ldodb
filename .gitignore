@@ -20,3 +20,4 @@ data
 *.sh
 /phpcs.xml
 /nbproject
+app/config/deploy.yml
