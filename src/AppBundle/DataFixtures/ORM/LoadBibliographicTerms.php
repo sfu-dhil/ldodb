@@ -3,11 +3,11 @@
 namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\BibliographicTerms;
-use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class LoadBibliographicTerms extends AbstractFixture {
+class LoadBibliographicTerms extends Fixture {
 
     public function load(ObjectManager $em) {
         $object = new BibliographicTerms();

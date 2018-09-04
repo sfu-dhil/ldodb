@@ -16,8 +16,8 @@
 /web/bundles/
 /web/bower
 /web/docs
-data
-*.sh
+/data
 /phpcs.xml
 /nbproject
-app/config/deploy.yml
+/app/config/deploy.yml
+/.idea

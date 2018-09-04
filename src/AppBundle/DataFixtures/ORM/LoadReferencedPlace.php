@@ -3,11 +3,11 @@
 namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\ReferencedPlace;
-use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class LoadReferencedPlace extends AbstractFixture implements DependentFixtureInterface {
+class LoadReferencedPlace extends Fixture implements DependentFixtureInterface {
 
     public function getDependencies() {
         return [
