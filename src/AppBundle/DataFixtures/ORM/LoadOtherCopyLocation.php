@@ -3,11 +3,11 @@
 namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\OtherCopyLocation;
-use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class LoadOtherCopyLocation extends AbstractFixture implements DependentFixtureInterface {
+class LoadOtherCopyLocation extends Fixture implements DependentFixtureInterface {
 
     public function getDependencies() {
         return [

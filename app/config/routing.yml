@@ -6,6 +6,9 @@ nines_user:
     resource: "@NinesUserBundle/Controller/"
     type: annotation
 
+nines_dc:
+    resource: "@NinesDublinCoreBundle/Controller/"
+
 nines_feedback:
     resource: "@NinesFeedbackBundle/Controller/"
     type: annotation

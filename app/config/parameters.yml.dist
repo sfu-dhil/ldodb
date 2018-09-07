@@ -35,3 +35,8 @@ parameters:
 
     # google analytics id
     google_analytics_id: ~
+
+    # feedback system
+    nines_feedback.sender: ~
+    nines_feedback.recipient: ~
+    nines_feedback.subject: New feedback received

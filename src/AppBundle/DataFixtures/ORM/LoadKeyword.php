@@ -3,11 +3,11 @@
 namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\Keyword;
-use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class LoadKeyword extends AbstractFixture {
+class LoadKeyword extends Fixture {
 
     public function load(ObjectManager $em) {
         $object = new Keyword();
