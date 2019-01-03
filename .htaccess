@@ -1,0 +1,1 @@
+RedirectMatch "/ldodb/?$" "/ldodb/web/app_dev.php"
