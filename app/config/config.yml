@@ -49,6 +49,10 @@ twig:
         comment_service: "@feedback.comment"
         text_service: "@nines.util.text"
         env: "%kernel.environment%"
+        piwik_enabled: '%dhil.piwik_enabled%'
+        piwik_url: '%dhil.piwik_url%'
+        piwik_siteid: '%dhil.piwik_siteid%'
+        piwik_domain: '%dhil.piwik_domain%'
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     paths:
