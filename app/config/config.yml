@@ -46,8 +46,8 @@ twig:
         - 'bootstrap_3_horizontal_layout.html.twig'
         - 'NinesUtilBundle:form:fields.html.twig'
     globals:
-        comment_service: "@feedback.comment"
-        text_service: "@nines.util.text"
+        comment_service: '@Nines\FeedbackBundle\Services\CommentService'
+        text_service: '@Nines\UtilBundle\Services\Text'
         env: "%kernel.environment%"
         piwik_enabled: '%dhil.piwik_enabled%'
         piwik_url: '%dhil.piwik_url%'
