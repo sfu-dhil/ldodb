@@ -28,7 +28,7 @@ class SubjectHeading {
     /**
      * @var string
      *
-     * @ORM\Column(name="subject_heading", type="string", length=255, nullable=true)
+     * @ORM\Column(name="subject_heading", type="string", length=255, nullable=false)
      */
     private $subjectHeading;
 

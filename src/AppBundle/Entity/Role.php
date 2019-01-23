@@ -28,7 +28,7 @@ class Role {
     /**
      * @var string
      *
-     * @ORM\Column(name="role_name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="role_name", type="string", length=255, nullable=false)
      */
     private $roleName;
 

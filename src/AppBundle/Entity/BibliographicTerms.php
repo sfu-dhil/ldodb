@@ -24,7 +24,7 @@ class BibliographicTerms {
     /**
      * @var string
      *
-     * @ORM\Column(name="bibliographic_term", type="string", length=255, nullable=true)
+     * @ORM\Column(name="bibliographic_term", type="string", length=255, nullable=false)
      */
     private $bibliographicTerm;
 

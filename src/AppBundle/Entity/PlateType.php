@@ -26,7 +26,7 @@ class PlateType {
     /**
      * @var string
      *
-     * @ORM\Column(name="plate_type", type="string", length=255, nullable=true)
+     * @ORM\Column(name="plate_type", type="string", length=255, nullable=false)
      */
     private $plateType;
 

@@ -26,7 +26,7 @@ class MapType {
     /**
      * @var string
      *
-     * @ORM\Column(name="map_type", type="string", length=255, nullable=true)
+     * @ORM\Column(name="map_type", type="string", length=255, nullable=false)
      */
     private $mapType;
 

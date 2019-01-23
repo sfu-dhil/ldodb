@@ -19,7 +19,7 @@ class Organization extends Entity {
     /**
      * @var string
      *
-     * @ORM\Column(name="organization_name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="organization_name", type="string", length=255, nullable=false)
      */
     private $organizationName;
 

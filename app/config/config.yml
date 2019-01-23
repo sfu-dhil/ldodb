@@ -58,7 +58,6 @@ twig:
     paths:
         '%kernel.project_dir%/src/Nines/UtilBundle/Resources/views': NinesUtilBundle
         '%kernel.project_dir%/src/Nines/UserBundle/Resources/views': NinesUser
-    exception_controller:  NinesUtilBundle:Error:showException
     date:
         format: d.m.Y, H:i:s
         interval_format: '%%d days'

@@ -26,7 +26,7 @@ class Genre {
     /**
      * @var string
      *
-     * @ORM\Column(name="genre_name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="genre_name", type="string", length=255, nullable=false)
      */
     private $genreName;
 

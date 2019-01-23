@@ -26,7 +26,7 @@ class MapSize {
     /**
      * @var string
      *
-     * @ORM\Column(name="map_size", type="string", length=255, nullable=true)
+     * @ORM\Column(name="map_size", type="string", length=255, nullable=false)
      */
     private $mapSize;
 
@@ -57,7 +57,7 @@ class MapSize {
      * @return string
      */
     public function __toString() {
-        return $this->mapSize;
+        return ($this->mapSize ? $this->mapSize : "");
     }
 
     /**

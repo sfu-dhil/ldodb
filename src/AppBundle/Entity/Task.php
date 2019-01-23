@@ -26,7 +26,7 @@ class Task {
     /**
      * @var string
      *
-     * @ORM\Column(name="task_name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="task_name", type="string", length=255, nullable=false)
      */
     private $taskName;
 

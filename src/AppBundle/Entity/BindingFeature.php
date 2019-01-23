@@ -26,7 +26,7 @@ class BindingFeature {
     /**
      * @var string
      *
-     * @ORM\Column(name="binding_feature", type="string", length=255, nullable=true)
+     * @ORM\Column(name="binding_feature", type="string", length=255, nullable=false)
      */
     private $bindingFeature;
 
