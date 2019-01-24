@@ -3,9 +3,8 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -27,14 +26,13 @@ class SubjectType extends AbstractType {
                 'help_block' => '',
             ),
         ));
-        $builder->add('subjectUri', null, array(
+        $builder->add('subjectUri', UrlType::class, array(
             'label' => 'Subject Uri',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-        $builder->add('books');
     }
 
     /**

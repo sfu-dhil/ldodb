@@ -3,9 +3,11 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -27,7 +29,7 @@ class PlaceType extends AbstractType {
                 'help_block' => '',
             ),
         ));
-        $builder->add('placeUri', null, array(
+        $builder->add('placeUri', UrlType::class, array(
             'label' => 'Place Uri',
             'required' => false,
             'attr' => array(
@@ -49,35 +51,34 @@ class PlaceType extends AbstractType {
                 'help_block' => '',
             ),
         ));
-        $builder->add('latitude', null, array(
+        $builder->add('latitude', NumberType::class, array(
             'label' => 'Latitude',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-        $builder->add('longitude', null, array(
+        $builder->add('longitude', NumberType::class, array(
             'label' => 'Longitude',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-        $builder->add('regionId', null, array(
+        $builder->add('regionId', IntegerType::class, array(
             'label' => 'Region Id',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-        $builder->add('countryId', null, array(
+        $builder->add('countryId', IntegerType::class, array(
             'label' => 'Country Id',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-        $builder->add('books');
     }
 
     /**

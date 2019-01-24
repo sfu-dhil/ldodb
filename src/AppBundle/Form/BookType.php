@@ -197,7 +197,7 @@ class BookType extends AbstractType {
                 'help_block' => '',
             ),
         ));
-        $builder->add('bookUri', null, array(
+        $builder->add('bookUri', UrlType::class, array(
             'label' => 'Book Uri',
             'required' => false,
             'attr' => array(

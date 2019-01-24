@@ -191,6 +191,7 @@ class Book {
     /**
      * @var string
      *
+     * @Assert\Url
      * @ORM\Column(name="book_uri", type="string", length=255, nullable=true)
      */
     private $bookUri;

@@ -34,7 +34,6 @@ class MapTypeType extends AbstractType {
                 'help_block' => '',
             ),
         ));
-        $builder->add('books');
     }
 
     /**

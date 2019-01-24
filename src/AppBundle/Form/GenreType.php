@@ -41,7 +41,7 @@ class GenreType extends AbstractType {
                 'help_block' => '',
             ),
         ));
-        $builder->add('genreUri', null, array(
+        $builder->add('genreUri', UrlType::class, array(
             'label' => 'Genre Uri',
             'required' => false,
             'attr' => array(

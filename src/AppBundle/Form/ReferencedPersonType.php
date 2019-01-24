@@ -3,9 +3,8 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -55,7 +54,7 @@ class ReferencedPersonType extends AbstractType {
                 'help_block' => '',
             ),
         ));
-        $builder->add('referencedPersonUri', null, array(
+        $builder->add('referencedPersonUri', UrlType::class, array(
             'label' => 'Referenced Person Uri',
             'required' => false,
             'attr' => array(

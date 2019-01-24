@@ -3,9 +3,8 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -27,7 +26,7 @@ class OrganizationType extends AbstractType {
                 'help_block' => '',
             ),
         ));
-        $builder->add('organizationUri', null, array(
+        $builder->add('organizationUri', UrlType::class, array(
             'label' => 'Organization Uri',
             'required' => false,
             'attr' => array(

@@ -3,9 +3,9 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -20,7 +20,7 @@ class SupplementalPlaceDataType extends AbstractType {
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add('geonameId', null, array(
+        $builder->add('geonameId', IntegerType::class, array(
             'label' => 'Geonameid',
             'required' => true,
             'attr' => array(
@@ -34,14 +34,14 @@ class SupplementalPlaceDataType extends AbstractType {
                 'help_block' => '',
             ),
         ));
-        $builder->add('latitude', null, array(
+        $builder->add('latitude', NumberType::class, array(
             'label' => 'Latitude',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-        $builder->add('longitude', null, array(
+        $builder->add('longitude', NumberType::class, array(
             'label' => 'Longitude',
             'required' => false,
             'attr' => array(
