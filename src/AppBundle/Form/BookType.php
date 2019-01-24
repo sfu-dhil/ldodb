@@ -36,7 +36,7 @@ class BookType extends AbstractType {
         ));
         $builder->add('title', null, array(
             'label' => 'Title',
-            'required' => false,
+            'required' => true,
             'attr' => array(
                 'help_block' => '',
             ),

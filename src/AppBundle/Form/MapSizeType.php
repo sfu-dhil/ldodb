@@ -22,7 +22,7 @@ class MapSizeType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('mapSize', null, array(
             'label' => 'Map Size',
-            'required' => false,
+            'required' => true,
             'attr' => array(
                 'help_block' => '',
             ),

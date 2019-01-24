@@ -22,7 +22,7 @@ class PlateTypeType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('plateType', null, array(
             'label' => 'Plate Type',
-            'required' => false,
+            'required' => true,
             'attr' => array(
                 'help_block' => '',
             ),

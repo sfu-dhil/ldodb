@@ -22,7 +22,7 @@ class MapTypeType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('mapType', null, array(
             'label' => 'Map Type',
-            'required' => false,
+            'required' => true,
             'attr' => array(
                 'help_block' => '',
             ),

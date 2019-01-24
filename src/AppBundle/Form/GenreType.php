@@ -22,7 +22,7 @@ class GenreType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('genreName', null, array(
             'label' => 'Genre Name',
-            'required' => false,
+            'required' => true,
             'attr' => array(
                 'help_block' => '',
             ),

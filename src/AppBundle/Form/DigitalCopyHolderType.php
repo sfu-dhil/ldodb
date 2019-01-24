@@ -22,7 +22,7 @@ class DigitalCopyHolderType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('organizationName', null, array(
             'label' => 'Organization Name',
-            'required' => false,
+            'required' => true,
             'attr' => array(
                 'help_block' => '',
             ),

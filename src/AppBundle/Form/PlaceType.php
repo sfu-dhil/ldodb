@@ -22,7 +22,7 @@ class PlaceType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('placeName', null, array(
             'label' => 'Place Name',
-            'required' => false,
+            'required' => true,
             'attr' => array(
                 'help_block' => '',
             ),

@@ -22,7 +22,7 @@ class SubjectType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('subjectName', null, array(
             'label' => 'Subject Name',
-            'required' => false,
+            'required' => true,
             'attr' => array(
                 'help_block' => '',
             ),

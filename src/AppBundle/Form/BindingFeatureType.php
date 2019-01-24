@@ -22,7 +22,7 @@ class BindingFeatureType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('bindingFeature', null, array(
             'label' => 'Binding Feature',
-            'required' => false,
+            'required' => true,
             'attr' => array(
                 'help_block' => '',
             ),

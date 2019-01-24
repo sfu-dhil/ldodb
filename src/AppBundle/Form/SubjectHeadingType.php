@@ -22,7 +22,7 @@ class SubjectHeadingType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('subjectHeading', null, array(
             'label' => 'Subject Heading',
-            'required' => false,
+            'required' => true,
             'attr' => array(
                 'help_block' => '',
             ),

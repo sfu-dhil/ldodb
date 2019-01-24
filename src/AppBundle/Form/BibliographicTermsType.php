@@ -22,7 +22,7 @@ class BibliographicTermsType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('bibliographicTerm', null, array(
             'label' => 'Bibliographic Term',
-            'required' => false,
+            'required' => true,
             'attr' => array(
                 'help_block' => '',
             ),

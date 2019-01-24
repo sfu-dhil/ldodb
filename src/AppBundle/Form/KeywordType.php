@@ -22,7 +22,7 @@ class KeywordType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('keyword', null, array(
             'label' => 'Keyword',
-            'required' => false,
+            'required' => true,
             'attr' => array(
                 'help_block' => '',
             ),

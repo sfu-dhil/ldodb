@@ -22,7 +22,7 @@ class TaskType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('taskName', null, array(
             'label' => 'Task Name',
-            'required' => false,
+            'required' => true,
             'attr' => array(
                 'help_block' => '',
             ),
