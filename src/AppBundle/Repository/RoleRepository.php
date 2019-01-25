@@ -14,7 +14,7 @@ class RoleRepository extends EntityRepository {
      */
     public function typeaheadQuery($q) {
         $qb = $this->createQueryBuilder('e');
-        $qb->andWhere("e.name LIKE :q");
+        $qb->andWhere("e.roleName LIKE :q");
         $qb->orderBy('e.roleName');
         $qb->setParameter('q', "{$q}%");
         return $qb->getQuery()->execute();

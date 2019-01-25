@@ -199,6 +199,7 @@ class Book {
     /**
      * @var string
      *
+     * @Assert\Url
      * @ORM\Column(name="digital_object_url", type="text", nullable=true)
      */
     private $digitalObjectUrl;

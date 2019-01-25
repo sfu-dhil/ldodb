@@ -115,6 +115,9 @@ class BookController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            foreach($book->getContributions() as $contribution) {
+                $contribution->setBook($book);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($book);
             $em->flush();
@@ -182,6 +185,9 @@ class BookController extends Controller {
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            foreach($book->getContributions() as $contribution) {
+                $contribution->setBook($book);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The book has been updated.');

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="entity")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\EntityRepository")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="entity_type", type="string", length=3)
  * @ORM\DiscriminatorMap({
@@ -45,6 +45,10 @@ abstract class Entity {
      * Return one of the class constants representing the type.
      */
     abstract public function getType();
+
+    public function asString() {
+        return $this->__toString();
+    }
 
     /**
      * Constructor
