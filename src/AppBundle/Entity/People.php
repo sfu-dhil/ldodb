@@ -62,7 +62,7 @@ class People extends Entity {
     /**
      * @var string
      *
-     * @ORM\Column(name="gender", type="text", length=255, nullable=true)
+     * @ORM\Column(name="gender", type="string", length=1, nullable=true)
      */
     private $gender;
 
