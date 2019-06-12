@@ -6,8 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Keyword;
@@ -27,8 +27,8 @@ class KeywordController extends Controller {
      *
      * @return array
      *
-     * @Route("/", name="keyword_index")
-     * @Method("GET")
+     * @Route("/", name="keyword_index", methods={"GET"})")
+     *
      * @Template()
      */
     public function indexAction(Request $request) {
@@ -49,8 +49,8 @@ class KeywordController extends Controller {
      *
      * @param Request $request
      *
-     * @Route("/typeahead", name="keyword_typeahead")
-     * @Method("GET")
+     * @Route("/typeahead", name="keyword_typeahead", methods={"GET"})")
+     *
      * @return JsonResponse
      */
     public function typeahead(Request $request) {
@@ -75,8 +75,8 @@ class KeywordController extends Controller {
      *
      * @param Request $request
      *
-     * @Route("/search", name="keyword_search")
-     * @Method("GET")
+     * @Route("/search", name="keyword_search", methods={"GET"})")
+     *
      * @Template()
      */
     public function searchAction(Request $request) {
@@ -105,8 +105,8 @@ class KeywordController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="keyword_new")
-     * @Method({"GET", "POST"})
+     * @Route("/new", name="keyword_new", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function newAction(Request $request) {
@@ -137,8 +137,8 @@ class KeywordController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="keyword_new_popup")
-     * @Method({"GET", "POST"})
+     * @Route("/new_popup", name="keyword_new_popup", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function newPopupAction(Request $request) {
@@ -152,8 +152,8 @@ class KeywordController extends Controller {
      *
      * @return array
      *
-     * @Route("/{id}", name="keyword_show")
-     * @Method("GET")
+     * @Route("/{id}", name="keyword_show", methods={"GET"})")
+     *
      * @Template()
      */
     public function showAction(Keyword $keyword) {
@@ -173,8 +173,8 @@ class KeywordController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="keyword_edit")
-     * @Method({"GET", "POST"})
+     * @Route("/{id}/edit", name="keyword_edit", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function editAction(Request $request, Keyword $keyword) {
@@ -204,8 +204,8 @@ class KeywordController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/delete", name="keyword_delete")
-     * @Method("GET")
+     * @Route("/{id}/delete", name="keyword_delete", methods={"GET"})")
+     *
      */
     public function deleteAction(Request $request, Keyword $keyword) {
         $em = $this->getDoctrine()->getManager();

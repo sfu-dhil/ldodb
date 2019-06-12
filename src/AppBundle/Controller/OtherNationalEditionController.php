@@ -6,8 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\OtherNationalEdition;
@@ -27,8 +27,8 @@ class OtherNationalEditionController extends Controller {
      *
      * @return array
      *
-     * @Route("/", name="other_national_edition_index")
-     * @Method("GET")
+     * @Route("/", name="other_national_edition_index", methods={"GET"})")
+     *
      * @Template()
      */
     public function indexAction(Request $request) {
@@ -52,8 +52,8 @@ class OtherNationalEditionController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="other_national_edition_new")
-     * @Method({"GET", "POST"})
+     * @Route("/new", name="other_national_edition_new", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function newAction(Request $request) {
@@ -84,8 +84,8 @@ class OtherNationalEditionController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="other_national_edition_new_popup")
-     * @Method({"GET", "POST"})
+     * @Route("/new_popup", name="other_national_edition_new_popup", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function newPopupAction(Request $request) {
@@ -99,8 +99,8 @@ class OtherNationalEditionController extends Controller {
      *
      * @return array
      *
-     * @Route("/{id}", name="other_national_edition_show")
-     * @Method("GET")
+     * @Route("/{id}", name="other_national_edition_show", methods={"GET"})")
+     *
      * @Template()
      */
     public function showAction(OtherNationalEdition $otherNationalEdition) {
@@ -120,8 +120,8 @@ class OtherNationalEditionController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="other_national_edition_edit")
-     * @Method({"GET", "POST"})
+     * @Route("/{id}/edit", name="other_national_edition_edit", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function editAction(Request $request, OtherNationalEdition $otherNationalEdition) {
@@ -151,8 +151,8 @@ class OtherNationalEditionController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/delete", name="other_national_edition_delete")
-     * @Method("GET")
+     * @Route("/{id}/delete", name="other_national_edition_delete", methods={"GET"})")
+     *
      */
     public function deleteAction(Request $request, OtherNationalEdition $otherNationalEdition) {
         $em = $this->getDoctrine()->getManager();

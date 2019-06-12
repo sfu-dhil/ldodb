@@ -6,8 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\BibliographicTerms;
@@ -27,8 +27,8 @@ class BibliographicTermsController extends Controller {
      *
      * @return array
      *
-     * @Route("/", name="bibliographic_terms_index")
-     * @Method("GET")
+     * @Route("/", name="bibliographic_terms_index", methods={"GET"})")
+     *
      * @Template()
      */
     public function indexAction(Request $request) {
@@ -49,8 +49,8 @@ class BibliographicTermsController extends Controller {
      *
      * @param Request $request
      *
-     * @Route("/typeahead", name="bibliographic_terms_typeahead")
-     * @Method("GET")
+     * @Route("/typeahead", name="bibliographic_terms_typeahead", methods={"GET"})")
+     *
      * @return JsonResponse
      */
     public function typeahead(Request $request) {
@@ -78,8 +78,8 @@ class BibliographicTermsController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="bibliographic_terms_new")
-     * @Method({"GET", "POST"})
+     * @Route("/new", name="bibliographic_terms_new", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function newAction(Request $request) {
@@ -110,8 +110,8 @@ class BibliographicTermsController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="bibliographic_terms_new_popup")
-     * @Method({"GET", "POST"})
+     * @Route("/new_popup", name="bibliographic_terms_new_popup", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function newPopupAction(Request $request) {
@@ -125,8 +125,8 @@ class BibliographicTermsController extends Controller {
      *
      * @return array
      *
-     * @Route("/{id}", name="bibliographic_terms_show")
-     * @Method("GET")
+     * @Route("/{id}", name="bibliographic_terms_show", methods={"GET"})")
+     *
      * @Template()
      */
     public function showAction(BibliographicTerms $bibliographicTerm) {
@@ -146,8 +146,8 @@ class BibliographicTermsController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="bibliographic_terms_edit")
-     * @Method({"GET", "POST"})
+     * @Route("/{id}/edit", name="bibliographic_terms_edit", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function editAction(Request $request, BibliographicTerms $bibliographicTerm) {
@@ -177,8 +177,8 @@ class BibliographicTermsController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/delete", name="bibliographic_terms_delete")
-     * @Method("GET")
+     * @Route("/{id}/delete", name="bibliographic_terms_delete", methods={"GET"})")
+     *
      */
     public function deleteAction(Request $request, BibliographicTerms $bibliographicTerm) {
         $em = $this->getDoctrine()->getManager();

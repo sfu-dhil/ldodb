@@ -6,8 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\ReferencedPlace;
@@ -27,8 +27,8 @@ class ReferencedPlaceController extends Controller {
      *
      * @return array
      *
-     * @Route("/", name="referenced_place_index")
-     * @Method("GET")
+     * @Route("/", name="referenced_place_index", methods={"GET"})")
+     *
      * @Template()
      */
     public function indexAction(Request $request) {
@@ -49,8 +49,8 @@ class ReferencedPlaceController extends Controller {
      *
      * @param Request $request
      *
-     * @Route("/typeahead", name="referenced_place_typeahead")
-     * @Method("GET")
+     * @Route("/typeahead", name="referenced_place_typeahead", methods={"GET"})")
+     *
      * @return JsonResponse
      */
     public function typeahead(Request $request) {
@@ -78,8 +78,8 @@ class ReferencedPlaceController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="referenced_place_new")
-     * @Method({"GET", "POST"})
+     * @Route("/new", name="referenced_place_new", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function newAction(Request $request) {
@@ -110,8 +110,8 @@ class ReferencedPlaceController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="referenced_place_new_popup")
-     * @Method({"GET", "POST"})
+     * @Route("/new_popup", name="referenced_place_new_popup", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function newPopupAction(Request $request) {
@@ -125,8 +125,8 @@ class ReferencedPlaceController extends Controller {
      *
      * @return array
      *
-     * @Route("/{id}", name="referenced_place_show")
-     * @Method("GET")
+     * @Route("/{id}", name="referenced_place_show", methods={"GET"})")
+     *
      * @Template()
      */
     public function showAction(ReferencedPlace $referencedPlace) {
@@ -146,8 +146,8 @@ class ReferencedPlaceController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="referenced_place_edit")
-     * @Method({"GET", "POST"})
+     * @Route("/{id}/edit", name="referenced_place_edit", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function editAction(Request $request, ReferencedPlace $referencedPlace) {
@@ -177,8 +177,8 @@ class ReferencedPlaceController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/delete", name="referenced_place_delete")
-     * @Method("GET")
+     * @Route("/{id}/delete", name="referenced_place_delete", methods={"GET"})")
+     *
      */
     public function deleteAction(Request $request, ReferencedPlace $referencedPlace) {
         $em = $this->getDoctrine()->getManager();

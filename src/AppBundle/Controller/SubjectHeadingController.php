@@ -6,8 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\SubjectHeading;
@@ -27,8 +27,8 @@ class SubjectHeadingController extends Controller {
      *
      * @return array
      *
-     * @Route("/", name="subject_heading_index")
-     * @Method("GET")
+     * @Route("/", name="subject_heading_index", methods={"GET"})")
+     *
      * @Template()
      */
     public function indexAction(Request $request) {
@@ -49,8 +49,8 @@ class SubjectHeadingController extends Controller {
      *
      * @param Request $request
      *
-     * @Route("/typeahead", name="subject_heading_typeahead")
-     * @Method("GET")
+     * @Route("/typeahead", name="subject_heading_typeahead", methods={"GET"})")
+     *
      * @return JsonResponse
      */
     public function typeahead(Request $request) {
@@ -75,8 +75,8 @@ class SubjectHeadingController extends Controller {
      *
      * @param Request $request
      *
-     * @Route("/search", name="subject_heading_search")
-     * @Method("GET")
+     * @Route("/search", name="subject_heading_search", methods={"GET"})")
+     *
      * @Template()
      */
     public function searchAction(Request $request) {
@@ -105,8 +105,8 @@ class SubjectHeadingController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="subject_heading_new")
-     * @Method({"GET", "POST"})
+     * @Route("/new", name="subject_heading_new", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function newAction(Request $request) {
@@ -137,8 +137,8 @@ class SubjectHeadingController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="subject_heading_new_popup")
-     * @Method({"GET", "POST"})
+     * @Route("/new_popup", name="subject_heading_new_popup", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function newPopupAction(Request $request) {
@@ -152,8 +152,8 @@ class SubjectHeadingController extends Controller {
      *
      * @return array
      *
-     * @Route("/{id}", name="subject_heading_show")
-     * @Method("GET")
+     * @Route("/{id}", name="subject_heading_show", methods={"GET"})")
+     *
      * @Template()
      */
     public function showAction(SubjectHeading $subjectHeading) {
@@ -173,8 +173,8 @@ class SubjectHeadingController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="subject_heading_edit")
-     * @Method({"GET", "POST"})
+     * @Route("/{id}/edit", name="subject_heading_edit", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function editAction(Request $request, SubjectHeading $subjectHeading) {
@@ -204,8 +204,8 @@ class SubjectHeadingController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/delete", name="subject_heading_delete")
-     * @Method("GET")
+     * @Route("/{id}/delete", name="subject_heading_delete", methods={"GET"})")
+     *
      */
     public function deleteAction(Request $request, SubjectHeading $subjectHeading) {
         $em = $this->getDoctrine()->getManager();
