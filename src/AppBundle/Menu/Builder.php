@@ -94,10 +94,6 @@ class Builder implements ContainerAwareInterface {
             'class' => 'divider',
         ));
 
-        $browse->addChild('features', array(
-            'label' => 'Features',
-            'route' => 'homepage_features'
-        ));
         $browse->addChild('genre_index', array(
             'label' => 'Genres',
             'route' => 'genre_index',
@@ -106,28 +102,12 @@ class Builder implements ContainerAwareInterface {
             'label' => 'Keywords',
             'route' => 'keyword_index',
         ));
-        $browse->addChild('organization_index', array(
-            'label' => 'Organizations',
-            'route' => 'organization_index',
-        ));
-        $browse->addChild('role_index', array(
-            'label' => 'Roles',
-            'route' => 'role_index',
-        ));
         $browse->addChild('subject_index', array(
             'label' => 'Subjects',
             'route' => 'subject_index',
         ));
-        $browse->addChild('subject_heading_index', array(
-            'label' => 'Subject Headings',
-            'route' => 'subject_heading_index',
-        ));
-        $browse->addChild('task_index', array(
-            'label' => 'Tasks',
-            'route' => 'task_index',
-        ));
 
-        if ($this->hasRole('ROLE_ADMIN')) {
+        if ($this->hasRole('ROLE_CONTENT_ADMIN')) {
             $browse->addChild('divider', array(
                 'label' => '',
             ));
@@ -135,6 +115,28 @@ class Builder implements ContainerAwareInterface {
                 'role' => 'separator',
                 'class' => 'divider',
             ));
+
+            $browse->addChild('features', array(
+                'label' => 'Features',
+                'route' => 'homepage_features'
+            ));
+            $browse->addChild('organization_index', array(
+                'label' => 'Organizations',
+                'route' => 'organization_index',
+            ));
+            $browse->addChild('role_index', array(
+                'label' => 'Roles',
+                'route' => 'role_index',
+            ));
+            $browse->addChild('subject_heading_index', array(
+                'label' => 'Subject Headings',
+                'route' => 'subject_heading_index',
+            ));
+            $browse->addChild('task_index', array(
+                'label' => 'Tasks',
+                'route' => 'task_index',
+            ));
+
             $browse->addChild('bibliographic_term_index', array(
                 'label' => 'Bibliographic Terms',
                 'route' => 'bibliographic_terms_index',
