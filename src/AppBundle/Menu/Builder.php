@@ -59,11 +59,6 @@ class Builder implements ContainerAwareInterface {
             'class' => 'nav navbar-nav',
         ));
 
-        $menu->addChild('home', array(
-            'label' => 'Home',
-            'route' => 'homepage',
-        ));
-
         $browse = $menu->addChild('browse', array(
             'label' => 'Browse ' . self::CARET,
             'uri' => '#',

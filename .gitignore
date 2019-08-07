@@ -22,3 +22,4 @@
 /app/config/deploy.yml
 /.idea
 web/js
+.phpunit.result.cache

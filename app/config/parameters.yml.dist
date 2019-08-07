@@ -31,6 +31,8 @@ parameters:
     nines_blog.menu_posts: 5
     nines_text.trim_length: 50
 
+    nines.editor.upload_dir: web/images/tinymce
+
     # home page stuff.
     ldodb.homepage_entries: 5
 
