@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 
 class PlaceRepository extends EntityRepository {
 
@@ -24,13 +25,11 @@ class PlaceRepository extends EntityRepository {
      * Prepare a search query, but do not execute it.
      *
      * @param string $q
-     * @return Collection|Place[]
+     * @return Query
      */
     public function searchQuery($q) {
         $qb = $this->createQueryBuilder('e');
-        $qb->addSelect("MATCH (e.placeName) AGAINST(:q BOOLEAN) as HIDDEN score");
-        $qb->addSelect("MATCH (e.placeName) AGAINST(:q BOOLEAN) > 0.0");
-        $qb->orderBy('score', 'DESC');
+        $qb->andWhere("MATCH (e.placeName) AGAINST(:q BOOLEAN) > 0.0");
         $qb->setParameter('q', $q);
         return $qb->getQuery();
     }
