@@ -34,7 +34,7 @@ class BookController extends Controller {
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
-        $qb->select('e')->from(Book::class, 'e')->orderBy('e.id', 'ASC');
+        $qb->select('e')->from(Book::class, 'e')->orderBy('e.title', 'ASC');
         $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $books = $paginator->paginate($query, $request->query->getint('page', 1), 25);

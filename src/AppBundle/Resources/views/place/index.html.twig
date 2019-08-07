@@ -26,7 +26,7 @@
 
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
-            <tr><th>Place Name</th><th>In Lake District</th></tr>
+            <tr><th>Place Name</th></tr>
         </thead>
         <tbody>
             {% for place in places %}
@@ -36,7 +36,6 @@
                             {{ place.placeName }}
                         </a>
                     </td>
-                    <td>{% if place.inLakeDistrict %}Yes{% else %}No{% endif %}</td>
                 </tr>
             {% endfor %}
         </tbody>
