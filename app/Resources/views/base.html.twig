@@ -31,7 +31,7 @@
                     </ul>
 
                     {{ knp_menu_render('pages') }}
-                    {{ knp_menu_render('main') }}
+                    {{ knp_menu_render('main', {'allow_safe_labels': true}) }}
                     {% if is_granted('ROLE_COMMENT_ADMIN') %}
                         {{ knp_menu_render('feedback') }}
                     {% endif %}
