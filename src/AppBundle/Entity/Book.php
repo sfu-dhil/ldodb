@@ -287,7 +287,7 @@ class Book {
 
     /**
      * @var Collection|Contribution
-     * @ORM\OneToMany(targetEntity="Contribution", mappedBy="book")
+     * @ORM\OneToMany(targetEntity="Contribution", mappedBy="book", cascade={"persist","remove"})
      */
     private $contributions;
 
