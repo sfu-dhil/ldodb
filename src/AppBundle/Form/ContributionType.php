@@ -2,11 +2,13 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Contribution;
+use AppBundle\Entity\Entity;
+use AppBundle\Entity\Task;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 
 /**
  * ContributionType form.
@@ -20,9 +22,34 @@ class ContributionType extends AbstractType {
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add('book');
-        $builder->add('entity');
-        $builder->add('task');
+        $builder->add('entity', Select2EntityType::class, array(
+            'multiple' => false,
+            'remote_route' => 'entity_typeahead',
+            'class' => Entity::class,
+            'primary_key' => 'id',
+            'text_property' => 'asString',
+            'page_limit' => 10,
+            'allow_clear' => true,
+            'delay' => 250,
+            'language' => 'en',
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
+        $builder->add('task', Select2EntityType::class, array(
+            'multiple' => false,
+            'remote_route' => 'task_typeahead',
+            'class' => Task::class,
+            'primary_key' => 'id',
+            'text_property' => 'taskName',
+            'page_limit' => 10,
+            'allow_clear' => true,
+            'delay' => 250,
+            'language' => 'en',
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
     }
 
     /**
@@ -35,7 +62,7 @@ class ContributionType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Contribution'
+            'data_class' => Contribution::class
         ));
     }
 

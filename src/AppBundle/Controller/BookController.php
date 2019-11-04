@@ -6,8 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Book;
@@ -27,14 +27,14 @@ class BookController extends Controller {
      *
      * @return array
      *
-     * @Route("/", name="book_index")
-     * @Method("GET")
+     * @Route("/", name="book_index", methods={"GET"})")
+     *
      * @Template()
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
-        $qb->select('e')->from(Book::class, 'e')->orderBy('e.id', 'ASC');
+        $qb->select('e')->from(Book::class, 'e')->orderBy('e.title', 'ASC');
         $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $books = $paginator->paginate($query, $request->query->getint('page', 1), 25);
@@ -49,8 +49,8 @@ class BookController extends Controller {
      *
      * @param Request $request
      *
-     * @Route("/typeahead", name="book_typeahead")
-     * @Method("GET")
+     * @Route("/typeahead", name="book_typeahead", methods={"GET"})")
+     *
      * @return JsonResponse
      */
     public function typeahead(Request $request) {
@@ -75,8 +75,8 @@ class BookController extends Controller {
      *
      * @param Request $request
      *
-     * @Route("/search", name="book_search")
-     * @Method("GET")
+     * @Route("/search", name="book_search", methods={"GET"})")
+     *
      * @Template()
      */
     public function searchAction(Request $request) {
@@ -105,8 +105,8 @@ class BookController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="book_new")
-     * @Method({"GET", "POST"})
+     * @Route("/new", name="book_new", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function newAction(Request $request) {
@@ -115,6 +115,9 @@ class BookController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            foreach($book->getContributions() as $contribution) {
+                $contribution->setBook($book);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($book);
             $em->flush();
@@ -137,8 +140,8 @@ class BookController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="book_new_popup")
-     * @Method({"GET", "POST"})
+     * @Route("/new_popup", name="book_new_popup", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function newPopupAction(Request $request) {
@@ -152,8 +155,8 @@ class BookController extends Controller {
      *
      * @return array
      *
-     * @Route("/{id}", name="book_show")
-     * @Method("GET")
+     * @Route("/{id}", name="book_show", methods={"GET"})")
+     *
      * @Template()
      */
     public function showAction(Book $book) {
@@ -173,8 +176,8 @@ class BookController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="book_edit")
-     * @Method({"GET", "POST"})
+     * @Route("/{id}/edit", name="book_edit", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function editAction(Request $request, Book $book) {
@@ -182,6 +185,9 @@ class BookController extends Controller {
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            foreach($book->getContributions() as $contribution) {
+                $contribution->setBook($book);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success', 'The book has been updated.');
@@ -204,8 +210,8 @@ class BookController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/delete", name="book_delete")
-     * @Method("GET")
+     * @Route("/{id}/delete", name="book_delete", methods={"GET"})")
+     *
      */
     public function deleteAction(Request $request, Book $book) {
         $em = $this->getDoctrine()->getManager();

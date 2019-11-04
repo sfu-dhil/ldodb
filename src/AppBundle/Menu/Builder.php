@@ -59,11 +59,6 @@ class Builder implements ContainerAwareInterface {
             'class' => 'nav navbar-nav',
         ));
 
-        $menu->addChild('home', array(
-            'label' => 'Home',
-            'route' => 'homepage',
-        ));
-
         $browse = $menu->addChild('browse', array(
             'label' => 'Browse ' . self::CARET,
             'uri' => '#',
@@ -94,10 +89,6 @@ class Builder implements ContainerAwareInterface {
             'class' => 'divider',
         ));
 
-        $browse->addChild('features', array(
-            'label' => 'Features',
-            'route' => 'homepage_features'
-        ));
         $browse->addChild('genre_index', array(
             'label' => 'Genres',
             'route' => 'genre_index',
@@ -106,28 +97,12 @@ class Builder implements ContainerAwareInterface {
             'label' => 'Keywords',
             'route' => 'keyword_index',
         ));
-        $browse->addChild('organization_index', array(
-            'label' => 'Organizations',
-            'route' => 'organization_index',
-        ));
-        $browse->addChild('role_index', array(
-            'label' => 'Roles',
-            'route' => 'role_index',
-        ));
         $browse->addChild('subject_index', array(
             'label' => 'Subjects',
             'route' => 'subject_index',
         ));
-        $browse->addChild('subject_heading_index', array(
-            'label' => 'Subject Headings',
-            'route' => 'subject_heading_index',
-        ));
-        $browse->addChild('task_index', array(
-            'label' => 'Tasks',
-            'route' => 'task_index',
-        ));
 
-        if ($this->hasRole('ROLE_ADMIN')) {
+        if ($this->hasRole('ROLE_CONTENT_ADMIN')) {
             $browse->addChild('divider', array(
                 'label' => '',
             ));
@@ -135,6 +110,14 @@ class Builder implements ContainerAwareInterface {
                 'role' => 'separator',
                 'class' => 'divider',
             ));
+
+            $browse->addChild('admin_only', array(
+                'label' => '<b>Administrators</b>',
+                'uri' => '#',
+                'class' => 'disabled',
+                'extras' => array('safe_label' => true),
+            ));
+
             $browse->addChild('bibliographic_term_index', array(
                 'label' => 'Bibliographic Terms',
                 'route' => 'bibliographic_terms_index',
@@ -147,6 +130,11 @@ class Builder implements ContainerAwareInterface {
                 'label' => 'Digital Copy Holders',
                 'route' => 'digital_copy_holder_index',
             ));
+
+            $browse->addChild('features', array(
+                'label' => 'Features',
+                'route' => 'homepage_features'
+            ));
             $browse->addChild('map_size_index', array(
                 'label' => 'Map Sizes',
                 'route' => 'map_size_index'
@@ -154,6 +142,10 @@ class Builder implements ContainerAwareInterface {
             $browse->addChild('map_type_index', array(
                 'label' => 'Map Types',
                 'route' => 'map_type_index'
+            ));
+            $browse->addChild('organization_index', array(
+                'label' => 'Organizations',
+                'route' => 'organization_index',
             ));
             $browse->addChild('other_copy_location_index', array(
                 'label' => 'Other Copy Locations',
@@ -175,10 +167,23 @@ class Builder implements ContainerAwareInterface {
                 'label' => 'Referenced Places',
                 'route' => 'referenced_place_index',
             ));
+            $browse->addChild('role_index', array(
+                'label' => 'Roles',
+                'route' => 'role_index',
+            ));
+            $browse->addChild('subject_heading_index', array(
+                'label' => 'Subject Headings',
+                'route' => 'subject_heading_index',
+            ));
             $browse->addChild('supplemental_place_data_index', array(
                 'label' => 'Supplemental Place Data',
                 'route' => 'supplemental_place_data_index',
             ));
+            $browse->addChild('task_index', array(
+                'label' => 'Tasks',
+                'route' => 'task_index',
+            ));
+
         }
 
         return $menu;

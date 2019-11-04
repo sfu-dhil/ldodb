@@ -6,8 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\MapType;
@@ -27,8 +27,8 @@ class MapTypeController extends Controller {
      *
      * @return array
      *
-     * @Route("/", name="map_type_index")
-     * @Method("GET")
+     * @Route("/", name="map_type_index", methods={"GET"})")
+     *
      * @Template()
      */
     public function indexAction(Request $request) {
@@ -49,8 +49,8 @@ class MapTypeController extends Controller {
      *
      * @param Request $request
      *
-     * @Route("/typeahead", name="map_type_typeahead")
-     * @Method("GET")
+     * @Route("/typeahead", name="map_type_typeahead", methods={"GET"})")
+     *
      * @return JsonResponse
      */
     public function typeahead(Request $request) {
@@ -78,8 +78,8 @@ class MapTypeController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="map_type_new")
-     * @Method({"GET", "POST"})
+     * @Route("/new", name="map_type_new", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function newAction(Request $request) {
@@ -110,8 +110,8 @@ class MapTypeController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="map_type_new_popup")
-     * @Method({"GET", "POST"})
+     * @Route("/new_popup", name="map_type_new_popup", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function newPopupAction(Request $request) {
@@ -125,8 +125,8 @@ class MapTypeController extends Controller {
      *
      * @return array
      *
-     * @Route("/{id}", name="map_type_show")
-     * @Method("GET")
+     * @Route("/{id}", name="map_type_show", methods={"GET"})")
+     *
      * @Template()
      */
     public function showAction(MapType $mapType) {
@@ -146,8 +146,8 @@ class MapTypeController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="map_type_edit")
-     * @Method({"GET", "POST"})
+     * @Route("/{id}/edit", name="map_type_edit", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function editAction(Request $request, MapType $mapType) {
@@ -177,8 +177,8 @@ class MapTypeController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/delete", name="map_type_delete")
-     * @Method("GET")
+     * @Route("/{id}/delete", name="map_type_delete", methods={"GET"})")
+     *
      */
     public function deleteAction(Request $request, MapType $mapType) {
         $em = $this->getDoctrine()->getManager();

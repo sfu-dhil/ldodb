@@ -14,17 +14,19 @@ class AppKernel extends Kernel
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
 
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new FOS\CKEditorBundle\FOSCKEditorBundle(),
+            new Tetranz\Select2EntityBundle\TetranzSelect2EntityBundle(),
 
             new Nines\BlogBundle\NinesBlogBundle(),
             new Nines\FeedbackBundle\NinesFeedbackBundle(),
             new Nines\DublinCoreBundle\NinesDublinCoreBundle(),
+            new Nines\EditorBundle\NinesEditorBundle(),
             new Nines\UserBundle\NinesUserBundle(),
             new Nines\UtilBundle\NinesUtilBundle(),
         ];

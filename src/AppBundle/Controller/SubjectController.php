@@ -2,12 +2,13 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Book;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Subject;
@@ -27,14 +28,14 @@ class SubjectController extends Controller {
      *
      * @return array
      *
-     * @Route("/", name="subject_index")
-     * @Method("GET")
+     * @Route("/", name="subject_index", methods={"GET"})")
+     *
      * @Template()
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
-        $qb->select('e')->from(Subject::class, 'e')->orderBy('e.id', 'ASC');
+        $qb->select('e')->from(Subject::class, 'e')->orderBy('e.subjectName', 'ASC');
         $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $subjects = $paginator->paginate($query, $request->query->getint('page', 1), 25);
@@ -49,8 +50,8 @@ class SubjectController extends Controller {
      *
      * @param Request $request
      *
-     * @Route("/typeahead", name="subject_typeahead")
-     * @Method("GET")
+     * @Route("/typeahead", name="subject_typeahead", methods={"GET"})")
+     *
      * @return JsonResponse
      */
     public function typeahead(Request $request) {
@@ -75,8 +76,8 @@ class SubjectController extends Controller {
      *
      * @param Request $request
      *
-     * @Route("/search", name="subject_search")
-     * @Method("GET")
+     * @Route("/search", name="subject_search", methods={"GET"})")
+     *
      * @Template()
      */
     public function searchAction(Request $request) {
@@ -105,8 +106,8 @@ class SubjectController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="subject_new")
-     * @Method({"GET", "POST"})
+     * @Route("/new", name="subject_new", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function newAction(Request $request) {
@@ -137,8 +138,8 @@ class SubjectController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="subject_new_popup")
-     * @Method({"GET", "POST"})
+     * @Route("/new_popup", name="subject_new_popup", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function newPopupAction(Request $request) {
@@ -152,14 +153,19 @@ class SubjectController extends Controller {
      *
      * @return array
      *
-     * @Route("/{id}", name="subject_show")
-     * @Method("GET")
+     * @Route("/{id}", name="subject_show", methods={"GET"})")
+     *
      * @Template()
      */
     public function showAction(Subject $subject) {
+        $iterator = $subject->getBooks()->getIterator();
+        $iterator->uasort(function(Book $a, Book $b){
+            return strcasecmp($a->getTitle(), $b->getTitle());
+        });
 
         return array(
             'subject' => $subject,
+            'books' => $iterator,
         );
     }
 
@@ -173,8 +179,8 @@ class SubjectController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="subject_edit")
-     * @Method({"GET", "POST"})
+     * @Route("/{id}/edit", name="subject_edit", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function editAction(Request $request, Subject $subject) {
@@ -204,8 +210,8 @@ class SubjectController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/delete", name="subject_delete")
-     * @Method("GET")
+     * @Route("/{id}/delete", name="subject_delete", methods={"GET"})")
+     *
      */
     public function deleteAction(Request $request, Subject $subject) {
         $em = $this->getDoctrine()->getManager();

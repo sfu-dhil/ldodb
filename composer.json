@@ -19,19 +19,23 @@
             "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php"
         ]
     },
+    "repositories": [
+        {
+            "type": "github",
+            "url": "https://github.com/ubermichael/nines-bundles.git"
+        }
+    ],
     "require": {
-        "php": ">=7.1.0",
-        "beberlei/DoctrineExtensions": "^1.0",
+        "php": ">=7.2.0",
+        "beberlei/doctrineextensions": "^1.0",
         "doctrine/doctrine-bundle": "^1.8",
+        "doctrine/doctrine-migrations-bundle": "^1.0",
         "doctrine/orm": "^2.6",
-        "friendsofsymfony/ckeditor-bundle": "^1.1",
         "friendsofsymfony/user-bundle": "^2.0",
         "incenteev/composer-parameter-handler": "^2.0",
         "knplabs/knp-menu-bundle": "^2.2",
-        "knplabs/knp-paginator-bundle": "^2.7",
-
+        "knplabs/knp-paginator-bundle": "^4.0",
         "ninsuo/symfony-collection": "^2.1",
-
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^5.0.0",
         "symfony/monolog-bundle": "^3.1.0",
@@ -41,16 +45,17 @@
         "symfony/templating": "^3.4",
         "tetranz/select2entity-bundle": "^2.9",
         "twig/extensions": "^1.5",
-        "twig/twig": "^2.5"
+        "twig/twig": "^2.11",
+        "ubermichael/nines": "2.x-dev"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.0",
         "drupal/coder": "^8.2",
         "liip/functional-test-bundle": "~2.0@alpha",
-        "phpunit/phpunit": "^7.3",
+        "phpunit/phpunit": "^8.2",
         "sensio/generator-bundle": "^3.0",
         "squizlabs/php_codesniffer": "^3.3",
-        "symfony/phpunit-bridge": "^4.1"
+        "symfony/phpunit-bridge": "^4.3"
     },
     "scripts": {
         "symfony-scripts": [
@@ -62,10 +67,12 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ],
         "post-install-cmd": [
-            "@symfony-scripts"
+            "@symfony-scripts",
+            "Fuz\\Symfony\\Collection\\ScriptHandler::postInstall"
         ],
         "post-update-cmd": [
-            "@symfony-scripts"
+            "@symfony-scripts",
+            "Fuz\\Symfony\\Collection\\ScriptHandler::postInstall"
         ]
     },
     "config": {

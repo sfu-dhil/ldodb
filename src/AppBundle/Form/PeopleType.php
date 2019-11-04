@@ -2,11 +2,14 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Place;
+use AppBundle\Entity\Role;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 
 /**
  * PeopleType form.
@@ -90,7 +93,7 @@ class PeopleType extends AbstractType {
                 'help_block' => '',
             ),
         ));
-        $builder->add('peopleUri', null, array(
+        $builder->add('peopleUri', UrlType::class, array(
             'label' => 'People Uri',
             'required' => false,
             'attr' => array(
@@ -157,11 +160,76 @@ class PeopleType extends AbstractType {
                 'help_block' => '',
             ),
         ));
-        $builder->add('birthPlace');
-        $builder->add('deathPlace');
-        $builder->add('travels');
-        $builder->add('residences');
-        $builder->add('roles');
+        $builder->add('birthPlace', Select2EntityType::class, array(
+            'multiple' => false,
+            'remote_route' => 'place_typeahead',
+            'class' => Place::class,
+            'primary_key' => 'id',
+            'text_property' => 'placename',
+            'page_limit' => 10,
+            'allow_clear' => true,
+            'delay' => 250,
+            'language' => 'en',
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
+        $builder->add('deathPlace', Select2EntityType::class, array(
+            'multiple' => false,
+            'remote_route' => 'place_typeahead',
+            'class' => Place::class,
+            'primary_key' => 'id',
+            'text_property' => 'placeName',
+            'page_limit' => 10,
+            'allow_clear' => true,
+            'delay' => 250,
+            'language' => 'en',
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
+        $builder->add('travels', Select2EntityType::class, array(
+            'multiple' => true,
+            'remote_route' => 'place_typeahead',
+            'class' => Place::class,
+            'primary_key' => 'id',
+            'text_property' => 'placeName',
+            'page_limit' => 10,
+            'allow_clear' => true,
+            'delay' => 250,
+            'language' => 'en',
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
+        $builder->add('residences', Select2EntityType::class, array(
+            'multiple' => true,
+            'remote_route' => 'place_typeahead',
+            'class' => Place::class,
+            'primary_key' => 'id',
+            'text_property' => 'placeName',
+            'page_limit' => 10,
+            'allow_clear' => true,
+            'delay' => 250,
+            'language' => 'en',
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
+        $builder->add('roles', Select2EntityType::class, array(
+            'multiple' => true,
+            'remote_route' => 'role_typeahead',
+            'class' => Role::class,
+            'primary_key' => 'id',
+            'text_property' => 'roleName',
+            'page_limit' => 10,
+            'allow_clear' => true,
+            'delay' => 250,
+            'language' => 'en',
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
     }
 
     /**

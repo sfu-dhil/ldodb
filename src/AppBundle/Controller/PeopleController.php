@@ -6,8 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\People;
@@ -27,14 +27,14 @@ class PeopleController extends Controller {
      *
      * @return array
      *
-     * @Route("/", name="people_index")
-     * @Method("GET")
+     * @Route("/", name="people_index", methods={"GET"})")
+     *
      * @Template()
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
-        $qb->select('e')->from(People::class, 'e')->orderBy('e.id', 'ASC');
+        $qb->select('e')->from(People::class, 'e')->orderBy('e.lastName', 'ASC')->addOrderBy('e.firstName', 'ASC');
         $query = $qb->getQuery();
         $paginator = $this->get('knp_paginator');
         $people = $paginator->paginate($query, $request->query->getint('page', 1), 25);
@@ -49,8 +49,8 @@ class PeopleController extends Controller {
      *
      * @param Request $request
      *
-     * @Route("/typeahead", name="people_typeahead")
-     * @Method("GET")
+     * @Route("/typeahead", name="people_typeahead", methods={"GET"})")
+     *
      * @return JsonResponse
      */
     public function typeahead(Request $request) {
@@ -75,8 +75,8 @@ class PeopleController extends Controller {
      *
      * @param Request $request
      *
-     * @Route("/search", name="people_search")
-     * @Method("GET")
+     * @Route("/search", name="people_search", methods={"GET"})")
+     *
      * @Template()
      */
     public function searchAction(Request $request) {
@@ -105,8 +105,8 @@ class PeopleController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="people_new")
-     * @Method({"GET", "POST"})
+     * @Route("/new", name="people_new", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function newAction(Request $request) {
@@ -137,8 +137,8 @@ class PeopleController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="people_new_popup")
-     * @Method({"GET", "POST"})
+     * @Route("/new_popup", name="people_new_popup", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function newPopupAction(Request $request) {
@@ -152,8 +152,8 @@ class PeopleController extends Controller {
      *
      * @return array
      *
-     * @Route("/{id}", name="people_show")
-     * @Method("GET")
+     * @Route("/{id}", name="people_show", methods={"GET"})")
+     *
      * @Template()
      */
     public function showAction(People $person) {
@@ -173,8 +173,8 @@ class PeopleController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="people_edit")
-     * @Method({"GET", "POST"})
+     * @Route("/{id}/edit", name="people_edit", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function editAction(Request $request, People $person) {
@@ -204,8 +204,8 @@ class PeopleController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/delete", name="people_delete")
-     * @Method("GET")
+     * @Route("/{id}/delete", name="people_delete", methods={"GET"})")
+     *
      */
     public function deleteAction(Request $request, People $person) {
         $em = $this->getDoctrine()->getManager();

@@ -191,6 +191,7 @@ class Book {
     /**
      * @var string
      *
+     * @Assert\Url
      * @ORM\Column(name="book_uri", type="string", length=255, nullable=true)
      */
     private $bookUri;
@@ -198,6 +199,7 @@ class Book {
     /**
      * @var string
      *
+     * @Assert\Url
      * @ORM\Column(name="digital_object_url", type="text", nullable=true)
      */
     private $digitalObjectUrl;
@@ -285,7 +287,7 @@ class Book {
 
     /**
      * @var Collection|Contribution
-     * @ORM\OneToMany(targetEntity="Contribution", mappedBy="book")
+     * @ORM\OneToMany(targetEntity="Contribution", mappedBy="book", cascade={"persist","remove"})
      */
     private $contributions;
 

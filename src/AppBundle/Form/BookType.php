@@ -2,11 +2,26 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\BindingFeature;
+use AppBundle\Entity\DigitalCopyHolder;
+use AppBundle\Entity\Genre;
+use AppBundle\Entity\Keyword;
+use AppBundle\Entity\MapSize;
+use AppBundle\Entity\MapType;
+use AppBundle\Entity\Place;
+use AppBundle\Entity\PlateType;
+use AppBundle\Entity\ReferencedPerson;
+use AppBundle\Entity\Subject;
+use AppBundle\Entity\SubjectHeading;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType as SymfonyEntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 
 /**
  * BookType form.
@@ -36,7 +51,7 @@ class BookType extends AbstractType {
         ));
         $builder->add('title', null, array(
             'label' => 'Title',
-            'required' => false,
+            'required' => true,
             'attr' => array(
                 'help_block' => '',
             ),
@@ -90,21 +105,21 @@ class BookType extends AbstractType {
                 'help_block' => '',
             ),
         ));
-        $builder->add('volumes', null, array(
+        $builder->add('volumes', IntegerType::class, array(
             'label' => 'Volumes',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-        $builder->add('pages', null, array(
+        $builder->add('pages', IntegerType::class, array(
             'label' => 'Pages',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-        $builder->add('copies', null, array(
+        $builder->add('copies', IntegerType::class, array(
             'label' => 'Copies',
             'required' => false,
             'attr' => array(
@@ -197,14 +212,14 @@ class BookType extends AbstractType {
                 'help_block' => '',
             ),
         ));
-        $builder->add('bookUri', null, array(
+        $builder->add('bookUri', UrlType::class, array(
             'label' => 'Book Uri',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-        $builder->add('digitalObjectUrl', null, array(
+        $builder->add('digitalObjectUrl', UrlType::class, array(
             'label' => 'Digital Object Url',
             'required' => false,
             'attr' => array(
@@ -232,14 +247,14 @@ class BookType extends AbstractType {
                 'help_block' => '',
             ),
         ));
-        $builder->add('plateCount', null, array(
+        $builder->add('plateCount', IntegerType::class, array(
             'label' => 'Plate Count',
             'required' => false,
             'attr' => array(
                 'help_block' => '',
             ),
         ));
-        $builder->add('mapCount', null, array(
+        $builder->add('mapCount', IntegerType::class, array(
             'label' => 'Map Count',
             'required' => false,
             'attr' => array(
@@ -282,17 +297,126 @@ class BookType extends AbstractType {
                 'help_block' => '',
             ),
         ));
-        $builder->add('genres');
-        $builder->add('referencedPeople');
-        $builder->add('plateTypes');
-        $builder->add('mapTypes');
-        $builder->add('subjects');
-        $builder->add('mapSizes');
-        $builder->add('subjectHeadings');
-        $builder->add('bindingFeatures');
-        $builder->add('keywords');
-        $builder->add('digitalCopyHolders');
-        $builder->add('publicationPlaces');
+        $builder->add('contributions', CollectionType::class, array(
+            'label' => 'Contributions',
+            'required' => false,
+            'allow_add' => true,
+            'allow_delete' => true,
+            'delete_empty' => true,
+            'entry_type' => ContributionType::class,
+            'entry_options' => array(
+                'label' => false,
+            ),
+            'by_reference' => true,
+            'attr' => array(
+                'class' => 'collection collection-complex',
+                'help_block' => '',
+            ),
+        ));
+        $builder->add('genres', Select2EntityType::class, array(
+            'multiple' => true,
+            'remote_route' => 'genre_typeahead',
+            'class' => Genre::class,
+            'primary_key' => 'id',
+            'text_property' => 'genreName',
+            'page_limit' => 10,
+            'allow_clear' => true,
+            'delay' => 250,
+            'language' => 'en',
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
+        $builder->add('referencedPeople', Select2EntityType::class, array(
+            'multiple' => true,
+            'remote_route' => 'referenced_person_typeahead',
+            'class' => ReferencedPerson::class,
+            'primary_key' => 'id',
+            'page_limit' => 10,
+            'allow_clear' => true,
+            'delay' => 250,
+            'language' => 'en',
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
+        $builder->add('plateTypes', SymfonyEntityType::class, array(
+            'class' => PlateType::class,
+            'multiple' => true,
+            'expanded' => true,
+        ));
+        $builder->add('mapTypes', SymfonyEntityType::class, array(
+            'class' => MapType::class,
+            'multiple' => true,
+            'expanded' => true,
+        ));
+        $builder->add('subjects', Select2EntityType::class, array(
+            'multiple' => true,
+            'remote_route' => 'subject_typeahead',
+            'class' => Subject::class,
+            'primary_key' => 'id',
+            'page_limit' => 10,
+            'allow_clear' => true,
+            'delay' => 250,
+            'language' => 'en',
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
+        $builder->add('mapSizes', SymfonyEntityType::class, array(
+            'class' => MapSize::class,
+            'multiple' => true,
+            'expanded' => true,
+        ));
+        $builder->add('subjectHeadings', Select2EntityType::class, array(
+            'multiple' => true,
+            'remote_route' => 'subject_heading_typeahead',
+            'class' => SubjectHeading::class,
+            'primary_key' => 'id',
+            'page_limit' => 10,
+            'allow_clear' => true,
+            'delay' => 250,
+            'language' => 'en',
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
+        $builder->add('bindingFeatures', SymfonyEntityType::class, array(
+            'class' => BindingFeature::class,
+            'multiple' => true,
+            'expanded' => true,
+        ));
+        $builder->add('keywords', Select2EntityType::class, array(
+            'multiple' => true,
+            'remote_route' => 'keyword_typeahead',
+            'class' => Keyword::class,
+            'primary_key' => 'id',
+            'page_limit' => 10,
+            'allow_clear' => true,
+            'delay' => 250,
+            'language' => 'en',
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
+        $builder->add('digitalCopyHolders', SymfonyEntityType::class, array(
+            'class' => DigitalCopyHolder::class,
+            'multiple' => true,
+            'expanded' => true,
+        ));
+        $builder->add('publicationPlaces', Select2EntityType::class, array(
+            'multiple' => true,
+            'remote_route' => 'place_typeahead',
+            'class' => Place::class,
+            'primary_key' => 'id',
+            'page_limit' => 10,
+            'allow_clear' => true,
+            'delay' => 250,
+            'language' => 'en',
+            'attr' => array(
+                'help_block' => '',
+            ),
+        ));
     }
 
     /**

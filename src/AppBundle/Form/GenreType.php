@@ -3,9 +3,8 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -22,7 +21,7 @@ class GenreType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('genreName', null, array(
             'label' => 'Genre Name',
-            'required' => false,
+            'required' => true,
             'attr' => array(
                 'help_block' => '',
             ),
@@ -41,7 +40,7 @@ class GenreType extends AbstractType {
                 'help_block' => '',
             ),
         ));
-        $builder->add('genreUri', null, array(
+        $builder->add('genreUri', UrlType::class, array(
             'label' => 'Genre Uri',
             'required' => false,
             'attr' => array(
@@ -55,7 +54,6 @@ class GenreType extends AbstractType {
                 'help_block' => '',
             ),
         ));
-        $builder->add('books');
     }
 
     /**

@@ -15,7 +15,7 @@ class SubjectRepository extends EntityRepository {
     public function typeaheadQuery($q) {
         $qb = $this->createQueryBuilder('e');
         $qb->andWhere("e.subjectName LIKE :q");
-        $qb->orderBy('e.name');
+        $qb->orderBy('e.subjectName');
         $qb->setParameter('q', "{$q}%");
         return $qb->getQuery()->execute();
     }

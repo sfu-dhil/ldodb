@@ -15,7 +15,7 @@ class BookRepository extends EntityRepository {
     public function typeaheadQuery($q) {
         $qb = $this->createQueryBuilder('e');
         $qb->andWhere("e.title LIKE :q");
-        $qb->orderBy('e.name');
+        $qb->orderBy('e.title');
         $qb->setParameter('q', "{$q}%");
         return $qb->getQuery()->execute();
     }

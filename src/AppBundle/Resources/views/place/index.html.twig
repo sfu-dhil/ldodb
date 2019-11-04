@@ -11,6 +11,8 @@
 
 {% block body %}
 
+    {% include 'AppBundle:partial:search.html.twig' with {'route': 'place_search', 'label': 'Name search'} %}
+
     <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
             {% if is_granted('ROLE_CONTENT_ADMIN') %}
@@ -18,15 +20,12 @@
                     <span class="glyphicon glyphicon-plus"></span> New
                 </a>
             {% endif %}
-            <a href="{{ path('place_search') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-search"></span> Search
-            </a>
         </div>
     </div>
 
     <table class="table table-bordered table-condensed table-hover table-striped">
         <thead>
-            <tr><th>Place Name</th><th>In Lake District</th></tr>
+            <tr><th>Place Name</th></tr>
         </thead>
         <tbody>
             {% for place in places %}
@@ -36,7 +35,6 @@
                             {{ place.placeName }}
                         </a>
                     </td>
-                    <td>{% if place.inLakeDistrict %}Yes{% else %}No{% endif %}</td>
                 </tr>
             {% endfor %}
         </tbody>

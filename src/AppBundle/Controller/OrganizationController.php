@@ -6,8 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Organization;
@@ -27,8 +27,8 @@ class OrganizationController extends Controller {
      *
      * @return array
      *
-     * @Route("/", name="organization_index")
-     * @Method("GET")
+     * @Route("/", name="organization_index", methods={"GET"})")
+     *
      * @Template()
      */
     public function indexAction(Request $request) {
@@ -49,8 +49,8 @@ class OrganizationController extends Controller {
      *
      * @param Request $request
      *
-     * @Route("/typeahead", name="organization_typeahead")
-     * @Method("GET")
+     * @Route("/typeahead", name="organization_typeahead", methods={"GET"})")
+     *
      * @return JsonResponse
      */
     public function typeahead(Request $request) {
@@ -75,8 +75,8 @@ class OrganizationController extends Controller {
      *
      * @param Request $request
      *
-     * @Route("/search", name="organization_search")
-     * @Method("GET")
+     * @Route("/search", name="organization_search", methods={"GET"})")
+     *
      * @Template()
      */
     public function searchAction(Request $request) {
@@ -105,8 +105,8 @@ class OrganizationController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="organization_new")
-     * @Method({"GET", "POST"})
+     * @Route("/new", name="organization_new", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function newAction(Request $request) {
@@ -137,8 +137,8 @@ class OrganizationController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="organization_new_popup")
-     * @Method({"GET", "POST"})
+     * @Route("/new_popup", name="organization_new_popup", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function newPopupAction(Request $request) {
@@ -152,8 +152,8 @@ class OrganizationController extends Controller {
      *
      * @return array
      *
-     * @Route("/{id}", name="organization_show")
-     * @Method("GET")
+     * @Route("/{id}", name="organization_show", methods={"GET"})")
+     *
      * @Template()
      */
     public function showAction(Organization $organization) {
@@ -173,8 +173,8 @@ class OrganizationController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="organization_edit")
-     * @Method({"GET", "POST"})
+     * @Route("/{id}/edit", name="organization_edit", methods={"GET","POST"})")
+     *
      * @Template()
      */
     public function editAction(Request $request, Organization $organization) {
@@ -204,8 +204,8 @@ class OrganizationController extends Controller {
      * @return array|RedirectResponse
      *
      * @Security("has_role('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/delete", name="organization_delete")
-     * @Method("GET")
+     * @Route("/{id}/delete", name="organization_delete", methods={"GET"})")
+     *
      */
     public function deleteAction(Request $request, Organization $organization) {
         $em = $this->getDoctrine()->getManager();
