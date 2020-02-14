@@ -11,16 +11,16 @@ class BookFixtures extends Fixture implements DependentFixtureInterface {
 
     public function getDependencies() {
         return [
-            MapTypeFixtures,
-            SubjectFixtures,
-            BindingFeatureFixtures,
-            PlateTypeFixtures,
-            MapSizeFixtures,
-            SubjectHeadingFixtures,
-            KeywordFixtures,
-            ReferencedPersonFixtures,
-            GenreFixtures,
-            DigitalCopyHolderFixtures,
+            MapTypeFixtures::class,
+            SubjectFixtures::class,
+            BindingFeatureFixtures::class,
+            PlateTypeFixtures::class,
+            MapSizeFixtures::class,
+            SubjectHeadingFixtures::class,
+            KeywordFixtures::class,
+            ReferencedPersonFixtures::class,
+            GenreFixtures::class,
+            DigitalCopyHolderFixtures::class,
         ];
     }
 

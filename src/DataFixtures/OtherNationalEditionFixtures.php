@@ -2,27 +2,28 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\OtherCopyLocation;
+use App\Entity\OtherNationalEdition;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class OtherCopyLocationFixtures extends Fixture implements DependentFixtureInterface {
+class OtherNationalEditionFixtures extends Fixture implements DependentFixtureInterface {
 
     public function getDependencies() {
         return [
-            BookFixtures,
+            PlaceFixtures::class,
+            BookFixtures::class,
         ];
     }
 
     public function load(ObjectManager $em) {
-        $object = new OtherCopyLocation();
+        $object = new OtherNationalEdition();
         $object->setBook($this->getReference('Book.1'));
-        $object->setCopyCount(2);
-        $object->setOtherCopyLocation('Codswallop');
+        $object->setPlace($this->getReference('Place.1'));
+        $object->setPublicationDate('1098');
         $em->persist($object);
         $em->flush();
-        $this->setReference('OtherCopyLocation.1', $object);
+        $this->setReference('OtherNationalEdition.1', $object);
     }
 
 }

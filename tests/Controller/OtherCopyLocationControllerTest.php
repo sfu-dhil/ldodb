@@ -1,100 +1,82 @@
 <?php
 
-namespace AppBundle\Tests\Controller;
+namespace App\Tests\Controller;
 
-use AppBundle\Entity\OtherCopyLocation;
-use AppBundle\DataFixtures\ORM\LoadOtherCopyLocation;
-use Nines\UtilBundle\Tests\Util\BaseTestCase;
-use Nines\UserBundle\DataFixtures\ORM\LoadUser;
+use App\Entity\OtherCopyLocation;
+use App\DataFixtures\OtherCopyLocationFixtures;
+use Nines\UtilBundle\Tests\ControllerBaseCase;
+use Nines\UserBundle\DataFixtures\UserFixtures;
 
-class OtherCopyLocationControllerTest extends BaseTestCase {
+class OtherCopyLocationControllerTest extends ControllerBaseCase {
 
-    protected function getFixtures() {
+    protected function fixtures() : array {
         return [
-            LoadUser::class,
-            LoadOtherCopyLocation::class
+            UserFixtures::class,
+            OtherCopyLocationFixtures::class
         ];
     }
 
     public function testAnonIndex() {
-        $client = $this->makeClient();
-        $crawler = $client->request('GET', '/other_copy_location/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $crawler = $this->client->request('GET', '/other_copy_location/');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals(0, $crawler->selectLink('New')->count());
     }
 
     public function testUserIndex() {
-        $client = $this->makeClient([
-            'username' => 'user@example.com',
-            'password' => 'secret',
-        ]);
-        $crawler = $client->request('GET', '/other_copy_location/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->login('user.user');
+        $crawler = $this->client->request('GET', '/other_copy_location/');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals(0, $crawler->selectLink('New')->count());
     }
 
     public function testAdminIndex() {
-        $client = $this->makeClient([
-            'username' => 'admin@example.com',
-            'password' => 'supersecret',
-        ]);
-        $crawler = $client->request('GET', '/other_copy_location/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->login('user.admin');
+        $crawler = $this->client->request('GET', '/other_copy_location/');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals(1, $crawler->selectLink('New')->count());
     }
 
     public function testAnonShow() {
-        $client = $this->makeClient();
-        $crawler = $client->request('GET', '/other_copy_location/1');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $crawler = $this->client->request('GET', '/other_copy_location/1');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals(0, $crawler->selectLink('Edit')->count());
         $this->assertEquals(0, $crawler->selectLink('Delete')->count());
     }
 
     public function testUserShow() {
-        $client = $this->makeClient([
-            'username' => 'user@example.com',
-            'password' => 'secret',
-        ]);
-        $crawler = $client->request('GET', '/other_copy_location/1');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->login('user.user');
+        $crawler = $this->client->request('GET', '/other_copy_location/1');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals(0, $crawler->selectLink('Edit')->count());
         $this->assertEquals(0, $crawler->selectLink('Delete')->count());
     }
 
     public function testAdminShow() {
-        $client = $this->makeClient([
-            'username' => 'admin@example.com',
-            'password' => 'supersecret',
-        ]);
-        $crawler = $client->request('GET', '/other_copy_location/1');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->login('user.admin');
+        $crawler = $this->client->request('GET', '/other_copy_location/1');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals(1, $crawler->selectLink('Edit')->count());
         $this->assertEquals(1, $crawler->selectLink('Delete')->count());
     }
 
     public function testAnonEdit() {
-        $client = $this->makeClient();
-        $crawler = $client->request('GET', '/other_copy_location/1/edit');
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+
+        $crawler = $this->client->request('GET', '/other_copy_location/1/edit');
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
     }
 
     public function testUserEdit() {
-        $client = $this->makeClient([
-            'username' => 'user@example.com',
-            'password' => 'secret',
-        ]);
-        $crawler = $client->request('GET', '/other_copy_location/1/edit');
-        $this->assertEquals(403, $client->getResponse()->getStatusCode());
+        $this->login('user.user');
+        $crawler = $this->client->request('GET', '/other_copy_location/1/edit');
+        $this->assertEquals(403, $this->client->getResponse()->getStatusCode());
     }
 
     public function testAdminEdit() {
-        $client = $this->makeClient([
-            'username' => 'admin@example.com',
-            'password' => 'supersecret',
-        ]);
-        $formCrawler = $client->request('GET', '/other_copy_location/1/edit');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->login('user.admin');
+        $formCrawler = $this->client->request('GET', '/other_copy_location/1/edit');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
         $form = $formCrawler->selectButton('Update')->form([
             'other_copy_location[otherCopyLocation]' => 'Chesterwick',
@@ -102,37 +84,31 @@ class OtherCopyLocationControllerTest extends BaseTestCase {
             'other_copy_location[book]' => $this->getReference('Book.1')->getId(),
         ]);
 
-        $client->submit($form);
-        $this->assertTrue($client->getResponse()->isRedirect('/other_copy_location/1'));
-        $responseCrawler = $client->followRedirect();
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->client->submit($form);
+        $this->assertTrue($this->client->getResponse()->isRedirect('/other_copy_location/1'));
+        $responseCrawler = $this->client->followRedirect();
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals(1, $responseCrawler->filter("td:contains('Chesterwick')")->count());
         $this->assertEquals(1, $responseCrawler->filter("td:contains('31826')")->count());
         $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->getReference('Book.1')}')")->count());
     }
 
     public function testAnonNew() {
-        $client = $this->makeClient();
-        $crawler = $client->request('GET', '/other_copy_location/new');
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+
+        $crawler = $this->client->request('GET', '/other_copy_location/new');
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
     }
 
     public function testUserNew() {
-        $client = $this->makeClient([
-            'username' => 'user@example.com',
-            'password' => 'secret',
-        ]);
-        $crawler = $client->request('GET', '/other_copy_location/new');
-        $this->assertEquals(403, $client->getResponse()->getStatusCode());
+        $this->login('user.user');
+        $crawler = $this->client->request('GET', '/other_copy_location/new');
+        $this->assertEquals(403, $this->client->getResponse()->getStatusCode());
     }
 
     public function testAdminNew() {
-        $client = $this->makeClient([
-            'username' => 'admin@example.com',
-            'password' => 'supersecret',
-        ]);
-        $formCrawler = $client->request('GET', '/other_copy_location/new');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->login('user.admin');
+        $formCrawler = $this->client->request('GET', '/other_copy_location/new');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
         $this->markTestIncomplete('This test fails for unknown reasons.');
 
@@ -142,46 +118,40 @@ class OtherCopyLocationControllerTest extends BaseTestCase {
             'other_copy_location[book]' => '',
         ]);
 
-        $client->submit($form);
-        $this->assertTrue($client->getResponse()->isRedirect());
-        $responseCrawler = $client->followRedirect();
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->client->submit($form);
+        $this->assertTrue($this->client->getResponse()->isRedirect());
+        $responseCrawler = $this->client->followRedirect();
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals(1, $responseCrawler->filter("td:contains('Chesterwick')")->count());
         $this->assertEquals(1, $responseCrawler->filter("td:contains('31826')")->count());
         $this->assertEquals(1, $responseCrawler->filter("td:contains('{$this->getReference('Book.1')}')")->count());
     }
 
     public function testAnonDelete() {
-        $client = $this->makeClient();
-        $crawler = $client->request('GET', '/other_copy_location/1/delete');
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+
+        $crawler = $this->client->request('GET', '/other_copy_location/1/delete');
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
     }
 
     public function testUserDelete() {
-        $client = $this->makeClient([
-            'username' => 'user@example.com',
-            'password' => 'secret',
-        ]);
-        $crawler = $client->request('GET', '/other_copy_location/1/delete');
-        $this->assertEquals(403, $client->getResponse()->getStatusCode());
+        $this->login('user.user');
+        $crawler = $this->client->request('GET', '/other_copy_location/1/delete');
+        $this->assertEquals(403, $this->client->getResponse()->getStatusCode());
     }
 
     public function testAdminDelete() {
-        self::bootKernel();
 
-        $preCount = count($this->em->getRepository(OtherCopyLocation::class)->findAll());
-        $client = $this->makeClient([
-            'username' => 'admin@example.com',
-            'password' => 'supersecret',
-        ]);
-        $crawler = $client->request('GET', '/other_copy_location/1/delete');
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $this->assertTrue($client->getResponse()->isRedirect());
-        $responseCrawler = $client->followRedirect();
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
-        $this->em->clear();
-        $postCount = count($this->em->getRepository(OtherCopyLocation::class)->findAll());
+        $preCount = count($this->entityManager->getRepository(OtherCopyLocation::class)->findAll());
+        $this->login('user.admin');
+        $crawler = $this->client->request('GET', '/other_copy_location/1/delete');
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $this->assertTrue($this->client->getResponse()->isRedirect());
+        $responseCrawler = $this->client->followRedirect();
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+
+        $this->entityManager->clear();
+        $postCount = count($this->entityManager->getRepository(OtherCopyLocation::class)->findAll());
         $this->assertEquals($preCount - 1, $postCount);
     }
 

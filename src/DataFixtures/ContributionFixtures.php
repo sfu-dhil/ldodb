@@ -11,10 +11,10 @@ class ContributionFixtures extends Fixture implements DependentFixtureInterface 
 
     public function getDependencies() {
         return [
-            BookFixtures,
-            OrganizationFixtures,
-            PeopleFixtures,
-            TaskFixtures,
+            BookFixtures::class,
+            OrganizationFixtures::class,
+            PeopleFixtures::class,
+            TaskFixtures::class,
         ];
     }
 

@@ -11,8 +11,8 @@ class PeopleFixtures extends Fixture implements DependentFixtureInterface {
 
     public function getDependencies() {
         return [
-            PlaceFixtures,
-            RoleFixtures,
+            PlaceFixtures::class,
+            RoleFixtures::class,
         ];
     }
 

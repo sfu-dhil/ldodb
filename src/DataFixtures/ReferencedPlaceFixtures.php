@@ -2,28 +2,28 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\OtherNationalEdition;
+use App\Entity\ReferencedPlace;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class OtherNationalEditionFixtures extends Fixture implements DependentFixtureInterface {
+class ReferencedPlaceFixtures extends Fixture implements DependentFixtureInterface {
 
     public function getDependencies() {
         return [
-            PlaceFixtures,
-            BookFixtures,
+            BookFixtures::class,
+            PlaceFixtures::class,
         ];
     }
 
     public function load(ObjectManager $em) {
-        $object = new OtherNationalEdition();
+        $object = new ReferencedPlace();
         $object->setBook($this->getReference('Book.1'));
         $object->setPlace($this->getReference('Place.1'));
-        $object->setPublicationDate('1098');
+        $object->setVariantSpelling('placodermi');
         $em->persist($object);
         $em->flush();
-        $this->setReference('OtherNationalEdition.1', $object);
+        $this->setReference('ReferencedPlace.1', $object);
     }
 
 }

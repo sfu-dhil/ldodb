@@ -32,7 +32,7 @@
 
     <h2>People</h2>
     <ul>
-        {% for contribution in task.contributions if contribution.entity.type == constant('App\\Entity\\Entity::PER_TYPE') %}
+        {% for contribution in task.contributions|filter(c =>  c.entity.type == constant('App\\Entity\\Entity::PER_TYPE')) %}
             <li>
                 {% include 'contribution/partial/contributor-link.html.twig' with {
                     'contribution': contribution,
@@ -47,7 +47,7 @@
 
     <h2>Organizations</h2>
     <ul>
-        {% for contribution in task.contributions if contribution.entity.type == constant('App\\Entity\\Entity::ORG_TYPE') %}
+        {% for contribution in task.contributions|filter(c =>  c.entity.type == constant('App\\Entity\\Entity::ORG_TYPE')) %}
             <li>
                 {% include 'contribution/partial/contributor-link.html.twig' with {
                     'contribution': contribution,

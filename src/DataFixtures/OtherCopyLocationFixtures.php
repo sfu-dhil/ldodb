@@ -2,28 +2,27 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\ReferencedPlace;
+use App\Entity\OtherCopyLocation;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class ReferencedPlaceFixtures extends Fixture implements DependentFixtureInterface {
+class OtherCopyLocationFixtures extends Fixture implements DependentFixtureInterface {
 
     public function getDependencies() {
         return [
-            BookFixtures,
-            PlaceFixtures,
+            BookFixtures::class,
         ];
     }
 
     public function load(ObjectManager $em) {
-        $object = new ReferencedPlace();
+        $object = new OtherCopyLocation();
         $object->setBook($this->getReference('Book.1'));
-        $object->setPlace($this->getReference('Place.1'));
-        $object->setVariantSpelling('placodermi');
+        $object->setCopyCount(2);
+        $object->setOtherCopyLocation('Codswallop');
         $em->persist($object);
         $em->flush();
-        $this->setReference('ReferencedPlace.1', $object);
+        $this->setReference('OtherCopyLocation.1', $object);
     }
 
 }
