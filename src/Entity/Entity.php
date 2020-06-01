@@ -39,7 +39,7 @@ abstract class Entity {
     /**
      * Return string representation of object.
      */
-    abstract public function __toString();
+    abstract public function __toString() : string;
 
     /**
      * Return one of the class constants representing the type.

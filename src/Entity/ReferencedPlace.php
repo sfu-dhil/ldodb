@@ -51,7 +51,7 @@ class ReferencedPlace {
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString() : string {
         return $this->place . ' in ' . $this->book . ($this->variantSpelling ? ' as ' . $this->variantSpelling : '');
     }
 

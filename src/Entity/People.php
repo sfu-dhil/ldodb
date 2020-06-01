@@ -172,7 +172,7 @@ class People extends Entity {
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString() : string {
         return $this->lastName . ', ' . $this->firstName;
     }
 
