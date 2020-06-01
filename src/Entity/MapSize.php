@@ -56,7 +56,7 @@ class MapSize {
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString() : string {
         return ($this->mapSize ? $this->mapSize : "");
     }
 
