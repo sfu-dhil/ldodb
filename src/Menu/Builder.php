@@ -16,8 +16,6 @@ class Builder implements ContainerAwareInterface {
 
     use ContainerAwareTrait;
 
-    const CARET = ' ▾'; // U+25BE, black down-pointing small triangle.
-
     /**
      * @var FactoryInterface
      */
@@ -60,7 +58,7 @@ class Builder implements ContainerAwareInterface {
         ));
 
         $browse = $menu->addChild('browse', array(
-            'label' => 'Browse ' . self::CARET,
+            'label' => 'Browse',
             'uri' => '#',
         ));
         $browse->setAttribute('dropdown', true);
