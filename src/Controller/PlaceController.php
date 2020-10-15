@@ -1,35 +1,39 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Controller;
 
+use App\Entity\Place;
+use App\Form\PlaceType;
 use App\Repository\PlaceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use App\Entity\Place;
-use App\Form\PlaceType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Place controller.
  *
  * @Route("/place")
  */
-class PlaceController extends AbstractController  implements PaginatorAwareInterface {
+class PlaceController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
-
 
     /**
      * Lists all Place entities.
-     *
-     * @param Request $request
      *
      * @return array
      *
@@ -38,22 +42,19 @@ class PlaceController extends AbstractController  implements PaginatorAwareInter
      * @Template()
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
-
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(Place::class, 'e')->orderBy('e.placeName', 'ASC');
         $query = $qb->getQuery();
 
         $places = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
 
-        return array(
+        return [
             'places' => $places,
-        );
+        ];
     }
 
     /**
      * Typeahead API endpoint for Place entities.
-     *
-     * @param Request $request
      *
      * @Route("/typeahead", name="place_typeahead", methods={"GET"})")
      *
@@ -61,7 +62,7 @@ class PlaceController extends AbstractController  implements PaginatorAwareInter
      */
     public function typeahead(Request $request, PlaceRepository $repo) {
         $q = $request->query->get('q');
-        if (!$q) {
+        if ( ! $q) {
             return new JsonResponse([]);
         }
 
@@ -72,13 +73,12 @@ class PlaceController extends AbstractController  implements PaginatorAwareInter
                 'text' => (string) $result,
             ];
         }
+
         return new JsonResponse($data);
     }
 
     /**
      * Search for Place entities.
-     *
-     * @param Request $request
      *
      * @Route("/search", name="place_search", methods={"GET"})")
      *
@@ -91,19 +91,17 @@ class PlaceController extends AbstractController  implements PaginatorAwareInter
 
             $places = $this->paginator->paginate($query, $request->query->getInt('page', 1), 25);
         } else {
-            $places = array();
+            $places = [];
         }
 
-        return array(
+        return [
             'places' => $places,
             'q' => $q,
-        );
+        ];
     }
 
     /**
      * Creates a new Place entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -118,24 +116,22 @@ class PlaceController extends AbstractController  implements PaginatorAwareInter
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->persist($place);
             $em->flush();
 
             $this->addFlash('success', 'The new place was created.');
-            return $this->redirectToRoute('place_show', array('id' => $place->getId()));
+
+            return $this->redirectToRoute('place_show', ['id' => $place->getId()]);
         }
 
-        return array(
+        return [
             'place' => $place,
             'form' => $form->createView(),
-        );
+        ];
     }
 
     /**
      * Creates a new Place entity in a popup.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -151,8 +147,6 @@ class PlaceController extends AbstractController  implements PaginatorAwareInter
     /**
      * Finds and displays a Place entity.
      *
-     * @param Place $place
-     *
      * @return array
      *
      * @Route("/{id}", name="place_show", methods={"GET"})")
@@ -160,18 +154,13 @@ class PlaceController extends AbstractController  implements PaginatorAwareInter
      * @Template()
      */
     public function showAction(Place $place) {
-
-        return array(
+        return [
             'place' => $place,
-        );
+        ];
     }
 
     /**
      * Displays a form to edit an existing Place entity.
-     *
-     *
-     * @param Request $request
-     * @param Place $place
      *
      * @return array|RedirectResponse
      *
@@ -185,38 +174,31 @@ class PlaceController extends AbstractController  implements PaginatorAwareInter
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-
             $em->flush();
             $this->addFlash('success', 'The place has been updated.');
-            return $this->redirectToRoute('place_show', array('id' => $place->getId()));
+
+            return $this->redirectToRoute('place_show', ['id' => $place->getId()]);
         }
 
-        return array(
+        return [
             'place' => $place,
             'edit_form' => $editForm->createView(),
-        );
+        ];
     }
 
     /**
      * Deletes a Place entity.
      *
-     *
-     * @param Request $request
-     * @param Place $place
-     *
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
      * @Route("/{id}/delete", name="place_delete", methods={"GET"})")
-     *
      */
     public function deleteAction(Request $request, Place $place, EntityManagerInterface $em) {
-
         $em->remove($place);
         $em->flush();
         $this->addFlash('success', 'The place was deleted.');
 
         return $this->redirectToRoute('place_index');
     }
-
 }

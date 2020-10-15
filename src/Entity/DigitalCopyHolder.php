@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -7,15 +15,14 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * DigitalCopyHolder
+ * DigitalCopyHolder.
  *
  * @ORM\Table(name="digital_copy_holder")
  * @ORM\Entity(repositoryClass="App\Repository\DigitalCopyHolderRepository")
  */
 class DigitalCopyHolder {
-
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -31,14 +38,13 @@ class DigitalCopyHolder {
     private $organizationName;
 
     /**
-     * @var Collection|Book[]
+     * @var Book[]|Collection
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="digitalCopyHolders")
      */
     private $books;
 
     /**
      * Construct DigitalCopyHolder object.
-     *
      */
     public function __construct() {
         $this->books = new ArrayCollection();
@@ -46,24 +52,22 @@ class DigitalCopyHolder {
 
     /**
      * Return string representation of organizationName.
-     *
-     * @return string
      */
     public function __toString() : string {
         return $this->organizationName;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * Set organizationName
+     * Set organizationName.
      *
      * @param string $organizationName
      *
@@ -76,7 +80,7 @@ class DigitalCopyHolder {
     }
 
     /**
-     * Get organizationName
+     * Get organizationName.
      *
      * @return string
      */
@@ -85,34 +89,33 @@ class DigitalCopyHolder {
     }
 
     /**
-     * Add book
+     * Add book.
      *
      * @param \App\Entity\Book $book
      *
      * @return DigitalCopyHolder
      */
-    public function addBook(\App\Entity\Book $book) {
+    public function addBook(Book $book) {
         $this->books[] = $book;
 
         return $this;
     }
 
     /**
-     * Remove book
+     * Remove book.
      *
      * @param \App\Entity\Book $book
      */
-    public function removeBook(\App\Entity\Book $book) {
+    public function removeBook(Book $book) : void {
         $this->books->removeElement($book);
     }
 
     /**
-     * Get books
+     * Get books.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getBooks() {
         return $this->books;
     }
-
 }

@@ -1,19 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Contribution
+ * Contribution.
  *
  * @ORM\Table(name="contribution")
  * @ORM\Entity(repositoryClass="App\Repository\ContributionRepository")
  */
 class Contribution {
-
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -46,26 +53,22 @@ class Contribution {
      * Return string representation of object.
      *
      * Formatted as task of book, e.g. "Author of Book Title"
-     *
-     * @return string
      */
     public function __toString() : string {
         return $this->task . ' of ' . $this->book;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * Set book
-     *
-     * @param Book $book
+     * Set book.
      *
      * @return Contribution
      */
@@ -76,7 +79,7 @@ class Contribution {
     }
 
     /**
-     * Get book
+     * Get book.
      *
      * @return Book
      */
@@ -85,9 +88,7 @@ class Contribution {
     }
 
     /**
-     * Set entity
-     *
-     * @param Entity $entity
+     * Set entity.
      *
      * @return Contribution
      */
@@ -98,7 +99,7 @@ class Contribution {
     }
 
     /**
-     * Get entity
+     * Get entity.
      *
      * @return Entity
      */
@@ -107,9 +108,7 @@ class Contribution {
     }
 
     /**
-     * Set task
-     *
-     * @param Task $task
+     * Set task.
      *
      * @return Contribution
      */
@@ -120,12 +119,11 @@ class Contribution {
     }
 
     /**
-     * Get task
+     * Get task.
      *
      * @return Task
      */
     public function getTask() {
         return $this->task;
     }
-
 }

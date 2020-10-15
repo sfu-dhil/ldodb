@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * People
+ * People.
  *
  * @ORM\Table(name="people", indexes={
  *      @ORM\Index(columns={"first_name", "last_name"}, flags={"fulltext"}),
@@ -16,7 +24,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\PeopleRepository")
  */
 class People extends Entity {
-
     /**
      * @var string
      *
@@ -110,28 +117,28 @@ class People extends Entity {
     private $peopleUri;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="resident_in_LD", type="boolean", nullable=true, options={"default": false})
      */
     private $residentInLd = false;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="resident_in_London", type="boolean", nullable=true, options={"default": false})
      */
     private $residentInLondon = false;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="resident_outside_UK", type="boolean", nullable=true, options={"default": false})
      */
     private $residentOutsideUk = false;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="travel_outside_UK", type="boolean", nullable=true, options={"default": false})
      */
@@ -168,16 +175,7 @@ class People extends Entity {
     private $roles;
 
     /**
-     * Return string representation of name.
-     *
-     * @return string
-     */
-    public function __toString() : string {
-        return $this->lastName . ', ' . $this->firstName;
-    }
-
-    /**
-     * Constructor
+     * Constructor.
      */
     public function __construct() {
         parent::__construct();
@@ -188,7 +186,14 @@ class People extends Entity {
     }
 
     /**
-     * Set lastName
+     * Return string representation of name.
+     */
+    public function __toString() : string {
+        return $this->lastName . ', ' . $this->firstName;
+    }
+
+    /**
+     * Set lastName.
      *
      * @param string $lastName
      *
@@ -201,7 +206,7 @@ class People extends Entity {
     }
 
     /**
-     * Get lastName
+     * Get lastName.
      *
      * @return string
      */
@@ -210,7 +215,7 @@ class People extends Entity {
     }
 
     /**
-     * Set firstName
+     * Set firstName.
      *
      * @param string $firstName
      *
@@ -223,7 +228,7 @@ class People extends Entity {
     }
 
     /**
-     * Get firstName
+     * Get firstName.
      *
      * @return string
      */
@@ -232,7 +237,7 @@ class People extends Entity {
     }
 
     /**
-     * Set otherLastName
+     * Set otherLastName.
      *
      * @param string $otherLastName
      *
@@ -245,7 +250,7 @@ class People extends Entity {
     }
 
     /**
-     * Get otherLastName
+     * Get otherLastName.
      *
      * @return string
      */
@@ -254,7 +259,7 @@ class People extends Entity {
     }
 
     /**
-     * Set otherFirstName
+     * Set otherFirstName.
      *
      * @param string $otherFirstName
      *
@@ -267,7 +272,7 @@ class People extends Entity {
     }
 
     /**
-     * Get otherFirstName
+     * Get otherFirstName.
      *
      * @return string
      */
@@ -276,7 +281,7 @@ class People extends Entity {
     }
 
     /**
-     * Set birthDate
+     * Set birthDate.
      *
      * @param string $birthDate
      *
@@ -289,7 +294,7 @@ class People extends Entity {
     }
 
     /**
-     * Get birthDate
+     * Get birthDate.
      *
      * @return string
      */
@@ -298,7 +303,7 @@ class People extends Entity {
     }
 
     /**
-     * Set deathDate
+     * Set deathDate.
      *
      * @param string $deathDate
      *
@@ -311,7 +316,7 @@ class People extends Entity {
     }
 
     /**
-     * Get deathDate
+     * Get deathDate.
      *
      * @return string
      */
@@ -320,7 +325,7 @@ class People extends Entity {
     }
 
     /**
-     * Set gender
+     * Set gender.
      *
      * @param string $gender
      *
@@ -333,7 +338,7 @@ class People extends Entity {
     }
 
     /**
-     * Get gender
+     * Get gender.
      *
      * @return string
      */
@@ -342,7 +347,7 @@ class People extends Entity {
     }
 
     /**
-     * Set biographicalNotes
+     * Set biographicalNotes.
      *
      * @param string $biographicalNotes
      *
@@ -355,7 +360,7 @@ class People extends Entity {
     }
 
     /**
-     * Get biographicalNotes
+     * Get biographicalNotes.
      *
      * @return string
      */
@@ -364,7 +369,7 @@ class People extends Entity {
     }
 
     /**
-     * Set biographicalAnnotation
+     * Set biographicalAnnotation.
      *
      * @param string $biographicalAnnotation
      *
@@ -377,7 +382,7 @@ class People extends Entity {
     }
 
     /**
-     * Get biographicalAnnotation
+     * Get biographicalAnnotation.
      *
      * @return string
      */
@@ -386,7 +391,7 @@ class People extends Entity {
     }
 
     /**
-     * Set nationality
+     * Set nationality.
      *
      * @param string $nationality
      *
@@ -399,7 +404,7 @@ class People extends Entity {
     }
 
     /**
-     * Get nationality
+     * Get nationality.
      *
      * @return string
      */
@@ -408,7 +413,7 @@ class People extends Entity {
     }
 
     /**
-     * Set peopleUri
+     * Set peopleUri.
      *
      * @param string $peopleUri
      *
@@ -421,7 +426,7 @@ class People extends Entity {
     }
 
     /**
-     * Get peopleUri
+     * Get peopleUri.
      *
      * @return string
      */
@@ -430,9 +435,9 @@ class People extends Entity {
     }
 
     /**
-     * Set residentInLd
+     * Set residentInLd.
      *
-     * @param boolean $residentInLd
+     * @param bool $residentInLd
      *
      * @return People
      */
@@ -443,18 +448,18 @@ class People extends Entity {
     }
 
     /**
-     * Get residentInLd
+     * Get residentInLd.
      *
-     * @return boolean
+     * @return bool
      */
     public function getResidentInLd() {
         return (bool) $this->residentInLd;
     }
 
     /**
-     * Set residentInLondon
+     * Set residentInLondon.
      *
-     * @param boolean $residentInLondon
+     * @param bool $residentInLondon
      *
      * @return People
      */
@@ -465,18 +470,18 @@ class People extends Entity {
     }
 
     /**
-     * Get residentInLondon
+     * Get residentInLondon.
      *
-     * @return boolean
+     * @return bool
      */
     public function getResidentInLondon() {
         return (bool) $this->residentInLondon;
     }
 
     /**
-     * Set residentOutsideUk
+     * Set residentOutsideUk.
      *
-     * @param boolean $residentOutsideUk
+     * @param bool $residentOutsideUk
      *
      * @return People
      */
@@ -487,18 +492,18 @@ class People extends Entity {
     }
 
     /**
-     * Get residentOutsideUk
+     * Get residentOutsideUk.
      *
-     * @return boolean
+     * @return bool
      */
     public function getResidentOutsideUk() {
         return (bool) $this->residentOutsideUk;
     }
 
     /**
-     * Set travelOutsideUk
+     * Set travelOutsideUk.
      *
-     * @param boolean $travelOutsideUk
+     * @param bool $travelOutsideUk
      *
      * @return People
      */
@@ -509,25 +514,25 @@ class People extends Entity {
     }
 
     /**
-     * Get travelOutsideUk
+     * Get travelOutsideUk.
      *
-     * @return boolean
+     * @return bool
      */
     public function getTravelOutsideUk() {
         return (bool) $this->travelOutsideUk;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * Set birthPlace
+     * Set birthPlace.
      *
      * @param Place $birthPlace
      *
@@ -540,7 +545,7 @@ class People extends Entity {
     }
 
     /**
-     * Get birthPlace
+     * Get birthPlace.
      *
      * @return Place
      */
@@ -549,7 +554,7 @@ class People extends Entity {
     }
 
     /**
-     * Set deathPlace
+     * Set deathPlace.
      *
      * @param Place $deathPlace
      *
@@ -562,7 +567,7 @@ class People extends Entity {
     }
 
     /**
-     * Get deathPlace
+     * Get deathPlace.
      *
      * @return Place
      */
@@ -571,9 +576,7 @@ class People extends Entity {
     }
 
     /**
-     * Add travel
-     *
-     * @param Place $travel
+     * Add travel.
      *
      * @return People
      */
@@ -584,16 +587,14 @@ class People extends Entity {
     }
 
     /**
-     * Remove travel
-     *
-     * @param Place $travel
+     * Remove travel.
      */
-    public function removeTravel(Place $travel) {
+    public function removeTravel(Place $travel) : void {
         $this->travels->removeElement($travel);
     }
 
     /**
-     * Get travels
+     * Get travels.
      *
      * @return Collection
      */
@@ -602,9 +603,7 @@ class People extends Entity {
     }
 
     /**
-     * Add residence
-     *
-     * @param Place $residence
+     * Add residence.
      *
      * @return People
      */
@@ -615,16 +614,14 @@ class People extends Entity {
     }
 
     /**
-     * Remove residence
-     *
-     * @param Place $residence
+     * Remove residence.
      */
-    public function removeResidence(Place $residence) {
+    public function removeResidence(Place $residence) : void {
         $this->residences->removeElement($residence);
     }
 
     /**
-     * Get residences
+     * Get residences.
      *
      * @return Collection
      */
@@ -633,9 +630,7 @@ class People extends Entity {
     }
 
     /**
-     * Add role
-     *
-     * @param Role $role
+     * Add role.
      *
      * @return People
      */
@@ -646,16 +641,14 @@ class People extends Entity {
     }
 
     /**
-     * Remove role
-     *
-     * @param Role $role
+     * Remove role.
      */
-    public function removeRole(Role $role) {
+    public function removeRole(Role $role) : void {
         $this->roles->removeElement($role);
     }
 
     /**
-     * Get roles
+     * Get roles.
      *
      * @return Collection
      */
@@ -664,9 +657,7 @@ class People extends Entity {
     }
 
     /**
-     * Add contribution
-     *
-     * @param Contribution $contribution
+     * Add contribution.
      *
      * @return People
      */
@@ -677,16 +668,14 @@ class People extends Entity {
     }
 
     /**
-     * Remove contribution
-     *
-     * @param Contribution $contribution
+     * Remove contribution.
      */
-    public function removeContribution(Contribution $contribution) {
+    public function removeContribution(Contribution $contribution) : void {
         $this->contributions->removeElement($contribution);
     }
 
     /**
-     * Get contributions
+     * Get contributions.
      *
      * @return Collection
      */
@@ -702,5 +691,4 @@ class People extends Entity {
     public function getType() {
         return Entity::PER_TYPE;
     }
-
 }

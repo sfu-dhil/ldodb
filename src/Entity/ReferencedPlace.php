@@ -1,13 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ReferencedPlace
+ * ReferencedPlace.
  *
  * @ORM\Table(name="referenced_place", indexes={
  *      @ORM\Index(columns={"variant_spelling"}, flags={"fulltext"}),
@@ -15,9 +21,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\ReferencedPlaceRepository")
  */
 class ReferencedPlace {
-
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -48,24 +53,22 @@ class ReferencedPlace {
 
     /**
      * Return a string representation of the object.
-     *
-     * @return string
      */
     public function __toString() : string {
         return $this->place . ' in ' . $this->book . ($this->variantSpelling ? ' as ' . $this->variantSpelling : '');
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * Set variantSpelling
+     * Set variantSpelling.
      *
      * @param string $variantSpelling
      *
@@ -78,7 +81,7 @@ class ReferencedPlace {
     }
 
     /**
-     * Get variantSpelling
+     * Get variantSpelling.
      *
      * @return string
      */
@@ -87,9 +90,7 @@ class ReferencedPlace {
     }
 
     /**
-     * Set book
-     *
-     * @param Book $book
+     * Set book.
      *
      * @return ReferencedPlace
      */
@@ -100,7 +101,7 @@ class ReferencedPlace {
     }
 
     /**
-     * Get book
+     * Get book.
      *
      * @return Book
      */
@@ -109,9 +110,7 @@ class ReferencedPlace {
     }
 
     /**
-     * Set place
-     *
-     * @param Place $place
+     * Set place.
      *
      * @return ReferencedPlace
      */
@@ -122,12 +121,11 @@ class ReferencedPlace {
     }
 
     /**
-     * Get place
+     * Get place.
      *
      * @return Place
      */
     public function getPlace() {
         return $this->place;
     }
-
 }

@@ -1,35 +1,39 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Controller;
 
+use App\Entity\Organization;
+use App\Form\OrganizationType;
 use App\Repository\OrganizationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use App\Entity\Organization;
-use App\Form\OrganizationType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Organization controller.
  *
  * @Route("/organization")
  */
-class OrganizationController extends AbstractController  implements PaginatorAwareInterface {
+class OrganizationController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
-
 
     /**
      * Lists all Organization entities.
-     *
-     * @param Request $request
      *
      * @return array
      *
@@ -38,22 +42,19 @@ class OrganizationController extends AbstractController  implements PaginatorAwa
      * @Template()
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
-
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(Organization::class, 'e')->orderBy('e.id', 'ASC');
         $query = $qb->getQuery();
 
         $organizations = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
 
-        return array(
+        return [
             'organizations' => $organizations,
-        );
+        ];
     }
 
     /**
      * Typeahead API endpoint for Organization entities.
-     *
-     * @param Request $request
      *
      * @Route("/typeahead", name="organization_typeahead", methods={"GET"})")
      *
@@ -61,7 +62,7 @@ class OrganizationController extends AbstractController  implements PaginatorAwa
      */
     public function typeahead(Request $request, OrganizationRepository $repo) {
         $q = $request->query->get('q');
-        if (!$q) {
+        if ( ! $q) {
             return new JsonResponse([]);
         }
 
@@ -72,13 +73,12 @@ class OrganizationController extends AbstractController  implements PaginatorAwa
                 'text' => (string) $result,
             ];
         }
+
         return new JsonResponse($data);
     }
 
     /**
      * Search for Organization entities.
-     *
-     * @param Request $request
      *
      * @Route("/search", name="organization_search", methods={"GET"})")
      *
@@ -91,19 +91,17 @@ class OrganizationController extends AbstractController  implements PaginatorAwa
 
             $organizations = $this->paginator->paginate($query, $request->query->getInt('page', 1), 25);
         } else {
-            $organizations = array();
+            $organizations = [];
         }
 
-        return array(
+        return [
             'organizations' => $organizations,
             'q' => $q,
-        );
+        ];
     }
 
     /**
      * Creates a new Organization entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -118,24 +116,22 @@ class OrganizationController extends AbstractController  implements PaginatorAwa
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->persist($organization);
             $em->flush();
 
             $this->addFlash('success', 'The new organization was created.');
-            return $this->redirectToRoute('organization_show', array('id' => $organization->getId()));
+
+            return $this->redirectToRoute('organization_show', ['id' => $organization->getId()]);
         }
 
-        return array(
+        return [
             'organization' => $organization,
             'form' => $form->createView(),
-        );
+        ];
     }
 
     /**
      * Creates a new Organization entity in a popup.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -151,8 +147,6 @@ class OrganizationController extends AbstractController  implements PaginatorAwa
     /**
      * Finds and displays a Organization entity.
      *
-     * @param Organization $organization
-     *
      * @return array
      *
      * @Route("/{id}", name="organization_show", methods={"GET"})")
@@ -160,18 +154,13 @@ class OrganizationController extends AbstractController  implements PaginatorAwa
      * @Template()
      */
     public function showAction(Organization $organization) {
-
-        return array(
+        return [
             'organization' => $organization,
-        );
+        ];
     }
 
     /**
      * Displays a form to edit an existing Organization entity.
-     *
-     *
-     * @param Request $request
-     * @param Organization $organization
      *
      * @return array|RedirectResponse
      *
@@ -185,38 +174,31 @@ class OrganizationController extends AbstractController  implements PaginatorAwa
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-
             $em->flush();
             $this->addFlash('success', 'The organization has been updated.');
-            return $this->redirectToRoute('organization_show', array('id' => $organization->getId()));
+
+            return $this->redirectToRoute('organization_show', ['id' => $organization->getId()]);
         }
 
-        return array(
+        return [
             'organization' => $organization,
             'edit_form' => $editForm->createView(),
-        );
+        ];
     }
 
     /**
      * Deletes a Organization entity.
      *
-     *
-     * @param Request $request
-     * @param Organization $organization
-     *
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
      * @Route("/{id}/delete", name="organization_delete", methods={"GET"})")
-     *
      */
     public function deleteAction(Request $request, Organization $organization, EntityManagerInterface $em) {
-
         $em->remove($organization);
         $em->flush();
         $this->addFlash('success', 'The organization was deleted.');
 
         return $this->redirectToRoute('organization_index');
     }
-
 }

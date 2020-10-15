@@ -1,35 +1,38 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Controller;
 
+use App\Entity\OtherCopyLocation;
+use App\Form\OtherCopyLocationType;
 use App\Repository\OtherCopyLocationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use App\Entity\OtherCopyLocation;
-use App\Form\OtherCopyLocationType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * OtherCopyLocation controller.
  *
  * @Route("/other_copy_location")
  */
-class OtherCopyLocationController extends AbstractController  implements PaginatorAwareInterface {
+class OtherCopyLocationController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
-
 
     /**
      * Lists all OtherCopyLocation entities.
-     *
-     * @param Request $request
      *
      * @return array
      *
@@ -38,22 +41,19 @@ class OtherCopyLocationController extends AbstractController  implements Paginat
      * @Template()
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
-
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(OtherCopyLocation::class, 'e')->orderBy('e.id', 'ASC');
         $query = $qb->getQuery();
 
         $otherCopyLocations = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
 
-        return array(
+        return [
             'otherCopyLocations' => $otherCopyLocations,
-        );
+        ];
     }
 
     /**
      * Search for OtherCopyLocation entities.
-     *
-     * @param Request $request
      *
      * @Route("/search", name="other_copy_location_search", methods={"GET"})")
      *
@@ -66,19 +66,17 @@ class OtherCopyLocationController extends AbstractController  implements Paginat
 
             $otherCopyLocations = $this->paginator->paginate($query, $request->query->getInt('page', 1), 25);
         } else {
-            $otherCopyLocations = array();
+            $otherCopyLocations = [];
         }
 
-        return array(
+        return [
             'otherCopyLocations' => $otherCopyLocations,
             'q' => $q,
-        );
+        ];
     }
 
     /**
      * Creates a new OtherCopyLocation entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -93,24 +91,22 @@ class OtherCopyLocationController extends AbstractController  implements Paginat
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->persist($otherCopyLocation);
             $em->flush();
 
             $this->addFlash('success', 'The new otherCopyLocation was created.');
-            return $this->redirectToRoute('other_copy_location_show', array('id' => $otherCopyLocation->getId()));
+
+            return $this->redirectToRoute('other_copy_location_show', ['id' => $otherCopyLocation->getId()]);
         }
 
-        return array(
+        return [
             'otherCopyLocation' => $otherCopyLocation,
             'form' => $form->createView(),
-        );
+        ];
     }
 
     /**
      * Creates a new OtherCopyLocation entity in a popup.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -126,8 +122,6 @@ class OtherCopyLocationController extends AbstractController  implements Paginat
     /**
      * Finds and displays a OtherCopyLocation entity.
      *
-     * @param OtherCopyLocation $otherCopyLocation
-     *
      * @return array
      *
      * @Route("/{id}", name="other_copy_location_show", methods={"GET"})")
@@ -135,18 +129,13 @@ class OtherCopyLocationController extends AbstractController  implements Paginat
      * @Template()
      */
     public function showAction(OtherCopyLocation $otherCopyLocation) {
-
-        return array(
+        return [
             'otherCopyLocation' => $otherCopyLocation,
-        );
+        ];
     }
 
     /**
      * Displays a form to edit an existing OtherCopyLocation entity.
-     *
-     *
-     * @param Request $request
-     * @param OtherCopyLocation $otherCopyLocation
      *
      * @return array|RedirectResponse
      *
@@ -160,38 +149,31 @@ class OtherCopyLocationController extends AbstractController  implements Paginat
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-
             $em->flush();
             $this->addFlash('success', 'The otherCopyLocation has been updated.');
-            return $this->redirectToRoute('other_copy_location_show', array('id' => $otherCopyLocation->getId()));
+
+            return $this->redirectToRoute('other_copy_location_show', ['id' => $otherCopyLocation->getId()]);
         }
 
-        return array(
+        return [
             'otherCopyLocation' => $otherCopyLocation,
             'edit_form' => $editForm->createView(),
-        );
+        ];
     }
 
     /**
      * Deletes a OtherCopyLocation entity.
      *
-     *
-     * @param Request $request
-     * @param OtherCopyLocation $otherCopyLocation
-     *
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
      * @Route("/{id}/delete", name="other_copy_location_delete", methods={"GET"})")
-     *
      */
     public function deleteAction(Request $request, OtherCopyLocation $otherCopyLocation, EntityManagerInterface $em) {
-
         $em->remove($otherCopyLocation);
         $em->flush();
         $this->addFlash('success', 'The otherCopyLocation was deleted.');
 
         return $this->redirectToRoute('other_copy_location_index');
     }
-
 }

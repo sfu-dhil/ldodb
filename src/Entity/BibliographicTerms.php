@@ -1,19 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * BibliographicTerms
+ * BibliographicTerms.
  *
  * @ORM\Table(name="bibliographic_terms")
  * @ORM\Entity(repositoryClass="App\Repository\BibliographicTermsRepository")
  */
 class BibliographicTerms {
-
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -29,21 +36,21 @@ class BibliographicTerms {
     private $bibliographicTerm;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="use_for_format", type="boolean", nullable=true)
      */
     private $useForFormat;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="use_for_photographs", type="boolean", nullable=true)
      */
     private $useForPhotographs;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="use_for_illustrations", type="boolean", nullable=true)
      */
@@ -51,24 +58,22 @@ class BibliographicTerms {
 
     /**
      * Return a string representation of bibliographicTerm.
-     *
-     * @return string
      */
     public function __toString() : string {
         return $this->bibliographicTerm;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * Set bibliographicTerm
+     * Set bibliographicTerm.
      *
      * @param string $bibliographicTerm
      *
@@ -81,7 +86,7 @@ class BibliographicTerms {
     }
 
     /**
-     * Get bibliographicTerm
+     * Get bibliographicTerm.
      *
      * @return string
      */
@@ -90,9 +95,9 @@ class BibliographicTerms {
     }
 
     /**
-     * Set useForFormat
+     * Set useForFormat.
      *
-     * @param boolean $useForFormat
+     * @param bool $useForFormat
      *
      * @return BibliographicTerms
      */
@@ -103,18 +108,18 @@ class BibliographicTerms {
     }
 
     /**
-     * Get useForFormat
+     * Get useForFormat.
      *
-     * @return boolean
+     * @return bool
      */
     public function getUseForFormat() {
         return $this->useForFormat;
     }
 
     /**
-     * Set useForPhotographs
+     * Set useForPhotographs.
      *
-     * @param boolean $useForPhotographs
+     * @param bool $useForPhotographs
      *
      * @return BibliographicTerms
      */
@@ -125,18 +130,18 @@ class BibliographicTerms {
     }
 
     /**
-     * Get useForPhotographs
+     * Get useForPhotographs.
      *
-     * @return boolean
+     * @return bool
      */
     public function getUseForPhotographs() {
         return $this->useForPhotographs;
     }
 
     /**
-     * Set useForIllustrations
+     * Set useForIllustrations.
      *
-     * @param boolean $useForIllustrations
+     * @param bool $useForIllustrations
      *
      * @return BibliographicTerms
      */
@@ -147,12 +152,11 @@ class BibliographicTerms {
     }
 
     /**
-     * Get useForIllustrations
+     * Get useForIllustrations.
      *
-     * @return boolean
+     * @return bool
      */
     public function getUseForIllustrations() {
         return $this->useForIllustrations;
     }
-
 }

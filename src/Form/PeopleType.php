@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Form;
 
 use App\Entity\Place;
@@ -15,152 +23,148 @@ use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
  * PeopleType form.
  */
 class PeopleType extends AbstractType {
-
     /**
      * Add form fields to $builder.
-     *
-     * @param FormBuilderInterface $builder
-     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) : void {
-        $builder->add('lastName', null, array(
+        $builder->add('lastName', null, [
             'label' => 'Last Name',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('firstName', null, array(
+            ],
+        ]);
+        $builder->add('firstName', null, [
             'label' => 'First Name',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('otherLastName', null, array(
+            ],
+        ]);
+        $builder->add('otherLastName', null, [
             'label' => 'Other Last Name',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('otherFirstName', null, array(
+            ],
+        ]);
+        $builder->add('otherFirstName', null, [
             'label' => 'Other First Name',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('birthDate', null, array(
+            ],
+        ]);
+        $builder->add('birthDate', null, [
             'label' => 'Birth Date',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('deathDate', null, array(
+            ],
+        ]);
+        $builder->add('deathDate', null, [
             'label' => 'Death Date',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('gender', null, array(
+            ],
+        ]);
+        $builder->add('gender', null, [
             'label' => 'Gender',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('biographicalNotes', null, array(
+            ],
+        ]);
+        $builder->add('biographicalNotes', null, [
             'label' => 'Biographical Notes',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('biographicalAnnotation', null, array(
+            ],
+        ]);
+        $builder->add('biographicalAnnotation', null, [
             'label' => 'Biographical Annotation',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('nationality', null, array(
+            ],
+        ]);
+        $builder->add('nationality', null, [
             'label' => 'Nationality',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('peopleUri', UrlType::class, array(
+            ],
+        ]);
+        $builder->add('peopleUri', UrlType::class, [
             'label' => 'People Uri',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('residentInLd', ChoiceType::class, array(
+            ],
+        ]);
+        $builder->add('residentInLd', ChoiceType::class, [
             'label' => 'Resident In Ld',
             'expanded' => true,
             'multiple' => false,
-            'choices' => array(
+            'choices' => [
                 'Yes' => true,
                 'No' => false,
                 'Unknown' => null,
-            ),
+            ],
             'required' => false,
             'placeholder' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('residentInLondon', ChoiceType::class, array(
+            ],
+        ]);
+        $builder->add('residentInLondon', ChoiceType::class, [
             'label' => 'Resident In London',
             'expanded' => true,
             'multiple' => false,
-            'choices' => array(
+            'choices' => [
                 'Yes' => true,
                 'No' => false,
                 'Unknown' => null,
-            ),
+            ],
             'required' => false,
             'placeholder' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('residentOutsideUk', ChoiceType::class, array(
+            ],
+        ]);
+        $builder->add('residentOutsideUk', ChoiceType::class, [
             'label' => 'Resident Outside Uk',
             'expanded' => true,
             'multiple' => false,
-            'choices' => array(
+            'choices' => [
                 'Yes' => true,
                 'No' => false,
                 'Unknown' => null,
-            ),
+            ],
             'required' => false,
             'placeholder' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('travelOutsideUk', ChoiceType::class, array(
+            ],
+        ]);
+        $builder->add('travelOutsideUk', ChoiceType::class, [
             'label' => 'Travel Outside Uk',
             'expanded' => true,
             'multiple' => false,
-            'choices' => array(
+            'choices' => [
                 'Yes' => true,
                 'No' => false,
                 'Unknown' => null,
-            ),
+            ],
             'required' => false,
             'placeholder' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('birthPlace', Select2EntityType::class, array(
+            ],
+        ]);
+        $builder->add('birthPlace', Select2EntityType::class, [
             'multiple' => false,
             'remote_route' => 'place_typeahead',
             'class' => Place::class,
@@ -170,11 +174,11 @@ class PeopleType extends AbstractType {
             'allow_clear' => true,
             'delay' => 250,
             'language' => 'en',
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('deathPlace', Select2EntityType::class, array(
+            ],
+        ]);
+        $builder->add('deathPlace', Select2EntityType::class, [
             'multiple' => false,
             'remote_route' => 'place_typeahead',
             'class' => Place::class,
@@ -184,11 +188,11 @@ class PeopleType extends AbstractType {
             'allow_clear' => true,
             'delay' => 250,
             'language' => 'en',
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('travels', Select2EntityType::class, array(
+            ],
+        ]);
+        $builder->add('travels', Select2EntityType::class, [
             'multiple' => true,
             'remote_route' => 'place_typeahead',
             'class' => Place::class,
@@ -198,11 +202,11 @@ class PeopleType extends AbstractType {
             'allow_clear' => true,
             'delay' => 250,
             'language' => 'en',
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('residences', Select2EntityType::class, array(
+            ],
+        ]);
+        $builder->add('residences', Select2EntityType::class, [
             'multiple' => true,
             'remote_route' => 'place_typeahead',
             'class' => Place::class,
@@ -212,11 +216,11 @@ class PeopleType extends AbstractType {
             'allow_clear' => true,
             'delay' => 250,
             'language' => 'en',
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('roles', Select2EntityType::class, array(
+            ],
+        ]);
+        $builder->add('roles', Select2EntityType::class, [
             'multiple' => true,
             'remote_route' => 'role_typeahead',
             'class' => Role::class,
@@ -226,10 +230,10 @@ class PeopleType extends AbstractType {
             'allow_clear' => true,
             'delay' => 250,
             'language' => 'en',
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
+            ],
+        ]);
     }
 
     /**
@@ -237,13 +241,10 @@ class PeopleType extends AbstractType {
      *
      * Set default, optional, and required options passed to the
      * buildForm() method via the $options parameter.
-     *
-     * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver) {
-        $resolver->setDefaults(array(
-            'data_class' => 'App\Entity\People'
-        ));
+    public function configureOptions(OptionsResolver $resolver) : void {
+        $resolver->setDefaults([
+            'data_class' => 'App\Entity\People',
+        ]);
     }
-
 }

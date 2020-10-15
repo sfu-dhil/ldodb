@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Form;
 
 use App\Entity\BindingFeature;
@@ -27,293 +35,289 @@ use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
  * BookType form.
  */
 class BookType extends AbstractType {
-
     /**
      * Add form fields to $builder.
-     *
-     * @param FormBuilderInterface $builder
-     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) : void {
-        $builder->add('fileName', null, array(
+        $builder->add('fileName', null, [
             'label' => 'File Name',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('callNumber', null, array(
+            ],
+        ]);
+        $builder->add('callNumber', null, [
             'label' => 'Call Number',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('title', null, array(
+            ],
+        ]);
+        $builder->add('title', null, [
             'label' => 'Title',
             'required' => true,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('shortTitle', null, array(
+            ],
+        ]);
+        $builder->add('shortTitle', null, [
             'label' => 'Short Title',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('seriesTitle', null, array(
+            ],
+        ]);
+        $builder->add('seriesTitle', null, [
             'label' => 'Series Title',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('titlePageQuotation', null, array(
+            ],
+        ]);
+        $builder->add('titlePageQuotation', null, [
             'label' => 'Title Page Quotation',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('dedication', null, array(
+            ],
+        ]);
+        $builder->add('dedication', null, [
             'label' => 'Dedication',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('imprint', null, array(
+            ],
+        ]);
+        $builder->add('imprint', null, [
             'label' => 'Imprint',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('edition', null, array(
+            ],
+        ]);
+        $builder->add('edition', null, [
             'label' => 'Edition',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('publicationDate', null, array(
+            ],
+        ]);
+        $builder->add('publicationDate', null, [
             'label' => 'Publication Date',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('volumes', IntegerType::class, array(
+            ],
+        ]);
+        $builder->add('volumes', IntegerType::class, [
             'label' => 'Volumes',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('pages', IntegerType::class, array(
+            ],
+        ]);
+        $builder->add('pages', IntegerType::class, [
             'label' => 'Pages',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('copies', IntegerType::class, array(
+            ],
+        ]);
+        $builder->add('copies', IntegerType::class, [
             'label' => 'Copies',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('sfuCatOrigBib', null, array(
+            ],
+        ]);
+        $builder->add('sfuCatOrigBib', null, [
             'label' => 'Sfu Cat Orig Bib',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('sfuDigitalCopy', null, array(
+            ],
+        ]);
+        $builder->add('sfuDigitalCopy', null, [
             'label' => 'SFU Digital Copy',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('originalBib', ChoiceType::class, array(
+            ],
+        ]);
+        $builder->add('originalBib', ChoiceType::class, [
             'label' => 'Original Bib',
             'expanded' => true,
             'multiple' => false,
-            'choices' => array(
+            'choices' => [
                 'Yes' => true,
                 'No' => false,
                 'Unknown' => null,
-            ),
+            ],
             'required' => false,
             'placeholder' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('bicknellNumber', null, array(
+            ],
+        ]);
+        $builder->add('bicknellNumber', null, [
             'label' => 'Bicknell Number',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('healeyNumber', null, array(
+            ],
+        ]);
+        $builder->add('healeyNumber', null, [
             'label' => 'Healey Number',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('reedNumber', null, array(
+            ],
+        ]);
+        $builder->add('reedNumber', null, [
             'label' => 'Reed Number',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('publicDomain', ChoiceType::class, array(
+            ],
+        ]);
+        $builder->add('publicDomain', ChoiceType::class, [
             'label' => 'Public Domain',
             'expanded' => true,
             'multiple' => false,
-            'choices' => array(
+            'choices' => [
                 'Yes' => true,
                 'No' => false,
                 'Unknown' => null,
-            ),
+            ],
             'required' => false,
             'placeholder' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('britishEdition', null, array(
+            ],
+        ]);
+        $builder->add('britishEdition', null, [
             'label' => 'British Edition',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('price', null, array(
+            ],
+        ]);
+        $builder->add('price', null, [
             'label' => 'Price',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('printRun', null, array(
+            ],
+        ]);
+        $builder->add('printRun', null, [
             'label' => 'Print Run',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('bookUri', UrlType::class, array(
+            ],
+        ]);
+        $builder->add('bookUri', UrlType::class, [
             'label' => 'Book Uri',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('digitalObjectUrl', UrlType::class, array(
+            ],
+        ]);
+        $builder->add('digitalObjectUrl', UrlType::class, [
             'label' => 'Digital Object Url',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('bibliographicNotes', null, array(
+            ],
+        ]);
+        $builder->add('bibliographicNotes', null, [
             'label' => 'Bibliographic Notes',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('criticalAnnotation', null, array(
+            ],
+        ]);
+        $builder->add('criticalAnnotation', null, [
             'label' => 'Critical Annotation',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('format', null, array(
+            ],
+        ]);
+        $builder->add('format', null, [
             'label' => 'Format',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('plateCount', IntegerType::class, array(
+            ],
+        ]);
+        $builder->add('plateCount', IntegerType::class, [
             'label' => 'Plate Count',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('mapCount', IntegerType::class, array(
+            ],
+        ]);
+        $builder->add('mapCount', IntegerType::class, [
             'label' => 'Map Count',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('illustrations', null, array(
+            ],
+        ]);
+        $builder->add('illustrations', null, [
             'label' => 'Illustrations',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('photographs', null, array(
+            ],
+        ]);
+        $builder->add('photographs', null, [
             'label' => 'Photographs',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('tables', ChoiceType::class, array(
+            ],
+        ]);
+        $builder->add('tables', ChoiceType::class, [
             'label' => 'Tables',
             'expanded' => true,
             'multiple' => false,
-            'choices' => array(
+            'choices' => [
                 'Yes' => true,
                 'No' => false,
                 'Unknown' => null,
-            ),
+            ],
             'required' => false,
             'placeholder' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('bindingColour', null, array(
+            ],
+        ]);
+        $builder->add('bindingColour', null, [
             'label' => 'Binding Colour',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('contributions', CollectionType::class, array(
+            ],
+        ]);
+        $builder->add('contributions', CollectionType::class, [
             'label' => 'Contributions',
             'required' => false,
             'allow_add' => true,
             'allow_delete' => true,
             'delete_empty' => true,
             'entry_type' => ContributionType::class,
-            'entry_options' => array(
+            'entry_options' => [
                 'label' => false,
-            ),
+            ],
             'by_reference' => true,
-            'attr' => array(
+            'attr' => [
                 'class' => 'collection collection-complex',
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('genres', Select2EntityType::class, array(
+            ],
+        ]);
+        $builder->add('genres', Select2EntityType::class, [
             'multiple' => true,
             'remote_route' => 'genre_typeahead',
             'class' => Genre::class,
@@ -323,11 +327,11 @@ class BookType extends AbstractType {
             'allow_clear' => true,
             'delay' => 250,
             'language' => 'en',
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('referencedPeople', Select2EntityType::class, array(
+            ],
+        ]);
+        $builder->add('referencedPeople', Select2EntityType::class, [
             'multiple' => true,
             'remote_route' => 'referenced_person_typeahead',
             'class' => ReferencedPerson::class,
@@ -336,21 +340,21 @@ class BookType extends AbstractType {
             'allow_clear' => true,
             'delay' => 250,
             'language' => 'en',
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('plateTypes', SymfonyEntityType::class, array(
+            ],
+        ]);
+        $builder->add('plateTypes', SymfonyEntityType::class, [
             'class' => PlateType::class,
             'multiple' => true,
             'expanded' => true,
-        ));
-        $builder->add('mapTypes', SymfonyEntityType::class, array(
+        ]);
+        $builder->add('mapTypes', SymfonyEntityType::class, [
             'class' => MapType::class,
             'multiple' => true,
             'expanded' => true,
-        ));
-        $builder->add('subjects', Select2EntityType::class, array(
+        ]);
+        $builder->add('subjects', Select2EntityType::class, [
             'multiple' => true,
             'remote_route' => 'subject_typeahead',
             'class' => Subject::class,
@@ -359,16 +363,16 @@ class BookType extends AbstractType {
             'allow_clear' => true,
             'delay' => 250,
             'language' => 'en',
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('mapSizes', SymfonyEntityType::class, array(
+            ],
+        ]);
+        $builder->add('mapSizes', SymfonyEntityType::class, [
             'class' => MapSize::class,
             'multiple' => true,
             'expanded' => true,
-        ));
-        $builder->add('subjectHeadings', Select2EntityType::class, array(
+        ]);
+        $builder->add('subjectHeadings', Select2EntityType::class, [
             'multiple' => true,
             'remote_route' => 'subject_heading_typeahead',
             'class' => SubjectHeading::class,
@@ -377,16 +381,16 @@ class BookType extends AbstractType {
             'allow_clear' => true,
             'delay' => 250,
             'language' => 'en',
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('bindingFeatures', SymfonyEntityType::class, array(
+            ],
+        ]);
+        $builder->add('bindingFeatures', SymfonyEntityType::class, [
             'class' => BindingFeature::class,
             'multiple' => true,
             'expanded' => true,
-        ));
-        $builder->add('keywords', Select2EntityType::class, array(
+        ]);
+        $builder->add('keywords', Select2EntityType::class, [
             'multiple' => true,
             'remote_route' => 'keyword_typeahead',
             'class' => Keyword::class,
@@ -395,16 +399,16 @@ class BookType extends AbstractType {
             'allow_clear' => true,
             'delay' => 250,
             'language' => 'en',
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('digitalCopyHolders', SymfonyEntityType::class, array(
+            ],
+        ]);
+        $builder->add('digitalCopyHolders', SymfonyEntityType::class, [
             'class' => DigitalCopyHolder::class,
             'multiple' => true,
             'expanded' => true,
-        ));
-        $builder->add('publicationPlaces', Select2EntityType::class, array(
+        ]);
+        $builder->add('publicationPlaces', Select2EntityType::class, [
             'multiple' => true,
             'remote_route' => 'place_typeahead',
             'class' => Place::class,
@@ -413,10 +417,10 @@ class BookType extends AbstractType {
             'allow_clear' => true,
             'delay' => 250,
             'language' => 'en',
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
+            ],
+        ]);
     }
 
     /**
@@ -424,13 +428,10 @@ class BookType extends AbstractType {
      *
      * Set default, optional, and required options passed to the
      * buildForm() method via the $options parameter.
-     *
-     * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver) {
-        $resolver->setDefaults(array(
-            'data_class' => 'App\Entity\Book'
-        ));
+    public function configureOptions(OptionsResolver $resolver) : void {
+        $resolver->setDefaults([
+            'data_class' => 'App\Entity\Book',
+        ]);
     }
-
 }

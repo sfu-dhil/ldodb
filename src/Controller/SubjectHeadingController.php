@@ -1,35 +1,39 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Controller;
 
+use App\Entity\SubjectHeading;
+use App\Form\SubjectHeadingType;
 use App\Repository\SubjectHeadingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use App\Entity\SubjectHeading;
-use App\Form\SubjectHeadingType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * SubjectHeading controller.
  *
  * @Route("/subject_heading")
  */
-class SubjectHeadingController extends AbstractController  implements PaginatorAwareInterface {
+class SubjectHeadingController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
-
 
     /**
      * Lists all SubjectHeading entities.
-     *
-     * @param Request $request
      *
      * @return array
      *
@@ -38,22 +42,19 @@ class SubjectHeadingController extends AbstractController  implements PaginatorA
      * @Template()
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
-
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(SubjectHeading::class, 'e')->orderBy('e.subjectHeading', 'ASC');
         $query = $qb->getQuery();
 
         $subjectHeadings = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
 
-        return array(
+        return [
             'subjectHeadings' => $subjectHeadings,
-        );
+        ];
     }
 
     /**
      * Typeahead API endpoint for SubjectHeading entities.
-     *
-     * @param Request $request
      *
      * @Route("/typeahead", name="subject_heading_typeahead", methods={"GET"})")
      *
@@ -61,7 +62,7 @@ class SubjectHeadingController extends AbstractController  implements PaginatorA
      */
     public function typeahead(Request $request, SubjectHeadingRepository $repo) {
         $q = $request->query->get('q');
-        if (!$q) {
+        if ( ! $q) {
             return new JsonResponse([]);
         }
 
@@ -72,13 +73,12 @@ class SubjectHeadingController extends AbstractController  implements PaginatorA
                 'text' => (string) $result,
             ];
         }
+
         return new JsonResponse($data);
     }
 
     /**
      * Search for SubjectHeading entities.
-     *
-     * @param Request $request
      *
      * @Route("/search", name="subject_heading_search", methods={"GET"})")
      *
@@ -91,19 +91,17 @@ class SubjectHeadingController extends AbstractController  implements PaginatorA
 
             $subjectHeadings = $this->paginator->paginate($query, $request->query->getInt('page', 1), 25);
         } else {
-            $subjectHeadings = array();
+            $subjectHeadings = [];
         }
 
-        return array(
+        return [
             'subjectHeadings' => $subjectHeadings,
             'q' => $q,
-        );
+        ];
     }
 
     /**
      * Creates a new SubjectHeading entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -118,24 +116,22 @@ class SubjectHeadingController extends AbstractController  implements PaginatorA
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->persist($subjectHeading);
             $em->flush();
 
             $this->addFlash('success', 'The new subjectHeading was created.');
-            return $this->redirectToRoute('subject_heading_show', array('id' => $subjectHeading->getId()));
+
+            return $this->redirectToRoute('subject_heading_show', ['id' => $subjectHeading->getId()]);
         }
 
-        return array(
+        return [
             'subjectHeading' => $subjectHeading,
             'form' => $form->createView(),
-        );
+        ];
     }
 
     /**
      * Creates a new SubjectHeading entity in a popup.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -151,8 +147,6 @@ class SubjectHeadingController extends AbstractController  implements PaginatorA
     /**
      * Finds and displays a SubjectHeading entity.
      *
-     * @param SubjectHeading $subjectHeading
-     *
      * @return array
      *
      * @Route("/{id}", name="subject_heading_show", methods={"GET"})")
@@ -160,18 +154,13 @@ class SubjectHeadingController extends AbstractController  implements PaginatorA
      * @Template()
      */
     public function showAction(SubjectHeading $subjectHeading) {
-
-        return array(
+        return [
             'subjectHeading' => $subjectHeading,
-        );
+        ];
     }
 
     /**
      * Displays a form to edit an existing SubjectHeading entity.
-     *
-     *
-     * @param Request $request
-     * @param SubjectHeading $subjectHeading
      *
      * @return array|RedirectResponse
      *
@@ -185,38 +174,31 @@ class SubjectHeadingController extends AbstractController  implements PaginatorA
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-
             $em->flush();
             $this->addFlash('success', 'The subjectHeading has been updated.');
-            return $this->redirectToRoute('subject_heading_show', array('id' => $subjectHeading->getId()));
+
+            return $this->redirectToRoute('subject_heading_show', ['id' => $subjectHeading->getId()]);
         }
 
-        return array(
+        return [
             'subjectHeading' => $subjectHeading,
             'edit_form' => $editForm->createView(),
-        );
+        ];
     }
 
     /**
      * Deletes a SubjectHeading entity.
      *
-     *
-     * @param Request $request
-     * @param SubjectHeading $subjectHeading
-     *
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
      * @Route("/{id}/delete", name="subject_heading_delete", methods={"GET"})")
-     *
      */
     public function deleteAction(Request $request, SubjectHeading $subjectHeading, EntityManagerInterface $em) {
-
         $em->remove($subjectHeading);
         $em->flush();
         $this->addFlash('success', 'The subjectHeading was deleted.');
 
         return $this->redirectToRoute('subject_heading_index');
     }
-
 }

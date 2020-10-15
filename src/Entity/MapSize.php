@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -7,15 +15,14 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * MapSize
+ * MapSize.
  *
  * @ORM\Table(name="map_size")
  * @ORM\Entity(repositoryClass="App\Repository\MapSizeRepository")
  */
 class MapSize {
-
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -38,14 +45,13 @@ class MapSize {
     private $mapSizeNotes;
 
     /**
-     * @var Collection|Book[]
+     * @var Book[]|Collection
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="mapSizes")
      */
     private $books;
 
     /**
      * Construct MapSize object.
-     *
      */
     public function __construct() {
         $this->books = new ArrayCollection();
@@ -53,24 +59,22 @@ class MapSize {
 
     /**
      * Return string representation of mapSize.
-     *
-     * @return string
      */
     public function __toString() : string {
-        return ($this->mapSize ? $this->mapSize : "");
+        return $this->mapSize ? $this->mapSize : '';
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * Set mapSize
+     * Set mapSize.
      *
      * @param string $mapSize
      *
@@ -83,7 +87,7 @@ class MapSize {
     }
 
     /**
-     * Get mapSize
+     * Get mapSize.
      *
      * @return string
      */
@@ -92,7 +96,7 @@ class MapSize {
     }
 
     /**
-     * Set mapSizeNotes
+     * Set mapSizeNotes.
      *
      * @param string $mapSizeNotes
      *
@@ -105,7 +109,7 @@ class MapSize {
     }
 
     /**
-     * Get mapSizeNotes
+     * Get mapSizeNotes.
      *
      * @return string
      */
@@ -114,34 +118,33 @@ class MapSize {
     }
 
     /**
-     * Add book
+     * Add book.
      *
      * @param \App\Entity\Book $book
      *
      * @return MapSize
      */
-    public function addBook(\App\Entity\Book $book) {
+    public function addBook(Book $book) {
         $this->books[] = $book;
 
         return $this;
     }
 
     /**
-     * Remove book
+     * Remove book.
      *
      * @param \App\Entity\Book $book
      */
-    public function removeBook(\App\Entity\Book $book) {
+    public function removeBook(Book $book) : void {
         $this->books->removeElement($book);
     }
 
     /**
-     * Get books
+     * Get books.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getBooks() {
         return $this->books;
     }
-
 }

@@ -1,82 +1,86 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Tests\Controller;
 
-use App\Entity\BibliographicTerms;
 use App\DataFixtures\BibliographicTermsFixtures;
-use Nines\UtilBundle\Tests\ControllerBaseCase;
+use App\Entity\BibliographicTerms;
 use Nines\UserBundle\DataFixtures\UserFixtures;
+use Nines\UtilBundle\Tests\ControllerBaseCase;
 
 class BibliographicTermsControllerTest extends ControllerBaseCase {
-
     protected function fixtures() : array {
         return [
             UserFixtures::class,
-            BibliographicTermsFixtures::class
+            BibliographicTermsFixtures::class,
         ];
     }
 
-    public function testAnonIndex() {
-
+    public function testAnonIndex() : void {
         $crawler = $this->client->request('GET', '/bibliographic_terms/');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals(0, $crawler->selectLink('New')->count());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(0, $crawler->selectLink('New')->count());
     }
 
-    public function testUserIndex() {
+    public function testUserIndex() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/bibliographic_terms/');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals(0, $crawler->selectLink('New')->count());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(0, $crawler->selectLink('New')->count());
     }
 
-    public function testAdminIndex() {
+    public function testAdminIndex() : void {
         $this->login('user.admin');
         $crawler = $this->client->request('GET', '/bibliographic_terms/');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals(1, $crawler->selectLink('New')->count());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(1, $crawler->selectLink('New')->count());
     }
 
-    public function testAnonShow() {
-
+    public function testAnonShow() : void {
         $crawler = $this->client->request('GET', '/bibliographic_terms/1');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals(0, $crawler->selectLink('Edit')->count());
-        $this->assertEquals(0, $crawler->selectLink('Delete')->count());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(0, $crawler->selectLink('Edit')->count());
+        $this->assertSame(0, $crawler->selectLink('Delete')->count());
     }
 
-    public function testUserShow() {
+    public function testUserShow() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/bibliographic_terms/1');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals(0, $crawler->selectLink('Edit')->count());
-        $this->assertEquals(0, $crawler->selectLink('Delete')->count());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(0, $crawler->selectLink('Edit')->count());
+        $this->assertSame(0, $crawler->selectLink('Delete')->count());
     }
 
-    public function testAdminShow() {
+    public function testAdminShow() : void {
         $this->login('user.admin');
         $crawler = $this->client->request('GET', '/bibliographic_terms/1');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals(1, $crawler->selectLink('Edit')->count());
-        $this->assertEquals(1, $crawler->selectLink('Delete')->count());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(1, $crawler->selectLink('Edit')->count());
+        $this->assertSame(1, $crawler->selectLink('Delete')->count());
     }
 
-    public function testAnonEdit() {
-
+    public function testAnonEdit() : void {
         $crawler = $this->client->request('GET', '/bibliographic_terms/1/edit');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
     }
 
-    public function testUserEdit() {
+    public function testUserEdit() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/bibliographic_terms/1/edit');
-        $this->assertEquals(403, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
-    public function testAdminEdit() {
+    public function testAdminEdit() : void {
         $this->login('user.admin');
         $formCrawler = $this->client->request('GET', '/bibliographic_terms/1/edit');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $form = $formCrawler->selectButton('Update')->form([
             'bibliographic_terms[bibliographicTerm]' => 'Salmon',
@@ -85,26 +89,25 @@ class BibliographicTermsControllerTest extends ControllerBaseCase {
         $this->client->submit($form);
         $this->assertTrue($this->client->getResponse()->isRedirect('/bibliographic_terms/1'));
         $responseCrawler = $this->client->followRedirect();
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals(1, $responseCrawler->filter('td:contains("Salmon")')->count());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(1, $responseCrawler->filter('td:contains("Salmon")')->count());
     }
 
-    public function testAnonNew() {
-
+    public function testAnonNew() : void {
         $crawler = $this->client->request('GET', '/bibliographic_terms/new');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
     }
 
-    public function testUserNew() {
+    public function testUserNew() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/bibliographic_terms/new');
-        $this->assertEquals(403, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
-    public function testAdminNew() {
+    public function testAdminNew() : void {
         $this->login('user.admin');
         $formCrawler = $this->client->request('GET', '/bibliographic_terms/new');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $form = $formCrawler->selectButton('Create')->form([
             'bibliographic_terms[bibliographicTerm]' => 'Ling Code',
@@ -113,36 +116,32 @@ class BibliographicTermsControllerTest extends ControllerBaseCase {
         $this->client->submit($form);
         $this->assertTrue($this->client->getResponse()->isRedirect());
         $responseCrawler = $this->client->followRedirect();
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals(1, $responseCrawler->filter('td:contains("Ling Cod")')->count());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(1, $responseCrawler->filter('td:contains("Ling Cod")')->count());
     }
 
-    public function testAnonDelete() {
-
+    public function testAnonDelete() : void {
         $crawler = $this->client->request('GET', '/bibliographic_terms/1/delete');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
     }
 
-    public function testUserDelete() {
+    public function testUserDelete() : void {
         $this->login('user.user');
         $crawler = $this->client->request('GET', '/bibliographic_terms/1/delete');
-        $this->assertEquals(403, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(403, $this->client->getResponse()->getStatusCode());
     }
 
-    public function testAdminDelete() {
-
-
+    public function testAdminDelete() : void {
         $preCount = count($this->entityManager->getRepository(BibliographicTerms::class)->findAll());
         $this->login('user.admin');
         $crawler = $this->client->request('GET', '/bibliographic_terms/1/delete');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
         $this->assertTrue($this->client->getResponse()->isRedirect());
         $responseCrawler = $this->client->followRedirect();
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
         $this->entityManager->clear();
         $postCount = count($this->entityManager->getRepository(BibliographicTerms::class)->findAll());
-        $this->assertEquals($preCount - 1, $postCount);
+        $this->assertSame($preCount - 1, $postCount);
     }
-
 }

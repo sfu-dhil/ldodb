@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -7,7 +15,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Role
+ * Role.
  *
  * @ORM\Table(name="role", indexes={
  *      @ORM\Index(columns={"role_name"}, flags={"fulltext"}),
@@ -15,9 +23,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\RoleRepository")
  */
 class Role {
-
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -40,7 +47,6 @@ class Role {
 
     /**
      * Construct Role object.
-     *
      */
     public function __construct() {
         $this->people = new ArrayCollection();
@@ -48,24 +54,22 @@ class Role {
 
     /**
      * Return string representation of roleName.
-     *
-     * @return string
      */
     public function __toString() : string {
         return $this->roleName;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * Set roleName
+     * Set roleName.
      *
      * @param string $roleName
      *
@@ -78,7 +82,7 @@ class Role {
     }
 
     /**
-     * Get roleName
+     * Get roleName.
      *
      * @return string
      */
@@ -87,9 +91,7 @@ class Role {
     }
 
     /**
-     * Add person
-     *
-     * @param People $person
+     * Add person.
      *
      * @return Role
      */
@@ -100,21 +102,18 @@ class Role {
     }
 
     /**
-     * Remove person
-     *
-     * @param People $person
+     * Remove person.
      */
-    public function removePerson(People $person) {
+    public function removePerson(People $person) : void {
         $this->people->removeElement($person);
     }
 
     /**
-     * Get people
+     * Get people.
      *
      * @return Collection
      */
     public function getPeople() {
         return $this->people;
     }
-
 }

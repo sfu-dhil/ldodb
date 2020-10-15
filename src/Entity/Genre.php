@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,15 +16,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Genre
+ * Genre.
  *
  * @ORM\Table(name="genre")
  * @ORM\Entity(repositoryClass="App\Repository\GenreRepository")
  */
 class Genre {
-
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -54,21 +61,20 @@ class Genre {
     private $genreUri;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="broader_term_id", type="integer", nullable=true)
      */
     private $broaderTermId;
 
     /**
-     * @var Collection|Book[]
+     * @var Book[]|Collection
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="genres")
      */
     private $books;
 
     /**
      * Construct Genre object.
-     *
      */
     public function __construct() {
         $this->books = new ArrayCollection();
@@ -76,24 +82,22 @@ class Genre {
 
     /**
      * Return string representation of genreName.
-     *
-     * @return string
      */
     public function __toString() : string {
         return $this->genreName;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * Set genreName
+     * Set genreName.
      *
      * @param string $genreName
      *
@@ -106,7 +110,7 @@ class Genre {
     }
 
     /**
-     * Get genreName
+     * Get genreName.
      *
      * @return string
      */
@@ -115,7 +119,7 @@ class Genre {
     }
 
     /**
-     * Set genreSource
+     * Set genreSource.
      *
      * @param string $genreSource
      *
@@ -128,7 +132,7 @@ class Genre {
     }
 
     /**
-     * Get genreSource
+     * Get genreSource.
      *
      * @return string
      */
@@ -137,7 +141,7 @@ class Genre {
     }
 
     /**
-     * Set genreUsageNote
+     * Set genreUsageNote.
      *
      * @param string $genreUsageNote
      *
@@ -150,7 +154,7 @@ class Genre {
     }
 
     /**
-     * Get genreUsageNote
+     * Get genreUsageNote.
      *
      * @return string
      */
@@ -159,7 +163,7 @@ class Genre {
     }
 
     /**
-     * Set genreUri
+     * Set genreUri.
      *
      * @param string $genreUri
      *
@@ -172,7 +176,7 @@ class Genre {
     }
 
     /**
-     * Get genreUri
+     * Get genreUri.
      *
      * @return string
      */
@@ -181,9 +185,9 @@ class Genre {
     }
 
     /**
-     * Set broaderTermId
+     * Set broaderTermId.
      *
-     * @param integer $broaderTermId
+     * @param int $broaderTermId
      *
      * @return Genre
      */
@@ -194,43 +198,42 @@ class Genre {
     }
 
     /**
-     * Get broaderTermId
+     * Get broaderTermId.
      *
-     * @return integer
+     * @return int
      */
     public function getBroaderTermId() {
         return $this->broaderTermId;
     }
 
     /**
-     * Add book
+     * Add book.
      *
      * @param \App\Entity\Book $book
      *
      * @return Genre
      */
-    public function addBook(\App\Entity\Book $book) {
+    public function addBook(Book $book) {
         $this->books[] = $book;
 
         return $this;
     }
 
     /**
-     * Remove book
+     * Remove book.
      *
      * @param \App\Entity\Book $book
      */
-    public function removeBook(\App\Entity\Book $book) {
+    public function removeBook(Book $book) : void {
         $this->books->removeElement($book);
     }
 
     /**
-     * Get books
+     * Get books.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getBooks() {
         return $this->books;
     }
-
 }
