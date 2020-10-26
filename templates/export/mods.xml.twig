@@ -1,0 +1,66 @@
+{# @var book \App\Entity\Book #}
+<?xml version='1.0' encoding='UTF-8' ?>
+<mods xmlns:xlink="http://www.w3.org/1999/xlink" version="3.5"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.loc.gov/mods/v3"
+        xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-5.xsd">
+
+    <titleInfo>
+        <title>{{ book.title }}</title>
+        <subTitle>{{ book.shortTitle }}</subTitle>
+    </titleInfo>
+
+    {% for contribution in book.contributions %}
+        {% if contribution.entity.type == constant('App\\Entity\\Entity::PER_TYPE') %}
+            {% set person = contribution.entity %}
+            {% if contribution.task.taskName == 'Author' or contribution.task.taskName == 'Writer' %}
+                <name type="personal">
+                    <namePart>{{ person }}</namePart>
+                    <role>
+                        <roleTerm type="text">creator</roleTerm>
+                    </role>
+                </name>
+            {% elseif contribution.task.taskName == 'Illustrator' %}
+                <name type="personal">
+                    <namePart>{{ person }}</namePart>
+                    <role>
+                        <roleTerm type="text">illustrator</roleTerm>
+                    </role>
+                </name>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    <typeOfResource>text</typeOfResource>
+
+    {% for genre in book.genres %}
+    <genre>{{ genre }}</genre>
+    {% endfor %}
+
+    <originInfo eventType="publication">
+        <place>
+            <placeTerm type="text">{{ book.publicationPlaces|first }}</placeTerm>
+        </place>
+        <publisher>{{ book.contributions('Publisher') }}</publisher>
+        <dateIssued>{{ book.publicationDate }}</dateIssued>
+    </originInfo>
+
+    <language>
+        <languageTerm authority="iso639-2b" type="code"
+                authorityURI="http://id.loc.gov/vocabulary/iso639-2"
+                valueURI="http://id.loc.gov/vocabulary/iso639-2/eng">eng
+        </languageTerm>
+    </language>
+
+    <physicalDescription>
+        <form authority="marcform">print</form>
+        <extent>{{ book.bibliographicNotes }}</extent>
+    </physicalDescription>
+
+    {% for heading in book.subjectHeadings %}
+        <subject authority="lcsh">
+            <topic>{{ heading.subjectHeading }}</topic>
+        </subject>
+    {% endfor %}
+
+    <classification authority="lcc">{{ book.callNumber }}</classification>
+</mods>

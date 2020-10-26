@@ -1275,7 +1275,7 @@ class Book {
      *
      * @param string $task
      *
-     * @return Collection
+     * @return Collection|Contribution[]
      */
     public function getContributions($task = null) {
         if (null === $task) {
@@ -1578,7 +1578,7 @@ class Book {
     /**
      * Get publicationPlaces.
      *
-     * @return Collection
+     * @return Collection|Place[]
      */
     public function getPublicationPlaces() {
         return $this->publicationPlaces;
