@@ -4,29 +4,37 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.loc.gov/mods/v3"
         xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-5.xsd">
 
+    <identifier>{{ book.fileName }}</identifier>
+    <identifier type='uri'>{{ url('book_show', {'id': book.id}) }}</identifier>
+
     <titleInfo>
         <title>{{ book.title }}</title>
         <subTitle>{{ book.shortTitle }}</subTitle>
     </titleInfo>
 
     {% for contribution in book.contributions %}
-        {% if contribution.entity.type == constant('App\\Entity\\Entity::PER_TYPE') %}
-            {% set person = contribution.entity %}
-            {% if contribution.task.taskName == 'Author' or contribution.task.taskName == 'Writer' %}
-                <name type="personal">
-                    <namePart>{{ person }}</namePart>
-                    <role>
-                        <roleTerm type="text">creator</roleTerm>
-                    </role>
-                </name>
-            {% elseif contribution.task.taskName == 'Illustrator' %}
-                <name type="personal">
-                    <namePart>{{ person }}</namePart>
-                    <role>
-                        <roleTerm type="text">illustrator</roleTerm>
-                    </role>
-                </name>
-            {% endif %}
+        {% set person = contribution.entity %}
+        {% if contribution.task.taskName == 'Author' or contribution.task.taskName == 'Writer' %}
+            <name type="personal">
+                <namePart>{{ person }}</namePart>
+                <role>
+                    <roleTerm type="text">creator</roleTerm>
+                </role>
+            </name>
+        {% elseif contribution.task.taskName == 'Illustrator' %}
+            <name type="personal">
+                <namePart>{{ person }}</namePart>
+                <role>
+                    <roleTerm type="text">illustrator</roleTerm>
+                </role>
+            </name>
+        {% elseif contribution.task.taskName == 'Publisher' %}
+            <name type="personal">
+                <namePart>{{ person }}</namePart>
+                <role>
+                    <roleTerm type="text">publisher</roleTerm>
+                </role>
+            </name>
         {% endif %}
     {% endfor %}
 
@@ -40,7 +48,7 @@
         <place>
             <placeTerm type="text">{{ book.publicationPlaces|first }}</placeTerm>
         </place>
-        <publisher>{{ book.contributions('Publisher') }}</publisher>
+        <publisher>{{ book.imprint }}</publisher>
         <dateIssued>{{ book.publicationDate }}</dateIssued>
     </originInfo>
 
@@ -53,7 +61,8 @@
 
     <physicalDescription>
         <form authority="marcform">print</form>
-        <extent>{{ book.bibliographicNotes }}</extent>
+        <extent>{{ book.sfuCatOrigBib }}</extent>
+        <note>{{ book.bibliographicNotes }}</note>
     </physicalDescription>
 
     {% for heading in book.subjectHeadings %}
