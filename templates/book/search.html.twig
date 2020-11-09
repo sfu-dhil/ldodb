@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Book Search{% endblock %}
+{% block title %}Title Search{% endblock %}
 
 {% block pageheader %}
-    <h1>Book Search</h1>
+    <h1>Title Search</h1>
     {% if books|length %}
         <p class="count">
             Displaying {{ books|length }} books of {{ books.getTotalItemCount }} total.

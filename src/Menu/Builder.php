@@ -73,11 +73,11 @@ class Builder implements ContainerAwareInterface {
         $browse->setChildrenAttribute('class', 'dropdown-menu');
 
         $browse->addChild('book_index', [
-            'label' => 'Books',
+            'label' => 'Titles',
             'route' => 'book_index',
         ]);
         $browse->addChild('people_index', [
-            'label' => 'People',
+            'label' => 'Persons',
             'route' => 'people_index',
         ]);
         $browse->addChild('place_index', [
@@ -94,11 +94,11 @@ class Builder implements ContainerAwareInterface {
         ]);
 
         $browse->addChild('genre_index', [
-            'label' => 'Genres',
+            'label' => 'Genre',
             'route' => 'genre_index',
         ]);
         $browse->addChild('keyword_index', [
-            'label' => 'Keywords',
+            'label' => 'Keyword',
             'route' => 'keyword_index',
         ]);
         $browse->addChild('subject_index', [

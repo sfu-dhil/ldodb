@@ -2,9 +2,9 @@
 
 {% block title %}Place{% endblock %}
 
-{% block pageheader %} 
+{% block pageheader %}
     <h1>Place</h1>
-{% endblock %} 
+{% endblock %}
 
 {% block body %}
     <div class="btn-toolbar">
@@ -45,9 +45,9 @@
             </tr><tr>
                 <th>Country ID</th>
                 <td>{{ place.countryId }}</td>
-            </tr>        
+            </tr>
             <tr>
-                <th>Books</th>         
+                <th>Titles</th>
                 <td>
                     {% if place.books | length > 0 %}
                         <ul>
@@ -57,26 +57,26 @@
                                         {{ books }}
                                     </a>
                                 </li>
-                            {% endfor %} 
+                            {% endfor %}
                         </ul>
                     {% endif %}
                 </td>
-            </tr>        
+            </tr>
             <tr>
-                <th>Residents</th>         
+                <th>Residents</th>
                 <td>
                     {{ include('people/partial/list.html.twig', { people: place.residents }) }}
                 </td>
-            </tr>        
+            </tr>
             <tr>
-                <th>Travellers</th>         
+                <th>Travellers</th>
                 <td>
                     {{ include('people/partial/list.html.twig', { people: place.travellers }) }}
                 </td>
-            </tr>        
+            </tr>
         </tbody>
     </table>
-    {% if place.otherNationalEditions | length > 0 %}    
+    {% if place.otherNationalEditions | length > 0 %}
         <h2>Other National Editions</h2>
         <ul>
             {% for otherNationalEditions in place.otherNationalEditions %}
@@ -85,16 +85,16 @@
                         {{ otherNationalEditions }}
                     </a>
                 </li>
-            {% endfor %} 
+            {% endfor %}
         </ul>
     {% endif %}
-    {% if place.peopleBorn | length > 0 %}    
+    {% if place.peopleBorn | length > 0 %}
         <h2>Person Born</h2>
         {% embed 'people/partial/list.html.twig' with { 'people': place.peopleBorn } %}
             {% block callback %}{{ person }} b.{{ person.birthDate }}{% endblock %}
         {% endembed %}
     {% endif %}
-    {% if place.peopleDied | length > 0 %}    
+    {% if place.peopleDied | length > 0 %}
         <h2>Person Died</h2>
         {% embed 'people/partial/list.html.twig' with { 'people': place.peopleDied } %}
             {% block callback %}{{ person }} d.{{ person.deathDate }}{% endblock %}

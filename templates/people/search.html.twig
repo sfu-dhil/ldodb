@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}People Search{% endblock %}
+{% block title %}Person Search{% endblock %}
 
 {% block pageheader %}
-    <h1>People Search</h1>
+    <h1>Person Search</h1>
     {% if people|length %}
         <p class="count">
             Displaying {{ people|length }} people of {{ people.getTotalItemCount }} total.
