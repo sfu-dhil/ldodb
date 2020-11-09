@@ -11,9 +11,12 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Book;
+use App\Entity\Keyword;
 use App\Entity\Subject;
 use App\Form\SubjectType;
+use App\Repository\KeywordRepository;
 use App\Repository\SubjectRepository;
+use App\Service\MergeService;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
@@ -190,6 +193,38 @@ class SubjectController extends AbstractController implements PaginatorAwareInte
         return [
             'subject' => $subject,
             'edit_form' => $editForm->createView(),
+        ];
+    }
+
+    /**
+     * Displays a form to edit an existing Subject entity.
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("is_granted('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/merge", name="subject_merge", methods={"GET","POST"})")
+     *
+     * @Template()
+     */
+    public function mergeAction(Request $request, Subject $subject, MergeService $ms, SubjectRepository $repo) {
+        if ('POST' === $request->getMethod()) {
+            $subjects = $repo->findBy(['id' => $request->request->get('subjects')]);
+            $ms->subjects($subject, $subjects);
+            $this->addFlash('success', 'The subjects have been merged.');
+            return $this->redirectToRoute('subject_show', ['id' => $subject->getId()]);
+        }
+
+        $q = $request->get('q');
+        if ($q) {
+            $subjects = $repo->searchQuery($q)->execute();
+        } else {
+            $subjects = [];
+        }
+
+        return [
+            'subject' => $subject,
+            'subjects' => $subjects,
+            'q' => '',
         ];
     }
 

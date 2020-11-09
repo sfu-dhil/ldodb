@@ -12,6 +12,8 @@ namespace App\Repository;
 
 use App\Entity\Genre;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 class GenreRepository extends ServiceEntityRepository {
@@ -33,5 +35,22 @@ class GenreRepository extends ServiceEntityRepository {
         $qb->setParameter('q', "{$q}%");
 
         return $qb->getQuery()->execute();
+    }
+
+    /**
+     * Prepare a search query, but do not execute it.
+     *
+     * @param string $q
+     *
+     * @return Query
+     */
+    public function searchQuery($q) {
+        $qb = $this->createQueryBuilder('e');
+        $qb->addSelect('MATCH (e.genreName) AGAINST(:q BOOLEAN) as HIDDEN score');
+        $qb->andHaving('score > 0.0');
+        $qb->orderBy('score', 'DESC');
+        $qb->setParameter('q', $q);
+
+        return $qb->getQuery();
     }
 }

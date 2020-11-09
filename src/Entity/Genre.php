@@ -18,7 +18,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Genre.
  *
- * @ORM\Table(name="genre")
+ * @ORM\Table(name="genre", indexes={
+ *   @ORM\Index(name="genre_ft_idx", columns={"genre_name"}, flags={"fulltext"})
+ * })
  * @ORM\Entity(repositoryClass="App\Repository\GenreRepository")
  */
 class Genre {

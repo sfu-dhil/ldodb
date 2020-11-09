@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block pageheader %}
+    <h1>Subject Heading Merge</h1>
+{% endblock %}
+
+{% block body %}
+
+    <p>Search and select records below to merge into this subject heading.</p>
+    <dl class="dl-horizontal">
+        <dt>SubjectHeading</dt>
+        <dd><a href="{{ path('subject_heading_show', {'id': subjectHeading.id}) }}">{{ subjectHeading.subjectHeading }}</a>.</dd>
+    </dl>
+
+    <form method="get" action="{{ path('subject_heading_merge', {'id': subjectHeading.id}) }}" class="form-horizontal">
+        <fieldset>
+            <legend>Search for subject headings to merge</legend>
+            <div class='form-group'>
+                <label class='col-sm-2 control-label' for='q'>Search term</label>
+                <div class='col-sm-10'>
+                    <div class='input-group'>
+                        <input type='text' name='q' id='q' class='form-control' value='{{ q }}'>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="submit">
+                                <span class='glyphicon glyphicon-search'></span>
+                                Search
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+    {% if subjectHeadings|length %}
+        <form method="post" action="{{ path('subject_heading_merge', {'id': subjectHeading.id}) }}" class="form-horizontal">
+            <fieldset>
+                <legend>Select subjectHeadings to merge</legend>
+                <div class='col-sm-2'></div>
+                <div class='col-sm-10'>
+                    <div class='form-group'>
+                        {% for k in subjectHeadings|filter(k => k.id != subjectHeading.id) %}
+                            <div class="checkbox">
+                                <label> <input type="checkbox" name="subjectHeadings[]" value="{{ k.id }}"> {{ k.subjectHeading }} </label>
+                                <span class="shelp-block"> <a href="{{ path('subject_heading_show', {'id': k.id}) }}">{{ k.subjectHeading }}</a>.</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="form-group">
+                <div class='col-sm-2'></div>
+                <div class="col-sm-10">
+                    <input type="submit" value="Merge" class="btn btn-primary" />
+                    <a href="{{ path('subject_heading_show', { 'id': subjectHeading.id }) }}" class="btn btn-warning">Cancel</a>
+                </div>
+            </div>
+        </form>
+    {% endif %}
+
+{% endblock %}
+
+{% block styles %}
+    <style>
+        form {
+            outline: 1px solid lightgrey;
+            margin-bottom: 1em;
+            padding-bottom: 1em;
+            padding-top: 1em;
+        }
+    </style>
+{% endblock %}

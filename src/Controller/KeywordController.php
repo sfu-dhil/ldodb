@@ -13,6 +13,7 @@ namespace App\Controller;
 use App\Entity\Keyword;
 use App\Form\KeywordType;
 use App\Repository\KeywordRepository;
+use App\Service\MergeService;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
@@ -140,8 +141,8 @@ class KeywordController extends AbstractController implements PaginatorAwareInte
      *
      * @Template()
      */
-    public function newPopupAction(Request $request) {
-        return $this->newAction($request);
+    public function newPopupAction(Request $request, EntityManagerInterface $em) {
+        return $this->newAction($request, $em);
     }
 
     /**
@@ -183,6 +184,38 @@ class KeywordController extends AbstractController implements PaginatorAwareInte
         return [
             'keyword' => $keyword,
             'edit_form' => $editForm->createView(),
+        ];
+    }
+
+    /**
+     * Displays a form to edit an existing Keyword entity.
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("is_granted('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/merge", name="keyword_merge", methods={"GET","POST"})")
+     *
+     * @Template()
+     */
+    public function mergeAction(Request $request, Keyword $keyword, MergeService $ms, KeywordRepository $repo) {
+        if ('POST' === $request->getMethod()) {
+            $keywords = $repo->findBy(['id' => $request->request->get('keywords')]);
+            $ms->keywords($keyword, $keywords);
+            $this->addFlash('success', 'The keywords have been merged.');
+            return $this->redirectToRoute('keyword_show', ['id' => $keyword->getId()]);
+        }
+
+        $q = $request->get('q');
+        if ($q) {
+            $keywords = $repo->searchQuery($q)->execute();
+        } else {
+            $keywords = [];
+        }
+
+        return [
+            'keyword' => $keyword,
+            'keywords' => $keywords,
+            'q' => '',
         ];
     }
 

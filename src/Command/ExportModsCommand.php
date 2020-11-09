@@ -11,30 +11,24 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Entity\Book;
-use App\Entity\Contribution;
-use App\Entity\Entity;
-use App\Entity\Subject;
-use App\Entity\SubjectHeading;
 use App\Repository\BookRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Twig\Environment;
-use XMLWriter;
 
 class ExportModsCommand extends Command {
     /**
      * @var BookRepository
      */
     private $bookRepo;
-
-    protected static $defaultName = 'ldodb:export:mods';
     /**
      * @var Environment
      */
     private $twig;
+
+    protected static $defaultName = 'ldodb:export:mods';
 
     protected function configure() : void {
         $this
@@ -47,19 +41,19 @@ class ExportModsCommand extends Command {
      * @param Book $book
      * @param $path
      */
-    protected function export($book, $path) {
+    protected function export($book, $path) : void {
         $filename = $book->getFileName();
         $xml = $this->twig->render('export/mods.xml.twig', ['book' => $book]);
-        file_put_contents("$path/{$filename}.xml", $xml);
+        file_put_contents("{$path}/{$filename}.xml", $xml);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) : int {
         $path = $input->getArgument('dir');
-        if( ! file_exists($path)) {
+        if ( ! file_exists($path)) {
             mkdir($path);
         }
 
-        foreach($this->bookRepo->findAll() as $book) {
+        foreach ($this->bookRepo->findAll() as $book) {
             $this->export($book, $path);
         }
 
@@ -76,7 +70,7 @@ class ExportModsCommand extends Command {
     /**
      * @required
      */
-    public function setEnvironment(Environment $twig) {
+    public function setEnvironment(Environment $twig) : void {
         $this->twig = $twig;
     }
 }

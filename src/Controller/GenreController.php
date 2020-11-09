@@ -11,8 +11,11 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Genre;
+use App\Entity\Keyword;
 use App\Form\GenreType;
 use App\Repository\GenreRepository;
+use App\Repository\KeywordRepository;
+use App\Service\MergeService;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
@@ -160,6 +163,38 @@ class GenreController extends AbstractController implements PaginatorAwareInterf
         return [
             'genre' => $genre,
             'edit_form' => $editForm->createView(),
+        ];
+    }
+
+    /**
+     * Displays a form to edit an existing Genre entity.
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("is_granted('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/merge", name="genre_merge", methods={"GET","POST"})")
+     *
+     * @Template()
+     */
+    public function mergeAction(Request $request, Genre $genre, MergeService $ms, GenreRepository $repo) {
+        if ('POST' === $request->getMethod()) {
+            $genres = $repo->findBy(['id' => $request->request->get('genres')]);
+            $ms->genres($genre, $genres);
+            $this->addFlash('success', 'The genres have been merged.');
+            return $this->redirectToRoute('genre_show', ['id' => $genre->getId()]);
+        }
+
+        $q = $request->get('q');
+        if ($q) {
+            $genres = $repo->searchQuery($q)->execute();
+        } else {
+            $genres = [];
+        }
+
+        return [
+            'genre' => $genre,
+            'genres' => $genres,
+            'q' => '',
         ];
     }
 

@@ -10,9 +10,12 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Keyword;
 use App\Entity\SubjectHeading;
 use App\Form\SubjectHeadingType;
+use App\Repository\KeywordRepository;
 use App\Repository\SubjectHeadingRepository;
+use App\Service\MergeService;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
@@ -183,6 +186,38 @@ class SubjectHeadingController extends AbstractController implements PaginatorAw
         return [
             'subjectHeading' => $subjectHeading,
             'edit_form' => $editForm->createView(),
+        ];
+    }
+
+    /**
+     * Displays a form to edit an existing SubjectHeading entity.
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("is_granted('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/merge", name="subject_heading_merge", methods={"GET","POST"})")
+     *
+     * @Template()
+     */
+    public function mergeAction(Request $request, SubjectHeading $subjectHeading, MergeService $ms, SubjectHeadingRepository $repo) {
+        if ('POST' === $request->getMethod()) {
+            $subjectHeadings = $repo->findBy(['id' => $request->request->get('subjectHeadings')]);
+            $ms->subjectHeadings($subjectHeading, $subjectHeadings);
+            $this->addFlash('success', 'The subjectHeadings have been merged.');
+            return $this->redirectToRoute('subject_heading_show', ['id' => $subjectHeading->getId()]);
+        }
+
+        $q = $request->get('q');
+        if ($q) {
+            $subjectHeadings = $repo->searchQuery($q)->execute();
+        } else {
+            $subjectHeadings = [];
+        }
+
+        return [
+            'subjectHeading' => $subjectHeading,
+            'subjectHeadings' => $subjectHeadings,
+            'q' => '',
         ];
     }
 

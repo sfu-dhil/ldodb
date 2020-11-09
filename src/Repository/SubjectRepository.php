@@ -12,6 +12,8 @@ namespace App\Repository;
 
 use App\Entity\Subject;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 class SubjectRepository extends ServiceEntityRepository {
@@ -40,12 +42,12 @@ class SubjectRepository extends ServiceEntityRepository {
      *
      * @param string $q
      *
-     * @return Collection|Subject[]
+     * @return Query
      */
     public function searchQuery($q) {
         $qb = $this->createQueryBuilder('e');
         $qb->addSelect('MATCH (e.subjectName) AGAINST(:q BOOLEAN) as HIDDEN score');
-        $qb->andWhere('MATCH (e.subjectName) AGAINST(:q BOOLEAN) > 0.0');
+        $qb->andHaving('score > 0.0');
         $qb->orderBy('score', 'DESC');
         $qb->setParameter('q', $q);
 
