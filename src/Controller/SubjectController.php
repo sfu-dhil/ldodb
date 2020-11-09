@@ -1,36 +1,43 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Controller;
 
-use App\Repository\SubjectRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Book;
-use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
-use Nines\UtilBundle\Controller\PaginatorTrait;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use App\Entity\Keyword;
 use App\Entity\Subject;
 use App\Form\SubjectType;
+use App\Repository\KeywordRepository;
+use App\Repository\SubjectRepository;
+use App\Service\MergeService;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
+use Nines\UtilBundle\Controller\PaginatorTrait;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Subject controller.
  *
  * @Route("/subject")
  */
-class SubjectController extends AbstractController  implements PaginatorAwareInterface {
+class SubjectController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
-
 
     /**
      * Lists all Subject entities.
-     *
-     * @param Request $request
      *
      * @return array
      *
@@ -39,22 +46,19 @@ class SubjectController extends AbstractController  implements PaginatorAwareInt
      * @Template()
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
-
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(Subject::class, 'e')->orderBy('e.subjectName', 'ASC');
         $query = $qb->getQuery();
 
         $subjects = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
 
-        return array(
+        return [
             'subjects' => $subjects,
-        );
+        ];
     }
 
     /**
      * Typeahead API endpoint for Subject entities.
-     *
-     * @param Request $request
      *
      * @Route("/typeahead", name="subject_typeahead", methods={"GET"})")
      *
@@ -62,7 +66,7 @@ class SubjectController extends AbstractController  implements PaginatorAwareInt
      */
     public function typeahead(Request $request, SubjectRepository $repo) {
         $q = $request->query->get('q');
-        if (!$q) {
+        if ( ! $q) {
             return new JsonResponse([]);
         }
 
@@ -73,13 +77,12 @@ class SubjectController extends AbstractController  implements PaginatorAwareInt
                 'text' => (string) $result,
             ];
         }
+
         return new JsonResponse($data);
     }
 
     /**
      * Search for Subject entities.
-     *
-     * @param Request $request
      *
      * @Route("/search", name="subject_search", methods={"GET"})")
      *
@@ -92,19 +95,17 @@ class SubjectController extends AbstractController  implements PaginatorAwareInt
 
             $subjects = $this->paginator->paginate($query, $request->query->getInt('page', 1), 25);
         } else {
-            $subjects = array();
+            $subjects = [];
         }
 
-        return array(
+        return [
             'subjects' => $subjects,
             'q' => $q,
-        );
+        ];
     }
 
     /**
      * Creates a new Subject entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -119,24 +120,22 @@ class SubjectController extends AbstractController  implements PaginatorAwareInt
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->persist($subject);
             $em->flush();
 
             $this->addFlash('success', 'The new subject was created.');
-            return $this->redirectToRoute('subject_show', array('id' => $subject->getId()));
+
+            return $this->redirectToRoute('subject_show', ['id' => $subject->getId()]);
         }
 
-        return array(
+        return [
             'subject' => $subject,
             'form' => $form->createView(),
-        );
+        ];
     }
 
     /**
      * Creates a new Subject entity in a popup.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -152,8 +151,6 @@ class SubjectController extends AbstractController  implements PaginatorAwareInt
     /**
      * Finds and displays a Subject entity.
      *
-     * @param Subject $subject
-     *
      * @return array
      *
      * @Route("/{id}", name="subject_show", methods={"GET"})")
@@ -162,22 +159,18 @@ class SubjectController extends AbstractController  implements PaginatorAwareInt
      */
     public function showAction(Subject $subject) {
         $iterator = $subject->getBooks()->getIterator();
-        $iterator->uasort(function(Book $a, Book $b){
+        $iterator->uasort(function (Book $a, Book $b) {
             return strcasecmp($a->getTitle(), $b->getTitle());
         });
 
-        return array(
+        return [
             'subject' => $subject,
             'books' => $iterator,
-        );
+        ];
     }
 
     /**
      * Displays a form to edit an existing Subject entity.
-     *
-     *
-     * @param Request $request
-     * @param Subject $subject
      *
      * @return array|RedirectResponse
      *
@@ -191,38 +184,63 @@ class SubjectController extends AbstractController  implements PaginatorAwareInt
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-
             $em->flush();
             $this->addFlash('success', 'The subject has been updated.');
-            return $this->redirectToRoute('subject_show', array('id' => $subject->getId()));
+
+            return $this->redirectToRoute('subject_show', ['id' => $subject->getId()]);
         }
 
-        return array(
+        return [
             'subject' => $subject,
             'edit_form' => $editForm->createView(),
-        );
+        ];
+    }
+
+    /**
+     * Displays a form to edit an existing Subject entity.
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("is_granted('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/merge", name="subject_merge", methods={"GET","POST"})")
+     *
+     * @Template()
+     */
+    public function mergeAction(Request $request, Subject $subject, MergeService $ms, SubjectRepository $repo) {
+        if ('POST' === $request->getMethod()) {
+            $subjects = $repo->findBy(['id' => $request->request->get('subjects')]);
+            $ms->subjects($subject, $subjects);
+            $this->addFlash('success', 'The subjects have been merged.');
+            return $this->redirectToRoute('subject_show', ['id' => $subject->getId()]);
+        }
+
+        $q = $request->get('q');
+        if ($q) {
+            $subjects = $repo->searchQuery($q)->execute();
+        } else {
+            $subjects = [];
+        }
+
+        return [
+            'subject' => $subject,
+            'subjects' => $subjects,
+            'q' => '',
+        ];
     }
 
     /**
      * Deletes a Subject entity.
      *
-     *
-     * @param Request $request
-     * @param Subject $subject
-     *
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
      * @Route("/{id}/delete", name="subject_delete", methods={"GET"})")
-     *
      */
     public function deleteAction(Request $request, Subject $subject, EntityManagerInterface $em) {
-
         $em->remove($subject);
         $em->flush();
         $this->addFlash('success', 'The subject was deleted.');
 
         return $this->redirectToRoute('subject_index');
     }
-
 }

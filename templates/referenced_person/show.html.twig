@@ -36,14 +36,14 @@
                 <th>Death Date</th>
                 <td>{{ referencedPerson.deathDate }}</td>
             </tr><tr>
-                <th>Same As People Entity ID</th>
+                <th>Same As Person Entity ID</th>
                 <td>{{ referencedPerson.sameAsPeopleEntityId }}</td>
             </tr><tr>
                 <th>Referenced Person URI</th>
                 <td>{{ referencedPerson.referencedPersonUri }}</td>
             </tr>
             <tr>
-                <th>Books</th>
+                <th>Titles</th>
                 <td>
                     {{ include('book/partial/list.html.twig', { books: referencedPerson.books }) }}
                 </td>

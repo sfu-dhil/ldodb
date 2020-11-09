@@ -1,35 +1,39 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Controller;
 
+use App\Entity\PlateType;
+use App\Form\PlateTypeType;
 use App\Repository\PlateTypeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use App\Entity\PlateType;
-use App\Form\PlateTypeType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * PlateType controller.
  *
  * @Route("/plate_type")
  */
-class PlateTypeController extends AbstractController  implements PaginatorAwareInterface {
+class PlateTypeController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
-
 
     /**
      * Lists all PlateType entities.
-     *
-     * @param Request $request
      *
      * @return array
      *
@@ -38,22 +42,19 @@ class PlateTypeController extends AbstractController  implements PaginatorAwareI
      * @Template()
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
-
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(PlateType::class, 'e')->orderBy('e.id', 'ASC');
         $query = $qb->getQuery();
 
         $plateTypes = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
 
-        return array(
+        return [
             'plateTypes' => $plateTypes,
-        );
+        ];
     }
 
     /**
      * Typeahead API endpoint for PlateType entities.
-     *
-     * @param Request $request
      *
      * @Route("/typeahead", name="plate_type_typeahead", methods={"GET"})")
      *
@@ -61,7 +62,7 @@ class PlateTypeController extends AbstractController  implements PaginatorAwareI
      */
     public function typeahead(Request $request, PlateTypeRepository $repo) {
         $q = $request->query->get('q');
-        if (!$q) {
+        if ( ! $q) {
             return new JsonResponse([]);
         }
 
@@ -72,13 +73,12 @@ class PlateTypeController extends AbstractController  implements PaginatorAwareI
                 'text' => (string) $result,
             ];
         }
+
         return new JsonResponse($data);
     }
 
     /**
      * Creates a new PlateType entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -93,24 +93,22 @@ class PlateTypeController extends AbstractController  implements PaginatorAwareI
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->persist($plateType);
             $em->flush();
 
             $this->addFlash('success', 'The new plateType was created.');
-            return $this->redirectToRoute('plate_type_show', array('id' => $plateType->getId()));
+
+            return $this->redirectToRoute('plate_type_show', ['id' => $plateType->getId()]);
         }
 
-        return array(
+        return [
             'plateType' => $plateType,
             'form' => $form->createView(),
-        );
+        ];
     }
 
     /**
      * Creates a new PlateType entity in a popup.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -126,8 +124,6 @@ class PlateTypeController extends AbstractController  implements PaginatorAwareI
     /**
      * Finds and displays a PlateType entity.
      *
-     * @param PlateType $plateType
-     *
      * @return array
      *
      * @Route("/{id}", name="plate_type_show", methods={"GET"})")
@@ -135,18 +131,13 @@ class PlateTypeController extends AbstractController  implements PaginatorAwareI
      * @Template()
      */
     public function showAction(PlateType $plateType) {
-
-        return array(
+        return [
             'plateType' => $plateType,
-        );
+        ];
     }
 
     /**
      * Displays a form to edit an existing PlateType entity.
-     *
-     *
-     * @param Request $request
-     * @param PlateType $plateType
      *
      * @return array|RedirectResponse
      *
@@ -160,38 +151,31 @@ class PlateTypeController extends AbstractController  implements PaginatorAwareI
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-
             $em->flush();
             $this->addFlash('success', 'The plateType has been updated.');
-            return $this->redirectToRoute('plate_type_show', array('id' => $plateType->getId()));
+
+            return $this->redirectToRoute('plate_type_show', ['id' => $plateType->getId()]);
         }
 
-        return array(
+        return [
             'plateType' => $plateType,
             'edit_form' => $editForm->createView(),
-        );
+        ];
     }
 
     /**
      * Deletes a PlateType entity.
      *
-     *
-     * @param Request $request
-     * @param PlateType $plateType
-     *
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
      * @Route("/{id}/delete", name="plate_type_delete", methods={"GET"})")
-     *
      */
     public function deleteAction(Request $request, PlateType $plateType, EntityManagerInterface $em) {
-
         $em->remove($plateType);
         $em->flush();
         $this->addFlash('success', 'The plateType was deleted.');
 
         return $this->redirectToRoute('plate_type_index');
     }
-
 }

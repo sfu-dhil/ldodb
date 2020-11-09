@@ -1,35 +1,42 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Controller;
 
+use App\Entity\Genre;
+use App\Entity\Keyword;
+use App\Form\GenreType;
 use App\Repository\GenreRepository;
+use App\Repository\KeywordRepository;
+use App\Service\MergeService;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use App\Entity\Genre;
-use App\Form\GenreType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Genre controller.
  *
  * @Route("/genre")
  */
-class GenreController extends AbstractController  implements PaginatorAwareInterface {
+class GenreController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
-
 
     /**
      * Lists all Genre entities.
-     *
-     * @param Request $request
      *
      * @return array
      *
@@ -38,22 +45,19 @@ class GenreController extends AbstractController  implements PaginatorAwareInter
      * @Template()
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
-
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(Genre::class, 'e')->orderBy('e.genreName', 'ASC');
         $query = $qb->getQuery();
 
         $genres = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
 
-        return array(
+        return [
             'genres' => $genres,
-        );
+        ];
     }
 
     /**
      * Typeahead API endpoint for Genre entities.
-     *
-     * @param Request $request
      *
      * @Route("/typeahead", name="genre_typeahead", methods={"GET"})")
      *
@@ -61,7 +65,7 @@ class GenreController extends AbstractController  implements PaginatorAwareInter
      */
     public function typeahead(Request $request, GenreRepository $repo) {
         $q = $request->query->get('q');
-        if (!$q) {
+        if ( ! $q) {
             return new JsonResponse([]);
         }
 
@@ -72,13 +76,12 @@ class GenreController extends AbstractController  implements PaginatorAwareInter
                 'text' => (string) $result,
             ];
         }
+
         return new JsonResponse($data);
     }
 
     /**
      * Creates a new Genre entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -93,24 +96,22 @@ class GenreController extends AbstractController  implements PaginatorAwareInter
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->persist($genre);
             $em->flush();
 
             $this->addFlash('success', 'The new genre was created.');
-            return $this->redirectToRoute('genre_show', array('id' => $genre->getId()));
+
+            return $this->redirectToRoute('genre_show', ['id' => $genre->getId()]);
         }
 
-        return array(
+        return [
             'genre' => $genre,
             'form' => $form->createView(),
-        );
+        ];
     }
 
     /**
      * Creates a new Genre entity in a popup.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -126,8 +127,6 @@ class GenreController extends AbstractController  implements PaginatorAwareInter
     /**
      * Finds and displays a Genre entity.
      *
-     * @param Genre $genre
-     *
      * @return array
      *
      * @Route("/{id}", name="genre_show", methods={"GET"})")
@@ -135,18 +134,13 @@ class GenreController extends AbstractController  implements PaginatorAwareInter
      * @Template()
      */
     public function showAction(Genre $genre) {
-
-        return array(
+        return [
             'genre' => $genre,
-        );
+        ];
     }
 
     /**
      * Displays a form to edit an existing Genre entity.
-     *
-     *
-     * @param Request $request
-     * @param Genre $genre
      *
      * @return array|RedirectResponse
      *
@@ -160,38 +154,63 @@ class GenreController extends AbstractController  implements PaginatorAwareInter
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-
             $em->flush();
             $this->addFlash('success', 'The genre has been updated.');
-            return $this->redirectToRoute('genre_show', array('id' => $genre->getId()));
+
+            return $this->redirectToRoute('genre_show', ['id' => $genre->getId()]);
         }
 
-        return array(
+        return [
             'genre' => $genre,
             'edit_form' => $editForm->createView(),
-        );
+        ];
+    }
+
+    /**
+     * Displays a form to edit an existing Genre entity.
+     *
+     * @return array|RedirectResponse
+     *
+     * @Security("is_granted('ROLE_CONTENT_ADMIN')")
+     * @Route("/{id}/merge", name="genre_merge", methods={"GET","POST"})")
+     *
+     * @Template()
+     */
+    public function mergeAction(Request $request, Genre $genre, MergeService $ms, GenreRepository $repo) {
+        if ('POST' === $request->getMethod()) {
+            $genres = $repo->findBy(['id' => $request->request->get('genres')]);
+            $ms->genres($genre, $genres);
+            $this->addFlash('success', 'The genres have been merged.');
+            return $this->redirectToRoute('genre_show', ['id' => $genre->getId()]);
+        }
+
+        $q = $request->get('q');
+        if ($q) {
+            $genres = $repo->searchQuery($q)->execute();
+        } else {
+            $genres = [];
+        }
+
+        return [
+            'genre' => $genre,
+            'genres' => $genres,
+            'q' => '',
+        ];
     }
 
     /**
      * Deletes a Genre entity.
      *
-     *
-     * @param Request $request
-     * @param Genre $genre
-     *
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
      * @Route("/{id}/delete", name="genre_delete", methods={"GET"})")
-     *
      */
     public function deleteAction(Request $request, Genre $genre, EntityManagerInterface $em) {
-
         $em->remove($genre);
         $em->flush();
         $this->addFlash('success', 'The genre was deleted.');
 
         return $this->redirectToRoute('genre_index');
     }
-
 }

@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * SubjectHeading
+ * SubjectHeading.
  *
  * @ORM\Table(name="subject_heading", indexes={
  *      @ORM\Index(columns={"subject_heading"}, flags={"fulltext"}),
@@ -16,9 +24,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\SubjectHeadingRepository")
  */
 class SubjectHeading {
-
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -41,14 +48,13 @@ class SubjectHeading {
     private $subjectHeadingUri;
 
     /**
-     * @var Collection|Book[]
+     * @var Book[]|Collection
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="subjectHeadings")
      */
     private $books;
 
     /**
      * Construct SubjectHeading object.
-     *
      */
     public function __construct() {
         $this->books = new ArrayCollection();
@@ -56,24 +62,22 @@ class SubjectHeading {
 
     /**
      * Return string representation of subjectHeading.
-     *
-     * @return string
      */
     public function __toString() : string {
         return $this->subjectHeading;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * Set subjectHeading
+     * Set subjectHeading.
      *
      * @param string $subjectHeading
      *
@@ -86,7 +90,7 @@ class SubjectHeading {
     }
 
     /**
-     * Get subjectHeading
+     * Get subjectHeading.
      *
      * @return string
      */
@@ -95,7 +99,7 @@ class SubjectHeading {
     }
 
     /**
-     * Set subjectHeadingUri
+     * Set subjectHeadingUri.
      *
      * @param string $subjectHeadingUri
      *
@@ -108,7 +112,7 @@ class SubjectHeading {
     }
 
     /**
-     * Get subjectHeadingUri
+     * Get subjectHeadingUri.
      *
      * @return string
      */
@@ -117,9 +121,7 @@ class SubjectHeading {
     }
 
     /**
-     * Add book
-     *
-     * @param Book $book
+     * Add book.
      *
      * @return SubjectHeading
      */
@@ -130,21 +132,18 @@ class SubjectHeading {
     }
 
     /**
-     * Remove book
-     *
-     * @param Book $book
+     * Remove book.
      */
-    public function removeBook(Book $book) {
+    public function removeBook(Book $book) : void {
         $this->books->removeElement($book);
     }
 
     /**
-     * Get books
+     * Get books.
      *
      * @return Collection
      */
     public function getBooks() {
         return $this->books;
     }
-
 }

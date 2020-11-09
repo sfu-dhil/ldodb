@@ -1,35 +1,39 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Controller;
 
+use App\Entity\MapSize;
+use App\Form\MapSizeType;
 use App\Repository\MapSizeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use App\Entity\MapSize;
-use App\Form\MapSizeType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * MapSize controller.
  *
  * @Route("/map_size")
  */
-class MapSizeController extends AbstractController  implements PaginatorAwareInterface {
+class MapSizeController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
-
 
     /**
      * Lists all MapSize entities.
-     *
-     * @param Request $request
      *
      * @return array
      *
@@ -38,22 +42,19 @@ class MapSizeController extends AbstractController  implements PaginatorAwareInt
      * @Template()
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
-
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(MapSize::class, 'e')->orderBy('e.id', 'ASC');
         $query = $qb->getQuery();
 
         $mapSizes = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
 
-        return array(
+        return [
             'mapSizes' => $mapSizes,
-        );
+        ];
     }
 
     /**
      * Typeahead API endpoint for MapSize entities.
-     *
-     * @param Request $request
      *
      * @Route("/typeahead", name="map_size_typeahead", methods={"GET"})")
      *
@@ -61,7 +62,7 @@ class MapSizeController extends AbstractController  implements PaginatorAwareInt
      */
     public function typeahead(Request $request, MapSizeRepository $repo) {
         $q = $request->query->get('q');
-        if (!$q) {
+        if ( ! $q) {
             return new JsonResponse([]);
         }
 
@@ -72,13 +73,12 @@ class MapSizeController extends AbstractController  implements PaginatorAwareInt
                 'text' => (string) $result,
             ];
         }
+
         return new JsonResponse($data);
     }
 
     /**
      * Creates a new MapSize entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -93,24 +93,22 @@ class MapSizeController extends AbstractController  implements PaginatorAwareInt
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->persist($mapSize);
             $em->flush();
 
             $this->addFlash('success', 'The new mapSize was created.');
-            return $this->redirectToRoute('map_size_show', array('id' => $mapSize->getId()));
+
+            return $this->redirectToRoute('map_size_show', ['id' => $mapSize->getId()]);
         }
 
-        return array(
+        return [
             'mapSize' => $mapSize,
             'form' => $form->createView(),
-        );
+        ];
     }
 
     /**
      * Creates a new MapSize entity in a popup.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -126,8 +124,6 @@ class MapSizeController extends AbstractController  implements PaginatorAwareInt
     /**
      * Finds and displays a MapSize entity.
      *
-     * @param MapSize $mapSize
-     *
      * @return array
      *
      * @Route("/{id}", name="map_size_show", methods={"GET"})")
@@ -135,18 +131,13 @@ class MapSizeController extends AbstractController  implements PaginatorAwareInt
      * @Template()
      */
     public function showAction(MapSize $mapSize) {
-
-        return array(
+        return [
             'mapSize' => $mapSize,
-        );
+        ];
     }
 
     /**
      * Displays a form to edit an existing MapSize entity.
-     *
-     *
-     * @param Request $request
-     * @param MapSize $mapSize
      *
      * @return array|RedirectResponse
      *
@@ -160,38 +151,31 @@ class MapSizeController extends AbstractController  implements PaginatorAwareInt
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-
             $em->flush();
             $this->addFlash('success', 'The mapSize has been updated.');
-            return $this->redirectToRoute('map_size_show', array('id' => $mapSize->getId()));
+
+            return $this->redirectToRoute('map_size_show', ['id' => $mapSize->getId()]);
         }
 
-        return array(
+        return [
             'mapSize' => $mapSize,
             'edit_form' => $editForm->createView(),
-        );
+        ];
     }
 
     /**
      * Deletes a MapSize entity.
      *
-     *
-     * @param Request $request
-     * @param MapSize $mapSize
-     *
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
      * @Route("/{id}/delete", name="map_size_delete", methods={"GET"})")
-     *
      */
     public function deleteAction(Request $request, MapSize $mapSize, EntityManagerInterface $em) {
-
         $em->remove($mapSize);
         $em->flush();
         $this->addFlash('success', 'The mapSize was deleted.');
 
         return $this->redirectToRoute('map_size_index');
     }
-
 }

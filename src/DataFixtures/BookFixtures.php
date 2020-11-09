@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\DataFixtures;
 
 use App\Entity\Book;
@@ -8,7 +16,6 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
 class BookFixtures extends Fixture implements DependentFixtureInterface {
-
     public function getDependencies() {
         return [
             MapTypeFixtures::class,
@@ -24,7 +31,7 @@ class BookFixtures extends Fixture implements DependentFixtureInterface {
         ];
     }
 
-    public function load(ObjectManager $em) {
+    public function load(ObjectManager $em) : void {
         $object = new Book();
         $object->setBibliographicNotes('cheese');
         $object->setBicknellNumber('123 234');
@@ -45,7 +52,7 @@ class BookFixtures extends Fixture implements DependentFixtureInterface {
         $object->setPages(12);
         $object->setPhotographs('three');
         $object->setPlateCount(9);
-        $object->setPrice("1.2 duckets.");
+        $object->setPrice('1.2 duckets.');
         $object->setPrintRun(10);
         $object->setPublicDomain(true);
         $object->setPublicationDate('1098');
@@ -73,5 +80,4 @@ class BookFixtures extends Fixture implements DependentFixtureInterface {
 
         $em->flush();
     }
-
 }

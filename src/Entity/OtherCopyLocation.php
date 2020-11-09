@@ -1,19 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * OtherCopyLocation
+ * OtherCopyLocation.
  *
  * @ORM\Table(name="other_copy_location")
  * @ORM\Entity(repositoryClass="App\Repository\OtherCopyLocationRepository")
  */
 class OtherCopyLocation {
-
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -36,7 +43,7 @@ class OtherCopyLocation {
     private $otherCopyLocation;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="copy_count", type="integer", nullable=false)
      */
@@ -44,24 +51,22 @@ class OtherCopyLocation {
 
     /**
      * Return string representation of object.
-     *
-     * @return string
      */
     public function __toString() : string {
         return $this->otherCopyLocation . ' (' . $this->copyCount . ')';
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * Set otherCopyLocation
+     * Set otherCopyLocation.
      *
      * @param string $otherCopyLocation
      *
@@ -74,7 +79,7 @@ class OtherCopyLocation {
     }
 
     /**
-     * Get otherCopyLocation
+     * Get otherCopyLocation.
      *
      * @return string
      */
@@ -83,9 +88,9 @@ class OtherCopyLocation {
     }
 
     /**
-     * Set copyCount
+     * Set copyCount.
      *
-     * @param integer $copyCount
+     * @param int $copyCount
      *
      * @return OtherCopyLocation
      */
@@ -96,18 +101,16 @@ class OtherCopyLocation {
     }
 
     /**
-     * Get copyCount
+     * Get copyCount.
      *
-     * @return integer
+     * @return int
      */
     public function getCopyCount() {
         return $this->copyCount;
     }
 
     /**
-     * Set book
-     *
-     * @param Book $book
+     * Set book.
      *
      * @return OtherCopyLocation
      */
@@ -118,12 +121,11 @@ class OtherCopyLocation {
     }
 
     /**
-     * Get book
+     * Get book.
      *
      * @return Book
      */
     public function getBook() {
         return $this->book;
     }
-
 }

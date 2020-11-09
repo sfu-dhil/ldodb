@@ -1,35 +1,39 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Controller;
 
+use App\Entity\MapType;
+use App\Form\MapTypeType;
 use App\Repository\MapTypeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use App\Entity\MapType;
-use App\Form\MapTypeType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * MapType controller.
  *
  * @Route("/map_type")
  */
-class MapTypeController extends AbstractController  implements PaginatorAwareInterface {
+class MapTypeController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
-
 
     /**
      * Lists all MapType entities.
-     *
-     * @param Request $request
      *
      * @return array
      *
@@ -38,22 +42,19 @@ class MapTypeController extends AbstractController  implements PaginatorAwareInt
      * @Template()
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
-
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(MapType::class, 'e')->orderBy('e.id', 'ASC');
         $query = $qb->getQuery();
 
         $mapTypes = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
 
-        return array(
+        return [
             'mapTypes' => $mapTypes,
-        );
+        ];
     }
 
     /**
      * Typeahead API endpoint for MapType entities.
-     *
-     * @param Request $request
      *
      * @Route("/typeahead", name="map_type_typeahead", methods={"GET"})")
      *
@@ -61,7 +62,7 @@ class MapTypeController extends AbstractController  implements PaginatorAwareInt
      */
     public function typeahead(Request $request, MapTypeRepository $repo) {
         $q = $request->query->get('q');
-        if (!$q) {
+        if ( ! $q) {
             return new JsonResponse([]);
         }
 
@@ -72,13 +73,12 @@ class MapTypeController extends AbstractController  implements PaginatorAwareInt
                 'text' => (string) $result,
             ];
         }
+
         return new JsonResponse($data);
     }
 
     /**
      * Creates a new MapType entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -93,24 +93,22 @@ class MapTypeController extends AbstractController  implements PaginatorAwareInt
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->persist($mapType);
             $em->flush();
 
             $this->addFlash('success', 'The new mapType was created.');
-            return $this->redirectToRoute('map_type_show', array('id' => $mapType->getId()));
+
+            return $this->redirectToRoute('map_type_show', ['id' => $mapType->getId()]);
         }
 
-        return array(
+        return [
             'mapType' => $mapType,
             'form' => $form->createView(),
-        );
+        ];
     }
 
     /**
      * Creates a new MapType entity in a popup.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -126,8 +124,6 @@ class MapTypeController extends AbstractController  implements PaginatorAwareInt
     /**
      * Finds and displays a MapType entity.
      *
-     * @param MapType $mapType
-     *
      * @return array
      *
      * @Route("/{id}", name="map_type_show", methods={"GET"})")
@@ -135,18 +131,13 @@ class MapTypeController extends AbstractController  implements PaginatorAwareInt
      * @Template()
      */
     public function showAction(MapType $mapType) {
-
-        return array(
+        return [
             'mapType' => $mapType,
-        );
+        ];
     }
 
     /**
      * Displays a form to edit an existing MapType entity.
-     *
-     *
-     * @param Request $request
-     * @param MapType $mapType
      *
      * @return array|RedirectResponse
      *
@@ -160,38 +151,31 @@ class MapTypeController extends AbstractController  implements PaginatorAwareInt
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-
             $em->flush();
             $this->addFlash('success', 'The mapType has been updated.');
-            return $this->redirectToRoute('map_type_show', array('id' => $mapType->getId()));
+
+            return $this->redirectToRoute('map_type_show', ['id' => $mapType->getId()]);
         }
 
-        return array(
+        return [
             'mapType' => $mapType,
             'edit_form' => $editForm->createView(),
-        );
+        ];
     }
 
     /**
      * Deletes a MapType entity.
      *
-     *
-     * @param Request $request
-     * @param MapType $mapType
-     *
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
      * @Route("/{id}/delete", name="map_type_delete", methods={"GET"})")
-     *
      */
     public function deleteAction(Request $request, MapType $mapType, EntityManagerInterface $em) {
-
         $em->remove($mapType);
         $em->flush();
         $this->addFlash('success', 'The mapType was deleted.');
 
         return $this->redirectToRoute('map_type_index');
     }
-
 }

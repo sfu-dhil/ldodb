@@ -16,6 +16,8 @@
                 <a href="{{ path('genre_edit', { 'id': genre.id }) }}" class="btn btn-default">
                     <span class='glyphicon glyphicon-edit'></span> Edit
                 </a>
+                <a href="{{ path('genre_merge', { 'id': genre.id }) }}" class="btn btn-default">
+                    <span class='glyphicon glyphicon-resize-small'></span> Merge </a>
                 <a href="{{ path('genre_delete', { 'id': genre.id }) }}" class="btn btn-default" data-confirm="Are you sure you want to delete this genre?">
                     <span class='glyphicon glyphicon-remove'></span> Delete
                 </a>
@@ -40,7 +42,7 @@
                 <td>{{ genre.broaderTermId }}</td>
             </tr>
             <tr>
-                <th>Books</th>
+                <th>Titles</th>
                 <td>
                     {{ include('book/partial/list.html.twig', { books: genre.books }) }}
                 </td>

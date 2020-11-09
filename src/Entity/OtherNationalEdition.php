@@ -1,19 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * OtherNationalEdition
+ * OtherNationalEdition.
  *
  * @ORM\Table(name="other_national_edition")
  * @ORM\Entity(repositoryClass="App\Repository\OtherNationalEditionRepository")
  */
 class OtherNationalEdition {
-
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -36,7 +43,7 @@ class OtherNationalEdition {
     private $place;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="publication_date", type="integer", nullable=true)
      */
@@ -44,26 +51,24 @@ class OtherNationalEdition {
 
     /**
      * Return string representation of object.
-     *
-     * @return string
      */
     public function __toString() : string {
         return $this->place->__toString() . ', ' . $this->publicationDate;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * Set publicationDate
+     * Set publicationDate.
      *
-     * @param integer $publicationDate
+     * @param int $publicationDate
      *
      * @return OtherNationalEdition
      */
@@ -74,18 +79,16 @@ class OtherNationalEdition {
     }
 
     /**
-     * Get publicationDate
+     * Get publicationDate.
      *
-     * @return integer
+     * @return int
      */
     public function getPublicationDate() {
         return $this->publicationDate;
     }
 
     /**
-     * Set book
-     *
-     * @param Book $book
+     * Set book.
      *
      * @return OtherNationalEdition
      */
@@ -96,7 +99,7 @@ class OtherNationalEdition {
     }
 
     /**
-     * Get book
+     * Get book.
      *
      * @return Book
      */
@@ -105,9 +108,7 @@ class OtherNationalEdition {
     }
 
     /**
-     * Set place
-     *
-     * @param Place $place
+     * Set place.
      *
      * @return OtherNationalEdition
      */
@@ -118,12 +119,11 @@ class OtherNationalEdition {
     }
 
     /**
-     * Get place
+     * Get place.
      *
      * @return Place
      */
     public function getPlace() {
         return $this->place;
     }
-
 }

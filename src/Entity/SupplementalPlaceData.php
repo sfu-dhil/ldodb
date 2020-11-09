@@ -1,19 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * SupplementalPlaceData
+ * SupplementalPlaceData.
  *
  * @ORM\Table(name="supplemental_place_data")
  * @ORM\Entity(repositoryClass="App\Repository\SupplementalPlaceDataRepository")
  */
 class SupplementalPlaceData {
-
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -22,7 +29,7 @@ class SupplementalPlaceData {
     private $id;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="geonameid", type="integer", nullable=false)
      */
@@ -53,26 +60,24 @@ class SupplementalPlaceData {
      * Return string representation of place data.
      *
      * Formatted as geoname: latitude, longitude
-     *
-     * @return string
      */
     public function __toString() : string {
-        return $this->geoname . ": " . $this->latitude . ',' . $this->longitude;
+        return $this->geoname . ': ' . $this->latitude . ',' . $this->longitude;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * Set geonameId
+     * Set geonameId.
      *
-     * @param integer $geonameId
+     * @param int $geonameId
      *
      * @return SupplementalPlaceData
      */
@@ -83,16 +88,16 @@ class SupplementalPlaceData {
     }
 
     /**
-     * Get geonameId
+     * Get geonameId.
      *
-     * @return integer
+     * @return int
      */
     public function getGeonameId() {
         return $this->geonameId;
     }
 
     /**
-     * Set geoname
+     * Set geoname.
      *
      * @param string $geoname
      *
@@ -105,7 +110,7 @@ class SupplementalPlaceData {
     }
 
     /**
-     * Get geoname
+     * Get geoname.
      *
      * @return string
      */
@@ -114,7 +119,7 @@ class SupplementalPlaceData {
     }
 
     /**
-     * Set latitude
+     * Set latitude.
      *
      * @param float $latitude
      *
@@ -127,7 +132,7 @@ class SupplementalPlaceData {
     }
 
     /**
-     * Get latitude
+     * Get latitude.
      *
      * @return float
      */
@@ -136,7 +141,7 @@ class SupplementalPlaceData {
     }
 
     /**
-     * Set longitude
+     * Set longitude.
      *
      * @param float $longitude
      *
@@ -149,12 +154,11 @@ class SupplementalPlaceData {
     }
 
     /**
-     * Get longitude
+     * Get longitude.
      *
      * @return float
      */
     public function getLongitude() {
         return $this->longitude;
     }
-
 }

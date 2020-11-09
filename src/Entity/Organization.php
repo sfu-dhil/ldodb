@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Organization
+ * Organization.
  *
  * @ORM\Table(name="organization", indexes={
  *      @ORM\Index(columns={"organization_name"}, flags={"fulltext"}),
@@ -16,7 +24,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\OrganizationRepository")
  */
 class Organization extends Entity {
-
     /**
      * @var string
      *
@@ -40,16 +47,7 @@ class Organization extends Entity {
     private $organizationNotes;
 
     /**
-     * Return string representation of organizationName.
-     *
-     * @return string
-     */
-    public function __toString() : string {
-        return $this->organizationName;
-    }
-
-    /**
-     * Constructor
+     * Constructor.
      */
     public function __construct() {
         parent::__construct();
@@ -57,7 +55,14 @@ class Organization extends Entity {
     }
 
     /**
-     * Set organizationName
+     * Return string representation of organizationName.
+     */
+    public function __toString() : string {
+        return $this->organizationName;
+    }
+
+    /**
+     * Set organizationName.
      *
      * @param string $organizationName
      *
@@ -70,7 +75,7 @@ class Organization extends Entity {
     }
 
     /**
-     * Get organizationName
+     * Get organizationName.
      *
      * @return string
      */
@@ -79,7 +84,7 @@ class Organization extends Entity {
     }
 
     /**
-     * Set organizationUri
+     * Set organizationUri.
      *
      * @param string $organizationUri
      *
@@ -92,7 +97,7 @@ class Organization extends Entity {
     }
 
     /**
-     * Get organizationUri
+     * Get organizationUri.
      *
      * @return string
      */
@@ -101,7 +106,7 @@ class Organization extends Entity {
     }
 
     /**
-     * Set organizationNotes
+     * Set organizationNotes.
      *
      * @param string $organizationNotes
      *
@@ -114,7 +119,7 @@ class Organization extends Entity {
     }
 
     /**
-     * Get organizationNotes
+     * Get organizationNotes.
      *
      * @return string
      */
@@ -123,18 +128,16 @@ class Organization extends Entity {
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * Add contribution
-     *
-     * @param Contribution $contribution
+     * Add contribution.
      *
      * @return Organization
      */
@@ -145,16 +148,14 @@ class Organization extends Entity {
     }
 
     /**
-     * Remove contribution
-     *
-     * @param Contribution $contribution
+     * Remove contribution.
      */
-    public function removeContribution(Contribution $contribution) {
+    public function removeContribution(Contribution $contribution) : void {
         $this->contributions->removeElement($contribution);
     }
 
     /**
-     * Get contributions
+     * Get contributions.
      *
      * @return Collection
      */
@@ -170,5 +171,4 @@ class Organization extends Entity {
     public function getType() {
         return Entity::ORG_TYPE;
     }
-
 }

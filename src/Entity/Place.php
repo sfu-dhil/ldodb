@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Place
+ * Place.
  *
  * @ORM\Table(name="place", indexes={
  *      @ORM\Index(columns={"place_name"}, flags={"fulltext"}),
@@ -16,9 +24,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\PlaceRepository")
  */
 class Place {
-
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -42,7 +49,7 @@ class Place {
     private $placeUri;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="in_lake_district", type="boolean", nullable=true, options={"default": false})
      */
@@ -63,14 +70,14 @@ class Place {
     private $longitude;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="region_id", type="integer", nullable=true)
      */
     private $regionId;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="country_id", type="integer", nullable=true)
      */
@@ -101,7 +108,7 @@ class Place {
     private $peopleDied;
 
     /**
-     * @var Collection|Book[]
+     * @var Book[]|Collection
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="publicationPlaces")
      */
     private $books;
@@ -119,16 +126,7 @@ class Place {
     private $travellers;
 
     /**
-     * Return string representation of placeName.
-     *
-     * @return string
-     */
-    public function __toString() : string {
-        return $this->placeName;
-    }
-
-    /**
-     * Constructor
+     * Constructor.
      */
     public function __construct() {
         $this->otherNationalEditions = new ArrayCollection();
@@ -141,16 +139,23 @@ class Place {
     }
 
     /**
-     * Get id
+     * Return string representation of placeName.
+     */
+    public function __toString() : string {
+        return $this->placeName;
+    }
+
+    /**
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * Set placeName
+     * Set placeName.
      *
      * @param string $placeName
      *
@@ -163,7 +168,7 @@ class Place {
     }
 
     /**
-     * Get placeName
+     * Get placeName.
      *
      * @return string
      */
@@ -172,7 +177,7 @@ class Place {
     }
 
     /**
-     * Set placeUri
+     * Set placeUri.
      *
      * @param string $placeUri
      *
@@ -185,7 +190,7 @@ class Place {
     }
 
     /**
-     * Get placeUri
+     * Get placeUri.
      *
      * @return string
      */
@@ -194,9 +199,9 @@ class Place {
     }
 
     /**
-     * Set inLakeDistrict
+     * Set inLakeDistrict.
      *
-     * @param boolean $inLakeDistrict
+     * @param bool $inLakeDistrict
      *
      * @return Place
      */
@@ -207,16 +212,16 @@ class Place {
     }
 
     /**
-     * Get inLakeDistrict
+     * Get inLakeDistrict.
      *
-     * @return boolean
+     * @return bool
      */
     public function getInLakeDistrict() {
         return (bool) $this->inLakeDistrict;
     }
 
     /**
-     * Set latitude
+     * Set latitude.
      *
      * @param float $latitude
      *
@@ -229,7 +234,7 @@ class Place {
     }
 
     /**
-     * Get latitude
+     * Get latitude.
      *
      * @return float
      */
@@ -238,7 +243,7 @@ class Place {
     }
 
     /**
-     * Set longitude
+     * Set longitude.
      *
      * @param float $longitude
      *
@@ -251,7 +256,7 @@ class Place {
     }
 
     /**
-     * Get longitude
+     * Get longitude.
      *
      * @return float
      */
@@ -260,9 +265,9 @@ class Place {
     }
 
     /**
-     * Set regionId
+     * Set regionId.
      *
-     * @param integer $regionId
+     * @param int $regionId
      *
      * @return Place
      */
@@ -273,18 +278,18 @@ class Place {
     }
 
     /**
-     * Get regionId
+     * Get regionId.
      *
-     * @return integer
+     * @return int
      */
     public function getRegionId() {
         return $this->regionId;
     }
 
     /**
-     * Set countryId
+     * Set countryId.
      *
-     * @param integer $countryId
+     * @param int $countryId
      *
      * @return Place
      */
@@ -295,18 +300,16 @@ class Place {
     }
 
     /**
-     * Get countryId
+     * Get countryId.
      *
-     * @return integer
+     * @return int
      */
     public function getCountryId() {
         return $this->countryId;
     }
 
     /**
-     * Add otherNationalEdition
-     *
-     * @param OtherNationalEdition $otherNationalEdition
+     * Add otherNationalEdition.
      *
      * @return Place
      */
@@ -317,16 +320,14 @@ class Place {
     }
 
     /**
-     * Remove otherNationalEdition
-     *
-     * @param OtherNationalEdition $otherNationalEdition
+     * Remove otherNationalEdition.
      */
-    public function removeOtherNationalEdition(OtherNationalEdition $otherNationalEdition) {
+    public function removeOtherNationalEdition(OtherNationalEdition $otherNationalEdition) : void {
         $this->otherNationalEditions->removeElement($otherNationalEdition);
     }
 
     /**
-     * Get otherNationalEditions
+     * Get otherNationalEditions.
      *
      * @return Collection
      */
@@ -335,9 +336,7 @@ class Place {
     }
 
     /**
-     * Add referencedPlace
-     *
-     * @param ReferencedPlace $referencedPlace
+     * Add referencedPlace.
      *
      * @return Place
      */
@@ -348,16 +347,14 @@ class Place {
     }
 
     /**
-     * Remove referencedPlace
-     *
-     * @param ReferencedPlace $referencedPlace
+     * Remove referencedPlace.
      */
-    public function removeReferencedPlace(ReferencedPlace $referencedPlace) {
+    public function removeReferencedPlace(ReferencedPlace $referencedPlace) : void {
         $this->referencedPlaces->removeElement($referencedPlace);
     }
 
     /**
-     * Get referencedPlaces
+     * Get referencedPlaces.
      *
      * @return Collection
      */
@@ -366,9 +363,7 @@ class Place {
     }
 
     /**
-     * Add peopleBorn
-     *
-     * @param People $peopleBorn
+     * Add peopleBorn.
      *
      * @return Place
      */
@@ -379,16 +374,14 @@ class Place {
     }
 
     /**
-     * Remove peopleBorn
-     *
-     * @param People $peopleBorn
+     * Remove peopleBorn.
      */
-    public function removePeopleBorn(People $peopleBorn) {
+    public function removePeopleBorn(People $peopleBorn) : void {
         $this->peopleBorn->removeElement($peopleBorn);
     }
 
     /**
-     * Get peopleBorn
+     * Get peopleBorn.
      *
      * @return Collection
      */
@@ -397,9 +390,7 @@ class Place {
     }
 
     /**
-     * Add peopleDied
-     *
-     * @param People $peopleDied
+     * Add peopleDied.
      *
      * @return Place
      */
@@ -410,16 +401,14 @@ class Place {
     }
 
     /**
-     * Remove peopleDied
-     *
-     * @param People $peopleDied
+     * Remove peopleDied.
      */
-    public function removePeopleDied(People $peopleDied) {
+    public function removePeopleDied(People $peopleDied) : void {
         $this->peopleDied->removeElement($peopleDied);
     }
 
     /**
-     * Get peopleDied
+     * Get peopleDied.
      *
      * @return Collection
      */
@@ -428,29 +417,29 @@ class Place {
     }
 
     /**
-     * Add book
+     * Add book.
      *
      * @param \App\Entity\Book $book
      *
      * @return Place
      */
-    public function addBook(\App\Entity\Book $book) {
+    public function addBook(Book $book) {
         $this->books[] = $book;
 
         return $this;
     }
 
     /**
-     * Remove book
+     * Remove book.
      *
      * @param \App\Entity\Book $book
      */
-    public function removeBook(\App\Entity\Book $book) {
+    public function removeBook(Book $book) : void {
         $this->books->removeElement($book);
     }
 
     /**
-     * Get books
+     * Get books.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -459,29 +448,29 @@ class Place {
     }
 
     /**
-     * Add resident
+     * Add resident.
      *
      * @param \App\Entity\People $resident
      *
      * @return Place
      */
-    public function addResident(\App\Entity\People $resident) {
+    public function addResident(People $resident) {
         $this->residents[] = $resident;
 
         return $this;
     }
 
     /**
-     * Remove resident
+     * Remove resident.
      *
      * @param \App\Entity\People $resident
      */
-    public function removeResident(\App\Entity\People $resident) {
+    public function removeResident(People $resident) : void {
         $this->residents->removeElement($resident);
     }
 
     /**
-     * Get residents
+     * Get residents.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -490,34 +479,33 @@ class Place {
     }
 
     /**
-     * Add traveller
+     * Add traveller.
      *
      * @param \App\Entity\People $traveller
      *
      * @return Place
      */
-    public function addTraveller(\App\Entity\People $traveller) {
+    public function addTraveller(People $traveller) {
         $this->travellers[] = $traveller;
 
         return $this;
     }
 
     /**
-     * Remove traveller
+     * Remove traveller.
      *
      * @param \App\Entity\People $traveller
      */
-    public function removeTraveller(\App\Entity\People $traveller) {
+    public function removeTraveller(People $traveller) : void {
         $this->travellers->removeElement($traveller);
     }
 
     /**
-     * Get travellers
+     * Get travellers.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getTravellers() {
         return $this->travellers;
     }
-
 }

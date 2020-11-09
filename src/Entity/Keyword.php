@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -7,7 +15,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Keyword
+ * Keyword.
  *
  * @ORM\Table(name="keyword", indexes={
  *      @ORM\Index(columns={"keyword"}, flags={"fulltext"}),
@@ -15,9 +23,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\KeywordRepository")
  */
 class Keyword {
-
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -33,21 +40,20 @@ class Keyword {
     private $keyword;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="preferred_keyword", type="boolean", nullable=true, options={"default": 0})
      */
     private $preferredKeyword = false;
 
     /**
-     * @var Collection|Book[]
+     * @var Book[]|Collection
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="keywords")
      */
     private $books;
 
     /**
      * Construct Keyword object.
-     *
      */
     public function __construct() {
         $this->books = new ArrayCollection();
@@ -55,24 +61,22 @@ class Keyword {
 
     /**
      * Return string representation of keyword.
-     *
-     * @return string
      */
     public function __toString() : string {
         return $this->keyword;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * Set keyword
+     * Set keyword.
      *
      * @param string $keyword
      *
@@ -85,7 +89,7 @@ class Keyword {
     }
 
     /**
-     * Get keyword
+     * Get keyword.
      *
      * @return string
      */
@@ -94,9 +98,9 @@ class Keyword {
     }
 
     /**
-     * Set preferredKeyword
+     * Set preferredKeyword.
      *
-     * @param boolean $preferredKeyword
+     * @param bool $preferredKeyword
      *
      * @return Keyword
      */
@@ -107,43 +111,42 @@ class Keyword {
     }
 
     /**
-     * Get preferredKeyword
+     * Get preferredKeyword.
      *
-     * @return boolean
+     * @return bool
      */
     public function getPreferredKeyword() {
         return (bool) $this->preferredKeyword;
     }
 
     /**
-     * Add book
+     * Add book.
      *
      * @param \App\Entity\Book $book
      *
      * @return Keyword
      */
-    public function addBook(\App\Entity\Book $book) {
+    public function addBook(Book $book) {
         $this->books[] = $book;
 
         return $this;
     }
 
     /**
-     * Remove book
+     * Remove book.
      *
      * @param \App\Entity\Book $book
      */
-    public function removeBook(\App\Entity\Book $book) {
+    public function removeBook(Book $book) : void {
         $this->books->removeElement($book);
     }
 
     /**
-     * Get books
+     * Get books.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getBooks() {
         return $this->books;
     }
-
 }

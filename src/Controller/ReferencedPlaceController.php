@@ -1,35 +1,39 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Controller;
 
+use App\Entity\ReferencedPlace;
+use App\Form\ReferencedPlaceType;
 use App\Repository\ReferencedPlaceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use App\Entity\ReferencedPlace;
-use App\Form\ReferencedPlaceType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * ReferencedPlace controller.
  *
  * @Route("/referenced_place")
  */
-class ReferencedPlaceController extends AbstractController  implements PaginatorAwareInterface {
+class ReferencedPlaceController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
-
 
     /**
      * Lists all ReferencedPlace entities.
-     *
-     * @param Request $request
      *
      * @return array
      *
@@ -38,22 +42,19 @@ class ReferencedPlaceController extends AbstractController  implements Paginator
      * @Template()
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
-
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(ReferencedPlace::class, 'e')->orderBy('e.id', 'ASC');
         $query = $qb->getQuery();
 
         $referencedPlaces = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
 
-        return array(
+        return [
             'referencedPlaces' => $referencedPlaces,
-        );
+        ];
     }
 
     /**
      * Typeahead API endpoint for ReferencedPlace entities.
-     *
-     * @param Request $request
      *
      * @Route("/typeahead", name="referenced_place_typeahead", methods={"GET"})")
      *
@@ -61,7 +62,7 @@ class ReferencedPlaceController extends AbstractController  implements Paginator
      */
     public function typeahead(Request $request, ReferencedPlaceRepository $repo) {
         $q = $request->query->get('q');
-        if (!$q) {
+        if ( ! $q) {
             return new JsonResponse([]);
         }
 
@@ -72,13 +73,12 @@ class ReferencedPlaceController extends AbstractController  implements Paginator
                 'text' => (string) $result,
             ];
         }
+
         return new JsonResponse($data);
     }
 
     /**
      * Creates a new ReferencedPlace entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -93,24 +93,22 @@ class ReferencedPlaceController extends AbstractController  implements Paginator
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->persist($referencedPlace);
             $em->flush();
 
             $this->addFlash('success', 'The new referencedPlace was created.');
-            return $this->redirectToRoute('referenced_place_show', array('id' => $referencedPlace->getId()));
+
+            return $this->redirectToRoute('referenced_place_show', ['id' => $referencedPlace->getId()]);
         }
 
-        return array(
+        return [
             'referencedPlace' => $referencedPlace,
             'form' => $form->createView(),
-        );
+        ];
     }
 
     /**
      * Creates a new ReferencedPlace entity in a popup.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -126,8 +124,6 @@ class ReferencedPlaceController extends AbstractController  implements Paginator
     /**
      * Finds and displays a ReferencedPlace entity.
      *
-     * @param ReferencedPlace $referencedPlace
-     *
      * @return array
      *
      * @Route("/{id}", name="referenced_place_show", methods={"GET"})")
@@ -135,18 +131,13 @@ class ReferencedPlaceController extends AbstractController  implements Paginator
      * @Template()
      */
     public function showAction(ReferencedPlace $referencedPlace) {
-
-        return array(
+        return [
             'referencedPlace' => $referencedPlace,
-        );
+        ];
     }
 
     /**
      * Displays a form to edit an existing ReferencedPlace entity.
-     *
-     *
-     * @param Request $request
-     * @param ReferencedPlace $referencedPlace
      *
      * @return array|RedirectResponse
      *
@@ -160,38 +151,31 @@ class ReferencedPlaceController extends AbstractController  implements Paginator
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-
             $em->flush();
             $this->addFlash('success', 'The referencedPlace has been updated.');
-            return $this->redirectToRoute('referenced_place_show', array('id' => $referencedPlace->getId()));
+
+            return $this->redirectToRoute('referenced_place_show', ['id' => $referencedPlace->getId()]);
         }
 
-        return array(
+        return [
             'referencedPlace' => $referencedPlace,
             'edit_form' => $editForm->createView(),
-        );
+        ];
     }
 
     /**
      * Deletes a ReferencedPlace entity.
      *
-     *
-     * @param Request $request
-     * @param ReferencedPlace $referencedPlace
-     *
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
      * @Route("/{id}/delete", name="referenced_place_delete", methods={"GET"})")
-     *
      */
     public function deleteAction(Request $request, ReferencedPlace $referencedPlace, EntityManagerInterface $em) {
-
         $em->remove($referencedPlace);
         $em->flush();
         $this->addFlash('success', 'The referencedPlace was deleted.');
 
         return $this->redirectToRoute('referenced_place_index');
     }
-
 }

@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,17 +16,16 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Book
+ * Book.
  *
  * @ORM\Table(name="book", indexes={
- *      @ORM\Index(columns={"title"}, flags={"fulltext"}),
+ *      @ORM\Index(columns={"title", "short_title"}, flags={"fulltext"}),
  * })
  * @ORM\Entity(repositoryClass="App\Repository\BookRepository")
  */
 class Book {
-
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -97,21 +104,21 @@ class Book {
     private $publicationDate;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="volumes", type="integer", nullable=true, options={"default": 1})
      */
     private $volumes = '1';
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="pages", type="integer", nullable=true)
      */
     private $pages;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="copies", type="integer", nullable=true, options={"default": 1})
      */
@@ -133,7 +140,7 @@ class Book {
     private $sfuDigitalCopy;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="original_bib", type="boolean", nullable=true, options={"default": 0})
      */
@@ -161,7 +168,7 @@ class Book {
     private $reedNumber;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="public_domain", type="boolean", nullable=true, options={"default": 0})
      */
@@ -182,7 +189,7 @@ class Book {
     private $price;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="print_run", type="integer", nullable=true)
      */
@@ -226,14 +233,14 @@ class Book {
     private $format;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="plate_count", type="integer", nullable=true, options={"default": 0})
      */
     private $plateCount = '0';
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="map_count", type="integer", nullable=true, options={"default": 0})
      */
@@ -254,7 +261,7 @@ class Book {
     private $photographs;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="tables", type="boolean", nullable=true)
      */
@@ -362,7 +369,7 @@ class Book {
     private $subjectHeadings;
 
     /**
-     * @var Collection|BindingFeature[]
+     * @var BindingFeature[]|Collection
      * @ORM\ManyToMany(targetEntity="BindingFeature", inversedBy="books")
      * @ORM\JoinTable(name="book_binding_feature",
      *  joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
@@ -402,16 +409,7 @@ class Book {
     private $publicationPlaces;
 
     /**
-     * Return string representation of title.
-     *
-     * @return string
-     */
-    public function __toString() : string {
-        return $this->title;
-    }
-
-    /**
-     * Constructor
+     * Constructor.
      */
     public function __construct() {
         $this->otherNationalEditions = new ArrayCollection();
@@ -432,16 +430,23 @@ class Book {
     }
 
     /**
-     * Get id
+     * Return string representation of title.
+     */
+    public function __toString() : string {
+        return $this->title;
+    }
+
+    /**
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * Set fileName
+     * Set fileName.
      *
      * @param string $fileName
      *
@@ -454,7 +459,7 @@ class Book {
     }
 
     /**
-     * Get fileName
+     * Get fileName.
      *
      * @return string
      */
@@ -463,7 +468,7 @@ class Book {
     }
 
     /**
-     * Set callNumber
+     * Set callNumber.
      *
      * @param string $callNumber
      *
@@ -476,7 +481,7 @@ class Book {
     }
 
     /**
-     * Get callNumber
+     * Get callNumber.
      *
      * @return string
      */
@@ -485,7 +490,7 @@ class Book {
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
      *
@@ -498,7 +503,7 @@ class Book {
     }
 
     /**
-     * Get title
+     * Get title.
      *
      * @return string
      */
@@ -507,7 +512,7 @@ class Book {
     }
 
     /**
-     * Set shortTitle
+     * Set shortTitle.
      *
      * @param string $shortTitle
      *
@@ -520,7 +525,7 @@ class Book {
     }
 
     /**
-     * Get shortTitle
+     * Get shortTitle.
      *
      * @return string
      */
@@ -529,7 +534,7 @@ class Book {
     }
 
     /**
-     * Set seriesTitle
+     * Set seriesTitle.
      *
      * @param string $seriesTitle
      *
@@ -542,7 +547,7 @@ class Book {
     }
 
     /**
-     * Get seriesTitle
+     * Get seriesTitle.
      *
      * @return string
      */
@@ -551,7 +556,7 @@ class Book {
     }
 
     /**
-     * Set titlePageQuotation
+     * Set titlePageQuotation.
      *
      * @param string $titlePageQuotation
      *
@@ -564,7 +569,7 @@ class Book {
     }
 
     /**
-     * Get titlePageQuotation
+     * Get titlePageQuotation.
      *
      * @return string
      */
@@ -573,7 +578,7 @@ class Book {
     }
 
     /**
-     * Set dedication
+     * Set dedication.
      *
      * @param string $dedication
      *
@@ -586,7 +591,7 @@ class Book {
     }
 
     /**
-     * Get dedication
+     * Get dedication.
      *
      * @return string
      */
@@ -595,7 +600,7 @@ class Book {
     }
 
     /**
-     * Set imprint
+     * Set imprint.
      *
      * @param string $imprint
      *
@@ -608,7 +613,7 @@ class Book {
     }
 
     /**
-     * Get imprint
+     * Get imprint.
      *
      * @return string
      */
@@ -617,7 +622,7 @@ class Book {
     }
 
     /**
-     * Set edition
+     * Set edition.
      *
      * @param string $edition
      *
@@ -630,7 +635,7 @@ class Book {
     }
 
     /**
-     * Get edition
+     * Get edition.
      *
      * @return string
      */
@@ -639,7 +644,7 @@ class Book {
     }
 
     /**
-     * Set publicationDate
+     * Set publicationDate.
      *
      * @param string $publicationDate
      *
@@ -652,7 +657,7 @@ class Book {
     }
 
     /**
-     * Get publicationDate
+     * Get publicationDate.
      *
      * @return string
      */
@@ -661,9 +666,9 @@ class Book {
     }
 
     /**
-     * Set volumes
+     * Set volumes.
      *
-     * @param integer $volumes
+     * @param int $volumes
      *
      * @return Book
      */
@@ -674,18 +679,18 @@ class Book {
     }
 
     /**
-     * Get volumes
+     * Get volumes.
      *
-     * @return integer
+     * @return int
      */
     public function getVolumes() {
         return $this->volumes;
     }
 
     /**
-     * Set pages
+     * Set pages.
      *
-     * @param integer $pages
+     * @param int $pages
      *
      * @return Book
      */
@@ -696,18 +701,18 @@ class Book {
     }
 
     /**
-     * Get pages
+     * Get pages.
      *
-     * @return integer
+     * @return int
      */
     public function getPages() {
         return $this->pages;
     }
 
     /**
-     * Set copies
+     * Set copies.
      *
-     * @param integer $copies
+     * @param int $copies
      *
      * @return Book
      */
@@ -718,16 +723,16 @@ class Book {
     }
 
     /**
-     * Get copies
+     * Get copies.
      *
-     * @return integer
+     * @return int
      */
     public function getCopies() {
         return $this->copies;
     }
 
     /**
-     * Set sfuCatOrigBib
+     * Set sfuCatOrigBib.
      *
      * @param string $sfuCatOrigBib
      *
@@ -740,7 +745,7 @@ class Book {
     }
 
     /**
-     * Get sfuCatOrigBib
+     * Get sfuCatOrigBib.
      *
      * @return string
      */
@@ -749,9 +754,9 @@ class Book {
     }
 
     /**
-     * Set originalBib
+     * Set originalBib.
      *
-     * @param boolean $originalBib
+     * @param bool $originalBib
      *
      * @return Book
      */
@@ -762,16 +767,16 @@ class Book {
     }
 
     /**
-     * Get originalBib
+     * Get originalBib.
      *
-     * @return boolean
+     * @return bool
      */
     public function getOriginalBib() {
         return (bool) $this->originalBib;
     }
 
     /**
-     * Set bicknellNumber
+     * Set bicknellNumber.
      *
      * @param string $bicknellNumber
      *
@@ -784,7 +789,7 @@ class Book {
     }
 
     /**
-     * Get bicknellNumber
+     * Get bicknellNumber.
      *
      * @return string
      */
@@ -793,7 +798,7 @@ class Book {
     }
 
     /**
-     * Set healeyNumber
+     * Set healeyNumber.
      *
      * @param string $healeyNumber
      *
@@ -806,7 +811,7 @@ class Book {
     }
 
     /**
-     * Get healeyNumber
+     * Get healeyNumber.
      *
      * @return string
      */
@@ -815,7 +820,7 @@ class Book {
     }
 
     /**
-     * Set reedNumber
+     * Set reedNumber.
      *
      * @param string $reedNumber
      *
@@ -828,7 +833,7 @@ class Book {
     }
 
     /**
-     * Get reedNumber
+     * Get reedNumber.
      *
      * @return string
      */
@@ -837,9 +842,9 @@ class Book {
     }
 
     /**
-     * Set publicDomain
+     * Set publicDomain.
      *
-     * @param boolean $publicDomain
+     * @param bool $publicDomain
      *
      * @return Book
      */
@@ -850,16 +855,16 @@ class Book {
     }
 
     /**
-     * Get publicDomain
+     * Get publicDomain.
      *
-     * @return boolean
+     * @return bool
      */
     public function getPublicDomain() {
         return (bool) $this->publicDomain;
     }
 
     /**
-     * Set britishEdition
+     * Set britishEdition.
      *
      * @param string $britishEdition
      *
@@ -872,7 +877,7 @@ class Book {
     }
 
     /**
-     * Get britishEdition
+     * Get britishEdition.
      *
      * @return string
      */
@@ -881,7 +886,7 @@ class Book {
     }
 
     /**
-     * Set price
+     * Set price.
      *
      * @param string $price
      *
@@ -894,7 +899,7 @@ class Book {
     }
 
     /**
-     * Get price
+     * Get price.
      *
      * @return string
      */
@@ -903,9 +908,9 @@ class Book {
     }
 
     /**
-     * Set printRun
+     * Set printRun.
      *
-     * @param integer $printRun
+     * @param int $printRun
      *
      * @return Book
      */
@@ -916,16 +921,16 @@ class Book {
     }
 
     /**
-     * Get printRun
+     * Get printRun.
      *
-     * @return integer
+     * @return int
      */
     public function getPrintRun() {
         return $this->printRun;
     }
 
     /**
-     * Set bookUri
+     * Set bookUri.
      *
      * @param string $bookUri
      *
@@ -938,7 +943,7 @@ class Book {
     }
 
     /**
-     * Get bookUri
+     * Get bookUri.
      *
      * @return string
      */
@@ -947,7 +952,7 @@ class Book {
     }
 
     /**
-     * Set digitalObjectUrl
+     * Set digitalObjectUrl.
      *
      * @param string $digitalObjectUrl
      *
@@ -960,7 +965,7 @@ class Book {
     }
 
     /**
-     * Get digitalObjectUrl
+     * Get digitalObjectUrl.
      *
      * @return string
      */
@@ -969,7 +974,7 @@ class Book {
     }
 
     /**
-     * Set bibliographicNotes
+     * Set bibliographicNotes.
      *
      * @param string $bibliographicNotes
      *
@@ -982,7 +987,7 @@ class Book {
     }
 
     /**
-     * Get bibliographicNotes
+     * Get bibliographicNotes.
      *
      * @return string
      */
@@ -991,7 +996,7 @@ class Book {
     }
 
     /**
-     * Set criticalAnnotation
+     * Set criticalAnnotation.
      *
      * @param string $criticalAnnotation
      *
@@ -1004,7 +1009,7 @@ class Book {
     }
 
     /**
-     * Get criticalAnnotation
+     * Get criticalAnnotation.
      *
      * @return string
      */
@@ -1013,7 +1018,7 @@ class Book {
     }
 
     /**
-     * Set format
+     * Set format.
      *
      * @param string $format
      *
@@ -1026,7 +1031,7 @@ class Book {
     }
 
     /**
-     * Get format
+     * Get format.
      *
      * @return string
      */
@@ -1035,9 +1040,9 @@ class Book {
     }
 
     /**
-     * Set plateCount
+     * Set plateCount.
      *
-     * @param integer $plateCount
+     * @param int $plateCount
      *
      * @return Book
      */
@@ -1048,18 +1053,18 @@ class Book {
     }
 
     /**
-     * Get plateCount
+     * Get plateCount.
      *
-     * @return integer
+     * @return int
      */
     public function getPlateCount() {
         return $this->plateCount;
     }
 
     /**
-     * Set mapCount
+     * Set mapCount.
      *
-     * @param integer $mapCount
+     * @param int $mapCount
      *
      * @return Book
      */
@@ -1070,16 +1075,16 @@ class Book {
     }
 
     /**
-     * Get mapCount
+     * Get mapCount.
      *
-     * @return integer
+     * @return int
      */
     public function getMapCount() {
         return $this->mapCount;
     }
 
     /**
-     * Set illustrations
+     * Set illustrations.
      *
      * @param string $illustrations
      *
@@ -1092,7 +1097,7 @@ class Book {
     }
 
     /**
-     * Get illustrations
+     * Get illustrations.
      *
      * @return string
      */
@@ -1101,7 +1106,7 @@ class Book {
     }
 
     /**
-     * Set photographs
+     * Set photographs.
      *
      * @param string $photographs
      *
@@ -1114,7 +1119,7 @@ class Book {
     }
 
     /**
-     * Get photographs
+     * Get photographs.
      *
      * @return string
      */
@@ -1123,9 +1128,9 @@ class Book {
     }
 
     /**
-     * Set tables
+     * Set tables.
      *
-     * @param boolean $tables
+     * @param bool $tables
      *
      * @return Book
      */
@@ -1136,16 +1141,16 @@ class Book {
     }
 
     /**
-     * Get tables
+     * Get tables.
      *
-     * @return boolean
+     * @return bool
      */
     public function getTables() {
         return $this->tables;
     }
 
     /**
-     * Set bindingColour
+     * Set bindingColour.
      *
      * @param string $bindingColour
      *
@@ -1158,7 +1163,7 @@ class Book {
     }
 
     /**
-     * Get bindingColour
+     * Get bindingColour.
      *
      * @return string
      */
@@ -1167,9 +1172,7 @@ class Book {
     }
 
     /**
-     * Add otherNationalEdition
-     *
-     * @param OtherNationalEdition $otherNationalEdition
+     * Add otherNationalEdition.
      *
      * @return Book
      */
@@ -1180,16 +1183,14 @@ class Book {
     }
 
     /**
-     * Remove otherNationalEdition
-     *
-     * @param OtherNationalEdition $otherNationalEdition
+     * Remove otherNationalEdition.
      */
-    public function removeOtherNationalEdition(OtherNationalEdition $otherNationalEdition) {
+    public function removeOtherNationalEdition(OtherNationalEdition $otherNationalEdition) : void {
         $this->otherNationalEditions->removeElement($otherNationalEdition);
     }
 
     /**
-     * Get otherNationalEditions
+     * Get otherNationalEditions.
      *
      * @return Collection
      */
@@ -1198,9 +1199,7 @@ class Book {
     }
 
     /**
-     * Add referencedPlace
-     *
-     * @param ReferencedPlace $referencedPlace
+     * Add referencedPlace.
      *
      * @return Book
      */
@@ -1211,16 +1210,14 @@ class Book {
     }
 
     /**
-     * Remove referencedPlace
-     *
-     * @param ReferencedPlace $referencedPlace
+     * Remove referencedPlace.
      */
-    public function removeReferencedPlace(ReferencedPlace $referencedPlace) {
+    public function removeReferencedPlace(ReferencedPlace $referencedPlace) : void {
         $this->referencedPlaces->removeElement($referencedPlace);
     }
 
     /**
-     * Get referencedPlaces
+     * Get referencedPlaces.
      *
      * @return Collection
      */
@@ -1229,9 +1226,7 @@ class Book {
     }
 
     /**
-     * Add otherCopyLocation
-     *
-     * @param OtherCopyLocation $otherCopyLocation
+     * Add otherCopyLocation.
      *
      * @return Book
      */
@@ -1242,16 +1237,14 @@ class Book {
     }
 
     /**
-     * Remove otherCopyLocation
-     *
-     * @param OtherCopyLocation $otherCopyLocation
+     * Remove otherCopyLocation.
      */
-    public function removeOtherCopyLocation(OtherCopyLocation $otherCopyLocation) {
+    public function removeOtherCopyLocation(OtherCopyLocation $otherCopyLocation) : void {
         $this->otherCopyLocations->removeElement($otherCopyLocation);
     }
 
     /**
-     * Get otherCopyLocations
+     * Get otherCopyLocations.
      *
      * @return Collection
      */
@@ -1260,9 +1253,7 @@ class Book {
     }
 
     /**
-     * Add contribution
-     *
-     * @param Contribution $contribution
+     * Add contribution.
      *
      * @return Book
      */
@@ -1273,34 +1264,31 @@ class Book {
     }
 
     /**
-     * Remove contribution
-     *
-     * @param Contribution $contribution
+     * Remove contribution.
      */
-    public function removeContribution(Contribution $contribution) {
+    public function removeContribution(Contribution $contribution) : void {
         $this->contributions->removeElement($contribution);
     }
 
     /**
-     * Get contributions, optionally flitered by task
+     * Get contributions, optionally flitered by task.
      *
      * @param string $task
      *
-     * @return Collection
+     * @return Collection|Contribution[]
      */
     public function getContributions($task = null) {
-        if ($task === null) {
+        if (null === $task) {
             return $this->contributions;
         }
-        return $this->contributions->filter(function(Contribution $contribution) use ($task) {
-                    return $contribution->getTask()->getTaskName() === $task;
-                });
+
+        return $this->contributions->filter(function (Contribution $contribution) use ($task) {
+            return $contribution->getTask()->getTaskName() === $task;
+        });
     }
 
     /**
-     * Add genre
-     *
-     * @param Genre $genre
+     * Add genre.
      *
      * @return Book
      */
@@ -1311,16 +1299,14 @@ class Book {
     }
 
     /**
-     * Remove genre
-     *
-     * @param Genre $genre
+     * Remove genre.
      */
-    public function removeGenre(Genre $genre) {
+    public function removeGenre(Genre $genre) : void {
         $this->genres->removeElement($genre);
     }
 
     /**
-     * Get genres
+     * Get genres.
      *
      * @return Collection
      */
@@ -1329,9 +1315,7 @@ class Book {
     }
 
     /**
-     * Add referencedPerson
-     *
-     * @param ReferencedPerson $referencedPerson
+     * Add referencedPerson.
      *
      * @return Book
      */
@@ -1342,16 +1326,14 @@ class Book {
     }
 
     /**
-     * Remove referencedPerson
-     *
-     * @param ReferencedPerson $referencedPerson
+     * Remove referencedPerson.
      */
-    public function removeReferencedPerson(ReferencedPerson $referencedPerson) {
+    public function removeReferencedPerson(ReferencedPerson $referencedPerson) : void {
         $this->referencedPeople->removeElement($referencedPerson);
     }
 
     /**
-     * Get referencedPeople
+     * Get referencedPeople.
      *
      * @return Collection
      */
@@ -1360,9 +1342,7 @@ class Book {
     }
 
     /**
-     * Add plateType
-     *
-     * @param PlateType $plateType
+     * Add plateType.
      *
      * @return Book
      */
@@ -1373,16 +1353,14 @@ class Book {
     }
 
     /**
-     * Remove plateType
-     *
-     * @param PlateType $plateType
+     * Remove plateType.
      */
-    public function removePlateType(PlateType $plateType) {
+    public function removePlateType(PlateType $plateType) : void {
         $this->plateTypes->removeElement($plateType);
     }
 
     /**
-     * Get plateTypes
+     * Get plateTypes.
      *
      * @return Collection
      */
@@ -1391,9 +1369,7 @@ class Book {
     }
 
     /**
-     * Add mapType
-     *
-     * @param MapType $mapType
+     * Add mapType.
      *
      * @return Book
      */
@@ -1404,16 +1380,14 @@ class Book {
     }
 
     /**
-     * Remove mapType
-     *
-     * @param MapType $mapType
+     * Remove mapType.
      */
-    public function removeMapType(MapType $mapType) {
+    public function removeMapType(MapType $mapType) : void {
         $this->mapTypes->removeElement($mapType);
     }
 
     /**
-     * Get mapTypes
+     * Get mapTypes.
      *
      * @return Collection
      */
@@ -1422,9 +1396,7 @@ class Book {
     }
 
     /**
-     * Add subject
-     *
-     * @param Subject $subject
+     * Add subject.
      *
      * @return Book
      */
@@ -1435,16 +1407,14 @@ class Book {
     }
 
     /**
-     * Remove subject
-     *
-     * @param Subject $subject
+     * Remove subject.
      */
-    public function removeSubject(Subject $subject) {
+    public function removeSubject(Subject $subject) : void {
         $this->subjects->removeElement($subject);
     }
 
     /**
-     * Get subjects
+     * Get subjects.
      *
      * @return Collection
      */
@@ -1453,9 +1423,7 @@ class Book {
     }
 
     /**
-     * Add mapSize
-     *
-     * @param MapSize $mapSize
+     * Add mapSize.
      *
      * @return Book
      */
@@ -1466,16 +1434,14 @@ class Book {
     }
 
     /**
-     * Remove mapSize
-     *
-     * @param MapSize $mapSize
+     * Remove mapSize.
      */
-    public function removeMapSize(MapSize $mapSize) {
+    public function removeMapSize(MapSize $mapSize) : void {
         $this->mapSizes->removeElement($mapSize);
     }
 
     /**
-     * Get mapSizes
+     * Get mapSizes.
      *
      * @return Collection
      */
@@ -1484,9 +1450,7 @@ class Book {
     }
 
     /**
-     * Add subjectHeading
-     *
-     * @param SubjectHeading $subjectHeading
+     * Add subjectHeading.
      *
      * @return Book
      */
@@ -1497,16 +1461,14 @@ class Book {
     }
 
     /**
-     * Remove subjectHeading
-     *
-     * @param SubjectHeading $subjectHeading
+     * Remove subjectHeading.
      */
-    public function removeSubjectHeading(SubjectHeading $subjectHeading) {
+    public function removeSubjectHeading(SubjectHeading $subjectHeading) : void {
         $this->subjectHeadings->removeElement($subjectHeading);
     }
 
     /**
-     * Get subjectHeadings
+     * Get subjectHeadings.
      *
      * @return Collection
      */
@@ -1515,9 +1477,7 @@ class Book {
     }
 
     /**
-     * Add bindingFeature
-     *
-     * @param BindingFeature $bindingFeature
+     * Add bindingFeature.
      *
      * @return Book
      */
@@ -1528,16 +1488,14 @@ class Book {
     }
 
     /**
-     * Remove bindingFeature
-     *
-     * @param BindingFeature $bindingFeature
+     * Remove bindingFeature.
      */
-    public function removeBindingFeature(BindingFeature $bindingFeature) {
+    public function removeBindingFeature(BindingFeature $bindingFeature) : void {
         $this->bindingFeatures->removeElement($bindingFeature);
     }
 
     /**
-     * Get bindingFeatures
+     * Get bindingFeatures.
      *
      * @return Collection
      */
@@ -1546,9 +1504,7 @@ class Book {
     }
 
     /**
-     * Add keyword
-     *
-     * @param Keyword $keyword
+     * Add keyword.
      *
      * @return Book
      */
@@ -1559,16 +1515,14 @@ class Book {
     }
 
     /**
-     * Remove keyword
-     *
-     * @param Keyword $keyword
+     * Remove keyword.
      */
-    public function removeKeyword(Keyword $keyword) {
+    public function removeKeyword(Keyword $keyword) : void {
         $this->keywords->removeElement($keyword);
     }
 
     /**
-     * Get keywords
+     * Get keywords.
      *
      * @return Collection
      */
@@ -1577,9 +1531,7 @@ class Book {
     }
 
     /**
-     * Add digitalCopyHolder
-     *
-     * @param DigitalCopyHolder $digitalCopyHolder
+     * Add digitalCopyHolder.
      *
      * @return Book
      */
@@ -1590,16 +1542,14 @@ class Book {
     }
 
     /**
-     * Remove digitalCopyHolder
-     *
-     * @param DigitalCopyHolder $digitalCopyHolder
+     * Remove digitalCopyHolder.
      */
-    public function removeDigitalCopyHolder(DigitalCopyHolder $digitalCopyHolder) {
+    public function removeDigitalCopyHolder(DigitalCopyHolder $digitalCopyHolder) : void {
         $this->digitalCopyHolders->removeElement($digitalCopyHolder);
     }
 
     /**
-     * Get digitalCopyHolders
+     * Get digitalCopyHolders.
      *
      * @return Collection
      */
@@ -1608,9 +1558,7 @@ class Book {
     }
 
     /**
-     * Add publicationPlace
-     *
-     * @param Place $publicationPlace
+     * Add publicationPlace.
      *
      * @return Book
      */
@@ -1621,25 +1569,23 @@ class Book {
     }
 
     /**
-     * Remove publicationPlace
-     *
-     * @param Place $publicationPlace
+     * Remove publicationPlace.
      */
-    public function removePublicationPlace(Place $publicationPlace) {
+    public function removePublicationPlace(Place $publicationPlace) : void {
         $this->publicationPlaces->removeElement($publicationPlace);
     }
 
     /**
-     * Get publicationPlaces
+     * Get publicationPlaces.
      *
-     * @return Collection
+     * @return Collection|Place[]
      */
     public function getPublicationPlaces() {
         return $this->publicationPlaces;
     }
 
     /**
-     * Set sfuDigitalCopy
+     * Set sfuDigitalCopy.
      *
      * @param string $sfuDigitalCopy
      *
@@ -1652,12 +1598,11 @@ class Book {
     }
 
     /**
-     * Get sfuDigitalCopy
+     * Get sfuDigitalCopy.
      *
      * @return string
      */
     public function getSfuDigitalCopy() {
         return $this->sfuDigitalCopy;
     }
-
 }

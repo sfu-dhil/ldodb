@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block pageheader %}
-    <h1>Welcome</h1>
+    {% if homepage %}<h1>{{ homepage.title }}</h1>{% endif %}</h1>
 {% endblock %}
 
 {% block body %}
 
-    <p>This is the Lake District Online Database.</p>
+    {% if homepage %}
+        {{ homepage.content|raw }}
+    {% endif %}
 
 {% endblock %}

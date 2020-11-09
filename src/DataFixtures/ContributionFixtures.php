@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\DataFixtures;
 
 use App\Entity\Contribution;
@@ -8,7 +16,6 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
 class ContributionFixtures extends Fixture implements DependentFixtureInterface {
-
     public function getDependencies() {
         return [
             BookFixtures::class,
@@ -18,7 +25,7 @@ class ContributionFixtures extends Fixture implements DependentFixtureInterface 
         ];
     }
 
-    public function load(ObjectManager $em) {
+    public function load(ObjectManager $em) : void {
         $object = new Contribution();
         $object->setBook($this->getReference('Book.1'));
         $object->setEntity($this->getReference('People.1'));
@@ -34,5 +41,4 @@ class ContributionFixtures extends Fixture implements DependentFixtureInterface 
         $this->setReference('Contribution.2', $object);
         $em->flush();
     }
-
 }

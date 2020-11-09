@@ -1,21 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Controller;
 
+use App\Entity\BibliographicTerms;
+use App\Form\BibliographicTermsType;
 use App\Repository\BibliographicTermsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use App\Entity\BibliographicTerms;
-use App\Form\BibliographicTermsType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * BibliographicTerms controller.
@@ -28,8 +35,6 @@ class BibliographicTermsController extends AbstractController implements Paginat
     /**
      * Lists all BibliographicTerms entities.
      *
-     * @param Request $request
-     *
      * @return array
      *
      * @Route("/", name="bibliographic_terms_index", methods={"GET"})")
@@ -37,22 +42,19 @@ class BibliographicTermsController extends AbstractController implements Paginat
      * @Template()
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
-
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(BibliographicTerms::class, 'e')->orderBy('e.id', 'ASC');
         $query = $qb->getQuery();
 
         $bibliographicTerms = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
 
-        return array(
+        return [
             'bibliographicTerms' => $bibliographicTerms,
-        );
+        ];
     }
 
     /**
      * Typeahead API endpoint for BibliographicTerms entities.
-     *
-     * @param Request $request
      *
      * @Route("/typeahead", name="bibliographic_terms_typeahead", methods={"GET"})")
      *
@@ -60,7 +62,7 @@ class BibliographicTermsController extends AbstractController implements Paginat
      */
     public function typeahead(Request $request, BibliographicTermsRepository $repo) {
         $q = $request->query->get('q');
-        if (!$q) {
+        if ( ! $q) {
             return new JsonResponse([]);
         }
 
@@ -71,13 +73,12 @@ class BibliographicTermsController extends AbstractController implements Paginat
                 'text' => (string) $result,
             ];
         }
+
         return new JsonResponse($data);
     }
 
     /**
      * Creates a new BibliographicTerms entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -92,24 +93,22 @@ class BibliographicTermsController extends AbstractController implements Paginat
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->persist($bibliographicTerm);
             $em->flush();
 
             $this->addFlash('success', 'The new bibliographicTerm was created.');
-            return $this->redirectToRoute('bibliographic_terms_show', array('id' => $bibliographicTerm->getId()));
+
+            return $this->redirectToRoute('bibliographic_terms_show', ['id' => $bibliographicTerm->getId()]);
         }
 
-        return array(
+        return [
             'bibliographicTerm' => $bibliographicTerm,
             'form' => $form->createView(),
-        );
+        ];
     }
 
     /**
      * Creates a new BibliographicTerms entity in a popup.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -125,8 +124,6 @@ class BibliographicTermsController extends AbstractController implements Paginat
     /**
      * Finds and displays a BibliographicTerms entity.
      *
-     * @param BibliographicTerms $bibliographicTerm
-     *
      * @return array
      *
      * @Route("/{id}", name="bibliographic_terms_show", methods={"GET"})")
@@ -134,18 +131,13 @@ class BibliographicTermsController extends AbstractController implements Paginat
      * @Template()
      */
     public function showAction(BibliographicTerms $bibliographicTerm) {
-
-        return array(
+        return [
             'bibliographicTerm' => $bibliographicTerm,
-        );
+        ];
     }
 
     /**
      * Displays a form to edit an existing BibliographicTerms entity.
-     *
-     *
-     * @param Request $request
-     * @param BibliographicTerms $bibliographicTerm
      *
      * @return array|RedirectResponse
      *
@@ -159,38 +151,31 @@ class BibliographicTermsController extends AbstractController implements Paginat
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-
             $em->flush();
             $this->addFlash('success', 'The bibliographicTerm has been updated.');
-            return $this->redirectToRoute('bibliographic_terms_show', array('id' => $bibliographicTerm->getId()));
+
+            return $this->redirectToRoute('bibliographic_terms_show', ['id' => $bibliographicTerm->getId()]);
         }
 
-        return array(
+        return [
             'bibliographicTerm' => $bibliographicTerm,
             'edit_form' => $editForm->createView(),
-        );
+        ];
     }
 
     /**
      * Deletes a BibliographicTerms entity.
      *
-     *
-     * @param Request $request
-     * @param BibliographicTerms $bibliographicTerm
-     *
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
      * @Route("/{id}/delete", name="bibliographic_terms_delete", methods={"GET"})")
-     *
      */
     public function deleteAction(Request $request, BibliographicTerms $bibliographicTerm, EntityManagerInterface $em) {
-
         $em->remove($bibliographicTerm);
         $em->flush();
         $this->addFlash('success', 'The bibliographicTerm was deleted.');
 
         return $this->redirectToRoute('bibliographic_terms_index');
     }
-
 }

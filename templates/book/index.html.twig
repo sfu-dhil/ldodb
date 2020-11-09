@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Books{% endblock %}
+{% block title %}Titles{% endblock %}
 
 {% block pageheader %}
-    <h1>Book List</h1>
+    <h1>Title List</h1>
     <p class="count">
         Displaying {{ books|length }} books of {{ books.getTotalItemCount }} total.
     </p>
@@ -11,7 +11,18 @@
 
 {% block body %}
 
-    {% include 'partial/search.html.twig' with {'route': 'book_search', 'label': 'Title search'} %}
+    <details>
+        <summary>Search</summary>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div class="form-group">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </details>
 
     <div class='btn-toolbar pull-right'>
         <div class='btn-group'>

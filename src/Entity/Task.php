@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -7,15 +15,14 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Task
+ * Task.
  *
  * @ORM\Table(name="task")
  * @ORM\Entity(repositoryClass="App\Repository\TaskRepository")
  */
 class Task {
-
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -37,32 +44,30 @@ class Task {
     private $contributions;
 
     /**
-     * Return string representation of taskName.
-     *
-     * @return string
-     */
-    public function __toString() : string {
-        return $this->taskName;
-    }
-
-    /**
-     * Constructor
+     * Constructor.
      */
     public function __construct() {
         $this->contributions = new ArrayCollection();
     }
 
     /**
-     * Get id
+     * Return string representation of taskName.
+     */
+    public function __toString() : string {
+        return $this->taskName;
+    }
+
+    /**
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * Set taskName
+     * Set taskName.
      *
      * @param string $taskName
      *
@@ -75,7 +80,7 @@ class Task {
     }
 
     /**
-     * Get taskName
+     * Get taskName.
      *
      * @return string
      */
@@ -84,9 +89,7 @@ class Task {
     }
 
     /**
-     * Add contribution
-     *
-     * @param Contribution $contribution
+     * Add contribution.
      *
      * @return Task
      */
@@ -97,21 +100,18 @@ class Task {
     }
 
     /**
-     * Remove contribution
-     *
-     * @param Contribution $contribution
+     * Remove contribution.
      */
-    public function removeContribution(Contribution $contribution) {
+    public function removeContribution(Contribution $contribution) : void {
         $this->contributions->removeElement($contribution);
     }
 
     /**
-     * Get contributions
+     * Get contributions.
      *
      * @return Collection
      */
     public function getContributions() {
         return $this->contributions;
     }
-
 }

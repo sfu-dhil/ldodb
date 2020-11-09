@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Form;
 
 use App\Entity\Contribution;
@@ -14,15 +22,11 @@ use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
  * ContributionType form.
  */
 class ContributionType extends AbstractType {
-
     /**
      * Add form fields to $builder.
-     *
-     * @param FormBuilderInterface $builder
-     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) : void {
-        $builder->add('entity', Select2EntityType::class, array(
+        $builder->add('entity', Select2EntityType::class, [
             'multiple' => false,
             'remote_route' => 'entity_typeahead',
             'class' => Entity::class,
@@ -32,11 +36,11 @@ class ContributionType extends AbstractType {
             'allow_clear' => true,
             'delay' => 250,
             'language' => 'en',
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('task', Select2EntityType::class, array(
+            ],
+        ]);
+        $builder->add('task', Select2EntityType::class, [
             'multiple' => false,
             'remote_route' => 'task_typeahead',
             'class' => Task::class,
@@ -46,10 +50,10 @@ class ContributionType extends AbstractType {
             'allow_clear' => true,
             'delay' => 250,
             'language' => 'en',
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
+            ],
+        ]);
     }
 
     /**
@@ -57,13 +61,10 @@ class ContributionType extends AbstractType {
      *
      * Set default, optional, and required options passed to the
      * buildForm() method via the $options parameter.
-     *
-     * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver) {
-        $resolver->setDefaults(array(
-            'data_class' => Contribution::class
-        ));
+    public function configureOptions(OptionsResolver $resolver) : void {
+        $resolver->setDefaults([
+            'data_class' => Contribution::class,
+        ]);
     }
-
 }

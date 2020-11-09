@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * ReferencedPerson
+ * ReferencedPerson.
  *
  * @ORM\Table(name="referenced_person", indexes={
  *      @ORM\Index(columns={"first_name", "last_name"}, flags={"fulltext"}),
@@ -16,9 +24,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\ReferencedPersonRepository")
  */
 class ReferencedPerson {
-
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -55,7 +62,7 @@ class ReferencedPerson {
     private $deathDate;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="same_as_people_entity_id", type="integer", nullable=true)
      */
@@ -70,14 +77,13 @@ class ReferencedPerson {
     private $referencedPersonUri;
 
     /**
-     * @var Collection|Book[]
+     * @var Book[]|Collection
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="referencedPeople")
      */
     private $books;
 
     /**
      * Construct ReferencedPerson object.
-     *
      */
     public function __construct() {
         $this->books = new ArrayCollection();
@@ -87,24 +93,22 @@ class ReferencedPerson {
      * Return string representation of name.
      *
      * Formatted as lastName, firstName
-     *
-     * @return string
      */
     public function __toString() : string {
         return $this->lastName . ', ' . $this->firstName;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * Set lastName
+     * Set lastName.
      *
      * @param string $lastName
      *
@@ -117,7 +121,7 @@ class ReferencedPerson {
     }
 
     /**
-     * Get lastName
+     * Get lastName.
      *
      * @return string
      */
@@ -126,7 +130,7 @@ class ReferencedPerson {
     }
 
     /**
-     * Set firstName
+     * Set firstName.
      *
      * @param string $firstName
      *
@@ -139,7 +143,7 @@ class ReferencedPerson {
     }
 
     /**
-     * Get firstName
+     * Get firstName.
      *
      * @return string
      */
@@ -148,7 +152,7 @@ class ReferencedPerson {
     }
 
     /**
-     * Set birthDate
+     * Set birthDate.
      *
      * @param string $birthDate
      *
@@ -161,7 +165,7 @@ class ReferencedPerson {
     }
 
     /**
-     * Get birthDate
+     * Get birthDate.
      *
      * @return string
      */
@@ -170,7 +174,7 @@ class ReferencedPerson {
     }
 
     /**
-     * Set deathDate
+     * Set deathDate.
      *
      * @param string $deathDate
      *
@@ -183,7 +187,7 @@ class ReferencedPerson {
     }
 
     /**
-     * Get deathDate
+     * Get deathDate.
      *
      * @return string
      */
@@ -192,9 +196,9 @@ class ReferencedPerson {
     }
 
     /**
-     * Set sameAsPeopleEntityId
+     * Set sameAsPeopleEntityId.
      *
-     * @param integer $sameAsPeopleEntityId
+     * @param int $sameAsPeopleEntityId
      *
      * @return ReferencedPerson
      */
@@ -205,16 +209,16 @@ class ReferencedPerson {
     }
 
     /**
-     * Get sameAsPeopleEntityId
+     * Get sameAsPeopleEntityId.
      *
-     * @return integer
+     * @return int
      */
     public function getSameAsPeopleEntityId() {
         return $this->sameAsPeopleEntityId;
     }
 
     /**
-     * Set referencedPersonUri
+     * Set referencedPersonUri.
      *
      * @param string $referencedPersonUri
      *
@@ -227,7 +231,7 @@ class ReferencedPerson {
     }
 
     /**
-     * Get referencedPersonUri
+     * Get referencedPersonUri.
      *
      * @return string
      */
@@ -236,34 +240,33 @@ class ReferencedPerson {
     }
 
     /**
-     * Add book
+     * Add book.
      *
      * @param \App\Entity\Book $book
      *
      * @return ReferencedPerson
      */
-    public function addBook(\App\Entity\Book $book) {
+    public function addBook(Book $book) {
         $this->books[] = $book;
 
         return $this;
     }
 
     /**
-     * Remove book
+     * Remove book.
      *
      * @param \App\Entity\Book $book
      */
-    public function removeBook(\App\Entity\Book $book) {
+    public function removeBook(Book $book) : void {
         $this->books->removeElement($book);
     }
 
     /**
-     * Get books
+     * Get books.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getBooks() {
         return $this->books;
     }
-
 }

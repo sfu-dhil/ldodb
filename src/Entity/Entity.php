@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -17,12 +25,11 @@ use Doctrine\ORM\Mapping as ORM;
  * })
  */
 abstract class Entity {
-
-    const PER_TYPE = 'PER';
-    const ORG_TYPE = 'ORG';
+    public const PER_TYPE = 'PER';
+    public const ORG_TYPE = 'ORG';
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -35,6 +42,13 @@ abstract class Entity {
      * @ORM\OneToMany(targetEntity="Contribution", mappedBy="entity")
      */
     protected $contributions;
+
+    /**
+     * Constructor.
+     */
+    public function __construct() {
+        $this->contributions = new ArrayCollection();
+    }
 
     /**
      * Return string representation of object.
@@ -51,25 +65,16 @@ abstract class Entity {
     }
 
     /**
-     * Constructor
-     */
-    public function __construct() {
-        $this->contributions = new ArrayCollection();
-    }
-
-    /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * Add contribution
-     *
-     * @param Contribution $contribution
+     * Add contribution.
      *
      * @return Entity
      */
@@ -80,21 +85,18 @@ abstract class Entity {
     }
 
     /**
-     * Remove contribution
-     *
-     * @param Contribution $contribution
+     * Remove contribution.
      */
-    public function removeContribution(Contribution $contribution) {
+    public function removeContribution(Contribution $contribution) : void {
         $this->contributions->removeElement($contribution);
     }
 
     /**
-     * Get contributions
+     * Get contributions.
      *
      * @return Collection
      */
     public function getContributions() {
         return $this->contributions;
     }
-
 }

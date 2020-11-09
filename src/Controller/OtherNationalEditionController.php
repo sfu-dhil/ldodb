@@ -1,34 +1,37 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Controller;
 
+use App\Entity\OtherNationalEdition;
+use App\Form\OtherNationalEditionType;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use App\Entity\OtherNationalEdition;
-use App\Form\OtherNationalEditionType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * OtherNationalEdition controller.
  *
  * @Route("/other_national_edition")
  */
-class OtherNationalEditionController extends AbstractController  implements PaginatorAwareInterface {
+class OtherNationalEditionController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
-
 
     /**
      * Lists all OtherNationalEdition entities.
-     *
-     * @param Request $request
      *
      * @return array
      *
@@ -37,22 +40,19 @@ class OtherNationalEditionController extends AbstractController  implements Pagi
      * @Template()
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
-
         $qb = $em->createQueryBuilder();
         $qb->select('e')->from(OtherNationalEdition::class, 'e')->orderBy('e.id', 'ASC');
         $query = $qb->getQuery();
 
         $otherNationalEditions = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
 
-        return array(
+        return [
             'otherNationalEditions' => $otherNationalEditions,
-        );
+        ];
     }
 
     /**
      * Creates a new OtherNationalEdition entity.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -67,24 +67,22 @@ class OtherNationalEditionController extends AbstractController  implements Pagi
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->persist($otherNationalEdition);
             $em->flush();
 
             $this->addFlash('success', 'The new otherNationalEdition was created.');
-            return $this->redirectToRoute('other_national_edition_show', array('id' => $otherNationalEdition->getId()));
+
+            return $this->redirectToRoute('other_national_edition_show', ['id' => $otherNationalEdition->getId()]);
         }
 
-        return array(
+        return [
             'otherNationalEdition' => $otherNationalEdition,
             'form' => $form->createView(),
-        );
+        ];
     }
 
     /**
      * Creates a new OtherNationalEdition entity in a popup.
-     *
-     * @param Request $request
      *
      * @return array|RedirectResponse
      *
@@ -100,8 +98,6 @@ class OtherNationalEditionController extends AbstractController  implements Pagi
     /**
      * Finds and displays a OtherNationalEdition entity.
      *
-     * @param OtherNationalEdition $otherNationalEdition
-     *
      * @return array
      *
      * @Route("/{id}", name="other_national_edition_show", methods={"GET"})")
@@ -109,18 +105,13 @@ class OtherNationalEditionController extends AbstractController  implements Pagi
      * @Template()
      */
     public function showAction(OtherNationalEdition $otherNationalEdition) {
-
-        return array(
+        return [
             'otherNationalEdition' => $otherNationalEdition,
-        );
+        ];
     }
 
     /**
      * Displays a form to edit an existing OtherNationalEdition entity.
-     *
-     *
-     * @param Request $request
-     * @param OtherNationalEdition $otherNationalEdition
      *
      * @return array|RedirectResponse
      *
@@ -134,38 +125,31 @@ class OtherNationalEditionController extends AbstractController  implements Pagi
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-
             $em->flush();
             $this->addFlash('success', 'The otherNationalEdition has been updated.');
-            return $this->redirectToRoute('other_national_edition_show', array('id' => $otherNationalEdition->getId()));
+
+            return $this->redirectToRoute('other_national_edition_show', ['id' => $otherNationalEdition->getId()]);
         }
 
-        return array(
+        return [
             'otherNationalEdition' => $otherNationalEdition,
             'edit_form' => $editForm->createView(),
-        );
+        ];
     }
 
     /**
      * Deletes a OtherNationalEdition entity.
      *
-     *
-     * @param Request $request
-     * @param OtherNationalEdition $otherNationalEdition
-     *
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
      * @Route("/{id}/delete", name="other_national_edition_delete", methods={"GET"})")
-     *
      */
     public function deleteAction(Request $request, OtherNationalEdition $otherNationalEdition, EntityManagerInterface $em) {
-
         $em->remove($otherNationalEdition);
         $em->flush();
         $this->addFlash('success', 'The otherNationalEdition was deleted.');
 
         return $this->redirectToRoute('other_national_edition_index');
     }
-
 }

@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -7,15 +15,14 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * BindingFeature
+ * BindingFeature.
  *
  * @ORM\Table(name="binding_feature")
  * @ORM\Entity(repositoryClass="App\Repository\BindingFeatureRepository")
  */
 class BindingFeature {
-
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -38,14 +45,13 @@ class BindingFeature {
     private $bindingFeatureNotes;
 
     /**
-     * @var Collection|Book[]
+     * @var Book[]|Collection
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="bindingFeatures")
      */
     private $books;
 
     /**
      * Construct BindingFeature object.
-     *
      */
     public function __construct() {
         $this->books = new ArrayCollection();
@@ -53,24 +59,22 @@ class BindingFeature {
 
     /**
      * Return string representation of bindingFeature.
-     *
-     * @return string
      */
     public function __toString() : string {
         return $this->bindingFeature;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * Set bindingFeature
+     * Set bindingFeature.
      *
      * @param string $bindingFeature
      *
@@ -83,7 +87,7 @@ class BindingFeature {
     }
 
     /**
-     * Get bindingFeature
+     * Get bindingFeature.
      *
      * @return string
      */
@@ -92,7 +96,7 @@ class BindingFeature {
     }
 
     /**
-     * Set bindingFeatureNotes
+     * Set bindingFeatureNotes.
      *
      * @param string $bindingFeatureNotes
      *
@@ -105,7 +109,7 @@ class BindingFeature {
     }
 
     /**
-     * Get bindingFeatureNotes
+     * Get bindingFeatureNotes.
      *
      * @return string
      */
@@ -114,34 +118,33 @@ class BindingFeature {
     }
 
     /**
-     * Add book
+     * Add book.
      *
      * @param \App\Entity\Book $book
      *
      * @return BindingFeature
      */
-    public function addBook(\App\Entity\Book $book) {
+    public function addBook(Book $book) {
         $this->books[] = $book;
 
         return $this;
     }
 
     /**
-     * Remove book
+     * Remove book.
      *
      * @param \App\Entity\Book $book
      */
-    public function removeBook(\App\Entity\Book $book) {
+    public function removeBook(Book $book) : void {
         $this->books->removeElement($book);
     }
 
     /**
-     * Get books
+     * Get books.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getBooks() {
         return $this->books;
     }
-
 }

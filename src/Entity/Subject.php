@@ -1,5 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Subject
+ * Subject.
  *
  * @ORM\Table(name="subject", indexes={
  *      @ORM\Index(columns={"subject_name"}, flags={"fulltext"}),
@@ -16,9 +24,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\SubjectRepository")
  */
 class Subject {
-
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -41,14 +48,13 @@ class Subject {
     private $subjectUri;
 
     /**
-     * @var Collection|Book[]
+     * @var Book[]|Collection
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="subjects")
      */
     private $books;
 
     /**
      * Construct Subject object.
-     *
      */
     public function __construct() {
         $this->books = new ArrayCollection();
@@ -56,24 +62,22 @@ class Subject {
 
     /**
      * Return string representation of subjectName.
-     *
-     * @return string
      */
     public function __toString() : string {
         return $this->subjectName;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * Set subjectName
+     * Set subjectName.
      *
      * @param string $subjectName
      *
@@ -86,7 +90,7 @@ class Subject {
     }
 
     /**
-     * Get subjectName
+     * Get subjectName.
      *
      * @return string
      */
@@ -95,7 +99,7 @@ class Subject {
     }
 
     /**
-     * Set subjectUri
+     * Set subjectUri.
      *
      * @param string $subjectUri
      *
@@ -108,7 +112,7 @@ class Subject {
     }
 
     /**
-     * Get subjectUri
+     * Get subjectUri.
      *
      * @return string
      */
@@ -117,34 +121,33 @@ class Subject {
     }
 
     /**
-     * Add book
+     * Add book.
      *
      * @param \App\Entity\Book $book
      *
      * @return Subject
      */
-    public function addBook(\App\Entity\Book $book) {
+    public function addBook(Book $book) {
         $this->books[] = $book;
 
         return $this;
     }
 
     /**
-     * Remove book
+     * Remove book.
      *
      * @param \App\Entity\Book $book
      */
-    public function removeBook(\App\Entity\Book $book) {
+    public function removeBook(Book $book) : void {
         $this->books->removeElement($book);
     }
 
     /**
-     * Get books
+     * Get books.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getBooks() {
         return $this->books;
     }
-
 }

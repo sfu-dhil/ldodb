@@ -1,39 +1,41 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * This source file is subject to the GPL v2, bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * MapSizeType form.
  */
 class MapSizeType extends AbstractType {
-
     /**
      * Add form fields to $builder.
-     *
-     * @param FormBuilderInterface $builder
-     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) : void {
-        $builder->add('mapSize', null, array(
+        $builder->add('mapSize', null, [
             'label' => 'Map Size',
             'required' => true,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
-        $builder->add('mapSizeNotes', null, array(
+            ],
+        ]);
+        $builder->add('mapSizeNotes', null, [
             'label' => 'Map Size Notes',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'help_block' => '',
-            ),
-        ));
+            ],
+        ]);
     }
 
     /**
@@ -41,13 +43,10 @@ class MapSizeType extends AbstractType {
      *
      * Set default, optional, and required options passed to the
      * buildForm() method via the $options parameter.
-     *
-     * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver) {
-        $resolver->setDefaults(array(
-            'data_class' => 'App\Entity\MapSize'
-        ));
+    public function configureOptions(OptionsResolver $resolver) : void {
+        $resolver->setDefaults([
+            'data_class' => 'App\Entity\MapSize',
+        ]);
     }
-
 }
