@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Book.
  *
  * @ORM\Table(name="book", indexes={
- *      @ORM\Index(columns={"title"}, flags={"fulltext"}),
+ *      @ORM\Index(columns={"title", "short_title"}, flags={"fulltext"}),
  * })
  * @ORM\Entity(repositoryClass="App\Repository\BookRepository")
  */

@@ -24,6 +24,8 @@ final class Version20201109220654 extends AbstractMigration
         $this->addSql('DROP TABLE flag');
         $this->addSql('DROP TABLE flag_entity');
         $this->addSql('CREATE FULLTEXT INDEX genre_ft_idx ON genre (genre_name)');
+        $this->addSql('DROP INDEX IDX_CBE5A3312B36786B ON book');
+        $this->addSql('CREATE FULLTEXT INDEX IDX_CBE5A3312B36786BAB33D86E ON book (title, short_title)');
     }
 
     public function down(Schema $schema) : void

@@ -13,14 +13,21 @@
 
 {% block body %}
 
-    {% include 'partial/search.html.twig' with {'route': 'book_search', 'label': 'Title search'} %}
-
-    {% include 'book/partial/table.html.twig' %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="form-group">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-10">
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    </div>
+    {{ form_end(form) }}
 
     {% if books|length %}
-    <div class="navigation">
-        {{ knp_pagination_render(books) }}
-    </div>
+        {% include 'book/partial/table.html.twig' %}
+        <div class="navigation">
+            {{ knp_pagination_render(books) }}
+        </div>
     {% endif %}
 
 {% endblock %}

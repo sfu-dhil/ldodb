@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Book;
+use App\Form\BookSearchType;
 use App\Form\BookType;
 use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -47,9 +48,14 @@ class BookController extends AbstractController implements PaginatorAwareInterfa
         $query = $qb->getQuery();
 
         $books = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
+        $form = $this->createForm(BookSearchType::class, null, [
+            'action' => $this->generateUrl('book_search')
+        ]);
+
 
         return [
             'books' => $books,
+            'form' => $form->createView(),
         ];
     }
 
@@ -85,10 +91,10 @@ class BookController extends AbstractController implements PaginatorAwareInterfa
      * @Template()
      */
     public function searchAction(Request $request, BookRepository $repo) {
-        $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->searchQuery($q);
-
+        $form = $this->createForm(BookSearchType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $query = $repo->advancedSearchQuery($form->getData());
             $books = $this->paginator->paginate($query, $request->query->getInt('page', 1), 25);
         } else {
             $books = [];
@@ -96,7 +102,7 @@ class BookController extends AbstractController implements PaginatorAwareInterfa
 
         return [
             'books' => $books,
-            'q' => $q,
+            'form' => $form->createView(),
         ];
     }
 
