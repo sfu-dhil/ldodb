@@ -9,7 +9,6 @@
 
     <titleInfo>
         <title>{{ book.title }}</title>
-        <subTitle>{{ book.shortTitle }}</subTitle>
     </titleInfo>
 
     {% for contribution in book.contributions %}
@@ -61,13 +60,22 @@
 
     <physicalDescription>
         <form authority="marcform">print</form>
-        <extent>{{ book.sfuCatOrigBib }}</extent>
+        <extent>{{ book.pages }}</extent>
         <note>{{ book.bibliographicNotes }}</note>
+        {% if book.sfuCatOrigBib %}
+        <note>{{ book.sfuCatOrigBib }}</note>
+        {% endif %}
     </physicalDescription>
 
     {% for heading in book.subjectHeadings %}
         <subject authority="lcsh">
             <topic>{{ heading.subjectHeading }}</topic>
+        </subject>
+    {% endfor %}
+
+    {% for heading in book.subjects %}
+        <subject>
+            <topic>{{ heading.subjectName }}</topic>
         </subject>
     {% endfor %}
 
