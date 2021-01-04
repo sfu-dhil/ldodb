@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * SubjectHeading.
  *
  * @ORM\Table(name="subject_heading", indexes={
- *      @ORM\Index(columns={"subject_heading"}, flags={"fulltext"}),
+ *     @ORM\Index(columns={"subject_heading"}, flags={"fulltext"}),
  * })
  * @ORM\Entity(repositoryClass="App\Repository\SubjectHeadingRepository")
  */
@@ -29,7 +29,7 @@ class SubjectHeading {
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\GeneratedValue()
+     * @ORM\GeneratedValue
      */
     private $id;
 

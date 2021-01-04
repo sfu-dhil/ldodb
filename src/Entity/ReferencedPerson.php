@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * ReferencedPerson.
  *
  * @ORM\Table(name="referenced_person", indexes={
- *      @ORM\Index(columns={"first_name", "last_name"}, flags={"fulltext"}),
+ *     @ORM\Index(columns={"first_name", "last_name"}, flags={"fulltext"}),
  * })
  * @ORM\Entity(repositoryClass="App\Repository\ReferencedPersonRepository")
  */
@@ -29,7 +29,7 @@ class ReferencedPerson {
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\GeneratedValue()
+     * @ORM\GeneratedValue
      */
     private $id;
 

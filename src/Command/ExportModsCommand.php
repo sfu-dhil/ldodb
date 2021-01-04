@@ -23,6 +23,7 @@ class ExportModsCommand extends Command {
      * @var BookRepository
      */
     private $bookRepo;
+
     /**
      * @var Environment
      */

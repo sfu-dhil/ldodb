@@ -38,7 +38,7 @@ class OtherCopyLocationController extends AbstractController implements Paginato
      *
      * @Route("/", name="other_copy_location_index", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
         $qb = $em->createQueryBuilder();
@@ -57,7 +57,7 @@ class OtherCopyLocationController extends AbstractController implements Paginato
      *
      * @Route("/search", name="other_copy_location_search", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function searchAction(Request $request, OtherCopyLocationRepository $repo) {
         $q = $request->query->get('q');
@@ -81,9 +81,9 @@ class OtherCopyLocationController extends AbstractController implements Paginato
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="other_copy_location_new", methods={"GET","POST"})")
+     * @Route("/new", name="other_copy_location_new", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newAction(Request $request, EntityManagerInterface $em) {
         $otherCopyLocation = new OtherCopyLocation();
@@ -111,9 +111,9 @@ class OtherCopyLocationController extends AbstractController implements Paginato
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="other_copy_location_new_popup", methods={"GET","POST"})")
+     * @Route("/new_popup", name="other_copy_location_new_popup", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -126,7 +126,7 @@ class OtherCopyLocationController extends AbstractController implements Paginato
      *
      * @Route("/{id}", name="other_copy_location_show", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function showAction(OtherCopyLocation $otherCopyLocation) {
         return [
@@ -140,9 +140,9 @@ class OtherCopyLocationController extends AbstractController implements Paginato
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="other_copy_location_edit", methods={"GET","POST"})")
+     * @Route("/{id}/edit", name="other_copy_location_edit", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function editAction(Request $request, OtherCopyLocation $otherCopyLocation, EntityManagerInterface $em) {
         $editForm = $this->createForm(OtherCopyLocationType::class, $otherCopyLocation);

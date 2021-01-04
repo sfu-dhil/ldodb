@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ReferencedPlace.
  *
  * @ORM\Table(name="referenced_place", indexes={
- *      @ORM\Index(columns={"variant_spelling"}, flags={"fulltext"}),
+ *     @ORM\Index(columns={"variant_spelling"}, flags={"fulltext"}),
  * })
  * @ORM\Entity(repositoryClass="App\Repository\ReferencedPlaceRepository")
  */
@@ -26,7 +26,7 @@ class ReferencedPlace {
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\GeneratedValue()
+     * @ORM\GeneratedValue
      */
     private $id;
 

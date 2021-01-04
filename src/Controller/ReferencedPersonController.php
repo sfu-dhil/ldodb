@@ -39,7 +39,7 @@ class ReferencedPersonController extends AbstractController implements Paginator
      *
      * @Route("/", name="referenced_person_index", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
         $qb = $em->createQueryBuilder();
@@ -67,6 +67,7 @@ class ReferencedPersonController extends AbstractController implements Paginator
         }
 
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -82,7 +83,7 @@ class ReferencedPersonController extends AbstractController implements Paginator
      *
      * @Route("/search", name="referenced_person_search", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function searchAction(Request $request, ReferencedPersonRepository $repo) {
         $q = $request->query->get('q');
@@ -106,9 +107,9 @@ class ReferencedPersonController extends AbstractController implements Paginator
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="referenced_person_new", methods={"GET","POST"})")
+     * @Route("/new", name="referenced_person_new", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newAction(Request $request, EntityManagerInterface $em) {
         $referencedPerson = new ReferencedPerson();
@@ -136,9 +137,9 @@ class ReferencedPersonController extends AbstractController implements Paginator
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="referenced_person_new_popup", methods={"GET","POST"})")
+     * @Route("/new_popup", name="referenced_person_new_popup", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -151,7 +152,7 @@ class ReferencedPersonController extends AbstractController implements Paginator
      *
      * @Route("/{id}", name="referenced_person_show", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function showAction(ReferencedPerson $referencedPerson) {
         return [
@@ -165,9 +166,9 @@ class ReferencedPersonController extends AbstractController implements Paginator
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="referenced_person_edit", methods={"GET","POST"})")
+     * @Route("/{id}/edit", name="referenced_person_edit", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function editAction(Request $request, ReferencedPerson $referencedPerson, EntityManagerInterface $em) {
         $editForm = $this->createForm(ReferencedPersonType::class, $referencedPerson);

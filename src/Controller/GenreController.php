@@ -11,10 +11,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Genre;
-use App\Entity\Keyword;
 use App\Form\GenreType;
 use App\Repository\GenreRepository;
-use App\Repository\KeywordRepository;
 use App\Service\MergeService;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
@@ -42,7 +40,7 @@ class GenreController extends AbstractController implements PaginatorAwareInterf
      *
      * @Route("/", name="genre_index", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
         $qb = $em->createQueryBuilder();
@@ -70,6 +68,7 @@ class GenreController extends AbstractController implements PaginatorAwareInterf
         }
 
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -86,9 +85,9 @@ class GenreController extends AbstractController implements PaginatorAwareInterf
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="genre_new", methods={"GET","POST"})")
+     * @Route("/new", name="genre_new", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newAction(Request $request, EntityManagerInterface $em) {
         $genre = new Genre();
@@ -116,9 +115,9 @@ class GenreController extends AbstractController implements PaginatorAwareInterf
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="genre_new_popup", methods={"GET","POST"})")
+     * @Route("/new_popup", name="genre_new_popup", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -131,7 +130,7 @@ class GenreController extends AbstractController implements PaginatorAwareInterf
      *
      * @Route("/{id}", name="genre_show", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function showAction(Genre $genre) {
         return [
@@ -145,9 +144,9 @@ class GenreController extends AbstractController implements PaginatorAwareInterf
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="genre_edit", methods={"GET","POST"})")
+     * @Route("/{id}/edit", name="genre_edit", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function editAction(Request $request, Genre $genre, EntityManagerInterface $em) {
         $editForm = $this->createForm(GenreType::class, $genre);
@@ -172,15 +171,16 @@ class GenreController extends AbstractController implements PaginatorAwareInterf
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/merge", name="genre_merge", methods={"GET","POST"})")
+     * @Route("/{id}/merge", name="genre_merge", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function mergeAction(Request $request, Genre $genre, MergeService $ms, GenreRepository $repo) {
         if ('POST' === $request->getMethod()) {
             $genres = $repo->findBy(['id' => $request->request->get('genres')]);
             $ms->genres($genre, $genres);
             $this->addFlash('success', 'The genres have been merged.');
+
             return $this->redirectToRoute('genre_show', ['id' => $genre->getId()]);
         }
 

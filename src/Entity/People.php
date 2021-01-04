@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * People.
  *
  * @ORM\Table(name="people", indexes={
- *      @ORM\Index(columns={"first_name", "last_name"}, flags={"fulltext"}),
+ *     @ORM\Index(columns={"first_name", "last_name"}, flags={"fulltext"}),
  * })
  * @ORM\Entity(repositoryClass="App\Repository\PeopleRepository")
  */
@@ -148,8 +148,8 @@ class People extends Entity {
      * @var Collection|Place[]
      * @ORM\ManyToMany(targetEntity="Place", inversedBy="travellers")
      * @ORM\JoinTable(name="places_of_travel",
-     *  joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id")},
-     *  inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="id")}
+     *     joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="id")}
      * )
      */
     private $travels;
@@ -158,8 +158,8 @@ class People extends Entity {
      * @var Collection|Place[]
      * @ORM\ManyToMany(targetEntity="Place", inversedBy="residents")
      * @ORM\JoinTable(name="residence_place",
-     *  joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id")},
-     *  inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="id")}
+     *     joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="id")}
      * )
      */
     private $residences;
@@ -168,8 +168,8 @@ class People extends Entity {
      * @var Collection|Role[]
      * @ORM\ManyToMany(targetEntity="Role", inversedBy="people")
      * @ORM\JoinTable(name="people_role",
-     *  joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id")},
-     *  inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
+     *     joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
      * )
      */
     private $roles;
@@ -538,7 +538,7 @@ class People extends Entity {
      *
      * @return People
      */
-    public function setBirthPlace(Place $birthPlace = null) {
+    public function setBirthPlace(?Place $birthPlace = null) {
         $this->birthPlace = $birthPlace;
 
         return $this;
@@ -560,7 +560,7 @@ class People extends Entity {
      *
      * @return People
      */
-    public function setDeathPlace(Place $deathPlace = null) {
+    public function setDeathPlace(?Place $deathPlace = null) {
         $this->deathPlace = $deathPlace;
 
         return $this;

@@ -37,7 +37,7 @@ class OtherNationalEditionController extends AbstractController implements Pagin
      *
      * @Route("/", name="other_national_edition_index", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
         $qb = $em->createQueryBuilder();
@@ -57,9 +57,9 @@ class OtherNationalEditionController extends AbstractController implements Pagin
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="other_national_edition_new", methods={"GET","POST"})")
+     * @Route("/new", name="other_national_edition_new", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newAction(Request $request, EntityManagerInterface $em) {
         $otherNationalEdition = new OtherNationalEdition();
@@ -87,9 +87,9 @@ class OtherNationalEditionController extends AbstractController implements Pagin
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="other_national_edition_new_popup", methods={"GET","POST"})")
+     * @Route("/new_popup", name="other_national_edition_new_popup", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -102,7 +102,7 @@ class OtherNationalEditionController extends AbstractController implements Pagin
      *
      * @Route("/{id}", name="other_national_edition_show", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function showAction(OtherNationalEdition $otherNationalEdition) {
         return [
@@ -116,9 +116,9 @@ class OtherNationalEditionController extends AbstractController implements Pagin
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="other_national_edition_edit", methods={"GET","POST"})")
+     * @Route("/{id}/edit", name="other_national_edition_edit", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function editAction(Request $request, OtherNationalEdition $otherNationalEdition, EntityManagerInterface $em) {
         $editForm = $this->createForm(OtherNationalEditionType::class, $otherNationalEdition);

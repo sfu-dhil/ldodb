@@ -39,7 +39,7 @@ class SupplementalPlaceDataController extends AbstractController implements Pagi
      *
      * @Route("/", name="supplemental_place_data_index", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
         $qb = $em->createQueryBuilder();
@@ -67,6 +67,7 @@ class SupplementalPlaceDataController extends AbstractController implements Pagi
         }
 
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -83,9 +84,9 @@ class SupplementalPlaceDataController extends AbstractController implements Pagi
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="supplemental_place_data_new", methods={"GET","POST"})")
+     * @Route("/new", name="supplemental_place_data_new", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newAction(Request $request, EntityManagerInterface $em) {
         $supplementalPlaceDatum = new SupplementalPlaceData();
@@ -113,9 +114,9 @@ class SupplementalPlaceDataController extends AbstractController implements Pagi
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="supplemental_place_data_new_popup", methods={"GET","POST"})")
+     * @Route("/new_popup", name="supplemental_place_data_new_popup", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -128,7 +129,7 @@ class SupplementalPlaceDataController extends AbstractController implements Pagi
      *
      * @Route("/{id}", name="supplemental_place_data_show", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function showAction(SupplementalPlaceData $supplementalPlaceDatum) {
         return [
@@ -142,9 +143,9 @@ class SupplementalPlaceDataController extends AbstractController implements Pagi
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="supplemental_place_data_edit", methods={"GET","POST"})")
+     * @Route("/{id}/edit", name="supplemental_place_data_edit", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function editAction(Request $request, SupplementalPlaceData $supplementalPlaceDatum, EntityManagerInterface $em) {
         $editForm = $this->createForm(SupplementalPlaceDataType::class, $supplementalPlaceDatum);

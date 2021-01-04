@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Subject.
  *
  * @ORM\Table(name="subject", indexes={
- *      @ORM\Index(columns={"subject_name"}, flags={"fulltext"}),
+ *     @ORM\Index(columns={"subject_name"}, flags={"fulltext"}),
  * })
  * @ORM\Entity(repositoryClass="App\Repository\SubjectRepository")
  */
@@ -29,7 +29,7 @@ class Subject {
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\GeneratedValue()
+     * @ORM\GeneratedValue
      */
     private $id;
 

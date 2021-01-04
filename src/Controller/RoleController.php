@@ -39,7 +39,7 @@ class RoleController extends AbstractController implements PaginatorAwareInterfa
      *
      * @Route("/", name="role_index", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
         $qb = $em->createQueryBuilder();
@@ -66,6 +66,7 @@ class RoleController extends AbstractController implements PaginatorAwareInterfa
             return new JsonResponse([]);
         }
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -81,7 +82,7 @@ class RoleController extends AbstractController implements PaginatorAwareInterfa
      *
      * @Route("/search", name="role_search", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function searchAction(Request $request, RoleRepository $repo) {
         $q = $request->query->get('q');
@@ -105,9 +106,9 @@ class RoleController extends AbstractController implements PaginatorAwareInterfa
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="role_new", methods={"GET","POST"})")
+     * @Route("/new", name="role_new", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newAction(Request $request, EntityManagerInterface $em) {
         $role = new Role();
@@ -135,9 +136,9 @@ class RoleController extends AbstractController implements PaginatorAwareInterfa
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="role_new_popup", methods={"GET","POST"})")
+     * @Route("/new_popup", name="role_new_popup", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -150,7 +151,7 @@ class RoleController extends AbstractController implements PaginatorAwareInterfa
      *
      * @Route("/{id}", name="role_show", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function showAction(Role $role) {
         return [
@@ -164,9 +165,9 @@ class RoleController extends AbstractController implements PaginatorAwareInterfa
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="role_edit", methods={"GET","POST"})")
+     * @Route("/{id}/edit", name="role_edit", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function editAction(Request $request, Role $role, EntityManagerInterface $em) {
         $editForm = $this->createForm(RoleType::class, $role);

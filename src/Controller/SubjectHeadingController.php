@@ -10,10 +10,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\Keyword;
 use App\Entity\SubjectHeading;
 use App\Form\SubjectHeadingType;
-use App\Repository\KeywordRepository;
 use App\Repository\SubjectHeadingRepository;
 use App\Service\MergeService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -42,7 +40,7 @@ class SubjectHeadingController extends AbstractController implements PaginatorAw
      *
      * @Route("/", name="subject_heading_index", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
         $qb = $em->createQueryBuilder();
@@ -70,6 +68,7 @@ class SubjectHeadingController extends AbstractController implements PaginatorAw
         }
 
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -85,7 +84,7 @@ class SubjectHeadingController extends AbstractController implements PaginatorAw
      *
      * @Route("/search", name="subject_heading_search", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function searchAction(Request $request, SubjectHeadingRepository $repo) {
         $q = $request->query->get('q');
@@ -109,9 +108,9 @@ class SubjectHeadingController extends AbstractController implements PaginatorAw
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="subject_heading_new", methods={"GET","POST"})")
+     * @Route("/new", name="subject_heading_new", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newAction(Request $request, EntityManagerInterface $em) {
         $subjectHeading = new SubjectHeading();
@@ -139,9 +138,9 @@ class SubjectHeadingController extends AbstractController implements PaginatorAw
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="subject_heading_new_popup", methods={"GET","POST"})")
+     * @Route("/new_popup", name="subject_heading_new_popup", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -154,7 +153,7 @@ class SubjectHeadingController extends AbstractController implements PaginatorAw
      *
      * @Route("/{id}", name="subject_heading_show", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function showAction(SubjectHeading $subjectHeading) {
         return [
@@ -168,9 +167,9 @@ class SubjectHeadingController extends AbstractController implements PaginatorAw
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="subject_heading_edit", methods={"GET","POST"})")
+     * @Route("/{id}/edit", name="subject_heading_edit", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function editAction(Request $request, SubjectHeading $subjectHeading, EntityManagerInterface $em) {
         $editForm = $this->createForm(SubjectHeadingType::class, $subjectHeading);
@@ -195,15 +194,16 @@ class SubjectHeadingController extends AbstractController implements PaginatorAw
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/merge", name="subject_heading_merge", methods={"GET","POST"})")
+     * @Route("/{id}/merge", name="subject_heading_merge", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function mergeAction(Request $request, SubjectHeading $subjectHeading, MergeService $ms, SubjectHeadingRepository $repo) {
         if ('POST' === $request->getMethod()) {
             $subjectHeadings = $repo->findBy(['id' => $request->request->get('subjectHeadings')]);
             $ms->subjectHeadings($subjectHeading, $subjectHeadings);
             $this->addFlash('success', 'The subjectHeadings have been merged.');
+
             return $this->redirectToRoute('subject_heading_show', ['id' => $subjectHeading->getId()]);
         }
 

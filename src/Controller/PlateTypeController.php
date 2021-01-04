@@ -39,7 +39,7 @@ class PlateTypeController extends AbstractController implements PaginatorAwareIn
      *
      * @Route("/", name="plate_type_index", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
         $qb = $em->createQueryBuilder();
@@ -67,6 +67,7 @@ class PlateTypeController extends AbstractController implements PaginatorAwareIn
         }
 
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -83,9 +84,9 @@ class PlateTypeController extends AbstractController implements PaginatorAwareIn
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="plate_type_new", methods={"GET","POST"})")
+     * @Route("/new", name="plate_type_new", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newAction(Request $request, EntityManagerInterface $em) {
         $plateType = new PlateType();
@@ -113,9 +114,9 @@ class PlateTypeController extends AbstractController implements PaginatorAwareIn
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="plate_type_new_popup", methods={"GET","POST"})")
+     * @Route("/new_popup", name="plate_type_new_popup", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -128,7 +129,7 @@ class PlateTypeController extends AbstractController implements PaginatorAwareIn
      *
      * @Route("/{id}", name="plate_type_show", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function showAction(PlateType $plateType) {
         return [
@@ -142,9 +143,9 @@ class PlateTypeController extends AbstractController implements PaginatorAwareIn
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="plate_type_edit", methods={"GET","POST"})")
+     * @Route("/{id}/edit", name="plate_type_edit", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function editAction(Request $request, PlateType $plateType, EntityManagerInterface $em) {
         $editForm = $this->createForm(PlateTypeType::class, $plateType);

@@ -22,6 +22,7 @@ class MergeService {
      * @var LoggerInterface
      */
     private $logger;
+
     /**
      * @var EntityManagerInterface
      */
@@ -44,9 +45,9 @@ class MergeService {
     /**
      * @param Subject[] $subjects
      */
-    public function subjects(Subject $subject, iterable $subjects) {
-        foreach($subjects as $s) {
-            foreach($s->getBooks() as $b) {
+    public function subjects(Subject $subject, iterable $subjects) : void {
+        foreach ($subjects as $s) {
+            foreach ($s->getBooks() as $b) {
                 $s->removeBook($b);
                 $subject->addBook($b);
             }
@@ -58,9 +59,9 @@ class MergeService {
     /**
      * @param Genre[] $genres
      */
-    public function genres(Genre $genre, iterable $genres) {
-        foreach($genres as $g) {
-            foreach($g->getBooks() as $b) {
+    public function genres(Genre $genre, iterable $genres) : void {
+        foreach ($genres as $g) {
+            foreach ($g->getBooks() as $b) {
                 $g->removeBook($b);
                 $genre->addBook($b);
             }
@@ -72,9 +73,9 @@ class MergeService {
     /**
      * @param SubjectHeading[] $subjectHeadings
      */
-    public function subjectHeadings(SubjectHeading $subjectHeading, iterable $subjectHeadings) {
-        foreach($subjectHeadings as $s) {
-            foreach($s->getBooks() as $b) {
+    public function subjectHeadings(SubjectHeading $subjectHeading, iterable $subjectHeadings) : void {
+        foreach ($subjectHeadings as $s) {
+            foreach ($s->getBooks() as $b) {
                 $s->removeBook($b);
                 $subjectHeading->addBook($b);
             }
