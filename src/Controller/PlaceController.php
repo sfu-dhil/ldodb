@@ -39,7 +39,7 @@ class PlaceController extends AbstractController implements PaginatorAwareInterf
      *
      * @Route("/", name="place_index", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
         $qb = $em->createQueryBuilder();
@@ -67,6 +67,7 @@ class PlaceController extends AbstractController implements PaginatorAwareInterf
         }
 
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -82,7 +83,7 @@ class PlaceController extends AbstractController implements PaginatorAwareInterf
      *
      * @Route("/search", name="place_search", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function searchAction(Request $request, PlaceRepository $repo) {
         $q = $request->query->get('q');
@@ -106,9 +107,9 @@ class PlaceController extends AbstractController implements PaginatorAwareInterf
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="place_new", methods={"GET","POST"})")
+     * @Route("/new", name="place_new", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newAction(Request $request, EntityManagerInterface $em) {
         $place = new Place();
@@ -136,9 +137,9 @@ class PlaceController extends AbstractController implements PaginatorAwareInterf
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="place_new_popup", methods={"GET","POST"})")
+     * @Route("/new_popup", name="place_new_popup", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -151,7 +152,7 @@ class PlaceController extends AbstractController implements PaginatorAwareInterf
      *
      * @Route("/{id}", name="place_show", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function showAction(Place $place) {
         return [
@@ -165,9 +166,9 @@ class PlaceController extends AbstractController implements PaginatorAwareInterf
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="place_edit", methods={"GET","POST"})")
+     * @Route("/{id}/edit", name="place_edit", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function editAction(Request $request, Place $place, EntityManagerInterface $em) {
         $editForm = $this->createForm(PlaceType::class, $place);

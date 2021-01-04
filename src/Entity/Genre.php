@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Genre.
  *
  * @ORM\Table(name="genre", indexes={
- *   @ORM\Index(name="genre_ft_idx", columns={"genre_name"}, flags={"fulltext"})
+ *     @ORM\Index(name="genre_ft_idx", columns={"genre_name"}, flags={"fulltext"})
  * })
  * @ORM\Entity(repositoryClass="App\Repository\GenreRepository")
  */
@@ -29,7 +29,7 @@ class Genre {
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\GeneratedValue()
+     * @ORM\GeneratedValue
      */
     private $id;
 

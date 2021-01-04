@@ -27,6 +27,7 @@ class ExportCsvCommand extends Command {
      * @var BookRepository
      */
     private $bookRepo;
+
     protected static $defaultName = 'ldodb:export:csv';
 
     protected function configure() : void {

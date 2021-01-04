@@ -39,7 +39,7 @@ class BindingFeatureController extends AbstractController implements PaginatorAw
      *
      * @Route("/", name="binding_feature_index", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
         $qb = $em->createQueryBuilder();
@@ -67,6 +67,7 @@ class BindingFeatureController extends AbstractController implements PaginatorAw
         }
 
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -83,9 +84,9 @@ class BindingFeatureController extends AbstractController implements PaginatorAw
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="binding_feature_new", methods={"GET","POST"})")
+     * @Route("/new", name="binding_feature_new", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newAction(Request $request, EntityManagerInterface $em) {
         $bindingFeature = new BindingFeature();
@@ -113,9 +114,9 @@ class BindingFeatureController extends AbstractController implements PaginatorAw
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="binding_feature_new_popup", methods={"GET","POST"})")
+     * @Route("/new_popup", name="binding_feature_new_popup", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -128,7 +129,7 @@ class BindingFeatureController extends AbstractController implements PaginatorAw
      *
      * @Route("/{id}", name="binding_feature_show", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function showAction(BindingFeature $bindingFeature) {
         return [
@@ -142,9 +143,9 @@ class BindingFeatureController extends AbstractController implements PaginatorAw
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="binding_feature_edit", methods={"GET","POST"})")
+     * @Route("/{id}/edit", name="binding_feature_edit", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function editAction(Request $request, BindingFeature $bindingFeature, EntityManagerInterface $em) {
         $editForm = $this->createForm(BindingFeatureType::class, $bindingFeature);

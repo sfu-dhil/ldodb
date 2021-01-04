@@ -11,10 +11,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Book;
-use App\Entity\Keyword;
 use App\Entity\Subject;
 use App\Form\SubjectType;
-use App\Repository\KeywordRepository;
 use App\Repository\SubjectRepository;
 use App\Service\MergeService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -43,7 +41,7 @@ class SubjectController extends AbstractController implements PaginatorAwareInte
      *
      * @Route("/", name="subject_index", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
         $qb = $em->createQueryBuilder();
@@ -71,6 +69,7 @@ class SubjectController extends AbstractController implements PaginatorAwareInte
         }
 
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -86,7 +85,7 @@ class SubjectController extends AbstractController implements PaginatorAwareInte
      *
      * @Route("/search", name="subject_search", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function searchAction(Request $request, SubjectRepository $repo) {
         $q = $request->query->get('q');
@@ -110,9 +109,9 @@ class SubjectController extends AbstractController implements PaginatorAwareInte
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="subject_new", methods={"GET","POST"})")
+     * @Route("/new", name="subject_new", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newAction(Request $request, EntityManagerInterface $em) {
         $subject = new Subject();
@@ -140,9 +139,9 @@ class SubjectController extends AbstractController implements PaginatorAwareInte
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="subject_new_popup", methods={"GET","POST"})")
+     * @Route("/new_popup", name="subject_new_popup", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -155,7 +154,7 @@ class SubjectController extends AbstractController implements PaginatorAwareInte
      *
      * @Route("/{id}", name="subject_show", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function showAction(Subject $subject) {
         $iterator = $subject->getBooks()->getIterator();
@@ -175,9 +174,9 @@ class SubjectController extends AbstractController implements PaginatorAwareInte
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="subject_edit", methods={"GET","POST"})")
+     * @Route("/{id}/edit", name="subject_edit", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function editAction(Request $request, Subject $subject, EntityManagerInterface $em) {
         $editForm = $this->createForm(SubjectType::class, $subject);
@@ -202,15 +201,16 @@ class SubjectController extends AbstractController implements PaginatorAwareInte
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/merge", name="subject_merge", methods={"GET","POST"})")
+     * @Route("/{id}/merge", name="subject_merge", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function mergeAction(Request $request, Subject $subject, MergeService $ms, SubjectRepository $repo) {
         if ('POST' === $request->getMethod()) {
             $subjects = $repo->findBy(['id' => $request->request->get('subjects')]);
             $ms->subjects($subject, $subjects);
             $this->addFlash('success', 'The subjects have been merged.');
+
             return $this->redirectToRoute('subject_show', ['id' => $subject->getId()]);
         }
 

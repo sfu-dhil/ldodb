@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Keyword.
  *
  * @ORM\Table(name="keyword", indexes={
- *      @ORM\Index(columns={"keyword"}, flags={"fulltext"}),
+ *     @ORM\Index(columns={"keyword"}, flags={"fulltext"}),
  * })
  * @ORM\Entity(repositoryClass="App\Repository\KeywordRepository")
  */
@@ -28,7 +28,7 @@ class Keyword {
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\GeneratedValue()
+     * @ORM\GeneratedValue
      */
     private $id;
 

@@ -58,18 +58,19 @@ class BookRepository extends ServiceEntityRepository {
      * Prepare a search query, but do not execute it.
      *
      * @param string $q
+     * @param mixed $data
      *
      * @return Query
      */
     public function advancedSearchQuery($data) {
         $qb = $this->createQueryBuilder('e');
-        if(isset($data['title'])) {
+        if (isset($data['title'])) {
             $qb->addSelect('MATCH (e.title,e.shortTitle) AGAINST(:qt BOOLEAN) as HIDDEN title_score');
             $qb->andHaving('title_score > 0');
             $qb->setParameter('qt', $data['title']);
         }
 
-        if(isset($data['publicationDate'])) {
+        if (isset($data['publicationDate'])) {
             $m = [];
             if (preg_match('/^\s*[0-9]{4}\s*$/', $data['publicationDate'])) {
                 $qb->andWhere('YEAR(e.dob) = :yearb');
@@ -83,14 +84,14 @@ class BookRepository extends ServiceEntityRepository {
             }
         }
 
-        if(isset($data['genre'])) {
+        if (isset($data['genre'])) {
             $qb->innerJoin('e.genres', 'g');
             $qb->addSelect('MATCH(g.genreName) AGAINST (:gt BOOLEAN) as HIDDEN genre_score');
             $qb->andHaving('genre_score > 0');
             $qb->setParameter('gt', $data['genre']);
         }
 
-        if(isset($data['keyword'])) {
+        if (isset($data['keyword'])) {
             $qb->innerJoin('e.keywords', 'k');
             $qb->addSelect('MATCH(k.keyword) AGAINST (:kt BOOLEAN) as HIDDEN keyword_score');
 
@@ -101,8 +102,12 @@ class BookRepository extends ServiceEntityRepository {
             $qb->addSelect('MATCH(sh.subjectHeading) against(:kt BOOLEAN) AS HIDDEN subject_heading_score');
 
             $qb->andHaving($qb->expr()->gt(
-                $qb->expr()->sum('keyword_score',
-                    $qb->expr()->sum('subject_score', 'subject_heading_score')), '0'));
+                $qb->expr()->sum(
+                    'keyword_score',
+                    $qb->expr()->sum('subject_score', 'subject_heading_score')
+                ),
+                '0'
+            ));
             $qb->setParameter('kt', $data['keyword']);
         }
 

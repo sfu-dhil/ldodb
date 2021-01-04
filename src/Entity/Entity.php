@@ -20,12 +20,13 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="entity_type", type="string", length=3)
  * @ORM\DiscriminatorMap({
- *      "PER" = "People",
- *      "ORG" = "Organization"
+ *     "PER": "People",
+ *     "ORG": "Organization"
  * })
  */
 abstract class Entity {
     public const PER_TYPE = 'PER';
+
     public const ORG_TYPE = 'ORG';
 
     /**
@@ -33,7 +34,7 @@ abstract class Entity {
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\GeneratedValue()
+     * @ORM\GeneratedValue
      */
     protected $id;
 

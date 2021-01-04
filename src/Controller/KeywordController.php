@@ -40,7 +40,7 @@ class KeywordController extends AbstractController implements PaginatorAwareInte
      *
      * @Route("/", name="keyword_index", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
         $qb = $em->createQueryBuilder();
@@ -68,6 +68,7 @@ class KeywordController extends AbstractController implements PaginatorAwareInte
         }
 
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -83,7 +84,7 @@ class KeywordController extends AbstractController implements PaginatorAwareInte
      *
      * @Route("/search", name="keyword_search", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function searchAction(Request $request, KeywordRepository $repo) {
         $q = $request->query->get('q');
@@ -107,9 +108,9 @@ class KeywordController extends AbstractController implements PaginatorAwareInte
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="keyword_new", methods={"GET","POST"})")
+     * @Route("/new", name="keyword_new", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newAction(Request $request, EntityManagerInterface $em) {
         $keyword = new Keyword();
@@ -137,9 +138,9 @@ class KeywordController extends AbstractController implements PaginatorAwareInte
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="keyword_new_popup", methods={"GET","POST"})")
+     * @Route("/new_popup", name="keyword_new_popup", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newPopupAction(Request $request, EntityManagerInterface $em) {
         return $this->newAction($request, $em);
@@ -152,7 +153,7 @@ class KeywordController extends AbstractController implements PaginatorAwareInte
      *
      * @Route("/{id}", name="keyword_show", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function showAction(Keyword $keyword) {
         return [
@@ -166,9 +167,9 @@ class KeywordController extends AbstractController implements PaginatorAwareInte
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="keyword_edit", methods={"GET","POST"})")
+     * @Route("/{id}/edit", name="keyword_edit", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function editAction(Request $request, Keyword $keyword, EntityManagerInterface $em) {
         $editForm = $this->createForm(KeywordType::class, $keyword);
@@ -193,15 +194,16 @@ class KeywordController extends AbstractController implements PaginatorAwareInte
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/merge", name="keyword_merge", methods={"GET","POST"})")
+     * @Route("/{id}/merge", name="keyword_merge", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function mergeAction(Request $request, Keyword $keyword, MergeService $ms, KeywordRepository $repo) {
         if ('POST' === $request->getMethod()) {
             $keywords = $repo->findBy(['id' => $request->request->get('keywords')]);
             $ms->keywords($keyword, $keywords);
             $this->addFlash('success', 'The keywords have been merged.');
+
             return $this->redirectToRoute('keyword_show', ['id' => $keyword->getId()]);
         }
 

@@ -39,7 +39,7 @@ class DigitalCopyHolderController extends AbstractController implements Paginato
      *
      * @Route("/", name="digital_copy_holder_index", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
         $qb = $em->createQueryBuilder();
@@ -67,6 +67,7 @@ class DigitalCopyHolderController extends AbstractController implements Paginato
         }
 
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -83,9 +84,9 @@ class DigitalCopyHolderController extends AbstractController implements Paginato
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="digital_copy_holder_new", methods={"GET","POST"})")
+     * @Route("/new", name="digital_copy_holder_new", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newAction(Request $request, EntityManagerInterface $em) {
         $digitalCopyHolder = new DigitalCopyHolder();
@@ -113,9 +114,9 @@ class DigitalCopyHolderController extends AbstractController implements Paginato
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="digital_copy_holder_new_popup", methods={"GET","POST"})")
+     * @Route("/new_popup", name="digital_copy_holder_new_popup", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -128,7 +129,7 @@ class DigitalCopyHolderController extends AbstractController implements Paginato
      *
      * @Route("/{id}", name="digital_copy_holder_show", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function showAction(DigitalCopyHolder $digitalCopyHolder) {
         return [
@@ -142,9 +143,9 @@ class DigitalCopyHolderController extends AbstractController implements Paginato
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="digital_copy_holder_edit", methods={"GET","POST"})")
+     * @Route("/{id}/edit", name="digital_copy_holder_edit", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function editAction(Request $request, DigitalCopyHolder $digitalCopyHolder, EntityManagerInterface $em) {
         $editForm = $this->createForm(DigitalCopyHolderType::class, $digitalCopyHolder);

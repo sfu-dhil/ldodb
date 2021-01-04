@@ -28,7 +28,7 @@ class DefaultController extends AbstractController implements PaginatorAwareInte
 
     /**
      * @Route("/", name="homepage", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request, PageRepository $repo) {
         $homepage = $repo->findHomepage();
@@ -40,7 +40,7 @@ class DefaultController extends AbstractController implements PaginatorAwareInte
 
     /**
      * @Route("/features", name="homepage_features")
-     * @Template()
+     * @Template
      */
     public function featuresAction(Request $request, EntityManagerInterface $em) {
         $qb = $em->createQueryBuilder();
@@ -59,7 +59,7 @@ class DefaultController extends AbstractController implements PaginatorAwareInte
 
     /**
      * @Route("/privacy", name="privacy", methods={"GET"})
-     * @Template()
+     * @Template
      */
     public function privacyAction(Request $request) : void {
     }

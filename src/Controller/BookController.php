@@ -40,7 +40,7 @@ class BookController extends AbstractController implements PaginatorAwareInterfa
      *
      * @Route("/", name="book_index", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
         $qb = $em->createQueryBuilder();
@@ -49,9 +49,8 @@ class BookController extends AbstractController implements PaginatorAwareInterfa
 
         $books = $this->paginator->paginate($query, $request->query->getint('page', 1), 25);
         $form = $this->createForm(BookSearchType::class, null, [
-            'action' => $this->generateUrl('book_search')
+            'action' => $this->generateUrl('book_search'),
         ]);
-
 
         return [
             'books' => $books,
@@ -73,6 +72,7 @@ class BookController extends AbstractController implements PaginatorAwareInterfa
         }
 
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -88,12 +88,12 @@ class BookController extends AbstractController implements PaginatorAwareInterfa
      *
      * @Route("/search", name="book_search", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function searchAction(Request $request, BookRepository $repo) {
         $form = $this->createForm(BookSearchType::class);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $query = $repo->advancedSearchQuery($form->getData());
             $books = $this->paginator->paginate($query, $request->query->getInt('page', 1), 25);
         } else {
@@ -112,9 +112,9 @@ class BookController extends AbstractController implements PaginatorAwareInterfa
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="book_new", methods={"GET","POST"})")
+     * @Route("/new", name="book_new", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newAction(Request $request, EntityManagerInterface $em) {
         $book = new Book();
@@ -146,9 +146,9 @@ class BookController extends AbstractController implements PaginatorAwareInterfa
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="book_new_popup", methods={"GET","POST"})")
+     * @Route("/new_popup", name="book_new_popup", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -161,7 +161,7 @@ class BookController extends AbstractController implements PaginatorAwareInterfa
      *
      * @Route("/{id}", name="book_show", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function showAction(Book $book) {
         return [
@@ -175,9 +175,9 @@ class BookController extends AbstractController implements PaginatorAwareInterfa
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="book_edit", methods={"GET","POST"})")
+     * @Route("/{id}/edit", name="book_edit", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function editAction(Request $request, Book $book, EntityManagerInterface $em) {
         $editForm = $this->createForm(BookType::class, $book);

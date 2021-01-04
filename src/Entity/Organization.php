@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Organization.
  *
  * @ORM\Table(name="organization", indexes={
- *      @ORM\Index(columns={"organization_name"}, flags={"fulltext"}),
+ *     @ORM\Index(columns={"organization_name"}, flags={"fulltext"}),
  * })
  * @ORM\Entity(repositoryClass="App\Repository\OrganizationRepository")
  */

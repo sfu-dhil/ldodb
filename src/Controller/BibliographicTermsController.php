@@ -39,7 +39,7 @@ class BibliographicTermsController extends AbstractController implements Paginat
      *
      * @Route("/", name="bibliographic_terms_index", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
         $qb = $em->createQueryBuilder();
@@ -67,6 +67,7 @@ class BibliographicTermsController extends AbstractController implements Paginat
         }
 
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -83,9 +84,9 @@ class BibliographicTermsController extends AbstractController implements Paginat
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="bibliographic_terms_new", methods={"GET","POST"})")
+     * @Route("/new", name="bibliographic_terms_new", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newAction(Request $request, EntityManagerInterface $em) {
         $bibliographicTerm = new BibliographicTerms();
@@ -113,9 +114,9 @@ class BibliographicTermsController extends AbstractController implements Paginat
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="bibliographic_terms_new_popup", methods={"GET","POST"})")
+     * @Route("/new_popup", name="bibliographic_terms_new_popup", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -128,7 +129,7 @@ class BibliographicTermsController extends AbstractController implements Paginat
      *
      * @Route("/{id}", name="bibliographic_terms_show", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function showAction(BibliographicTerms $bibliographicTerm) {
         return [
@@ -142,9 +143,9 @@ class BibliographicTermsController extends AbstractController implements Paginat
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="bibliographic_terms_edit", methods={"GET","POST"})")
+     * @Route("/{id}/edit", name="bibliographic_terms_edit", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function editAction(Request $request, BibliographicTerms $bibliographicTerm, EntityManagerInterface $em) {
         $editForm = $this->createForm(BibliographicTermsType::class, $bibliographicTerm);

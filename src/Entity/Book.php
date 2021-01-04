@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Book.
  *
  * @ORM\Table(name="book", indexes={
- *      @ORM\Index(columns={"title", "short_title"}, flags={"fulltext"}),
+ *     @ORM\Index(columns={"title", "short_title"}, flags={"fulltext"}),
  * })
  * @ORM\Entity(repositoryClass="App\Repository\BookRepository")
  */
@@ -29,7 +29,7 @@ class Book {
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\GeneratedValue()
+     * @ORM\GeneratedValue
      */
     private $id;
 
@@ -133,7 +133,7 @@ class Book {
 
     /**
      * @var string
-     * @Assert\Url()
+     * @Assert\Url
      *
      * @ORM\Column(name="sfu_digital_copy", type="string", length=255, nullable=true)
      */
@@ -294,7 +294,7 @@ class Book {
 
     /**
      * @var Collection|Contribution
-     * @ORM\OneToMany(targetEntity="Contribution", mappedBy="book", cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity="Contribution", mappedBy="book", cascade={"persist", "remove"})
      */
     private $contributions;
 
@@ -302,8 +302,8 @@ class Book {
      * @var Collection|Genre[]
      * @ORM\ManyToMany(targetEntity="Genre", inversedBy="books")
      * @ORM\JoinTable(name="book_genre",
-     *  joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
-     *  inverseJoinColumns={@ORM\JoinColumn(name="genre_id", referencedColumnName="id")}
+     *     joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="genre_id", referencedColumnName="id")}
      * )
      */
     private $genres;
@@ -312,8 +312,8 @@ class Book {
      * @var Collection|ReferencedPerson[]
      * @ORM\ManyToMany(targetEntity="ReferencedPerson", inversedBy="books")
      * @ORM\JoinTable(name="reference",
-     *  joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
-     *  inverseJoinColumns={@ORM\JoinColumn(name="people_id", referencedColumnName="id")}
+     *     joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="people_id", referencedColumnName="id")}
      * )
      */
     private $referencedPeople;
@@ -322,8 +322,8 @@ class Book {
      * @var Collection|PlateType[]
      * @ORM\ManyToMany(targetEntity="PlateType", inversedBy="books")
      * @ORM\JoinTable(name="book_plate_type",
-     *  joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
-     *  inverseJoinColumns={@ORM\JoinColumn(name="plate_type_id", referencedColumnName="id")}
+     *     joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="plate_type_id", referencedColumnName="id")}
      * )
      */
     private $plateTypes;
@@ -332,8 +332,8 @@ class Book {
      * @var Collection|MapType[]
      * @ORM\ManyToMany(targetEntity="MapType", inversedBy="books")
      * @ORM\JoinTable(name="book_map_type",
-     *  joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
-     *  inverseJoinColumns={@ORM\JoinColumn(name="map_type_id", referencedColumnName="id")}
+     *     joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="map_type_id", referencedColumnName="id")}
      * )
      */
     private $mapTypes;
@@ -342,8 +342,8 @@ class Book {
      * @var Collection|Subject[]
      * @ORM\ManyToMany(targetEntity="Subject", inversedBy="books")
      * @ORM\JoinTable(name="book_subject",
-     *  joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
-     *  inverseJoinColumns={@ORM\JoinColumn(name="subject_id", referencedColumnName="id")}
+     *     joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="subject_id", referencedColumnName="id")}
      * )
      */
     private $subjects;
@@ -352,8 +352,8 @@ class Book {
      * @var Collection|MapSize[]
      * @ORM\ManyToMany(targetEntity="MapSize", inversedBy="books")
      * @ORM\JoinTable(name="book_map_size",
-     *  joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
-     *  inverseJoinColumns={@ORM\JoinColumn(name="map_size_id", referencedColumnName="id")}
+     *     joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="map_size_id", referencedColumnName="id")}
      * )
      */
     private $mapSizes;
@@ -362,8 +362,8 @@ class Book {
      * @var Collection|SubjectHeading[]
      * @ORM\ManyToMany(targetEntity="SubjectHeading", inversedBy="books")
      * @ORM\JoinTable(name="subject_heading_book",
-     *  joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
-     *  inverseJoinColumns={@ORM\JoinColumn(name="subject_heading_id", referencedColumnName="id")}
+     *     joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="subject_heading_id", referencedColumnName="id")}
      * )
      */
     private $subjectHeadings;
@@ -372,8 +372,8 @@ class Book {
      * @var BindingFeature[]|Collection
      * @ORM\ManyToMany(targetEntity="BindingFeature", inversedBy="books")
      * @ORM\JoinTable(name="book_binding_feature",
-     *  joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
-     *  inverseJoinColumns={@ORM\JoinColumn(name="binding_feature_id", referencedColumnName="id")}
+     *     joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="binding_feature_id", referencedColumnName="id")}
      * )
      */
     private $bindingFeatures;
@@ -382,8 +382,8 @@ class Book {
      * @var Collection|Keyword[]
      * @ORM\ManyToMany(targetEntity="Keyword", inversedBy="books")
      * @ORM\JoinTable(name="book_keyword",
-     *  joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
-     *  inverseJoinColumns={@ORM\JoinColumn(name="keyword_id", referencedColumnName="id")}
+     *     joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="keyword_id", referencedColumnName="id")}
      * )
      */
     private $keywords;
@@ -392,8 +392,8 @@ class Book {
      * @var Collection|DigitalCopyHolder[]
      * @ORM\ManyToMany(targetEntity="DigitalCopyHolder", inversedBy="books")
      * @ORM\JoinTable(name="digital_copies_other_institutions",
-     *  joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
-     *  inverseJoinColumns={@ORM\JoinColumn(name="organization_id", referencedColumnName="id")}
+     *     joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="organization_id", referencedColumnName="id")}
      * )
      */
     private $digitalCopyHolders;
@@ -402,8 +402,8 @@ class Book {
      * @var Collection|Place[]
      * @ORM\ManyToMany(targetEntity="Place", inversedBy="books")
      * @ORM\JoinTable(name="publication_place",
-     *  joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
-     *  inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="id")}
+     *     joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="id")}
      * )
      */
     private $publicationPlaces;

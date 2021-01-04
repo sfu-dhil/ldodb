@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Role.
  *
  * @ORM\Table(name="role", indexes={
- *      @ORM\Index(columns={"role_name"}, flags={"fulltext"}),
+ *     @ORM\Index(columns={"role_name"}, flags={"fulltext"}),
  * })
  * @ORM\Entity(repositoryClass="App\Repository\RoleRepository")
  */
@@ -28,7 +28,7 @@ class Role {
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\GeneratedValue()
+     * @ORM\GeneratedValue
      */
     private $id;
 

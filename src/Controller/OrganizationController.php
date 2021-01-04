@@ -39,7 +39,7 @@ class OrganizationController extends AbstractController implements PaginatorAwar
      *
      * @Route("/", name="organization_index", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
         $qb = $em->createQueryBuilder();
@@ -67,6 +67,7 @@ class OrganizationController extends AbstractController implements PaginatorAwar
         }
 
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -82,7 +83,7 @@ class OrganizationController extends AbstractController implements PaginatorAwar
      *
      * @Route("/search", name="organization_search", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function searchAction(Request $request, OrganizationRepository $repo) {
         $q = $request->query->get('q');
@@ -106,9 +107,9 @@ class OrganizationController extends AbstractController implements PaginatorAwar
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="organization_new", methods={"GET","POST"})")
+     * @Route("/new", name="organization_new", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newAction(Request $request, EntityManagerInterface $em) {
         $organization = new Organization();
@@ -136,9 +137,9 @@ class OrganizationController extends AbstractController implements PaginatorAwar
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="organization_new_popup", methods={"GET","POST"})")
+     * @Route("/new_popup", name="organization_new_popup", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -151,7 +152,7 @@ class OrganizationController extends AbstractController implements PaginatorAwar
      *
      * @Route("/{id}", name="organization_show", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function showAction(Organization $organization) {
         return [
@@ -165,9 +166,9 @@ class OrganizationController extends AbstractController implements PaginatorAwar
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="organization_edit", methods={"GET","POST"})")
+     * @Route("/{id}/edit", name="organization_edit", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function editAction(Request $request, Organization $organization, EntityManagerInterface $em) {
         $editForm = $this->createForm(OrganizationType::class, $organization);

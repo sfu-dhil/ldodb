@@ -39,7 +39,7 @@ class TaskController extends AbstractController implements PaginatorAwareInterfa
      *
      * @Route("/", name="task_index", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
         $qb = $em->createQueryBuilder();
@@ -66,6 +66,7 @@ class TaskController extends AbstractController implements PaginatorAwareInterfa
             return new JsonResponse([]);
         }
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -82,9 +83,9 @@ class TaskController extends AbstractController implements PaginatorAwareInterfa
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="task_new", methods={"GET","POST"})")
+     * @Route("/new", name="task_new", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newAction(Request $request, EntityManagerInterface $em) {
         $task = new Task();
@@ -112,9 +113,9 @@ class TaskController extends AbstractController implements PaginatorAwareInterfa
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="task_new_popup", methods={"GET","POST"})")
+     * @Route("/new_popup", name="task_new_popup", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -127,7 +128,7 @@ class TaskController extends AbstractController implements PaginatorAwareInterfa
      *
      * @Route("/{id}", name="task_show", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function showAction(Task $task) {
         return [
@@ -141,9 +142,9 @@ class TaskController extends AbstractController implements PaginatorAwareInterfa
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="task_edit", methods={"GET","POST"})")
+     * @Route("/{id}/edit", name="task_edit", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function editAction(Request $request, Task $task, EntityManagerInterface $em) {
         $editForm = $this->createForm(TaskType::class, $task);

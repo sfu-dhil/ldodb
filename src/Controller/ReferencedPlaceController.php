@@ -39,7 +39,7 @@ class ReferencedPlaceController extends AbstractController implements PaginatorA
      *
      * @Route("/", name="referenced_place_index", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function indexAction(Request $request, EntityManagerInterface $em) {
         $qb = $em->createQueryBuilder();
@@ -67,6 +67,7 @@ class ReferencedPlaceController extends AbstractController implements PaginatorA
         }
 
         $data = [];
+
         foreach ($repo->typeaheadQuery($q) as $result) {
             $data[] = [
                 'id' => $result->getId(),
@@ -83,9 +84,9 @@ class ReferencedPlaceController extends AbstractController implements PaginatorA
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new", name="referenced_place_new", methods={"GET","POST"})")
+     * @Route("/new", name="referenced_place_new", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newAction(Request $request, EntityManagerInterface $em) {
         $referencedPlace = new ReferencedPlace();
@@ -113,9 +114,9 @@ class ReferencedPlaceController extends AbstractController implements PaginatorA
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/new_popup", name="referenced_place_new_popup", methods={"GET","POST"})")
+     * @Route("/new_popup", name="referenced_place_new_popup", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function newPopupAction(Request $request) {
         return $this->newAction($request);
@@ -128,7 +129,7 @@ class ReferencedPlaceController extends AbstractController implements PaginatorA
      *
      * @Route("/{id}", name="referenced_place_show", methods={"GET"})")
      *
-     * @Template()
+     * @Template
      */
     public function showAction(ReferencedPlace $referencedPlace) {
         return [
@@ -142,9 +143,9 @@ class ReferencedPlaceController extends AbstractController implements PaginatorA
      * @return array|RedirectResponse
      *
      * @Security("is_granted('ROLE_CONTENT_ADMIN')")
-     * @Route("/{id}/edit", name="referenced_place_edit", methods={"GET","POST"})")
+     * @Route("/{id}/edit", name="referenced_place_edit", methods={"GET", "POST"})")
      *
-     * @Template()
+     * @Template
      */
     public function editAction(Request $request, ReferencedPlace $referencedPlace, EntityManagerInterface $em) {
         $editForm = $this->createForm(ReferencedPlaceType::class, $referencedPlace);
