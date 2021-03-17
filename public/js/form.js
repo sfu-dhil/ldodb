@@ -1,8 +1,6 @@
-(function ($, window) {
+(function ($, window, tinymce, editorUploadPath) {
 
-    var hostname = window.location.hostname.replace('www.', '');
-
-    var devEnv = /app_dev\.php/.test(window.location.href);
+    const hostname = window.location.hostname.replace('www.', '');
 
     function confirm() {
         var $this = $(this);
@@ -26,7 +24,7 @@
                 clean = false;
             }
         });
-        if (!clean && !devEnv) {
+        if (!clean) {
             var message = 'You have unsaved changes.';
             e.returnValue = message;
             return message;
@@ -57,7 +55,7 @@
             allow_down: false,
             add: '<a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus"></span></a>',
             remove: '<a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-minus"></span></a>',
-            add_at_the_end: false,
+            add_at_the_end: true,
         });
     }
 
@@ -76,7 +74,6 @@
             },
         });
     }
-
     $(document).ready(function () {
         $(window).bind('beforeunload', windowBeforeUnload);
         $('form').each(formDirty);
