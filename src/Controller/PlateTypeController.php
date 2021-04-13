@@ -29,7 +29,8 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/plate_type")
  */
-class PlateTypeController extends AbstractController implements PaginatorAwareInterface {
+class PlateTypeController extends AbstractController implements PaginatorAwareInterface
+{
     use PaginatorTrait;
 
     /**

@@ -14,7 +14,8 @@ use App\Entity\Subject;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class SubjectFixtures extends Fixture {
+class SubjectFixtures extends Fixture
+{
     public function load(ObjectManager $em) : void {
         $object = new Subject();
         $object->setSubjectName('fishies');

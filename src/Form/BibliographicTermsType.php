@@ -18,7 +18,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * BibliographicTermsType form.
  */
-class BibliographicTermsType extends AbstractType {
+class BibliographicTermsType extends AbstractType
+{
     /**
      * Add form fields to $builder.
      */

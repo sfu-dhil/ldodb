@@ -30,7 +30,8 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/keyword")
  */
-class KeywordController extends AbstractController implements PaginatorAwareInterface {
+class KeywordController extends AbstractController implements PaginatorAwareInterface
+{
     use PaginatorTrait;
 
     /**

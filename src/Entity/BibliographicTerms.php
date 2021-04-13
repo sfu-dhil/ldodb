@@ -18,7 +18,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="bibliographic_terms")
  * @ORM\Entity(repositoryClass="App\Repository\BibliographicTermsRepository")
  */
-class BibliographicTerms {
+class BibliographicTerms
+{
     /**
      * @var int
      *

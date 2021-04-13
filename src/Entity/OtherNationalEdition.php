@@ -18,7 +18,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="other_national_edition")
  * @ORM\Entity(repositoryClass="App\Repository\OtherNationalEditionRepository")
  */
-class OtherNationalEdition {
+class OtherNationalEdition
+{
     /**
      * @var int
      *

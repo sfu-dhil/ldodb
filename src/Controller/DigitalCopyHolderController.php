@@ -29,7 +29,8 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/digital_copy_holder")
  */
-class DigitalCopyHolderController extends AbstractController implements PaginatorAwareInterface {
+class DigitalCopyHolderController extends AbstractController implements PaginatorAwareInterface
+{
     use PaginatorTrait;
 
     /**

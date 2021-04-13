@@ -30,7 +30,8 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/subject_heading")
  */
-class SubjectHeadingController extends AbstractController implements PaginatorAwareInterface {
+class SubjectHeadingController extends AbstractController implements PaginatorAwareInterface
+{
     use PaginatorTrait;
 
     /**

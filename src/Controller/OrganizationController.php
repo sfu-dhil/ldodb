@@ -29,7 +29,8 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/organization")
  */
-class OrganizationController extends AbstractController implements PaginatorAwareInterface {
+class OrganizationController extends AbstractController implements PaginatorAwareInterface
+{
     use PaginatorTrait;
 
     /**

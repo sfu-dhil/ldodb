@@ -15,7 +15,8 @@ use App\Entity\Task;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\Tests\ControllerBaseCase;
 
-class TaskControllerTest extends ControllerBaseCase {
+class TaskControllerTest extends ControllerBaseCase
+{
     protected function fixtures() : array {
         return [
             UserFixtures::class,

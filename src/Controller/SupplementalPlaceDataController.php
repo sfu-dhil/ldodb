@@ -29,7 +29,8 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/supplemental_place_data")
  */
-class SupplementalPlaceDataController extends AbstractController implements PaginatorAwareInterface {
+class SupplementalPlaceDataController extends AbstractController implements PaginatorAwareInterface
+{
     use PaginatorTrait;
 
     /**

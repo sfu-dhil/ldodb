@@ -29,7 +29,8 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/map_size")
  */
-class MapSizeController extends AbstractController implements PaginatorAwareInterface {
+class MapSizeController extends AbstractController implements PaginatorAwareInterface
+{
     use PaginatorTrait;
 
     /**

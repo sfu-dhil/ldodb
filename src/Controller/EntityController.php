@@ -24,7 +24,8 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/entity")
  */
-class EntityController extends AbstractController implements PaginatorAwareInterface {
+class EntityController extends AbstractController implements PaginatorAwareInterface
+{
     use PaginatorTrait;
 
     /**

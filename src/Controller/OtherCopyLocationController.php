@@ -28,7 +28,8 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/other_copy_location")
  */
-class OtherCopyLocationController extends AbstractController implements PaginatorAwareInterface {
+class OtherCopyLocationController extends AbstractController implements PaginatorAwareInterface
+{
     use PaginatorTrait;
 
     /**

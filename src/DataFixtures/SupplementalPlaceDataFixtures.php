@@ -14,7 +14,8 @@ use App\Entity\SupplementalPlaceData;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class SupplementalPlaceDataFixtures extends Fixture {
+class SupplementalPlaceDataFixtures extends Fixture
+{
     public function load(ObjectManager $em) : void {
         $object = new SupplementalPlaceData();
         $object->setGeonameId(1);

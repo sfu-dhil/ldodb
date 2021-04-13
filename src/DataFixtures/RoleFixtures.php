@@ -14,7 +14,8 @@ use App\Entity\Role;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class RoleFixtures extends Fixture {
+class RoleFixtures extends Fixture
+{
     public function load(ObjectManager $em) : void {
         $object = new Role();
         $object->setRoleName('fishmonger');

@@ -14,7 +14,8 @@ use App\Entity\PlateType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class PlateTypeRepository extends ServiceEntityRepository {
+class PlateTypeRepository extends ServiceEntityRepository
+{
     public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, PlateType::class);
     }

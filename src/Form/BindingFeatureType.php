@@ -17,7 +17,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * BindingFeatureType form.
  */
-class BindingFeatureType extends AbstractType {
+class BindingFeatureType extends AbstractType
+{
     /**
      * Add form fields to $builder.
      */

@@ -23,7 +23,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * })
  * @ORM\Entity(repositoryClass="App\Repository\SubjectHeadingRepository")
  */
-class SubjectHeading {
+class SubjectHeading
+{
     /**
      * @var int
      *

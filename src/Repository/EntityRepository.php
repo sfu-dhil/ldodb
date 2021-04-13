@@ -18,7 +18,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Persistence\ManagerRegistry;
 
-class EntityRepository extends BaseRepository {
+class EntityRepository extends BaseRepository
+{
     public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, Entity::class);
     }
