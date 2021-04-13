@@ -15,7 +15,8 @@ use App\Entity\DigitalCopyHolder;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\Tests\ControllerBaseCase;
 
-class DigitalCopyHolderControllerTest extends ControllerBaseCase {
+class DigitalCopyHolderControllerTest extends ControllerBaseCase
+{
     protected function fixtures() : array {
         return [
             UserFixtures::class,

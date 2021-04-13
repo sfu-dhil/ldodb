@@ -29,7 +29,8 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/bibliographic_terms")
  */
-class BibliographicTermsController extends AbstractController implements PaginatorAwareInterface {
+class BibliographicTermsController extends AbstractController implements PaginatorAwareInterface
+{
     use PaginatorTrait;
 
     /**

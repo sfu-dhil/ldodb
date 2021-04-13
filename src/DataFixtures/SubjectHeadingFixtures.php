@@ -14,7 +14,8 @@ use App\Entity\SubjectHeading;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class SubjectHeadingFixtures extends Fixture {
+class SubjectHeadingFixtures extends Fixture
+{
     public function load(ObjectManager $em) : void {
         $object = new SubjectHeading();
         $object->setSubjectHeading('Fish -- Other');

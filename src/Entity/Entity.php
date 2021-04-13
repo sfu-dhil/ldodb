@@ -24,7 +24,8 @@ use Doctrine\ORM\Mapping as ORM;
  *     "ORG": "Organization"
  * })
  */
-abstract class Entity {
+abstract class Entity
+{
     public const PER_TYPE = 'PER';
 
     public const ORG_TYPE = 'ORG';

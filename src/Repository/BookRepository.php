@@ -16,7 +16,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
-class BookRepository extends ServiceEntityRepository {
+class BookRepository extends ServiceEntityRepository
+{
     public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, Book::class);
     }
@@ -73,7 +74,7 @@ class BookRepository extends ServiceEntityRepository {
         if (isset($data['publicationDate'])) {
             $m = [];
             if (preg_match('/^\s*[0-9]{4}\s*$/', $data['publicationDate'])) {
-                $qb->andWhere('YEAR(e.dob) = :yearb');
+                $qb->andWhere('YEAR(e.publicationDate) = :yearb');
                 $qb->setParameter('yearb', $data['publicationDate']);
             } elseif (preg_match('/^\s*(\*|[0-9]{4})\s*-\s*(\*|[0-9]{4})\s*$/', $data['publicationDate'], $m)) {
                 $from = ('*' === $m[1] ? -1 : $m[1]);

@@ -14,7 +14,8 @@ use App\Entity\ReferencedPerson;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class ReferencedPersonRepository extends ServiceEntityRepository {
+class ReferencedPersonRepository extends ServiceEntityRepository
+{
     public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, ReferencedPerson::class);
     }

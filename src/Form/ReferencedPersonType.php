@@ -18,7 +18,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * ReferencedPersonType form.
  */
-class ReferencedPersonType extends AbstractType {
+class ReferencedPersonType extends AbstractType
+{
     /**
      * Add form fields to $builder.
      */

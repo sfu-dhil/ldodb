@@ -14,7 +14,8 @@ use App\Entity\BibliographicTerms;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class BibliographicTermsFixtures extends Fixture {
+class BibliographicTermsFixtures extends Fixture
+{
     public function load(ObjectManager $em) : void {
         $object = new BibliographicTerms();
         $object->setBibliographicTerm('fins');

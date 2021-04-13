@@ -20,7 +20,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="binding_feature")
  * @ORM\Entity(repositoryClass="App\Repository\BindingFeatureRepository")
  */
-class BindingFeature {
+class BindingFeature
+{
     /**
      * @var int
      *

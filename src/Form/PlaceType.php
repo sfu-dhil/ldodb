@@ -21,7 +21,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * PlaceType form.
  */
-class PlaceType extends AbstractType {
+class PlaceType extends AbstractType
+{
     /**
      * Add form fields to $builder.
      */

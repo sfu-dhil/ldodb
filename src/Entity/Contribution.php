@@ -18,7 +18,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="contribution")
  * @ORM\Entity(repositoryClass="App\Repository\ContributionRepository")
  */
-class Contribution {
+class Contribution
+{
     /**
      * @var int
      *

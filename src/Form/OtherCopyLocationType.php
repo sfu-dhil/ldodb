@@ -19,7 +19,8 @@ use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 /**
  * OtherCopyLocationType form.
  */
-class OtherCopyLocationType extends AbstractType {
+class OtherCopyLocationType extends AbstractType
+{
     /**
      * Add form fields to $builder.
      */

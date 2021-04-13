@@ -18,7 +18,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * GenreType form.
  */
-class GenreType extends AbstractType {
+class GenreType extends AbstractType
+{
     /**
      * Add form fields to $builder.
      */

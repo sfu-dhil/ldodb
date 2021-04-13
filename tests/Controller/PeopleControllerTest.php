@@ -15,7 +15,8 @@ use App\Entity\People;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\Tests\ControllerBaseCase;
 
-class PeopleControllerTest extends ControllerBaseCase {
+class PeopleControllerTest extends ControllerBaseCase
+{
     protected function fixtures() : array {
         return [
             UserFixtures::class,

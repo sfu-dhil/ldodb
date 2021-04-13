@@ -18,7 +18,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * RoleType form.
  */
-class RoleType extends AbstractType {
+class RoleType extends AbstractType
+{
     /**
      * Add form fields to $builder.
      */

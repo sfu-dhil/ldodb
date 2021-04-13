@@ -20,7 +20,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="digital_copy_holder")
  * @ORM\Entity(repositoryClass="App\Repository\DigitalCopyHolderRepository")
  */
-class DigitalCopyHolder {
+class DigitalCopyHolder
+{
     /**
      * @var int
      *

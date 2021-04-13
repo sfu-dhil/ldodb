@@ -17,7 +17,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * MapTypeType form.
  */
-class MapTypeType extends AbstractType {
+class MapTypeType extends AbstractType
+{
     /**
      * Add form fields to $builder.
      */

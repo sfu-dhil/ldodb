@@ -26,6 +26,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -34,7 +35,8 @@ use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 /**
  * BookType form.
  */
-class BookType extends AbstractType {
+class BookType extends AbstractType
+{
     /**
      * Add form fields to $builder.
      */
@@ -237,11 +239,12 @@ class BookType extends AbstractType {
                 'help_block' => '',
             ],
         ]);
-        $builder->add('criticalAnnotation', null, [
+        $builder->add('criticalAnnotation', TextareaType::class, [
             'label' => 'Critical Annotation',
             'required' => false,
             'attr' => [
                 'help_block' => '',
+                'class' => 'tinymce',
             ],
         ]);
         $builder->add('format', null, [

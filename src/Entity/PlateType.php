@@ -20,7 +20,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="plate_type")
  * @ORM\Entity(repositoryClass="App\Repository\PlateTypeRepository")
  */
-class PlateType {
+class PlateType
+{
     /**
      * @var int
      *

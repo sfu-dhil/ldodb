@@ -22,7 +22,8 @@ use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 /**
  * PeopleType form.
  */
-class PeopleType extends AbstractType {
+class PeopleType extends AbstractType
+{
     /**
      * Add form fields to $builder.
      */

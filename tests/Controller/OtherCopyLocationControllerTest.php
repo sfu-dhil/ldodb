@@ -15,7 +15,8 @@ use App\Entity\OtherCopyLocation;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\Tests\ControllerBaseCase;
 
-class OtherCopyLocationControllerTest extends ControllerBaseCase {
+class OtherCopyLocationControllerTest extends ControllerBaseCase
+{
     protected function fixtures() : array {
         return [
             UserFixtures::class,

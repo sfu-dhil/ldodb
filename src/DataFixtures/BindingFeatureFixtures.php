@@ -14,7 +14,8 @@ use App\Entity\BindingFeature;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class BindingFeatureFixtures extends Fixture {
+class BindingFeatureFixtures extends Fixture
+{
     public function load(ObjectManager $em) : void {
         $object = new BindingFeature();
         $object->setBindingFeature('chicanery');

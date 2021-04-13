@@ -23,7 +23,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * })
  * @ORM\Entity(repositoryClass="App\Repository\PeopleRepository")
  */
-class People extends Entity {
+class People extends Entity
+{
     /**
      * @var string
      *

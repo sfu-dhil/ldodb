@@ -18,7 +18,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="other_copy_location")
  * @ORM\Entity(repositoryClass="App\Repository\OtherCopyLocationRepository")
  */
-class OtherCopyLocation {
+class OtherCopyLocation
+{
     /**
      * @var int
      *

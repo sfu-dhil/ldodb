@@ -19,7 +19,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * SubjectHeadingType form.
  */
-class SubjectHeadingType extends AbstractType {
+class SubjectHeadingType extends AbstractType
+{
     /**
      * Add form fields to $builder.
      */
