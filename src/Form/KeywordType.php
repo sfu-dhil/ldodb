@@ -18,8 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * KeywordType form.
  */
-class KeywordType extends AbstractType
-{
+class KeywordType extends AbstractType {
     /**
      * Add form fields to $builder.
      */

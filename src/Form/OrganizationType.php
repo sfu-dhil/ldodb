@@ -18,8 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * OrganizationType form.
  */
-class OrganizationType extends AbstractType
-{
+class OrganizationType extends AbstractType {
     /**
      * Add form fields to $builder.
      */

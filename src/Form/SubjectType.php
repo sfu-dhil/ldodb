@@ -19,8 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * SubjectType form.
  */
-class SubjectType extends AbstractType
-{
+class SubjectType extends AbstractType {
     /**
      * Add form fields to $builder.
      */

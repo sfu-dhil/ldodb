@@ -14,8 +14,7 @@ use App\Entity\MapSize;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class MapSizeRepository extends ServiceEntityRepository
-{
+class MapSizeRepository extends ServiceEntityRepository {
     public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, MapSize::class);
     }

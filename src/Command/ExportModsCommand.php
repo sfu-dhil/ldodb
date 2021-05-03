@@ -18,8 +18,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Twig\Environment;
 
-class ExportModsCommand extends Command
-{
+class ExportModsCommand extends Command {
     /**
      * @var BookRepository
      */

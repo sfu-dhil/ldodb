@@ -18,8 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * TaskType form.
  */
-class TaskType extends AbstractType
-{
+class TaskType extends AbstractType {
     /**
      * Add form fields to $builder.
      */

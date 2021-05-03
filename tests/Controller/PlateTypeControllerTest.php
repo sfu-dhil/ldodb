@@ -15,8 +15,7 @@ use App\Entity\PlateType;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\Tests\ControllerBaseCase;
 
-class PlateTypeControllerTest extends ControllerBaseCase
-{
+class PlateTypeControllerTest extends ControllerBaseCase {
     protected function fixtures() : array {
         return [
             UserFixtures::class,

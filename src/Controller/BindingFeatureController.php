@@ -29,8 +29,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/binding_feature")
  */
-class BindingFeatureController extends AbstractController implements PaginatorAwareInterface
-{
+class BindingFeatureController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
 
     /**

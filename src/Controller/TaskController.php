@@ -29,8 +29,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/task")
  */
-class TaskController extends AbstractController implements PaginatorAwareInterface
-{
+class TaskController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
 
     /**

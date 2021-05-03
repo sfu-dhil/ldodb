@@ -23,8 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * })
  * @ORM\Entity(repositoryClass="App\Repository\BookRepository")
  */
-class Book
-{
+class Book {
     /**
      * @var int
      *

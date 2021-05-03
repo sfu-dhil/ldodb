@@ -20,8 +20,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * SupplementalPlaceDataType form.
  */
-class SupplementalPlaceDataType extends AbstractType
-{
+class SupplementalPlaceDataType extends AbstractType {
     /**
      * Add form fields to $builder.
      */

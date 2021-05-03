@@ -14,8 +14,7 @@ use App\Entity\Keyword;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class KeywordFixtures extends Fixture
-{
+class KeywordFixtures extends Fixture {
     public function load(ObjectManager $em) : void {
         $object = new Keyword();
         $object->setKeyword('placodermi');

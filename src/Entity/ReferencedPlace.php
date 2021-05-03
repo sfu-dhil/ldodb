@@ -20,8 +20,7 @@ use Doctrine\ORM\Mapping as ORM;
  * })
  * @ORM\Entity(repositoryClass="App\Repository\ReferencedPlaceRepository")
  */
-class ReferencedPlace
-{
+class ReferencedPlace {
     /**
      * @var int
      *

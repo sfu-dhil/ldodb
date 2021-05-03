@@ -15,8 +15,7 @@ use App\Entity\MapSize;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\Tests\ControllerBaseCase;
 
-class MapSizeControllerTest extends ControllerBaseCase
-{
+class MapSizeControllerTest extends ControllerBaseCase {
     protected function fixtures() : array {
         return [
             UserFixtures::class,

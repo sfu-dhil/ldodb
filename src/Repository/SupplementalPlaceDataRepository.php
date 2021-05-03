@@ -14,8 +14,7 @@ use App\Entity\SupplementalPlaceData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class SupplementalPlaceDataRepository extends ServiceEntityRepository
-{
+class SupplementalPlaceDataRepository extends ServiceEntityRepository {
     public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, SupplementalPlaceData::class);
     }

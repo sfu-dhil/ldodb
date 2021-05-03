@@ -29,8 +29,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/map_type")
  */
-class MapTypeController extends AbstractController implements PaginatorAwareInterface
-{
+class MapTypeController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
 
     /**

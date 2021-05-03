@@ -17,8 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * PlateTypeType form.
  */
-class PlateTypeType extends AbstractType
-{
+class PlateTypeType extends AbstractType {
     /**
      * Add form fields to $builder.
      */
