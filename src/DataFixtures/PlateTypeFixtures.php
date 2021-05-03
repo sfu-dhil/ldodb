@@ -14,8 +14,7 @@ use App\Entity\PlateType;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class PlateTypeFixtures extends Fixture
-{
+class PlateTypeFixtures extends Fixture {
     public function load(ObjectManager $em) : void {
         $object = new PlateType();
         $object->setPlateType('Bunny');

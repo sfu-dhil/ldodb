@@ -14,8 +14,7 @@ use App\Entity\Organization;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class OrganizationFixtures extends Fixture
-{
+class OrganizationFixtures extends Fixture {
     public function load(ObjectManager $em) : void {
         $object = new Organization();
         $object->setOrganizationName('Fisherwomen Inc.');

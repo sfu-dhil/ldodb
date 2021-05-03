@@ -18,8 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="supplemental_place_data")
  * @ORM\Entity(repositoryClass="App\Repository\SupplementalPlaceDataRepository")
  */
-class SupplementalPlaceData
-{
+class SupplementalPlaceData {
     /**
      * @var int
      *

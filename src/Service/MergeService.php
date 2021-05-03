@@ -17,8 +17,7 @@ use App\Entity\SubjectHeading;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 
-class MergeService
-{
+class MergeService {
     /**
      * @var LoggerInterface
      */

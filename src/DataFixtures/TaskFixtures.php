@@ -14,8 +14,7 @@ use App\Entity\Task;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class TaskFixtures extends Fixture
-{
+class TaskFixtures extends Fixture {
     public function load(ObjectManager $em) : void {
         $object = new Task();
         $object->setTaskName('Cromulator');

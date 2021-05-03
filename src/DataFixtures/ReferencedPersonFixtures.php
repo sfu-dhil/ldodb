@@ -14,8 +14,7 @@ use App\Entity\ReferencedPerson;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class ReferencedPersonFixtures extends Fixture
-{
+class ReferencedPersonFixtures extends Fixture {
     public function load(ObjectManager $em) : void {
         $object = new ReferencedPerson();
         $object->setLastName('Piscine');

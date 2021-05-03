@@ -27,8 +27,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/other_national_edition")
  */
-class OtherNationalEditionController extends AbstractController implements PaginatorAwareInterface
-{
+class OtherNationalEditionController extends AbstractController implements PaginatorAwareInterface {
     use PaginatorTrait;
 
     /**

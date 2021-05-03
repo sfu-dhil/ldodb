@@ -14,8 +14,7 @@ use App\Entity\MapSize;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class MapSizeFixtures extends Fixture
-{
+class MapSizeFixtures extends Fixture {
     public function load(ObjectManager $em) : void {
         $object = new MapSize();
         $object->setMapSize('bigfish');

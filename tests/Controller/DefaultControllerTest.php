@@ -12,8 +12,7 @@ namespace Tests\App\Controller;
 
 use Nines\UtilBundle\Tests\ControllerBaseCase;
 
-class DefaultControllerTest extends ControllerBaseCase
-{
+class DefaultControllerTest extends ControllerBaseCase {
     public function testIndex() : void {
         $crawler = $this->client->request('GET', '/');
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());

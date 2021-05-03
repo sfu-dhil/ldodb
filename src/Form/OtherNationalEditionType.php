@@ -21,8 +21,7 @@ use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 /**
  * OtherNationalEditionType form.
  */
-class OtherNationalEditionType extends AbstractType
-{
+class OtherNationalEditionType extends AbstractType {
     /**
      * Add form fields to $builder.
      */

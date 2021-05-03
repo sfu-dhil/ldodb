@@ -17,8 +17,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 /**
  * BookType form.
  */
-class BookSearchType extends AbstractType
-{
+class BookSearchType extends AbstractType {
     /**
      * Add form fields to $builder.
      */

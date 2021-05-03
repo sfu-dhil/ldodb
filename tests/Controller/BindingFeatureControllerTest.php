@@ -15,8 +15,7 @@ use App\Entity\BindingFeature;
 use Nines\UserBundle\DataFixtures\UserFixtures;
 use Nines\UtilBundle\Tests\ControllerBaseCase;
 
-class BindingFeatureControllerTest extends ControllerBaseCase
-{
+class BindingFeatureControllerTest extends ControllerBaseCase {
     protected function fixtures() : array {
         return [
             UserFixtures::class,

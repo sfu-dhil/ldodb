@@ -14,8 +14,7 @@ use App\Entity\BindingFeature;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class BindingFeatureRepository extends ServiceEntityRepository
-{
+class BindingFeatureRepository extends ServiceEntityRepository {
     public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, BindingFeature::class);
     }

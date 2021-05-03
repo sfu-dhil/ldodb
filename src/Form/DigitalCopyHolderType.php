@@ -17,8 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * DigitalCopyHolderType form.
  */
-class DigitalCopyHolderType extends AbstractType
-{
+class DigitalCopyHolderType extends AbstractType {
     /**
      * Add form fields to $builder.
      */

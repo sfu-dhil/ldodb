@@ -14,8 +14,7 @@ use App\Entity\MapType;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class MapTypeFixtures extends Fixture
-{
+class MapTypeFixtures extends Fixture {
     public function load(ObjectManager $em) : void {
         $object = new MapType();
         $object->setMapType('chum');

@@ -14,8 +14,7 @@ use App\Entity\Genre;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class GenreFixtures extends Fixture
-{
+class GenreFixtures extends Fixture {
     public function load(ObjectManager $em) : void {
         $object = new Genre();
         $object->setGenreName('extinct');

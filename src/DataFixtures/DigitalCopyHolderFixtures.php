@@ -14,8 +14,7 @@ use App\Entity\DigitalCopyHolder;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class DigitalCopyHolderFixtures extends Fixture
-{
+class DigitalCopyHolderFixtures extends Fixture {
     public function load(ObjectManager $em) : void {
         $object = new DigitalCopyHolder();
         $object->setOrganizationName('Happy Sirens Fishing');

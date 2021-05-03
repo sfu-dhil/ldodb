@@ -15,8 +15,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class OtherNationalEditionFixtures extends Fixture implements DependentFixtureInterface
-{
+class OtherNationalEditionFixtures extends Fixture implements DependentFixtureInterface {
     public function getDependencies() {
         return [
             PlaceFixtures::class,

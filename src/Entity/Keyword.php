@@ -22,8 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
  * })
  * @ORM\Entity(repositoryClass="App\Repository\KeywordRepository")
  */
-class Keyword
-{
+class Keyword {
     /**
      * @var int
      *
