@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
  * This source file is subject to the GPL v2, bundled
  * with this source code in the file LICENSE.
  */
@@ -158,9 +158,7 @@ class SubjectController extends AbstractController implements PaginatorAwareInte
      */
     public function showAction(Subject $subject) {
         $iterator = $subject->getBooks()->getIterator();
-        $iterator->uasort(function (Book $a, Book $b) {
-            return strcasecmp($a->getTitle(), $b->getTitle());
-        });
+        $iterator->uasort(fn (Book $a, Book $b) => strcasecmp($a->getTitle(), $b->getTitle()));
 
         return [
             'subject' => $subject,

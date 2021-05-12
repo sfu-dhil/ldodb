@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * (c) 2020 Michael Joyce <mjoyce@sfu.ca>
+ * (c) 2021 Michael Joyce <mjoyce@sfu.ca>
  * This source file is subject to the GPL v2, bundled
  * with this source code in the file LICENSE.
  */
@@ -55,9 +55,7 @@ class ExportCsvCommand extends Command {
             /** @var Book $book */
             $data = [
                 'filename' => $book->getFileName(),
-                'contributors' => implode('; ', array_map(function (Contribution $contribution) {
-                    return "{$contribution->getEntity()} ({$contribution->getTask()})";
-                }, $book->getContributions()->toArray())),
+                'contributors' => implode('; ', array_map(fn (Contribution $contribution) => "{$contribution->getEntity()} ({$contribution->getTask()})", $book->getContributions()->toArray())),
                 'callNumber' => $book->getCallNumber(),
                 'title' => $book->getTitle(),
                 'shortTitle' => $book->getShortTitle(),
@@ -68,12 +66,8 @@ class ExportCsvCommand extends Command {
                 'volumes' => $book->getVolumes(),
                 'pages' => $book->getPages(),
                 'bibliographicNotes' => $book->getBibliographicNotes(),
-                'subjects' => implode('; ', array_map(function (Subject $subject) {
-                    return $subject->getSubjectName();
-                }, $book->getSubjects()->toArray())),
-                'subjectHeadings' => implode('; ', array_map(function (SubjectHeading $subjectHeading) {
-                    return $subjectHeading->getSubjectHeading();
-                }, $book->getSubjectHeadings()->toArray())),
+                'subjects' => implode('; ', array_map(fn (Subject $subject) => $subject->getSubjectName(), $book->getSubjects()->toArray())),
+                'subjectHeadings' => implode('; ', array_map(fn (SubjectHeading $subjectHeading) => $subjectHeading->getSubjectHeading(), $book->getSubjectHeadings()->toArray())),
             ];
             $csv->insertOne($data);
         }
