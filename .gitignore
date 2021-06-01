@@ -25,3 +25,8 @@ jquery.collection.js
 public/docs
 templates/jquery.collection.html.twig
 src/.preload.php
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
