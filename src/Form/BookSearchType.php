@@ -31,6 +31,14 @@ class BookSearchType extends AbstractType {
             ],
         ]);
 
+        $builder->add('callNumber', TextType::class, [
+            'label' => 'Call Number',
+            'required' => false,
+            'attr' => [
+                'help_block' => 'Enter the exact call number',
+            ],
+        ]);
+
         $builder->add('publicationDate', TextType::class, [
             'label' => 'Publication Date',
             'required' => false,

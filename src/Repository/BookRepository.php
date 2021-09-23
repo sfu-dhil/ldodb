@@ -69,6 +69,10 @@ class BookRepository extends ServiceEntityRepository {
             $qb->andHaving('title_score > 0');
             $qb->setParameter('qt', $data['title']);
         }
+        if (isset($data['callNumber']) && $data['callNumber']) {
+            $qb->andWhere('e.callNumber = :callNumber');
+            $qb->setParameter('callNumber', $data['callNumber']);
+        }
 
         if (isset($data['publicationDate'])) {
             $m = [];
