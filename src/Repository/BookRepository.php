@@ -76,9 +76,9 @@ class BookRepository extends ServiceEntityRepository {
 
         if (isset($data['publicationDate'])) {
             $m = [];
-            if (preg_match('/^\s*[0-9]{4}\s*$/', $data['publicationDate'])) {
-                $qb->andWhere('YEAR(e.publicationDate) = :yearb');
-                $qb->setParameter('yearb', $data['publicationDate']);
+            if (preg_match('/^\s*([0-9]{4})\s*$/u', $data['publicationDate'], $m)) {
+                $qb->andWhere('e.publicationDate LIKE :yearb');
+                $qb->setParameter('yearb', "%{$m[1]}%");
             } elseif (preg_match('/^\s*(\*|[0-9]{4})\s*-\s*(\*|[0-9]{4})\s*$/', $data['publicationDate'], $m)) {
                 $from = ('*' === $m[1] ? -1 : $m[1]);
                 $to = ('*' === $m[2] ? 9999 : $m[2]);
