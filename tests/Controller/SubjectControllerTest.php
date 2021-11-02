@@ -24,7 +24,7 @@ class SubjectControllerTest extends \Nines\UtilBundle\Tests\ControllerBaseCase {
 
     public function testAnonIndex() : void {
         $crawler = $this->client->request('GET', '/subject/');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('New')->count());
     }
 
@@ -44,7 +44,7 @@ class SubjectControllerTest extends \Nines\UtilBundle\Tests\ControllerBaseCase {
 
     public function testAnonShow() : void {
         $crawler = $this->client->request('GET', '/subject/1');
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(302, $this->client->getResponse()->getStatusCode());
         $this->assertSame(0, $crawler->selectLink('Edit')->count());
         $this->assertSame(0, $crawler->selectLink('Delete')->count());
     }
