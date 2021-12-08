@@ -15,23 +15,5 @@
                 </div>
             </div>
         </div>
-
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#search-options" aria-expanded="false" aria-controls="search-options">
-            Search Options
-        </button>
-
-        <div class="collapse" id="search-options">
-            <div class="well">
-                <p>The following boolean search options are available:</p>
-                <ul>
-                    <li><code>shakespeare</code> - shakespeare should be present, but might not be</li>
-                    <li><code>shakes*</code> - words starting with shakes should be present</li>
-                    <li><code>+agnes</code> - agnes must be present</li>
-                    <li><code>-fisher</code> - fisher must not be present</li>
-                    <li>Combinations are OK: <code>+agnes -fisher</code> finds Anges who isn't a Fisher</li>
-                    <li>Phrases are OK: <code>"nee agnes"</code> finds rows that contain the literal phrase.
-                </ul>
-            </div>
-        </div>
     </fieldset>
 </form>

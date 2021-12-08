@@ -1,2 +1,6 @@
 nines_util:
     trim_length: 50
+    routing:
+        - { class: 'App\Entity\Book', route: book_show }
+        - { class: 'App\Entity\People', route: people_show }
+        - { class: 'App\Entity\Place', route: place_show }

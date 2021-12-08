@@ -16,6 +16,8 @@ parameters:
     dhil.matomo_siteid: 41
     dhil.matomo_domain: dhil.lib.sfu.ca/ldodb
 
+    page_size: 25
+
 services:
     # default configuration for services in *this* file
     _defaults:

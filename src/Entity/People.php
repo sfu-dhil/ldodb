@@ -27,15 +27,18 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @Solr\Document(
  *     copyField=@Solr\CopyField(
  *         from={"lastName", "firstName", "biographicalNotes", "biographicalAnnotation"},
- *         to="content", type="texts")
- * )
+ *     to="content", type="texts"),
+ *     computedFields={
+ *         @Solr\ComputedField(name="sortable", type="string", getter="getSortableName()"),
+ *     }
+ * ),
  */
 class People extends Entity {
     /**
      * @var string
      *
      * @ORM\Column(name="last_name", type="string", length=255, nullable=true)
-     * @Solr\Field(type="text", boost=2.5)
+     * @Solr\Field(type="text")
      */
     private $lastName;
 
@@ -43,7 +46,7 @@ class People extends Entity {
      * @var string
      *
      * @ORM\Column(name="first_name", type="string", length=255, nullable=true)
-     * @Solr\Field(type="text", boost=2.5)
+     * @Solr\Field(type="text")
      */
     private $firstName;
 
@@ -81,6 +84,7 @@ class People extends Entity {
      * @var string
      *
      * @ORM\Column(name="gender", type="string", length=1, nullable=true)
+     * @Solr\Field(type="string", getter="getGender(true)")
      */
     private $gender;
 
@@ -88,7 +92,7 @@ class People extends Entity {
      * @var string
      *
      * @ORM\Column(name="biographical_notes", type="text", nullable=true)
-     * @Solr\Field(type="text", boost=0.5)
+     * @Solr\Field(type="text")
      */
     private $biographicalNotes;
 
@@ -96,7 +100,7 @@ class People extends Entity {
      * @var string
      *
      * @ORM\Column(name="biographical_annotation", type="text", nullable=true)
-     * @Solr\Field(type="text", boost=0.5)
+     * @Solr\Field(type="text")
      */
     private $biographicalAnnotation;
 
@@ -104,7 +108,7 @@ class People extends Entity {
      * @var Place
      * @ORM\ManyToOne(targetEntity="Place", inversedBy="peopleBorn")
      * @ORM\JoinColumn(name="birth_place_id", referencedColumnName="id", nullable=true)
-     * @Solr\Field(type="text", boost=0.4, mutator="getPlaceName")
+     * @Solr\Field(type="text", mutator="getPlaceName")
      */
     private $birthPlace;
 
@@ -112,7 +116,7 @@ class People extends Entity {
      * @var Place
      * @ORM\ManyToOne(targetEntity="Place", inversedBy="peopleDied")
      * @ORM\JoinColumn(name="death_place_id", referencedColumnName="id", nullable=true)
-     * @Solr\Field(type="text", boost=0.4, mutator="getPlaceName")
+     * @Solr\Field(type="text", mutator="getPlaceName")
      */
     private $deathPlace;
 
@@ -120,7 +124,7 @@ class People extends Entity {
      * @var string
      *
      * @ORM\Column(name="nationality", type="string", length=255, nullable=true)
-     * @Solr\Field(type="text", boost=0.1)
+     * @Solr\Field(type="string")
      */
     private $nationality;
 
@@ -177,7 +181,7 @@ class People extends Entity {
      *     joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="place_id", referencedColumnName="id")}
      * )
-     * @Solr\Field(type="texts", boost=0.3, getter="getResidences(true)")
+     * @Solr\Field(type="texts", getter="getResidences(true)")
      */
     private $residences;
 
@@ -188,7 +192,7 @@ class People extends Entity {
      *     joinColumns={@ORM\JoinColumn(name="entity_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
      * )
-     * @Solr\Field(type="texts", boost=0.3, getter="getRoles(true)")
+     * @Solr\Field(type="texts", getter="getRoles(true)")
      */
     private $roles;
 
@@ -210,25 +214,29 @@ class People extends Entity {
         return $this->lastName . ', ' . $this->firstName;
     }
 
+    public function getSortableName() : string {
+        return $this->lastName . ' ' . $this->firstName;
+    }
+
     public function getBirthYear() : ?int {
-        if( ! $this->birthDate) {
+        if ( ! $this->birthDate) {
             return null;
         }
         $m = [];
         if (preg_match('/(\\d{4})/', $this->birthDate, $m)) {
-            return (int)$m[1];
+            return (int) $m[1];
         }
 
         return null;
     }
 
     public function getDeathYear() : ?int {
-        if( ! $this->deathDate) {
+        if ( ! $this->deathDate) {
             return null;
         }
         $m = [];
         if (preg_match('/(\\d{4})/', $this->deathDate, $m)) {
-            return (int)$m[1];
+            return (int) $m[1];
         }
 
         return null;
@@ -382,9 +390,25 @@ class People extends Entity {
     /**
      * Get gender.
      *
+     * @param ?bool $full
+     *
      * @return string
      */
-    public function getGender() {
+    public function getGender(?bool $full = false) {
+        if ($full) {
+            if ( ! $this->gender) {
+                return 'Unspecified';
+            }
+
+            switch (mb_strtolower($this->gender)) {
+                case 'm': return 'Male';
+
+                case 'f': return 'Female';
+
+                default: return 'Unknown';
+            }
+        }
+
         return $this->gender;
     }
 
@@ -656,12 +680,15 @@ class People extends Entity {
     /**
      * Get residences.
      *
+     * @param ?bool $flat
+     *
      * @return Collection
      */
     public function getResidences(?bool $flat = false) {
-        if($flat) {
+        if ($flat) {
             return array_map(fn (Place $p) => $p->getPlaceName(), $this->residences->toArray());
         }
+
         return $this->residences;
     }
 

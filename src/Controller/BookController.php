@@ -13,9 +13,11 @@ namespace App\Controller;
 use App\Entity\Book;
 use App\Form\BookSearchType;
 use App\Form\BookType;
+use App\Index\BookIndex;
 use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
+use Nines\SolrBundle\Services\SolrManager;
 use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -90,19 +92,30 @@ class BookController extends AbstractController implements PaginatorAwareInterfa
      *
      * @Template
      */
-    public function searchAction(Request $request, BookRepository $repo) {
-        $form = $this->createForm(BookSearchType::class);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $query = $repo->advancedSearchQuery($form->getData());
-            $books = $this->paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        } else {
-            $books = [];
+    public function searchAction(Request $request, BookIndex $index, SolrManager $solr) {
+        $q = $request->query->get('q');
+        $result = null;
+
+        if ($q) {
+            $filters = $request->query->get('filter', []);
+            $rangeFilters = $request->query->get('filter_range', []);
+
+            $order = null;
+            $m = [];
+            if (preg_match('/^(\\w+).(asc|desc)$/', $request->query->get('order', 'score.desc'), $m)) {
+                $order = [$m[1] => $m[2]];
+            }
+
+            $query = $index->searchQuery($q, $filters, $rangeFilters, $order);
+            $result = $solr->execute($query, $this->paginator, [
+                'page' => (int) $request->query->get('page', 1),
+                'pageSize' => (int) $this->getParameter('page_size'),
+            ]);
         }
 
         return [
-            'books' => $books,
-            'form' => $form->createView(),
+            'q' => $q,
+            'result' => $result,
         ];
     }
 

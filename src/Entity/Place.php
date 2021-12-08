@@ -27,7 +27,10 @@ use Nines\SolrBundle\Annotation as Solr;
  *
  * @Solr\Document(
  *     copyField=@Solr\CopyField(from={"placeName"}, to="content", type="texts"),
- *     computedFields=@Solr\ComputedField(name="coordinates", type="location", getter="getCoordinates")
+ *     computedFields={
+ *      @Solr\ComputedField(name="coordinates", type="location", getter="getCoordinates"),
+ *      @Solr\ComputedField(name="sortable", type="string", getter="getSortableName()")
+*     }
  * )
  */
 class Place extends AbstractEntity {
@@ -35,9 +38,13 @@ class Place extends AbstractEntity {
      * @var string
      *
      * @ORM\Column(name="place_name", type="string", length=255, nullable=false)
-     * @Solr\Field(type="text", boost=2.0)
+     * @Solr\Field(type="text")
      */
     private $placeName;
+
+    public function getSortableName() : string {
+        return $this->placeName;
+    }
 
     /**
      * @var string
@@ -51,7 +58,7 @@ class Place extends AbstractEntity {
      * @var bool
      *
      * @ORM\Column(name="in_lake_district", type="boolean", nullable=true, options={"default": false})
-     * @Solr\Field(type="boolean")
+     * @Solr\Field(type="string", getter="getInLakeDistrict(true)")
      */
     private $inLakeDistrict = false;
 
@@ -208,7 +215,14 @@ class Place extends AbstractEntity {
      *
      * @return bool
      */
-    public function getInLakeDistrict() {
+    public function getInLakeDistrict(?bool $flat = false) {
+        if($flat) {
+            switch($this->inLakeDistrict) {
+                case true: return 'Yes';
+                case false: return 'No';
+                case null: return 'Unspecified';
+            }
+        }
         return (bool) $this->inLakeDistrict;
     }
 

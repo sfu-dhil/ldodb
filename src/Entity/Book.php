@@ -13,6 +13,8 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Nines\SolrBundle\Annotation as Solr;
+use Nines\UtilBundle\Entity\AbstractEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -23,17 +25,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     @ORM\Index(columns={"call_number"}),
  * })
  * @ORM\Entity(repositoryClass="App\Repository\BookRepository")
+ * @Solr\Document(
+ *     copyField=@Solr\CopyField(from={"title", "shortTitle", "seriesTitle", "imprint"}, to="content", type="texts"),
+ *     computedFields={
+ *         @Solr\ComputedField(name="sortable", type="string", getter="getSortableName()"),
+ *     }
+ * )
  */
-class Book {
-    /**
-     * @var int
-     *
-     * @ORM\Id
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\GeneratedValue
-     */
-    private $id;
-
+class Book extends AbstractEntity {
     /**
      * @var string
      *
@@ -45,6 +44,7 @@ class Book {
      * @var string
      *
      * @ORM\Column(name="call_number", type="string", length=255, nullable=true)
+     * @Solr\Field(type="string")
      */
     private $callNumber;
 
@@ -52,6 +52,7 @@ class Book {
      * @var string
      *
      * @ORM\Column(name="title", type="text", nullable=false)
+     * @Solr\Field(type="text")
      */
     private $title;
 
@@ -59,6 +60,7 @@ class Book {
      * @var string
      *
      * @ORM\Column(name="short_title", type="text", nullable=true)
+     * @Solr\Field(type="text")
      */
     private $shortTitle;
 
@@ -66,6 +68,7 @@ class Book {
      * @var string
      *
      * @ORM\Column(name="series_title", type="text", nullable=true)
+     * @Solr\Field(type="text")
      */
     private $seriesTitle;
 
@@ -87,6 +90,7 @@ class Book {
      * @var string
      *
      * @ORM\Column(name="imprint", type="text", nullable=true)
+     * @Solr\Field(type="text")
      */
     private $imprint;
 
@@ -94,6 +98,7 @@ class Book {
      * @var string
      *
      * @ORM\Column(name="edition", type="string", length=20, nullable=true)
+     * @Solr\Field(type="string")
      */
     private $edition;
 
@@ -101,6 +106,7 @@ class Book {
      * @var string
      *
      * @ORM\Column(name="publication_date", type="string", length=20, nullable=true)
+     * @Solr\Field(type="integer", getter="getPublicationYear")
      */
     private $publicationDate;
 
@@ -129,6 +135,7 @@ class Book {
      * @var string
      *
      * @ORM\Column(name="SFU_cat_orig_bib", type="text", nullable=true)
+     * @Solr\Field(type="text")
      */
     private $sfuCatOrigBib;
 
@@ -216,6 +223,7 @@ class Book {
      * @var string
      *
      * @ORM\Column(name="bibliographic_notes", type="text", nullable=true)
+     * @Solr\Field(type="text")
      */
     private $bibliographicNotes;
 
@@ -223,6 +231,7 @@ class Book {
      * @var string
      *
      * @ORM\Column(name="critical_annotation", type="text", nullable=true)
+     * @Solr\Field(type="text")
      */
     private $criticalAnnotation;
 
@@ -230,6 +239,7 @@ class Book {
      * @var string
      *
      * @ORM\Column(name="format", type="string", length=255, nullable=true)
+     * @Solr\Field(type="string")
      */
     private $format;
 
@@ -244,6 +254,7 @@ class Book {
      * @var int
      *
      * @ORM\Column(name="map_count", type="integer", nullable=true, options={"default": 0})
+     * @Solr\Field(type="integer")
      */
     private $mapCount = '0';
 
@@ -251,6 +262,7 @@ class Book {
      * @var string
      *
      * @ORM\Column(name="illustrations", type="string", length=255, nullable=true)
+     * @Solr\Field(type="string")
      */
     private $illustrations;
 
@@ -258,6 +270,7 @@ class Book {
      * @var string
      *
      * @ORM\Column(name="photographs", type="string", length=255, nullable=true)
+     * @Solr\Field(type="string")
      */
     private $photographs;
 
@@ -294,8 +307,9 @@ class Book {
     private $otherCopyLocations;
 
     /**
-     * @var Collection|Contribution
+     * @var Collection|Contribution[]
      * @ORM\OneToMany(targetEntity="Contribution", mappedBy="book", cascade={"persist", "remove"})
+     * @Solr\Field(type="texts", getter="getContributors")
      */
     private $contributions;
 
@@ -306,6 +320,7 @@ class Book {
      *     joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="genre_id", referencedColumnName="id")}
      * )
+     * @Solr\Field(type="strings", getter="getGenres(true)")
      */
     private $genres;
 
@@ -437,13 +452,29 @@ class Book {
         return $this->title;
     }
 
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId() {
-        return $this->id;
+    public function getSortableName() : string {
+        return preg_replace('/^(?:a|an|d\'|da|de|the|ye)\b/iu', '', $this->title);
+    }
+
+    public function getContributors() : array {
+        $contributors = [];
+        foreach ($this->contributions as $contribution) {
+            $contributors[] = $contribution->getEntity()->asString();
+        }
+
+        return $contributors;
+    }
+
+    public function getPublicationYear() : ?int {
+        if ( ! $this->publicationDate) {
+            return null;
+        }
+        $m = [];
+        if (preg_match('/(\\d{4})/', $this->publicationDate, $m)) {
+            return (int) $m[1];
+        }
+
+        return null;
     }
 
     /**
@@ -1307,9 +1338,15 @@ class Book {
     /**
      * Get genres.
      *
-     * @return Collection
+     * @param ?bool $flat
+     *
+     * @return Collection|Genre[]
      */
-    public function getGenres() {
+    public function getGenres(?bool $flat = false) {
+        if ($flat) {
+            return array_map(fn (Genre $g) => $g->getGenreName(), $this->genres->toArray());
+        }
+
         return $this->genres;
     }
 
