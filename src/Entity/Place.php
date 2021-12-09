@@ -13,7 +13,9 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Nines\UtilBundle\Entity\AbstractEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Nines\SolrBundle\Annotation as Solr;
 
 /**
  * Place.
@@ -22,23 +24,27 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     @ORM\Index(columns={"place_name"}, flags={"fulltext"}),
  * })
  * @ORM\Entity(repositoryClass="App\Repository\PlaceRepository")
+ *
+ * @Solr\Document(
+ *     copyField=@Solr\CopyField(from={"placeName"}, to="content", type="texts"),
+ *     computedFields={
+ *      @Solr\ComputedField(name="coordinates", type="location", getter="getCoordinates"),
+ *      @Solr\ComputedField(name="sortable", type="string", getter="getSortableName()")
+*     }
+ * )
  */
-class Place {
-    /**
-     * @var int
-     *
-     * @ORM\Id
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\GeneratedValue
-     */
-    private $id;
-
+class Place extends AbstractEntity {
     /**
      * @var string
      *
      * @ORM\Column(name="place_name", type="string", length=255, nullable=false)
+     * @Solr\Field(type="text")
      */
     private $placeName;
+
+    public function getSortableName() : string {
+        return $this->placeName;
+    }
 
     /**
      * @var string
@@ -52,6 +58,7 @@ class Place {
      * @var bool
      *
      * @ORM\Column(name="in_lake_district", type="boolean", nullable=true, options={"default": false})
+     * @Solr\Field(type="string", getter="getInLakeDistrict(true)")
      */
     private $inLakeDistrict = false;
 
@@ -129,6 +136,7 @@ class Place {
      * Constructor.
      */
     public function __construct() {
+        parent::__construct();
         $this->otherNationalEditions = new ArrayCollection();
         $this->referencedPlaces = new ArrayCollection();
         $this->peopleBorn = new ArrayCollection();
@@ -143,15 +151,6 @@ class Place {
      */
     public function __toString() : string {
         return $this->placeName;
-    }
-
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId() {
-        return $this->id;
     }
 
     /**
@@ -216,8 +215,23 @@ class Place {
      *
      * @return bool
      */
-    public function getInLakeDistrict() {
+    public function getInLakeDistrict(?bool $flat = false) {
+        if($flat) {
+            switch($this->inLakeDistrict) {
+                case true: return 'Yes';
+                case false: return 'No';
+                case null: return 'Unspecified';
+            }
+        }
         return (bool) $this->inLakeDistrict;
+    }
+
+    public function getCoordinates() : ?string {
+        if ($this->latitude && $this->longitude) {
+            return $this->latitude . ',' . $this->longitude;
+        }
+
+        return null;
     }
 
     /**

@@ -16,6 +16,7 @@ twig:
         matomo_url: '%dhil.matomo_url%'
         matomo_siteid: '%dhil.matomo_siteid%'
         matomo_domain: '%dhil.matomo_domain%'
+        entity_linker: '@Nines\UtilBundle\Services\EntityLinker'
     date:
         timezone: America/Vancouver
         format: d.m.Y, H:i:s

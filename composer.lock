@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "61509ff96db7f35e7939b780bedd2b5b",
+    "content-hash": "be9c0ef78673d7681625a1a125a6f05d",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -3455,6 +3455,52 @@
                 "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/v5.6.1"
             },
             "time": "2020-08-25T19:10:18+00:00"
+        },
+        {
+            "name": "setasign/fpdf",
+            "version": "1.8.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Setasign/FPDF.git",
+                "reference": "b0ddd9c5b98ced8230ef38534f6f3c17308a7974"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Setasign/FPDF/zipball/b0ddd9c5b98ced8230ef38534f6f3c17308a7974",
+                "reference": "b0ddd9c5b98ced8230ef38534f6f3c17308a7974",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gd": "*",
+                "ext-zlib": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "fpdf.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Plathey",
+                    "email": "oliver@fpdf.org",
+                    "homepage": "http://fpdf.org/"
+                }
+            ],
+            "description": "FPDF is a PHP class which allows to generate PDF files with pure PHP. F from FPDF stands for Free: you may use it for any kind of usage and modify it to suit your needs.",
+            "homepage": "http://www.fpdf.org",
+            "keywords": [
+                "fpdf",
+                "pdf"
+            ],
+            "support": {
+                "source": "https://github.com/Setasign/FPDF/tree/1.8.4"
+            },
+            "time": "2021-08-30T07:50:06+00:00"
         },
         {
             "name": "solarium/solarium",
@@ -8863,16 +8909,16 @@
         },
         {
             "name": "ubermichael/nines",
-            "version": "4.x-dev",
+            "version": "dev-4.x-img",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ubermichael/nines-bundles.git",
-                "reference": "1c4600e27335aa9cd63e0962838903f8a32ec8c6"
+                "reference": "7b610ccd700a85e30565236c155ca5cb40a7b0b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ubermichael/nines-bundles/zipball/1c4600e27335aa9cd63e0962838903f8a32ec8c6",
-                "reference": "1c4600e27335aa9cd63e0962838903f8a32ec8c6",
+                "url": "https://api.github.com/repos/ubermichael/nines-bundles/zipball/7b610ccd700a85e30565236c155ca5cb40a7b0b4",
+                "reference": "7b610ccd700a85e30565236c155ca5cb40a7b0b4",
                 "shasum": ""
             },
             "require": {
@@ -8885,6 +8931,7 @@
                 "nyholm/psr7": "^1.4",
                 "php": ">=7.2.0",
                 "sensio/framework-extra-bundle": "^5.1",
+                "setasign/fpdf": "^1.8",
                 "solarium/solarium": "^6.0",
                 "twig/string-extra": "^3.0"
             },
@@ -8895,7 +8942,6 @@
                 "symfony/css-selector": "4.4.*",
                 "symfony/phpunit-bridge": "^5.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -8921,10 +8967,10 @@
             ],
             "description": "Some useful bundles.",
             "support": {
-                "source": "https://github.com/ubermichael/nines-bundles/tree/4.x",
+                "source": "https://github.com/ubermichael/nines-bundles/tree/4.x-img",
                 "issues": "https://github.com/ubermichael/nines-bundles/issues"
             },
-            "time": "2021-11-09T17:09:42+00:00"
+            "time": "2021-12-08T21:55:51+00:00"
         },
         {
             "name": "webmozart/assert",

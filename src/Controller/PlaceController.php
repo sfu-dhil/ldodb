@@ -12,9 +12,12 @@ namespace App\Controller;
 
 use App\Entity\Place;
 use App\Form\PlaceType;
+use App\Index\PersonIndex;
+use App\Index\PlaceIndex;
 use App\Repository\PlaceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
+use Nines\SolrBundle\Services\SolrManager;
 use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -85,21 +88,31 @@ class PlaceController extends AbstractController implements PaginatorAwareInterf
      *
      * @Template
      */
-    public function searchAction(Request $request, PlaceRepository $repo) {
+    public function searchAction(Request $request, PlaceIndex $index, SolrManager $solr) {
         $q = $request->query->get('q');
+        $result = null;
         if ($q) {
-            $query = $repo->searchQuery($q);
+            $filters = $request->query->get('filter', []);
+            $rangeFilters = $request->query->get('filter_range', []);
 
-            $places = $this->paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        } else {
-            $places = [];
+            $order = null;
+            $m = [];
+            if (preg_match('/^(\\w+).(asc|desc)$/', $request->query->get('order', 'score.desc'), $m)) {
+                $order = [$m[1] => $m[2]];
+            }
+            $query = $index->searchQuery($q, $filters, $order);
+            $result = $solr->execute($query, $this->paginator, [
+                'page' => (int) $request->query->get('page', 1),
+                'pageSize' => (int) $this->getParameter('page_size'),
+            ]);
         }
 
         return [
-            'places' => $places,
             'q' => $q,
+            'result' => $result,
         ];
     }
+
 
     /**
      * Creates a new Place entity.

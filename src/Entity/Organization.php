@@ -128,15 +128,6 @@ class Organization extends Entity {
     }
 
     /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId() {
-        return $this->id;
-    }
-
-    /**
      * Add contribution.
      *
      * @return Organization

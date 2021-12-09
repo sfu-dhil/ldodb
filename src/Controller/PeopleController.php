@@ -12,9 +12,11 @@ namespace App\Controller;
 
 use App\Entity\People;
 use App\Form\PeopleType;
+use App\Index\PersonIndex;
 use App\Repository\PeopleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
+use Nines\SolrBundle\Services\SolrManager;
 use Nines\UtilBundle\Controller\PaginatorTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -85,19 +87,30 @@ class PeopleController extends AbstractController implements PaginatorAwareInter
      *
      * @Template
      */
-    public function searchAction(Request $request, PeopleRepository $repo) {
+    public function searchAction(Request $request, PersonIndex $index, SolrManager $solr) {
         $q = $request->query->get('q');
-        if ($q) {
-            $query = $repo->searchQuery($q);
+        $result = null;
 
-            $people = $this->paginator->paginate($query, $request->query->getInt('page', 1), 25);
-        } else {
-            $people = [];
+        if ($q) {
+            $filters = $request->query->get('filter', []);
+            $rangeFilters = $request->query->get('filter_range', []);
+
+            $order = null;
+            $m = [];
+            if (preg_match('/^(\\w+).(asc|desc)$/', $request->query->get('order', 'score.desc'), $m)) {
+                $order = [$m[1] => $m[2]];
+            }
+
+            $query = $index->searchQuery($q, $filters, $rangeFilters, $order);
+            $result = $solr->execute($query, $this->paginator, [
+                'page' => (int) $request->query->get('page', 1),
+                'pageSize' => (int) $this->getParameter('page_size'),
+            ]);
         }
 
         return [
-            'people' => $people,
             'q' => $q,
+            'result' => $result,
         ];
     }
 

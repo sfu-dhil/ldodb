@@ -6,6 +6,8 @@
 
 {% block body %}
 
+    {% include 'partial/search.html.twig' with {'route': 'search', 'label': 'Search'} %}
+
     {% if homepage %}
         {{ homepage.content|raw }}
     {% endif %}

@@ -13,6 +13,8 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Nines\SolrBundle\Annotation as Solr;
+use Nines\UtilBundle\Entity\AbstractEntity;
 
 /**
  * @ORM\Table(name="entity")
@@ -24,19 +26,10 @@ use Doctrine\ORM\Mapping as ORM;
  *     "ORG": "Organization"
  * })
  */
-abstract class Entity {
+abstract class Entity extends AbstractEntity {
     public const PER_TYPE = 'PER';
 
     public const ORG_TYPE = 'ORG';
-
-    /**
-     * @var int
-     *
-     * @ORM\Id
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\GeneratedValue
-     */
-    protected $id;
 
     /**
      * @var Collection|Contribution[]
@@ -48,13 +41,9 @@ abstract class Entity {
      * Constructor.
      */
     public function __construct() {
+        parent::__construct();
         $this->contributions = new ArrayCollection();
     }
-
-    /**
-     * Return string representation of object.
-     */
-    abstract public function __toString() : string;
 
     /**
      * Return one of the class constants representing the type.
@@ -63,15 +52,6 @@ abstract class Entity {
 
     public function asString() {
         return $this->__toString();
-    }
-
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId() {
-        return $this->id;
     }
 
     /**
