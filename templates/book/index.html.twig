@@ -11,14 +11,18 @@
 
 {% block body %}
 
-    {% include 'partial/search.html.twig' with {'route': 'book_search', 'label': 'Title search'} %}
+    <form method="get" action="{{ path('book_search') }}" class="form-horizontal">
+        <div class='row'>
+            {% embed 'book/partial/search_field.html.twig' with {'path': 'book_search'} %}
+            {% endembed %}
+        </div>
+    </form>
 
     <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
             {% if is_granted('ROLE_CONTENT_ADMIN') %}
-                <a href="{{ path('book_new') }}" class="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span> New
-                </a>
+                <a href="{{ path('book_new') }}" class="btn btn-default"> <span class="glyphicon glyphicon-plus"></span>
+                    New </a>
             {% endif %}
         </div>
     </div>

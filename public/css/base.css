@@ -110,6 +110,12 @@ details[open] summary {
     margin-bottom: .5em;
 }
 
+fieldset {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 6px;
+    margin-bottom: 6px;
+}
+
 @media print {
     .btn-toolbar {
         display: none !important;

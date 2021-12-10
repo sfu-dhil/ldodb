@@ -22,11 +22,15 @@ class BookIndex extends AbstractIndex {
      *
      * @return Query
      */
-    public function searchQuery($q, $filters = [], $rangeFilters = [], $order = null) {
+    public function searchQuery($q, $filters = [], $rangeFilters = [], $order = null, $field = null) {
         $year = date('Y');
         $qb = $this->createQueryBuilder();
-        $qb->setQueryString($q);
-        $qb->setDefaultField('content');
+        if($field === 'callNumber') {
+            $qb->setQueryString("call_number_s:\"$q\"");
+        } else {
+            $qb->setQueryString($q);
+            $qb->setDefaultField('content');
+        }
 
         $qb->addFilter('type', ['Book']);
         foreach ($filters as $key => $values) {
@@ -34,7 +38,7 @@ class BookIndex extends AbstractIndex {
         }
         foreach ($rangeFilters as $key => $values) {
             foreach ($values as $v) {
-                list($start, $end) = explode(' ', $v);
+                [$start, $end] = explode(' ', $v);
                 $qb->addFilterRange($key, $start, $end);
             }
         }
