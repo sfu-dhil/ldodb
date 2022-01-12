@@ -13,6 +13,7 @@ namespace App\Controller;
 use App\Entity\Task;
 use App\Form\TaskType;
 use App\Repository\ContributionRepository;
+use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Nines\UtilBundle\Controller\PaginatorTrait;
@@ -60,7 +61,7 @@ class TaskController extends AbstractController implements PaginatorAwareInterfa
      *
      * @return JsonResponse
      */
-    public function typeahead(Request $request, ContributionRepository $repo) {
+    public function typeahead(Request $request, TaskRepository $repo) {
         $q = $request->query->get('q');
         if ( ! $q) {
             return new JsonResponse([]);

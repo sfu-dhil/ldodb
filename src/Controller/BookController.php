@@ -97,6 +97,7 @@ class BookController extends AbstractController implements PaginatorAwareInterfa
         $result = null;
 
         if ($q) {
+            $field = $request->query->get('field');
             $filters = $request->query->get('filter', []);
             $rangeFilters = $request->query->get('filter_range', []);
 
@@ -106,7 +107,7 @@ class BookController extends AbstractController implements PaginatorAwareInterfa
                 $order = [$m[1] => $m[2]];
             }
 
-            $query = $index->searchQuery($q, $filters, $rangeFilters, $order);
+            $query = $index->searchQuery($q, $filters, $rangeFilters, $order, $field);
             $result = $solr->execute($query, $this->paginator, [
                 'page' => (int) $request->query->get('page', 1),
                 'pageSize' => (int) $this->getParameter('page_size'),
@@ -115,6 +116,7 @@ class BookController extends AbstractController implements PaginatorAwareInterfa
 
         return [
             'q' => $q,
+            'field' => $field,
             'result' => $result,
         ];
     }

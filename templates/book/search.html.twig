@@ -15,7 +15,7 @@
 
     <form method="get" action="{{ path('book_search') }}" class="form-horizontal">
         <div class='row'>
-            {% embed '@NinesSolr/search/partial/search_field.html.twig' with {'path': 'book_search'} %}
+            {% embed 'book/partial/search_field.html.twig' with {'path': 'book_search'} %}
             {% endembed %}
         </div>
 
