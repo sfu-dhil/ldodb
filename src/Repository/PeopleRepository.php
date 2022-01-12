@@ -28,7 +28,7 @@ class PeopleRepository extends ServiceEntityRepository {
      */
     public function typeaheadQuery($q) {
         $qb = $this->createQueryBuilder('e');
-        $qb->andWhere("CONCAT_WS(' ', e.lastName, e.firstName) LIKE :q");
+        $qb->andWhere("CONCAT(e.lastName, ' ', e.firstName) LIKE :q");
         $qb->orderBy('e.lastName');
         $qb->orderBy('e.firstName');
         $qb->setParameter('q', "{$q}%");
