@@ -41,4 +41,5 @@ services:
 
     App\Menu\Builder:
         tags:
-            - { name: knp_menu.menu_builder, method: mainMenu, alias: main}
+            - { name: knp_menu.menu_builder, method: aboutMenu, alias: about}
+            - { name: knp_menu.menu_builder, method: databaseMenu, alias: database}

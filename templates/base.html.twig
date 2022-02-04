@@ -35,16 +35,21 @@
                     </button>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
+                    {{ knp_menu_render('nines_user_nav') }}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="https://lakedistrictonline.ca/contact-us">Contact</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="https://lakedistrictonline.ca/contributors">Contributors</a></li>
+                    </ul>
+                    {{ knp_menu_render('database', {'allow_safe_labels': true}) }}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="https://lakedistrictonline.ca/exhibit">Exhibit</a></li>
+                    </ul>
+                    {{ knp_menu_render('about', {'allow_safe_labels': true}) }}
+                    <ul class="nav navbar-nav navbar-right">
                         <li><a href="{{ path('homepage') }}">Home</a></li>
                     </ul>
-
-                    {{ knp_menu_render('nines_blog_pages') }}
-                    {{ knp_menu_render('main', {'allow_safe_labels': true}) }}
-                    {% if is_granted('ROLE_COMMENT_ADMIN') %}
-                        {{ knp_menu_render('nines_feedback') }}
-                    {% endif %}
-                    {{ knp_menu_render('nines_user_nav') }}
                 </div><!--/.nav-collapse -->
             </div>
         </nav>

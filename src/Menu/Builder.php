@@ -52,19 +52,65 @@ class Builder implements ContainerAwareInterface {
         return $this->authChecker->isGranted($role);
     }
 
+    public function aboutMenu(array $options) {
+        $menu = $this->factory->createItem('root');
+        $menu->setChildrenAttributes([
+            'class' => 'nav navbar-nav navbar-right',
+        ]);
+
+        $browse = $menu->addChild('browse', [
+            'label' => 'About',
+            'uri' => '#',
+        ]);
+        $browse->setAttribute('dropdown', true);
+        $browse->setLinkAttribute('class', 'dropdown-toggle');
+        $browse->setLinkAttribute('data-toggle', 'dropdown');
+        $browse->setChildrenAttribute('class', 'dropdown-menu');
+
+        $browse->addChild('site', [
+            'label' => 'The Site',
+            'uri' => 'https://lakedistrictonline.ca/about',
+        ]);
+        $browse->addChild('objectives', [
+            'label' => 'Objectives',
+            'uri' => 'https://lakedistrictonline.ca/objectives',
+        ]);
+        $browse->addChild('research_questions', [
+            'label' => 'Research Questions',
+            'uri' => 'https://lakedistrictonline.ca/research-questions',
+        ]);
+        $browse->addChild('lake_district', [
+            'label' => 'The Lake District',
+            'uri' => 'https://lakedistrictonline.ca/lake-district',
+        ]);
+        $browse->addChild('collection', [
+            'label' => 'SFU Lake District Collection',
+            'uri' => 'https://lakedistrictonline.ca/sfu-lake-district-collection-ldc',
+        ]);
+        $browse->addChild('teaching', [
+            'label' => 'Teaching',
+            'uri' => 'https://lakedistrictonline.ca/teaching',
+        ]);
+        $browse->addChild('events', [
+            'label' => 'Events & Links',
+            'uri' => 'https://lakedistrictonline.ca/events-links',
+        ]);
+        return $menu;
+    }
+
     /**
      * Build a menu for blog posts.
      *
      * @return ItemInterface
      */
-    public function mainMenu(array $options) {
+    public function databaseMenu(array $options) {
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttributes([
-            'class' => 'nav navbar-nav',
+            'class' => 'nav navbar-nav navbar-right',
         ]);
 
         $browse = $menu->addChild('browse', [
-            'label' => 'Browse',
+            'label' => 'Database',
             'uri' => '#',
         ]);
         $browse->setAttribute('dropdown', true);
