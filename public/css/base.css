@@ -51,21 +51,6 @@ a[href ^= 'mailto:']::after {
     -moz-osx-font-smoothing: grayscale;
 }
 
-a[href ^= 'http://']::after,
-a[href ^= 'https://']::after {
-    content: "\e164";
-    position: relative;
-    top: 1px;
-    display: inline-block;
-    padding-left: 0.5ex;
-    font-family: 'Glyphicons Halflings';
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
 /* make the search form checkboxes less bad. */
 div.checkbox, div.radio {
     width: 30%;
