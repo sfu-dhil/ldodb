@@ -1,0 +1,133 @@
+/* Stylesheet for making the site look similar to the Drupal site to
+    fake up some visual consistency. This file is a separate module
+    to make it simple to remove at some later point
+ */
+
+.navbar{
+    box-shadow:none;
+    background:white;
+    padding-top: 30px;
+    padding-bottom:0;
+    border-bottom:none;
+}
+
+/* Convert this to flex, since it's much
+   easier to handle than floats
+ */
+.navbar > .container{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    align-items:center;
+    border-bottom: 5px solid #444;
+    padding-bottom:30px;
+}
+
+
+
+.navbar > .container:before,
+.navbar > .container:after{
+    content:unset;
+}
+
+/* Brand image handling:
+    we add some responsiveness here to make
+    the navigation menu look as good as possible
+    for as long as possible
+ */
+
+.navbar-brand{
+    width:clamp(250px, 30vw, 350px);
+    display:block;
+    height:80%;
+    padding-top:0;
+    padding-bottom:0;
+}
+
+.navbar-brand > img{
+    max-width:90%;
+}
+
+.navbar-nav > li > a{
+    padding: 8px;
+}
+
+/* Drop down menu */
+a.dropdown-toggle::after {
+    content: " »";
+    padding-left: 0.3em;
+}
+
+/* Switch dropdown menus for right-aligned navbar
+ from right aligned
+to left
+ */
+.navbar-right .dropdown-menu{
+    right:auto;
+    left:0;
+}
+
+/* Don't let the actual navigation navbar shrink,
+since we want it to stay full width always */
+#navbar{
+    flex-shrink:0;
+}
+
+/* Move the body container down to match*/
+body > .container{
+    padding-top: 130px;
+}
+
+
+/* Between phone and large */
+@media (min-width: 768px) and (max-width:992px){
+    /* The navbar wraps, so change the padding */
+    .navbar > .container{
+        padding-bottom:15px;
+    }
+}
+
+
+/* Special handling for mobile */
+@media (max-width: 768px) {
+    .container > .navbar-header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-left: 0;
+        margin-right: 0;
+        flex: 1;
+    }
+
+    .container > .navbar-header:before,
+    .container > .navbar-header:after {
+        content: unset;
+
+    }
+
+    .navbar > .container {
+        width: 100%;
+    }
+
+    .navbar .navbar-collapse.in,
+    .navbar .navbar-collapse.collapsing{
+        flex-basis: 100%;
+        /* Total hack to make the items in the mobile
+            menu appear in the right order  */
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .navbar-toggle {
+        background-color: #ddd;
+        margin-left: auto;
+        width: 45px;
+        height: 45px;
+        align-self: center;
+    }
+}
+
+
+
+
+
