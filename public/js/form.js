@@ -78,7 +78,7 @@
         $(window).bind('beforeunload', windowBeforeUnload);
         $('form').each(formDirty);
         $("a.popup").click(formPopup);
-        $("a").each(link);
+        $("body > .container a").each(link);
         $("*[data-confirm]").each(confirm);
         $('[data-toggle="popover"]').popover({
             container: 'body',
