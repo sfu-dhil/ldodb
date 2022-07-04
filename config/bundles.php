@@ -18,7 +18,6 @@ return [
     Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
     Liip\TestFixturesBundle\LiipTestFixturesBundle::class => ['dev' => true, 'test' => true],
     Nines\BlogBundle\NinesBlogBundle::class => ['all' => true],
-    Nines\DublinCoreBundle\NinesDublinCoreBundle::class => ['all' => true],
     Nines\EditorBundle\NinesEditorBundle::class => ['all' => true],
     Nines\FeedbackBundle\NinesFeedbackBundle::class => ['all' => true],
     Nines\SolrBundle\NinesSolrBundle::class => ['all' => true],
