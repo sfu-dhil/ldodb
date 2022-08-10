@@ -1,37 +1,55 @@
-ldodb
-=====
+# Lake District Online Database
 
-A Symfony project created on July 11, 2017, 3:25 pm.
+[Lake District Online Database][ldodb] (affectionately known as LDODB) is a PHP application written using the
+[Symfony Framework][symfony]. It is a digital tool for collecting metadata about
+books in the Wordsworth Collection in SFU's Special Collections and Rare Books.
 
-bibliographic_terms_search          x too few
-binding_feature_search              x too few
-contribution_search                 x no use case - join table.
-digital_copy_holder_search          x too few
-genre_search                        x too few
-keyword_search                      y
-map_size_search                     x too few
-map_type_search                     x too few
-organization_search                 y
-other_copy_location_search          x no use case - join table.
-other_national_edition_search       x no use case - join table.
-place_search                        y
-plate_type_search                   x too few
-referenced_person_search            y
-referenced_place_search             x no use case - join stable.
-role_search                         x too few (102 so maybe.)
-subject_heading_search              y
-subject_search                      y
-supplemental_place_data_search      x no use case
-task_search                         x too few
+## Requirements
 
-fulltext searchable fields
-==========================
+We have tried to keep the requirements minimal. How you install these
+requirements is up to you, but we have [provided some recommendations][setup]
 
-book: title
-keyword: keyword
-organization: organization_name
-people: first_name, last_name
-place: place_name
-referenced_person: first_name, last_name
-subject: subject_name
-subjectHeading: subject_heading_name
+- Apache >= 2.4
+- PHP >= 7.4
+- Composer >= 2.0
+- MariaDB >= 10.8[^1]
+- Yarn >= 1.22
+
+## Installation
+
+1. Fork and clone the project from [GitHub][github-ldodb].
+2. Install the git submodules. `git submodule update --init` is a good way to do this
+3. Install composer dependencies with `composer install`.
+4. Install yarn dependencies with `yarn install`.
+4. Create a MariaDB database and user.
+
+   ```sql
+    DROP DATABASE IF EXISTS ldodb;
+    CREATE DATABASE ldodb;
+    DROP USER IF EXISTS ldodb@localhost;
+    CREATE USER ldodb@localhost IDENTIFIED BY 'abc123';
+    GRANT ALL ON ldodb.* TO ldodb@localhost;
+    ```
+5. Copy .env to .env.local and edit configuration to suite your needs.
+6. Either 1) create the schema and load fixture data, or 2) load a MySQLDump file
+   if one has been provided.
+    1. ```bash
+        php ./bin/console doctrine:schema:create --quiet
+        php ./bin/console doctrine:fixtures:load --group=dev --purger=fk_purger
+      ``` 
+    2. ```bash
+        mysql ldodb < ldodb.sql
+      ``` 
+
+7. Visit http://localhost/ldodb
+8. happy coding!
+
+Some of the steps above are made easier with the included [MakeFiles](etc/README.md)
+which are in a git submodule. If you missed step 2 above they will be missing.
+
+[ldodb]: https://dhil.lib.sfu.ca/ldodb
+[symfony]: https://symfony.com
+[github-ldodb]: https://github.com/sfu-dhil/ldodb
+[setup]: https://sfu-dhil.github.io/dhil-docs/dev/
+
+[^1]: A similar version of MySQL should also work, but will not be supported.
